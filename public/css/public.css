@@ -1,0 +1,235 @@
+:root {
+    --primary: #1a5276;
+    --primary-dark: #0e3a56;
+    --accent: #e67e22;
+    --text: #333;
+    --text-light: #666;
+    --bg: #fff;
+    --bg-light: #f8f9fa;
+    --border: #dee2e6;
+    --max-width: 1200px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    background: var(--bg);
+}
+
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--accent); }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px; }
+
+header {
+    background: var(--primary);
+    color: #fff;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 64px;
+}
+
+header .logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+header .logo:hover { color: var(--accent); }
+
+nav { display: flex; gap: 0; flex-wrap: wrap; }
+
+nav a {
+    color: rgba(255,255,255,0.85);
+    padding: 20px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+    border-bottom: 3px solid transparent;
+}
+
+nav a:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.1);
+    border-bottom-color: var(--accent);
+}
+
+main { min-height: 60vh; }
+
+.page-header {
+    background: var(--primary);
+    color: #fff;
+    padding: 48px 0 40px;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.content-section {
+    padding: 48px 0;
+}
+
+.content-section:nth-child(even) {
+    background: var(--bg-light);
+}
+
+.content-section h2 {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+}
+
+.content-section p {
+    margin-bottom: 16px;
+    color: var(--text-light);
+}
+
+.content-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.content-section ul li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    color: var(--text-light);
+}
+
+.content-section ul li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.product-grid, .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.product-card, .category-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.product-card:hover, .category-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.product-card h3, .category-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.product-card h3 a, .category-card h3 a {
+    color: var(--primary);
+}
+
+.product-card p, .category-card p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 12px;
+}
+
+.product-card .btn, .category-card .btn {
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.product-card .btn:hover, .category-card .btn:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+    margin-top: 24px;
+}
+
+.contact-block h2 {
+    font-size: 1.2rem;
+    color: var(--primary);
+    margin-bottom: 12px;
+}
+
+.contact-block ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-block ul li {
+    padding: 6px 0;
+    color: var(--text-light);
+}
+
+.download-section {
+    background: var(--primary);
+    color: #fff;
+    padding: 32px;
+    border-radius: 8px;
+    margin-top: 24px;
+    text-align: center;
+}
+
+.download-section a {
+    display: inline-block;
+    padding: 12px 32px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-top: 16px;
+    transition: background 0.2s;
+}
+
+.download-section a:hover {
+    background: #d35400;
+    color: #fff;
+}
+
+footer {
+    background: var(--primary-dark);
+    color: rgba(255,255,255,0.7);
+    padding: 32px 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    header .container { flex-direction: column; }
+    nav { justify-content: center; }
+    nav a { padding: 12px 10px; font-size: 0.8rem; }
+    .page-header h1 { font-size: 1.5rem; }
+    .product-grid, .category-grid { grid-template-columns: 1fr; }
+}

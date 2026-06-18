@@ -1,0 +1,83 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          extensions: mbstring, pdo_sqlite, json, fileinfo
+          tools: composer:v2
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install npm dependencies and build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Build Hostinger deployment structure
+        run: |
+          mkdir -p _deploy/laravel
+          mkdir -p _deploy/public_html
+
+          # Move app files into laravel/ (exclude public/ and _deploy/)
+          for item in * .[^.]*; do
+            [ "$item" = "public" ] && continue
+            [ "$item" = "_deploy" ] && continue
+            [ "$item" = "." ] && continue
+            [ "$item" = ".." ] && continue
+            cp -r "$item" _deploy/laravel/
+          done
+
+          # Move public/ contents into public_html/
+          cp -r public/* public/.[^.]* _deploy/public_html/ 2>/dev/null || true
+
+          # Update index.php to use ../laravel/ paths
+          cat > _deploy/public_html/index.php << 'PHP_EOF'
+          <?php
+
+          use Illuminate\Http\Request;
+
+          define('LARAVEL_START', microtime(true));
+
+          if (file_exists($maintenance = __DIR__.'/../laravel/storage/framework/maintenance.php')) {
+              require $maintenance;
+          }
+
+          require __DIR__.'/../laravel/vendor/autoload.php';
+
+          $app = require_once __DIR__.'/../laravel/bootstrap/app.php';
+
+          $app->handleRequest(Request::capture());
+          PHP_EOF
+
+          echo "Deployment structure built:"
+          ls -la _deploy/laravel/
+          ls -la _deploy/public_html/
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_HOST }}
+          username: ${{ secrets.HOSTINGER_FTP_USER }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          local-dir: _deploy/
+          server-dir: /domains/misubaguna.com/
+          dangerous-clean-slate: true
