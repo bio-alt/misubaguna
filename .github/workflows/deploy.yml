@@ -37,15 +37,29 @@ jobs:
           mkdir -p _deploy/laravel
           mkdir -p _deploy/public_html
 
-          for item in * .[^.]*; do
+          for item in *; do
             [ "$item" = "public" ] && continue
             [ "$item" = "_deploy" ] && continue
-            [ "$item" = "." ] && continue
-            [ "$item" = ".." ] && continue
+            [ "$item" = "." ] || [ "$item" = ".." ] && continue
+            [ -e "$item" ] || continue
             cp -r "$item" _deploy/laravel/
           done
 
-          cp -r public/* public/.[^.]* _deploy/public_html/ 2>/dev/null || true
+          for item in .[!.]*; do
+            [ "$item" = ".git" ] && continue
+            [ -e "$item" ] || continue
+            cp -r "$item" _deploy/laravel/
+          done
+
+          for item in public/*; do
+            [ -e "$item" ] || continue
+            cp -r "$item" _deploy/public_html/
+          done
+
+          for item in public/.[!.]*; do
+            [ -e "$item" ] || continue
+            cp -r "$item" _deploy/public_html/
+          done
 
           cat > _deploy/public_html/index.php << 'PHP_EOF'
           <?php
@@ -65,8 +79,14 @@ jobs:
           $app->handleRequest(Request::capture());
           PHP_EOF
 
-      - name: Deploy Laravel files via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+          echo "=== _deploy structure ==="
+          ls -la _deploy/laravel/ | head -5
+          echo "..."
+          ls -la _deploy/public_html/ | head -10
+          echo "=== done ==="
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.4
         with:
           server: ${{ secrets.HOSTINGER_FTP_HOST }}
           username: ${{ secrets.HOSTINGER_FTP_USER }}
@@ -76,7 +96,7 @@ jobs:
           dangerous-clean-slate: false
 
       - name: Deploy public files via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@4.3.4
         with:
           server: ${{ secrets.HOSTINGER_FTP_HOST }}
           username: ${{ secrets.HOSTINGER_FTP_USER }}
