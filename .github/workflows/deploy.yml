@@ -32,6 +32,13 @@ jobs:
           npm ci
           npm run build
 
+      - name: Generate .env with secrets
+        run: |
+          cp .env.example .env
+          sed -i "s|DB_PASSWORD=change_on_server|DB_PASSWORD=${{ secrets.DB_PASSWORD }}|" .env
+          php artisan key:generate --force
+          echo ".env generated with APP_KEY"
+
       - name: Build Hostinger deployment structure
         run: |
           mkdir -p _deploy/laravel
