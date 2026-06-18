@@ -2,7 +2,7 @@ name: Deploy to Hostinger
 
 on:
   push:
-    branches: [main]
+    branches: [main, staging]
 
 jobs:
   deploy:
@@ -32,12 +32,25 @@ jobs:
           npm ci
           npm run build
 
+      - name: Set deploy paths per branch
+        id: paths
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            echo "LARAVEL_PATH=/domains/misubaguna.com/laravel/" >> $GITHUB_OUTPUT
+            echo "PUBLIC_PATH=/domains/misubaguna.com/public_html/" >> $GITHUB_OUTPUT
+          else
+            echo "LARAVEL_PATH=/domains/misubaguna.com/laravel-staging/" >> $GITHUB_OUTPUT
+            echo "PUBLIC_PATH=/domains/misubaguna.com/public_html/staging/" >> $GITHUB_OUTPUT
+          fi
+          echo "Deploying branch: ${{ github.ref_name }}"
+
       - name: Build Hostinger deployment structure
+        env:
+          LARAVEL_DIR: ${{ github.ref_name == 'main' && 'laravel' || 'laravel-staging' }}
         run: |
           mkdir -p _deploy/laravel
           mkdir -p _deploy/public_html
 
-          # Move app files into laravel/ (exclude public/ and _deploy/)
           for item in * .[^.]*; do
             [ "$item" = "public" ] && continue
             [ "$item" = "_deploy" ] && continue
@@ -46,38 +59,42 @@ jobs:
             cp -r "$item" _deploy/laravel/
           done
 
-          # Move public/ contents into public_html/
           cp -r public/* public/.[^.]* _deploy/public_html/ 2>/dev/null || true
 
-          # Update index.php to use ../laravel/ paths
-          cat > _deploy/public_html/index.php << 'PHP_EOF'
+          cat > _deploy/public_html/index.php << PHP_EOF
           <?php
 
           use Illuminate\Http\Request;
 
           define('LARAVEL_START', microtime(true));
 
-          if (file_exists($maintenance = __DIR__.'/../laravel/storage/framework/maintenance.php')) {
-              require $maintenance;
+          if (file_exists(\$maintenance = __DIR__.'/../$LARAVEL_DIR/storage/framework/maintenance.php')) {
+              require \$maintenance;
           }
 
-          require __DIR__.'/../laravel/vendor/autoload.php';
+          require __DIR__.'/../$LARAVEL_DIR/vendor/autoload.php';
 
-          $app = require_once __DIR__.'/../laravel/bootstrap/app.php';
+          \$app = require_once __DIR__.'/../$LARAVEL_DIR/bootstrap/app.php';
 
-          $app->handleRequest(Request::capture());
+          \$app->handleRequest(Request::capture());
           PHP_EOF
 
-          echo "Deployment structure built:"
-          ls -la _deploy/laravel/
-          ls -la _deploy/public_html/
-
-      - name: Deploy via FTP
+      - name: Deploy Laravel files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.HOSTINGER_FTP_HOST }}
           username: ${{ secrets.HOSTINGER_FTP_USER }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          local-dir: _deploy/
-          server-dir: /domains/misubaguna.com/
+          local-dir: _deploy/laravel/
+          server-dir: ${{ steps.paths.outputs.LARAVEL_PATH }}
+          dangerous-clean-slate: false
+
+      - name: Deploy public files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_HOST }}
+          username: ${{ secrets.HOSTINGER_FTP_USER }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          local-dir: _deploy/public_html/
+          server-dir: ${{ steps.paths.outputs.PUBLIC_PATH }}
           dangerous-clean-slate: true
