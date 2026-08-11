@@ -21,8 +21,13 @@ Route::get('/contact-us/', [ContactController::class, 'index'])->name('public.co
 Route::get('/career/', [CareerController::class, 'index'])->name('public.career');
 Route::get('/catalog/', [CatalogController::class, 'index'])->name('public.catalog');
 
+use App\Http\Controllers\PublicSite\ToolkitController;
+
 Route::get('/product/{slug}/', [ProductController::class, 'show'])->name('public.products.show');
 Route::get('/product-category/{slug}/', [ProductCategoryController::class, 'show'])->name('public.product-categories.show');
+
+Route::get('/toolkit/', [ToolkitController::class, 'index'])->name('public.toolkit.index');
+Route::get('/toolkit/flange-standards/', [ToolkitController::class, 'flangeStandards'])->name('public.toolkit.flange-standards');
 
 Route::get('/sitemap.xml', function () {
     $pages = PublicPage::where('is_published', true)->where('sitemap_include', true)->get();

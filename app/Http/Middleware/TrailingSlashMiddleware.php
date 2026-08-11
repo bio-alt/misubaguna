@@ -9,10 +9,12 @@ class TrailingSlashMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        $url = $request->getRequestUri();
+        $path = $request->getPathInfo();
+        $query = $request->getQueryString();
 
-        if ($url !== '/' && !str_ends_with($url, '/') && !str_contains($url, '.')) {
-            return redirect(rtrim($url, '/') . '/', 301);
+        if ($path !== '/' && !str_ends_with($path, '/') && !str_contains($path, '.')) {
+            $absoluteUrl = $request->getSchemeAndHttpHost() . $path . '/' . ($query ? '?' . $query : '');
+            return redirect()->to($absoluteUrl, 301);
         }
 
         return $next($request);
