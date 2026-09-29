@@ -65,7 +65,7 @@
             gap: 24px;
             height: 100%;
         }
-        .nav-links a, #product-btn, #toolkit-btn {
+        .nav-links a, #product-btn, #services-btn, #toolkit-btn {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 13px;
             font-weight: 700;
@@ -85,11 +85,12 @@
             cursor: pointer;
             outline: none;
         }
-        #product-btn, #toolkit-btn { gap: 6px; }
+        #product-btn, #services-btn, #toolkit-btn { gap: 6px; }
         
         /* Transparent nav text colors */
         header.transparent-nav .nav-links a, 
         header.transparent-nav #product-btn,
+        header.transparent-nav #services-btn,
         header.transparent-nav #toolkit-btn,
         header.transparent-nav #hamburger-btn {
             color: #fff;
@@ -98,21 +99,22 @@
         /* Scrolled transparent nav text colors */
         header.transparent-nav.scrolled .nav-links a, 
         header.transparent-nav.scrolled #product-btn,
+        header.transparent-nav.scrolled #services-btn,
         header.transparent-nav.scrolled #toolkit-btn,
         header.transparent-nav.scrolled #hamburger-btn {
             color: #374151;
         }
 
-        .nav-links a:hover, #product-btn:hover, #product-btn.open, #toolkit-btn:hover, #toolkit-btn.open { color: #dc2626 !important; }
-        #product-btn svg, #toolkit-btn svg {
+        .nav-links a:hover, #product-btn:hover, #product-btn.open, #services-btn:hover, #services-btn.open, #toolkit-btn:hover, #toolkit-btn.open { color: #dc2626 !important; }
+        #product-btn svg, #services-btn svg, #toolkit-btn svg {
             width: 14px; height: 14px;
             transition: transform .2s;
             flex-shrink: 0;
         }
-        #product-btn.open svg, #toolkit-btn.open svg { transform: rotate(180deg); }
+        #product-btn.open svg, #services-btn.open svg, #toolkit-btn.open svg { transform: rotate(180deg); }
 
         /* Mega menu panel */
-        #mega-menu, #toolkit-mega-menu {
+        #mega-menu, #services-mega-menu, #toolkit-mega-menu {
             display: none;
             position: fixed;
             left: 0;
@@ -123,7 +125,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,.12);
             z-index: 9999;
         }
-        #mega-menu.open, #toolkit-mega-menu.open { display: block; }
+        #mega-menu.open, #services-mega-menu.open, #toolkit-mega-menu.open { display: block; }
         .mega-inner {
             max-width: 1280px;
             margin: 0 auto;
@@ -300,8 +302,44 @@
                 <a class="mega-link" href="/product/coupling/">Coupling</a>
             </div>
             <div>
-                <span class="mega-col-title">General</span>
-                <span style="font-size:13px;color:#9ca3af;font-style:italic;">Coming soon</span>
+                <span class="mega-col-title">Thermal Systems</span>
+                <a class="mega-link" href="/product/cooling-tower/">Cooling Tower</a>
+                <a class="mega-link" href="/product/heat-exchanger/">Heat Exchanger</a>
+                <a class="mega-link" href="/product/plate-heat-exchanger/">Plate Heat Exchanger</a>
+                <a class="mega-link" href="/product/oil-cooler/">Oil Cooler</a>
+            </div>
+        </div>
+    </div>
+
+    {{-- ====================================================
+         SERVICES MEGA MENU PANEL
+    ==================================================== --}}
+    <div id="services-mega-menu">
+        <div class="mega-inner" style="grid-template-columns: repeat(4, 1fr);">
+            <div>
+                <a href="/services/" style="text-decoration:none;"><span class="mega-col-title">Main Services</span></a>
+                <a class="mega-link" href="/services/" style="font-weight:700; color:#dc2626;">View All Services →</a>
+            </div>
+            <div>
+                <span class="mega-col-title">Thermal & Cooling</span>
+                <a class="mega-link" href="/services/cooling-tower-repair/">Cooling Tower Repair & Refurbishment</a>
+                <a class="mega-link" href="/services/heat-exchanger-repair/">Heat Exchanger Service & Repair</a>
+            </div>
+            <div>
+                <span class="mega-col-title">Protective Lining & Coating</span>
+                <a class="mega-link" href="/services/thermal-spray-coating/">Thermal Spray Coating (Metal Spray)</a>
+                <a class="mega-link" href="/services/rubber-lining/">Rubber Lining</a>
+                <a class="mega-link" href="/services/frp-lining-repair/">FRP Lining & Repair</a>
+                <a class="mega-link" href="/services/ptfe-lining-bonding/">PTFE Lining & Bonding</a>
+            </div>
+            <div>
+                <span class="mega-col-title">Mechanical & Field Services</span>
+                <a class="mega-link" href="/services/valve-repair/">Valve Repair & Overhaul</a>
+                <a class="mega-link" href="/services/gearbox-repair/">Gearbox Repair & Rebuilding</a>
+                <a class="mega-link" href="/services/pump-repair/">Pump & Rotating Equipment Repair</a>
+                <a class="mega-link" href="/services/expansion-joint-installation/">Expansion Joint Installation</a>
+                <a class="mega-link" href="/services/mechanical-maintenance/">Mechanical Maintenance & Repair</a>
+                <a class="mega-link" href="/services/onsite-inspection/">On-Site Inspection & Troubleshooting</a>
             </div>
         </div>
     </div>
@@ -348,6 +386,12 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
                     </svg>
                 </button>
+                <button id="services-btn" type="button">
+                    Services
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
                 <button id="toolkit-btn" type="button">
                     Engineering Toolkit
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -358,7 +402,7 @@
                 <a href="/about-us/">About Us</a>
                 <a href="/contact-us/">Contact Us</a>
                 <a href="/career/">Career</a>
-                <a href="/catalogue/">Catalog</a>
+                <a href="/catalog/">Catalog</a>
             </nav>
 
             <button id="hamburger-btn" type="button" aria-label="Open menu">
@@ -441,6 +485,60 @@
                     <a class="mob-cat-link" href="/product/coupling/">Coupling</a>
                 </div>
 
+                <button class="mob-cat-btn" data-panel="mc-therm" type="button">
+                    Thermal Systems
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-therm">
+                    <a class="mob-cat-link" href="/product/cooling-tower/">Cooling Tower</a>
+                    <a class="mob-cat-link" href="/product/heat-exchanger/">Heat Exchanger</a>
+                    <a class="mob-cat-link" href="/product/plate-heat-exchanger/">Plate Heat Exchanger</a>
+                    <a class="mob-cat-link" href="/product/oil-cooler/">Oil Cooler</a>
+                </div>
+
+            </div>
+
+            <button class="mob-acc-trigger" id="mob-serv-btn" type="button">
+                Services
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div class="mob-acc-body" id="mob-serv-body">
+                <a class="mob-cat-link" href="/services/" style="font-weight:700; color:#dc2626; padding-left:12px; border-bottom:1px dashed #e5e7eb; margin-bottom:8px;">View All Services →</a>
+                
+                <button class="mob-cat-btn" data-panel="mc-serv-therm" type="button">
+                    Thermal & Cooling Services
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-serv-therm">
+                    <a class="mob-cat-link" href="/services/cooling-tower-repair/">Cooling Tower Repair & Refurbishment</a>
+                    <a class="mob-cat-link" href="/services/heat-exchanger-repair/">Heat Exchanger Service & Repair</a>
+                </div>
+
+                <button class="mob-cat-btn" data-panel="mc-serv-coat" type="button">
+                    Protective Lining & Coating
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-serv-coat">
+                    <a class="mob-cat-link" href="/services/thermal-spray-coating/">Thermal Spray Coating</a>
+                    <a class="mob-cat-link" href="/services/rubber-lining/">Rubber Lining</a>
+                    <a class="mob-cat-link" href="/services/frp-lining-repair/">FRP Lining & Repair</a>
+                    <a class="mob-cat-link" href="/services/ptfe-lining-bonding/">PTFE Lining & Bonding</a>
+                </div>
+
+                <button class="mob-cat-btn" data-panel="mc-serv-mech" type="button">
+                    Mechanical & Field Services
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-serv-mech">
+                    <a class="mob-cat-link" href="/services/valve-repair/">Valve Repair & Overhaul</a>
+                    <a class="mob-cat-link" href="/services/gearbox-repair/">Gearbox Repair & Rebuilding</a>
+                    <a class="mob-cat-link" href="/services/pump-repair/">Pump & Rotating Equipment Repair</a>
+                    <a class="mob-cat-link" href="/services/expansion-joint-installation/">Expansion Joint Installation</a>
+                    <a class="mob-cat-link" href="/services/mechanical-maintenance/">Mechanical Maintenance & Repair</a>
+                    <a class="mob-cat-link" href="/services/onsite-inspection/">On-Site Inspection & Troubleshooting</a>
+                </div>
             </div>
 
             <button class="mob-acc-trigger" id="mob-toolkit-btn" type="button">
@@ -451,7 +549,7 @@
             </button>
             <div class="mob-acc-body" id="mob-toolkit-body">
                 <button class="mob-cat-btn" data-panel="mc-engdata" type="button">
-                    Engineering Toolkit
+                    Engineering Data & Standards
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <div class="mob-cat-links" id="mc-engdata">
@@ -484,7 +582,7 @@
             <a class="mob-nav-link" href="/about-us/">About Us</a>
             <a class="mob-nav-link" href="/contact-us/">Contact Us</a>
             <a class="mob-nav-link" href="/career/">Career</a>
-            <a class="mob-nav-link" href="/catalogue/" style="border-bottom:none;">Catalog</a>
+            <a class="mob-nav-link" href="/catalog/" style="border-bottom:none;">Catalog</a>
         </nav>
     </div>
 
@@ -585,6 +683,19 @@
                 </div>
             </div>
 
+            <!-- Services Column -->
+            <div class="footer-col">
+                <h3>Engineering Services</h3>
+                <p><a href="/services/cooling-tower-repair/">Cooling Tower Repair</a></p>
+                <p><a href="/services/heat-exchanger-repair/">Heat Exchanger Service</a></p>
+                <p><a href="/services/valve-repair/">Valve Repair & Overhaul</a></p>
+                <p><a href="/services/gearbox-repair/">Gearbox Rebuilding</a></p>
+                <p><a href="/services/pump-repair/">Pump Equipment Repair</a></p>
+                <p><a href="/services/thermal-spray-coating/">Thermal Spray Coating</a></p>
+                <p><a href="/services/rubber-lining/">Rubber & FRP Lining</a></p>
+                <p><a href="/services/onsite-inspection/">On-Site Inspection</a></p>
+            </div>
+
             <!-- Contact Us -->
             <div class="footer-col">
                 <h3>Contact Us</h3>
@@ -614,22 +725,21 @@
 
     <script>
     (function() {
-        function setupMegaMenu(btnId, menuId, otherBtnId, otherMenuId) {
-            var btn   = document.getElementById(btnId);
-            var menu  = document.getElementById(menuId);
-            var otherBtn = document.getElementById(otherBtnId);
-            var otherMenu = document.getElementById(otherMenuId);
+        function setupMegaMenu(btnId, menuId) {
+            var btn  = document.getElementById(btnId);
+            var menu = document.getElementById(menuId);
             if (!btn || !menu) return;
             var timer = null;
             var open  = false;
 
             function show() {
                 clearTimeout(timer);
-                if (otherMenu && otherMenu.classList.contains('open')) {
-                    // Close the other menu silently
-                    otherMenu.classList.remove('open');
-                    if (otherBtn) otherBtn.classList.remove('open');
-                }
+                document.querySelectorAll('#mega-menu, #services-mega-menu, #toolkit-mega-menu').forEach(function(m) {
+                    if (m.id !== menuId) m.classList.remove('open');
+                });
+                document.querySelectorAll('#product-btn, #services-btn, #toolkit-btn').forEach(function(b) {
+                    if (b.id !== btnId) b.classList.remove('open');
+                });
                 if (open) return;
                 open = true;
                 menu.classList.add('open');
@@ -664,8 +774,9 @@
                 }
             });
         }
-        setupMegaMenu('product-btn', 'mega-menu', 'toolkit-btn', 'toolkit-mega-menu');
-        setupMegaMenu('toolkit-btn', 'toolkit-mega-menu', 'product-btn', 'mega-menu');
+        setupMegaMenu('product-btn', 'mega-menu');
+        setupMegaMenu('services-btn', 'services-mega-menu');
+        setupMegaMenu('toolkit-btn', 'toolkit-mega-menu');
 
         /* Mobile drawer */
         var backdrop = document.getElementById('mob-backdrop');
@@ -674,6 +785,8 @@
         var ham      = document.getElementById('hamburger-btn');
         var mobProd  = document.getElementById('mob-prod-btn');
         var mobBody  = document.getElementById('mob-prod-body');
+        var mobServBtn  = document.getElementById('mob-serv-btn');
+        var mobServBody = document.getElementById('mob-serv-body');
         var mobToolkitBtn  = document.getElementById('mob-toolkit-btn');
         var mobToolkitBody = document.getElementById('mob-toolkit-body');
 
@@ -691,10 +804,16 @@
         mobClose.addEventListener('click', closeDrawer);
 
         mobProd.addEventListener('click', function() {
-            var isOpen = mobBody.classList.contains('open');
             mobBody.classList.toggle('open');
             mobProd.classList.toggle('open');
         });
+
+        if (mobServBtn) {
+            mobServBtn.addEventListener('click', function() {
+                mobServBody.classList.toggle('open');
+                mobServBtn.classList.toggle('open');
+            });
+        }
 
         if (mobToolkitBtn) {
             mobToolkitBtn.addEventListener('click', function() {

@@ -1,0 +1,4 @@
+﻿source_path,target_path,status_code,condition,notes
+/indexpage/,/,301,Apply after checking Google Search Console confirms no special reason to keep /indexpage/.,Legacy duplicate homepage-like page. Remove from sitemap after redirect.
+/wp-content/uploads/2023/11/Misuba-Guna-Indonesia-Company-Profile_Interactive.pdf,/wp-content/uploads/2023/11/Misuba-Guna-Indonesia-Company-Profile_Interactive.pdf,200 preferred,Preferred: keep same PDF path. Only use 301 if asset path must change.,Indexed PDF. Copy file into Laravel public path or configure web server to serve it.
+/catalog/,/catalog/,200 required,Do not leave broken. Build page or intentionally 301 to a valid catalog/PDF page.,Navigation has Catalog. Prior browse showed internal error; verify live.

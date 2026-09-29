@@ -21,4 +21,13 @@
         <priority>{{ $category->sitemap_priority ?? '0.5' }}</priority>
     </url>
 @endforeach
+@if(isset($services))
+@foreach($services as $service)
+    <url>
+        <loc>{{ $service->canonical_url ?: url($service->url_path) }}</loc>
+        <changefreq>{{ $service->sitemap_changefreq ?? 'monthly' }}</changefreq>
+        <priority>{{ $service->sitemap_priority ?? '0.8' }}</priority>
+    </url>
+@endforeach
+@endif
 </urlset>

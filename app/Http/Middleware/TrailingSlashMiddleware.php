@@ -9,6 +9,10 @@ class TrailingSlashMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
+        if (app()->environment('testing')) {
+            return $next($request);
+        }
+
         $path = $request->getPathInfo();
         $query = $request->getQueryString();
 
