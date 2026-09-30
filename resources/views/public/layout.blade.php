@@ -681,19 +681,6 @@
                 </div>
             </div>
 
-            <!-- Services Column -->
-            <div class="footer-col">
-                <h3>Engineering Services</h3>
-                <p><a href="/services/cooling-tower-repair/">Cooling Tower Repair</a></p>
-                <p><a href="/services/heat-exchanger-repair/">Heat Exchanger Service</a></p>
-                <p><a href="/services/valve-repair/">Valve Repair & Overhaul</a></p>
-                <p><a href="/services/gearbox-repair/">Gearbox Rebuilding</a></p>
-                <p><a href="/services/pump-repair/">Pump Equipment Repair</a></p>
-                <p><a href="/services/thermal-spray-coating/">Thermal Spray Coating</a></p>
-                <p><a href="/services/rubber-lining/">Rubber & FRP Lining</a></p>
-                <p><a href="/services/onsite-inspection/">On-Site Inspection</a></p>
-            </div>
-
             <!-- Contact Us -->
             <div class="footer-col">
                 <h3>Contact Us</h3>
