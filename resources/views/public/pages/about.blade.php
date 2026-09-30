@@ -544,11 +544,5 @@
         </div>
     </div>
 
-    <!-- CMS Content -->
-    @if(!empty(trim(strip_tags($page->content_html ?? ''))))
-    <div class="db-content">
-        {!! $page->content_html !!}
-    </div>
-    @endif
 </div>
 @endsection
