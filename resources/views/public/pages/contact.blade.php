@@ -354,9 +354,10 @@
                 </div>
                 <div class="c-card-content">
                     <h3>Email Support</h3>
-                    <p>
-                        <strong>Marketing & Sales:</strong> <a href="mailto:marketing@misubaguna.com">marketing@misubaguna.com</a><br>
-                        <strong>Technical Engineering:</strong> <a href="mailto:bio@misubaguna.com">bio@misubaguna.com</a>
+                    <p style="line-height: 1.6;">
+                        <strong>Engineering:</strong> <a href="mailto:engineering@misubaguna.com">engineering@misubaguna.com</a><br>
+                        <strong>Procurement:</strong> <a href="mailto:procurement@misubaguna.com">procurement@misubaguna.com</a><br>
+                        <strong>Finance:</strong> <a href="mailto:finance@misubaguna.com">finance@misubaguna.com</a>
                     </p>
                 </div>
             </div>
