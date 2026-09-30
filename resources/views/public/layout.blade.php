@@ -398,7 +398,6 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
                     </svg>
                 </button>
-                <a href="/project-list/">Project List</a>
                 <a href="/about-us/">About Us</a>
                 <a href="/contact-us/">Contact Us</a>
                 <a href="/career/">Career</a>
@@ -578,7 +577,6 @@
                 </div>
             </div>
 
-            <a class="mob-nav-link" href="/project-list/">Project List</a>
             <a class="mob-nav-link" href="/about-us/">About Us</a>
             <a class="mob-nav-link" href="/contact-us/">Contact Us</a>
             <a class="mob-nav-link" href="/career/">Career</a>
