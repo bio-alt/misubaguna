@@ -118,6 +118,22 @@ class CareerController extends Controller
             ]
         ];
 
-        return view('public.pages.career', compact('page', 'seo', 'siteSettings', 'openPositions'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'Careers', 'url' => '/career/'],
+        ];
+
+        $schemas = [
+            PublicSeo::organizationSchema($siteSettings),
+            PublicSeo::breadcrumbSchema($breadcrumbs),
+        ];
+
+        foreach ($openPositions as $pos) {
+            $schemas[] = PublicSeo::jobPostingSchema($pos, $siteSettings);
+        }
+
+        $seo['schema_json'] = $schemas;
+
+        return view('public.pages.career', compact('page', 'seo', 'siteSettings', 'openPositions', 'breadcrumbs'));
     }
 }

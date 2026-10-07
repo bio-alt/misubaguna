@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @include('public.partials.seo', ['seo' => $seo ?? []])
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <meta name="theme-color" content="#dc2626">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,12 +129,19 @@
         }
         #mega-menu.open, #services-mega-menu.open, #toolkit-mega-menu.open { display: block; }
         .mega-inner {
-            max-width: 1280px;
+            max-width: 1440px;
             margin: 0 auto;
-            padding: 36px 32px;
+            padding: 32px 24px;
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 32px;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 16px;
+        }
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            .mega-inner {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 24px 20px;
+                max-width: 1024px;
+            }
         }
         .mega-col-title {
             display: block;
@@ -270,16 +279,58 @@
     <div id="mega-menu">
         <div class="mega-inner">
             <div>
-                <span class="mega-col-title">Flexible Joint</span>
-                <a class="mega-link" href="/product/metal-expansion-joint/">Metal Expansion Joint</a>
-                <a class="mega-link" href="/product/rubber-expansion-joint/">Rubber Expansion Joint</a>
-                <a class="mega-link" href="/product/ptfe-expansion-joint/">PTFE Expansion Joint</a>
-                <a class="mega-link" href="/product/ptfe-lined-rubber-metal-expansion-joint/">PTFE Lined Expansion Joint</a>
-                <a class="mega-link" href="/product/rubber-hose/">Rubber Hose</a>
-                <a class="mega-link" href="/product/flexible-metal-hose/">Flexible Metal Hose</a>
+                <a href="/product-category/palm-oil-kernel-machinery/" style="text-decoration:none;"><span class="mega-col-title">Palm Oil & Kernel</span></a>
+                <span class="mega-sub">Extraction (PKE)</span>
+                <a class="mega-link" href="/product/palm-kernel-expeller/">Palm Kernel Expeller</a>
+                <a class="mega-link" href="/product/kernel-preparation-system/">Kernel Preparation System</a>
+                <span class="mega-sub">Filtration & Clarification</span>
+                <a class="mega-link" href="/product/filter-plate-press/" style="font-weight:700;">Filter Plate Press</a>
+                <a class="mega-link" href="/product/pressure-leaf-filter/">Pressure Leaf Filter (CFP)</a>
+                <span class="mega-sub">Spares & Wear Parts</span>
+                <a class="mega-link" href="/product/expeller-screws-wear-parts/">Expeller Worms & Cages</a>
+                <a class="mega-link" href="/product/filter-leaf-screens/">Filter Leaf Screens & Mesh</a>
             </div>
             <div>
-                <span class="mega-col-title">Corrosion Protection</span>
+                <a href="/product-category/filtration-clarification/" style="text-decoration:none;"><span class="mega-col-title" style="color:#ef4444; border-bottom: 2px solid #ef4444;">Filtration & Clarification</span></a>
+                <span class="mega-sub">Filter Press & Cake</span>
+                <a class="mega-link" href="/product/filter-plate-press/" style="font-weight:700; color:#dc2626;">Filter Plate Press</a>
+                <a class="mega-link" href="/product/pressure-leaf-filter/">CFP Seal Plate Filter</a>
+                <a class="mega-link" href="/product/candle-filter/">CFC Candle Filter</a>
+                <span class="mega-sub">Self-Cleaning Filters</span>
+                <a class="mega-link" href="/product/scraping-self-cleaning-filter/">AF Scraping Filter</a>
+                <a class="mega-link" href="/product/automated-backwash-filter/">AR Auto Backwash</a>
+                <a class="mega-link" href="/product/modular-integrated-backwash-filter/">MIF Modular Filter</a>
+                <span class="mega-sub">Vessels & Separators</span>
+                <a class="mega-link" href="/product/bag-filter-system/">BT Bag Filter System</a>
+                <a class="mega-link" href="/product/cartridge-filter-housing/">CT Cartridge Housing</a>
+                <a class="mega-link" href="/product/basket-strainer-filter/">ST Basket Strainer</a>
+                <a class="mega-link" href="/product/centrifugal-solid-liquid-separator/">CS Centrifugal Separator</a>
+                <a class="mega-link" href="/product/magnetic-iron-remover/">MS Magnetic Remover</a>
+                <a class="mega-link" href="/product/filter-cartridges-bags-consumables/">Filter Cartridges & Bags</a>
+            </div>
+            <div>
+                <a href="/product-category/paper-pulp-machinery/" style="text-decoration:none;"><span class="mega-col-title">Paper & Pulp Machinery</span></a>
+                <span class="mega-sub">Stock Preparation</span>
+                <a class="mega-link" href="/product/hicon-pulper/">High-Consistency Pulper</a>
+                <a class="mega-link" href="/product/disc-refiner/">Double Disc Refiner</a>
+                <a class="mega-link" href="/product/screening-cleaning-system/">Screening & Cleaning System</a>
+                <span class="mega-sub">Paper & Tissue</span>
+                <a class="mega-link" href="/product/paper-machine-line/">Complete Paper Machine</a>
+                <a class="mega-link" href="/product/tissue-machine/">Tissue Machine</a>
+                <span class="mega-sub">Molded Fiber</span>
+                <a class="mega-link" href="/product/molded-fiber-machine/">Molded Fiber Plant</a>
+                <span class="mega-sub">Wear Parts & Spares</span>
+                <a class="mega-link" href="/product/refiner-discs-screen-baskets/">Refiner Plates & Baskets</a>
+            </div>
+            <div>
+                <a href="/product-category/thermal-systems/" style="text-decoration:none;"><span class="mega-col-title">Thermal Systems</span></a>
+                <a class="mega-link" href="/product/cooling-tower/">Cooling Tower</a>
+                <a class="mega-link" href="/product/heat-exchanger/">Heat Exchanger</a>
+                <a class="mega-link" href="/product/plate-heat-exchanger/">Plate Heat Exchanger</a>
+                <a class="mega-link" href="/product/oil-cooler/">Oil Cooler</a>
+            </div>
+            <div>
+                <a href="/product-category/corrosion-protection/" style="text-decoration:none;"><span class="mega-col-title">Corrosion Protection</span></a>
                 <span class="mega-sub">Lining</span>
                 <a class="mega-link" href="/product/ptfe-lining/">PTFE Lining</a>
                 <a class="mega-link" href="/product/rubber-lining/">Rubber Lining</a>
@@ -290,7 +341,16 @@
                 <a class="mega-link" href="/product/ptfe-coating/">PTFE Coating</a>
             </div>
             <div>
-                <span class="mega-col-title">Sealing System</span>
+                <span class="mega-col-title">Flexible Joint</span>
+                <a class="mega-link" href="/product/metal-expansion-joint/">Metal Expansion Joint</a>
+                <a class="mega-link" href="/product/rubber-expansion-joint/">Rubber Expansion Joint</a>
+                <a class="mega-link" href="/product/ptfe-expansion-joint/">PTFE Expansion Joint</a>
+                <a class="mega-link" href="/product/ptfe-lined-rubber-metal-expansion-joint/">PTFE Lined Expansion Joint</a>
+                <a class="mega-link" href="/product/rubber-hose/">Rubber Hose</a>
+                <a class="mega-link" href="/product/flexible-metal-hose/">Flexible Metal Hose</a>
+            </div>
+            <div>
+                <a href="/product-category/sealing-system/" style="text-decoration:none;"><span class="mega-col-title">Sealing System</span></a>
                 <a class="mega-link" href="/product/gland-packing/">Gland Packing</a>
                 <a class="mega-link" href="/product/oil-seal/">Oil Seal</a>
                 <a class="mega-link" href="/product/o-ring/">O-Ring</a>
@@ -298,15 +358,8 @@
                 <a class="mega-link" href="/product/mechanical-seal/">Mechanical Seal</a>
             </div>
             <div>
-                <span class="mega-col-title">Power Transfer</span>
+                <a href="/product-category/power-transfer/" style="text-decoration:none;"><span class="mega-col-title">Power Transfer</span></a>
                 <a class="mega-link" href="/product/coupling/">Coupling</a>
-            </div>
-            <div>
-                <span class="mega-col-title">Thermal Systems</span>
-                <a class="mega-link" href="/product/cooling-tower/">Cooling Tower</a>
-                <a class="mega-link" href="/product/heat-exchanger/">Heat Exchanger</a>
-                <a class="mega-link" href="/product/plate-heat-exchanger/">Plate Heat Exchanger</a>
-                <a class="mega-link" href="/product/oil-cooler/">Oil Cooler</a>
             </div>
         </div>
     </div>
@@ -352,8 +405,8 @@
             <div>
                 <a href="{{ route('public.toolkit.index') }}" style="text-decoration:none;"><span class="mega-col-title">Engineering Toolkit</span></a>
                 <a class="mega-link" href="{{ route('public.toolkit.flange-standards') }}">Flange Standards</a>
-                <a class="mega-link" href="#">Calculators</a>
-                <a class="mega-link" href="#">Material Specs</a>
+                <a class="mega-link" href="{{ route('public.toolkit.calculator') }}">Scientific Calculator</a>
+                <a class="mega-link" href="{{ route('public.toolkit.material-specs') }}">Material Specs Library</a>
             </div>
             <div>
                 <span class="mega-col-title">Documentation</span>
@@ -398,10 +451,10 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
                     </svg>
                 </button>
+                <a href="/catalog/">Catalog</a>
                 <a href="/about-us/">About Us</a>
                 <a href="/contact-us/">Contact Us</a>
                 <a href="/career/">Career</a>
-                <a href="/catalog/">Catalog</a>
             </nav>
 
             <button id="hamburger-btn" type="button" aria-label="Open menu">
@@ -436,17 +489,73 @@
             </button>
             <div class="mob-acc-body" id="mob-prod-body">
 
-                <button class="mob-cat-btn" data-panel="mc-flex" type="button">
-                    Flexible Joint
+                <button class="mob-cat-btn" data-panel="mc-palmoil" type="button">
+                    Palm Oil & Kernel Machinery
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
-                <div class="mob-cat-links" id="mc-flex">
-                    <a class="mob-cat-link" href="/product/metal-expansion-joint/">Metal Expansion Joint</a>
-                    <a class="mob-cat-link" href="/product/rubber-expansion-joint/">Rubber Expansion Joint</a>
-                    <a class="mob-cat-link" href="/product/ptfe-expansion-joint/">PTFE Expansion Joint</a>
-                    <a class="mob-cat-link" href="/product/ptfe-lined-rubber-metal-expansion-joint/">PTFE Lined Expansion Joint</a>
-                    <a class="mob-cat-link" href="/product/rubber-hose/">Rubber Hose</a>
-                    <a class="mob-cat-link" href="/product/flexible-metal-hose/">Flexible Metal Hose</a>
+                <div class="mob-cat-links" id="mc-palmoil">
+                    <a class="mob-cat-link" href="/product-category/palm-oil-kernel-machinery/" style="font-weight:700; color:#dc2626;">View All Palm Oil Systems →</a>
+                    <span class="mob-sub-label">Extraction (PKE)</span>
+                    <a class="mob-cat-link" href="/product/palm-kernel-expeller/">Palm Kernel Expeller</a>
+                    <a class="mob-cat-link" href="/product/kernel-preparation-system/">Kernel Preparation System</a>
+                    <span class="mob-sub-label">Filtration & Clarification</span>
+                    <a class="mob-cat-link" href="/product/filter-plate-press/" style="font-weight:700; color:#dc2626;">Filter Plate Press</a>
+                    <a class="mob-cat-link" href="/product/pressure-leaf-filter/">Pressure Leaf Filter (CFP)</a>
+                    <span class="mob-sub-label">Spares & Wear Parts</span>
+                    <a class="mob-cat-link" href="/product/expeller-screws-wear-parts/">Expeller Worms & Cages</a>
+                    <a class="mob-cat-link" href="/product/filter-leaf-screens/">Filter Leaf Screens & Mesh</a>
+                </div>
+
+                <button class="mob-cat-btn" data-panel="mc-filtration" type="button" style="color: #dc2626;">
+                    Filtration & Clarification (JCI)
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-filtration">
+                    <a class="mob-cat-link" href="/product-category/filtration-clarification/" style="font-weight:700; color:#dc2626;">View All Filtration Systems →</a>
+                    <span class="mob-sub-label">Filter Press & Cake</span>
+                    <a class="mob-cat-link" href="/product/filter-plate-press/" style="font-weight:700; color:#dc2626;">Filter Plate Press</a>
+                    <a class="mob-cat-link" href="/product/pressure-leaf-filter/">CFP Seal Plate & Leaf Filter</a>
+                    <a class="mob-cat-link" href="/product/candle-filter/">CFC Sealed Candle Filter</a>
+                    <span class="mob-sub-label">Self-Cleaning Filters</span>
+                    <a class="mob-cat-link" href="/product/scraping-self-cleaning-filter/">AF Scraping Self-Cleaning Filter</a>
+                    <a class="mob-cat-link" href="/product/automated-backwash-filter/">AR Automated Backwash Filter</a>
+                    <a class="mob-cat-link" href="/product/modular-integrated-backwash-filter/">MIF Modular Integrated Filter</a>
+                    <span class="mob-sub-label">Vessels & Separators</span>
+                    <a class="mob-cat-link" href="/product/bag-filter-system/">BT Bag Filter System</a>
+                    <a class="mob-cat-link" href="/product/cartridge-filter-housing/">CT Cartridge Filter Housing</a>
+                    <a class="mob-cat-link" href="/product/basket-strainer-filter/">ST Basket Strainer & Filter</a>
+                    <a class="mob-cat-link" href="/product/centrifugal-solid-liquid-separator/">CS Centrifugal Separator & RS Filter</a>
+                    <a class="mob-cat-link" href="/product/magnetic-iron-remover/">MS Magnetic Iron Remover</a>
+                    <a class="mob-cat-link" href="/product/filter-cartridges-bags-consumables/">Filter Cartridges & Bags</a>
+                </div>
+
+                <button class="mob-cat-btn" data-panel="mc-paper" type="button">
+                    Paper & Pulp Machinery
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-paper">
+                    <span class="mob-sub-label">Stock Preparation</span>
+                    <a class="mob-cat-link" href="/product/hicon-pulper/">High-Consistency Pulper</a>
+                    <a class="mob-cat-link" href="/product/disc-refiner/">Double Disc Refiner</a>
+                    <a class="mob-cat-link" href="/product/screening-cleaning-system/">Screening & Cleaning System</a>
+                    <span class="mob-sub-label">Paper & Tissue</span>
+                    <a class="mob-cat-link" href="/product/paper-machine-line/">Complete Paper Machine</a>
+                    <a class="mob-cat-link" href="/product/tissue-machine/">Tissue Machine</a>
+                    <span class="mob-sub-label">Molded Fiber</span>
+                    <a class="mob-cat-link" href="/product/molded-fiber-machine/">Molded Fiber Plant</a>
+                    <span class="mob-sub-label">Wear Parts & Spares</span>
+                    <a class="mob-cat-link" href="/product/refiner-discs-screen-baskets/">Refiner Plates & Baskets</a>
+                </div>
+
+                <button class="mob-cat-btn" data-panel="mc-therm" type="button">
+                    Thermal Systems
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-therm">
+                    <a class="mob-cat-link" href="/product/cooling-tower/">Cooling Tower</a>
+                    <a class="mob-cat-link" href="/product/heat-exchanger/">Heat Exchanger</a>
+                    <a class="mob-cat-link" href="/product/plate-heat-exchanger/">Plate Heat Exchanger</a>
+                    <a class="mob-cat-link" href="/product/oil-cooler/">Oil Cooler</a>
                 </div>
 
                 <button class="mob-cat-btn" data-panel="mc-corr" type="button">
@@ -464,11 +573,25 @@
                     <a class="mob-cat-link" href="/product/ptfe-coating/">PTFE Coating</a>
                 </div>
 
+                <button class="mob-cat-btn" data-panel="mc-flex" type="button">
+                    Flexible Joint
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-flex">
+                    <a class="mob-cat-link" href="/product/metal-expansion-joint/">Metal Expansion Joint</a>
+                    <a class="mob-cat-link" href="/product/rubber-expansion-joint/">Rubber Expansion Joint</a>
+                    <a class="mob-cat-link" href="/product/ptfe-expansion-joint/">PTFE Expansion Joint</a>
+                    <a class="mob-cat-link" href="/product/ptfe-lined-rubber-metal-expansion-joint/">PTFE Lined Expansion Joint</a>
+                    <a class="mob-cat-link" href="/product/rubber-hose/">Rubber Hose</a>
+                    <a class="mob-cat-link" href="/product/flexible-metal-hose/">Flexible Metal Hose</a>
+                </div>
+
                 <button class="mob-cat-btn" data-panel="mc-seal" type="button">
                     Sealing System
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <div class="mob-cat-links" id="mc-seal">
+                    <a class="mob-cat-link" href="/product-category/sealing-system/" style="font-weight:700; color:#dc2626;">View All Sealing Systems →</a>
                     <a class="mob-cat-link" href="/product/gland-packing/">Gland Packing</a>
                     <a class="mob-cat-link" href="/product/oil-seal/">Oil Seal</a>
                     <a class="mob-cat-link" href="/product/o-ring/">O-Ring</a>
@@ -481,18 +604,8 @@
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <div class="mob-cat-links" id="mc-pow">
+                    <a class="mob-cat-link" href="/product-category/power-transfer/" style="font-weight:700; color:#dc2626;">View All Power Transfer →</a>
                     <a class="mob-cat-link" href="/product/coupling/">Coupling</a>
-                </div>
-
-                <button class="mob-cat-btn" data-panel="mc-therm" type="button">
-                    Thermal Systems
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </button>
-                <div class="mob-cat-links" id="mc-therm">
-                    <a class="mob-cat-link" href="/product/cooling-tower/">Cooling Tower</a>
-                    <a class="mob-cat-link" href="/product/heat-exchanger/">Heat Exchanger</a>
-                    <a class="mob-cat-link" href="/product/plate-heat-exchanger/">Plate Heat Exchanger</a>
-                    <a class="mob-cat-link" href="/product/oil-cooler/">Oil Cooler</a>
                 </div>
 
             </div>
@@ -554,8 +667,8 @@
                 <div class="mob-cat-links" id="mc-engdata">
                     <a class="mob-cat-link" href="{{ route('public.toolkit.index') }}">Toolkit Home</a>
                     <a class="mob-cat-link" href="{{ route('public.toolkit.flange-standards') }}">Flange Standards</a>
-                    <a class="mob-cat-link" href="#">Calculators</a>
-                    <a class="mob-cat-link" href="#">Material Specs</a>
+                    <a class="mob-cat-link" href="{{ route('public.toolkit.calculator') }}">Scientific Calculator</a>
+                    <a class="mob-cat-link" href="{{ route('public.toolkit.material-specs') }}">Material Specs Library</a>
                 </div>
 
                 <button class="mob-cat-btn" data-panel="mc-docs" type="button">
@@ -691,9 +804,9 @@
                 <div class="footer-contact-item">
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     <p style="font-size: 13px; line-height: 1.6;">
-                        <a href="mailto:engineering@misubaguna.com">engineering@misubaguna.com</a><br>
-                        <a href="mailto:procurement@misubaguna.com">procurement@misubaguna.com</a><br>
-                        <a href="mailto:finance@misubaguna.com">finance@misubaguna.com</a>
+                        <strong>Sales:</strong> <a href="mailto:sales@misubaguna.com">sales@misubaguna.com</a><br>
+                        <strong>Procurement:</strong> <a href="mailto:procurement@misubaguna.com">procurement@misubaguna.com</a><br>
+                        <strong>Finance:</strong> <a href="mailto:finance@misubaguna.com">finance@misubaguna.com</a>
                     </p>
                 </div>
             </div>
@@ -708,7 +821,17 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} PT Misuba Guna Indonesia. All rights reserved.</p>
+            <p style="margin-bottom: 6px;">&copy; {{ date('Y') }} PT Misuba Guna Indonesia. All rights reserved.</p>
+            <p style="font-size: 13px; color: #9ca3af; margin: 0;">
+                <a href="{{ route('public.home') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Home</a> &bull;
+                <a href="{{ route('public.about') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">About Us</a> &bull;
+                <a href="{{ route('public.catalog') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Products</a> &bull;
+                <a href="{{ route('public.services.index') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Services</a> &bull;
+                <a href="{{ route('public.toolkit.index') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Engineering Toolkit</a> &bull;
+                <a href="{{ route('public.contact') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Contact</a> &bull;
+                <a href="{{ route('public.sitemap') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Sitemap (XML)</a> &bull;
+                <a href="{{ route('public.llms') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">AI / LLM Reference</a>
+            </p>
         </div>
     </footer>
 

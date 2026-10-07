@@ -15,6 +15,28 @@ class PageController extends Controller
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
         $seo = PublicSeo::buildSeoData($page, $siteSettings);
 
-        return view('public.pages.about', compact('page', 'seo', 'siteSettings'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'About Us', 'url' => '/about-us/'],
+        ];
+
+        $aboutPageSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'AboutPage',
+            'name' => 'About PT Misuba Guna Indonesia',
+            'description' => 'Learn about PT Misuba Guna Indonesia, leading industrial engineering supplier and maintenance contractor in Indonesia since 2011.',
+            'url' => PublicSeo::canonicalUrl('/about-us/'),
+            'mainEntity' => [
+                '@id' => PublicSeo::DEFAULT_DOMAIN . '/#organization',
+            ],
+        ];
+
+        $seo['schema_json'] = [
+            PublicSeo::organizationSchema($siteSettings),
+            $aboutPageSchema,
+            PublicSeo::breadcrumbSchema($breadcrumbs),
+        ];
+
+        return view('public.pages.about', compact('page', 'seo', 'siteSettings', 'breadcrumbs'));
     }
 }

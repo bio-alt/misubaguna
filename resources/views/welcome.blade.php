@@ -15,8 +15,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="antialiased font-sans text-gray-900 bg-gray-50 selection:bg-red-500 selection:text-white">
-    <x-navbar />
-    
+
     <main>
         <!-- Hero section for preview -->
         <div class="relative flex items-center justify-center min-h-[85vh] overflow-hidden bg-gradient-to-b from-gray-900 to-black text-white">

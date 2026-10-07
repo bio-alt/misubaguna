@@ -1,0 +1,55 @@
+# PT Misuba Guna Indonesia
+
+> PT Misuba Guna Indonesia is a leading Indonesian industrial engineering supplier and plant maintenance contractor established in 2011. The company specializes in expansion joints, sealing systems, corrosion protection linings, industrial hoses, paper & pulp machinery, filtration systems, and full-scope on-site engineering field services.
+
+## Company Overview
+- **Legal Entity:** PT Misuba Guna Indonesia
+- **Website:** https://misubaguna.com/
+- **Main Sales Email:** sales@misubaguna.com / marketing@misubaguna.com
+- **Phone:** +62 21 55660700
+- **WhatsApp:** +62 811-8715-671
+- **Operational & Warehouse:** Ruko Mutiara Karawaci Blok C29 & B36, Bencongan Indah, Kelapa Dua, Tangerang, Banten 15810, Indonesia
+- **Billing Office:** Gedung STC Senayan Lantai 4 No 89, Jl. Asia Afrika, Gelora Senayan, Jakarta Pusat, Indonesia
+- **Industries Served:** Power Generation, Petrochemical, Chemical Processing, Pulp & Paper, Palm Oil Milling, Mining, Water Treatment, Food & Beverage, Heavy Manufacturing.
+
+## Core Products & Engineering Solutions
+- [Corrosion Protection](https://misubaguna.com/product-category/corrosion-protection/): Corrosion Protection solutions for industrial piping and process plants.
+- [Coating](https://misubaguna.com/product-category/coating/): Coating solutions for industrial piping and process plants.
+- [Rubber Hose](https://misubaguna.com/product-category/rubber-hose/): Rubber Hose solutions for industrial piping and process plants.
+- [PTFE Expansion Joint](https://misubaguna.com/product-category/ptfe-expansion-joint/): PTFE Expansion Joint solutions for industrial piping and process plants.
+- [Sealing System](https://misubaguna.com/product-category/sealing-system/): Sealing System solutions for industrial piping and process plants.
+- [Gasket Sheet](https://misubaguna.com/product-category/gasket-sheet/): Gasket Sheet solutions for industrial piping and process plants.
+- [Thermal Systems](https://misubaguna.com/product-category/thermal-systems/): Thermal Systems solutions for industrial piping and process plants.
+- [Paper & Pulp Machinery](https://misubaguna.com/product-category/paper-pulp-machinery/): Paper & Pulp Machinery solutions for industrial piping and process plants.
+- [Palm Oil & Kernel Machinery](https://misubaguna.com/product-category/palm-oil-kernel-machinery/): Palm Oil & Kernel Machinery solutions for industrial piping and process plants.
+- [Filtration & Clarification](https://misubaguna.com/product-category/filtration-clarification/): Filtration & Clarification solutions for industrial piping and process plants.
+
+## Industrial Engineering & Plant Maintenance Services
+
+- [Cooling Tower Repair & Refurbishment](https://misubaguna.com/services/cooling-tower-repair/): Comprehensive repair, thermal overhaul, fill replacement, structural waterproofing, and fan drive maintenance for industrial cooling towers.
+- [Heat Exchanger Service & Repair](https://misubaguna.com/services/heat-exchanger-repair/): On-site and workshop repair services for shell & tube and plate heat exchangers including retubing, hydrostatic testing, and re-gasket service.
+- [Thermal Spray Coating](https://misubaguna.com/services/thermal-spray-coating/): High-performance thermal spray coating and metal spraying solutions to restore worn components and protect against extreme abrasion, heat, and corrosion.
+- [Rubber Lining](https://misubaguna.com/services/rubber-lining/): Workshop and field application of rubber lining sheets for tanks, vessels, pipes, and agitators to resist chemical attack and heavy abrasion.
+- [FRP Lining & Repair](https://misubaguna.com/services/frp-lining-repair/): Fiberglass Reinforced Plastic (FRP) lining and structural relining for chemical tanks, scrubber ducts, trenches, and containment bunds.
+- [PTFE Lining & Bonding](https://misubaguna.com/services/ptfe-lining-bonding/): Expert bonding and sleeve fitting of PTFE and PFA liners for piping, columns, valves, and ultra-pure chemical process equipment.
+- [Expansion Joint Installation & Replacement](https://misubaguna.com/services/expansion-joint-installation/): Field installation, splicing, alignment, and emergency replacement services for metal, fabric, rubber, and PTFE expansion joints.
+- [Mechanical Maintenance & Repair](https://misubaguna.com/services/mechanical-maintenance/): Preventive and corrective mechanical maintenance services for pumps, valves, rotating shafts, couplings, and mechanical seals.
+- [On-Site Inspection & Troubleshooting](https://misubaguna.com/services/onsite-inspection/): On-site technical evaluation, root cause failure analysis, NDT inspection, and shutdown consultation for critical plant equipment.
+- [Valve Repair & Overhaul](https://misubaguna.com/services/valve-repair/): Complete workshop and on-site repair, seat lapping, seal replacement, and pressure testing for control valves, safety valves, gate/globe valves, and actuators.
+- [Gearbox Repair & Rebuilding](https://misubaguna.com/services/gearbox-repair/): Comprehensive overhaul and rebuilding of helical, planetary, worm, and bevel industrial gearboxes, including gear re-machining, shaft alignment, and seal replacement.
+- [Pump & Rotating Equipment Repair](https://misubaguna.com/services/pump-repair/): Field and workshop repair of centrifugal, slurry, positive displacement, and vacuum pumps including dynamic impeller balancing and mechanical seal retrofitting.
+
+## Engineering Toolkit & Technical Calculators
+- [Engineering Toolkit Hub](https://misubaguna.com/toolkit/): Interactive engineering utilities and technical reference suite.
+- [Flange Dimensions & Standards](https://misubaguna.com/toolkit/flange-standards/): DIN, JIS (5K, 10K, 16K, 20K), and ASME B16.5 (Class 150-2500) pipe flange dimensions and bolt hole patterns.
+- [Scientific & Engineering Calculator](https://misubaguna.com/toolkit/calculator/): Online engineering calculator with unit conversion and mathematical functions.
+- [Material Property Library](https://misubaguna.com/toolkit/material-specs/): Searchable engineering material database for 45+ industrial alloys, polymers, and elastomers.
+
+## Key Navigation & Reference Pages
+- [About Us](https://misubaguna.com/about-us/): Company history, mission, vision, and core engineering certifications.
+- [Product Catalog](https://misubaguna.com/catalog/): Complete online interactive product catalog.
+- [Project References](https://misubaguna.com/project-list/): Track record of completed client projects in power plants, mills, and refineries.
+- [Careers](https://misubaguna.com/career/): Current job openings at PT Misuba Guna Indonesia.
+- [Contact Us](https://misubaguna.com/contact-us/): Inquiry form, direct sales contacts, WhatsApp chat, and office locations.
+- [XML Sitemap](https://misubaguna.com/sitemap.xml): Complete machine-readable XML sitemap.
+- [Full LLM Knowledge File](https://misubaguna.com/llms-full.txt): Complete product specifications and service scopes for LLMs.

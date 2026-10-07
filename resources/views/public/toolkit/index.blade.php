@@ -103,6 +103,26 @@
         <p>Comprehensive dimensions and bolt hole data for DIN, JIS, and ASME flange standards.</p>
     </a>
 
-    <!-- Add more cards in the future here -->
+    <!-- Scientific Calculator Card -->
+    <a href="{{ route('public.toolkit.calculator') }}" class="toolkit-card">
+        <div class="toolkit-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+        </div>
+        <h3>Scientific Calculator</h3>
+        <p>Full-featured scientific calculator with trigonometric, logarithmic, memory functions, calculation history, and unit conversion tools.</p>
+    </a>
+
+    <!-- Material Specs Library Card -->
+    <a href="{{ route('public.toolkit.material-specs') }}" class="toolkit-card">
+        <div class="toolkit-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+        </div>
+        <h3>Material Specs Library</h3>
+        <p>Searchable SolidWorks-style engineering material database with physical, mechanical, thermal, and chemical resistance properties.</p>
+    </a>
 </div>
 @endsection

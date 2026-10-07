@@ -16,6 +16,13 @@ class HomeController extends Controller
         $page = PublicPage::where('url_path', '/')->where('is_published', true)->firstOrFail();
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
         $seo = PublicSeo::buildSeoData($page, $siteSettings);
+
+        $seo['schema_json'] = [
+            PublicSeo::organizationSchema($siteSettings),
+            PublicSeo::websiteSchema(),
+            PublicSeo::localBusinessSchema($siteSettings),
+        ];
+
         $products = PublicProduct::where('is_published', true)->orderBy('sort_order')->get();
         $categories = PublicProductCategory::where('is_published', true)->orderBy('sort_order')->get();
 

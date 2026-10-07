@@ -187,14 +187,14 @@
     <div class="catalog-header">
         @if($product->gallery && count($product->gallery) > 0)
             <div class="catalog-gallery">
-                <div class="main-image-container" style="width: 100%; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; background: #fff;">
-                    <img id="mainProductImage" src="{{ asset($product->gallery[0]) }}" alt="{{ $product->title ?? $product->name }}" style="width: 100%; display: block; object-fit: contain; aspect-ratio: 4 / 3; transition: opacity 0.2s;">
+                <div class="main-image-container" style="width: 100%; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; background: #ffffff; padding: 12px; display: flex; align-items: center; justify-content: center; min-height: 320px;">
+                    <img id="mainProductImage" src="{{ asset($product->gallery[0]) }}" alt="{{ $product->title ?? $product->name }}" style="max-width: 100%; max-height: 360px; object-fit: contain; display: block; transition: opacity 0.2s;">
                 </div>
                 @if(count($product->gallery) > 1)
-                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 8px; margin-top: 8px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 8px; margin-top: 10px;">
                     @foreach($product->gallery as $index => $img)
-                        <div style="border-radius: 6px; overflow: hidden; border: 1px solid #e5e7eb; background: #fff; cursor: pointer; transition: transform 0.1s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" onclick="document.getElementById('mainProductImage').style.opacity=0; setTimeout(() => { document.getElementById('mainProductImage').src = '{{ asset($img) }}'; document.getElementById('mainProductImage').style.opacity=1; }, 150);">
-                            <img src="{{ asset($img) }}" alt="{{ $product->title ?? $product->name }} Thumbnail {{ $index + 1 }}" style="width: 100%; display: block; object-fit: cover; aspect-ratio: 1 / 1;">
+                        <div style="border-radius: 6px; overflow: hidden; border: 1px solid #e2e8f0; background: #ffffff; cursor: pointer; padding: 4px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; transition: all 0.15s ease;" onmouseover="this.style.borderColor='#dc2626'; this.style.transform='scale(1.05)';" onmouseout="this.style.borderColor='#e2e8f0'; this.style.transform='scale(1)';" onclick="const main = document.getElementById('mainProductImage'); main.style.opacity=0; setTimeout(() => { main.src = '{{ asset($img) }}'; main.style.opacity=1; }, 150);">
+                            <img src="{{ asset($img) }}" alt="{{ $product->title ?? $product->name }} Thumbnail {{ $index + 1 }}" loading="lazy" style="max-width: 100%; max-height: 100%; object-fit: contain; display: block;">
                         </div>
                     @endforeach
                 </div>
@@ -202,8 +202,8 @@
             </div>
         @else
             <div class="catalog-image-placeholder">
-                <img src="https://misubaguna.com/wp-content/uploads/2021/07/2021-04-20-18_55_17-Window.jpg" alt="Misuba Guna Placeholder">
-                <span>Product Image Placeholder</span>
+                <img src="{{ asset('images/misuba-original-logo.png') }}" alt="{{ $product->title ?? $product->name }} Product Spec">
+                <span>{{ $product->title ?? $product->name }}</span>
             </div>
         @endif
         
@@ -281,11 +281,11 @@
                     Need Sizing, Drawings, or a Custom Quote for {{ $product->title ?? $product->name }}?
                 </h3>
                 <p style="font-size: 0.825rem; color: #cbd5e1; line-height: 1.45; max-width: 800px; margin-bottom: 12px;">
-                    Our technical engineering team provides tailored consultation, CAD verification, and rapid pricing. Contact us with your line size, pressure, temperature, and media parameters.
+                    Our sales team provides tailored consultation, drawing verification, and rapid pricing. Contact us with your line size, pressure, temperature, and media parameters.
                 </p>
                 <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
                     <a href="/contact-us" class="btn-inquire" style="background: #e67e22; color: #ffffff; padding: 7px 16px; font-size: 0.775rem;">
-                        Contact Engineering Team
+                        Contact Sales Team
                     </a>
                     <a href="https://wa.me/6281119253388?text=Hello%20PT%20Misuba%20Guna%20Indonesia,%20I%20would%20like%20to%20inquire%20about%20{{ urlencode($product->title ?? $product->name) }}" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; padding: 7px 16px; background: #25d366; color: #fff; font-size: 0.775rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; border-radius: 6px; text-decoration: none; transition: all 0.2s ease;">
                         <svg style="width: 16px; height: 16px; margin-right: 6px; fill: currentColor;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>

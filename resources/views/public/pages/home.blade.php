@@ -379,75 +379,192 @@
     /* About Us */
     .about-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 64px;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 56px;
         align-items: center;
     }
     
     .about-content h3 {
-        font-size: 16px;
+        font-size: 15px;
         text-transform: uppercase;
         color: #2b9d9f;
-        font-weight: 700;
+        font-weight: 800;
         margin-bottom: 8px;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
     }
     
     .about-content h2 {
-        font-size: 42px;
+        font-size: 38px;
         font-weight: 800;
         color: #111827;
-        margin-bottom: 24px;
-        line-height: 1.2;
+        margin-bottom: 20px;
+        line-height: 1.25;
     }
 
     .about-content p {
-        font-size: 18px;
+        font-size: 16px;
         color: #4b5563;
-        line-height: 1.8;
-        margin-bottom: 32px;
+        line-height: 1.75;
+        margin-bottom: 16px;
+    }
+
+    .about-pillars {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin: 24px 0 32px 0;
+    }
+
+    .pillar-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #f8fafc;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.25s ease;
+    }
+
+    .pillar-item:hover {
+        background: #ffffff;
+        border-color: #2b9d9f;
+        box-shadow: 0 4px 12px rgba(43, 157, 159, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .pillar-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: #f0fdfa;
+        color: #2b9d9f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .pillar-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .pillar-item strong {
+        display: block;
+        font-size: 13px;
+        color: #0f172a;
+        line-height: 1.2;
+    }
+
+    .pillar-item span {
+        display: block;
+        font-size: 11px;
+        color: #64748b;
+        margin-top: 2px;
+    }
+
+    .about-action-btns {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
     }
 
     .about-btn {
-        display: inline-block;
-        padding: 16px 32px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 28px;
         background-color: #111827;
         color: #fff;
         font-weight: 600;
+        font-size: 14px;
         border-radius: 8px;
         transition: all 0.3s;
+        text-decoration: none;
     }
 
     .about-btn:hover {
         background-color: #2b9d9f;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(43, 157, 159, 0.25);
+    }
+
+    .about-btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 24px;
+        background-color: #ffffff;
+        color: #1e293b;
+        border: 1.5px solid #cbd5e1;
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 8px;
+        transition: all 0.3s;
+        text-decoration: none;
+    }
+
+    .about-btn-secondary:hover {
+        background-color: #f8fafc;
+        border-color: #2b9d9f;
+        color: #2b9d9f;
+        transform: translateY(-2px);
     }
 
     .stats-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 32px;
+        gap: 24px;
     }
 
     .stat-box {
         background: #fff;
-        padding: 32px;
+        padding: 28px 20px;
         border-radius: 16px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.04);
         text-align: center;
         border: 1px solid #f3f4f6;
+        transition: all 0.3s ease;
+    }
+
+    .stat-box:hover {
+        border-color: #cbd5e1;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        transform: translateY(-3px);
     }
 
     .stat-number {
-        font-size: 48px;
+        font-size: 42px;
         font-weight: 800;
         color: #2b9d9f;
-        margin-bottom: 8px;
+        margin-bottom: 6px;
+        line-height: 1;
     }
 
     .stat-label {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
         color: #4b5563;
+        line-height: 1.3;
+    }
+
+    @media (max-width: 991px) {
+        .about-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+    }
+    @media (max-width: 640px) {
+        .about-pillars {
+            grid-template-columns: 1fr;
+        }
+        .stats-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
     }
 
     /* Logos Grid */
@@ -714,51 +831,237 @@
         overflow-x: hidden;
         position: relative;
     }
-    .map-overlay-text {
-        position: absolute;
-        top: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 16px 32px;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    /* Interactive Map Layout & Floating Controls */
+    .interactive-map-section {
+        position: relative;
+        background: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+        padding: 60px 0 0 0;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .map-section-header {
         text-align: center;
-        pointer-events: none;
-        backdrop-filter: blur(4px);
+        max-width: 800px;
+        margin: 0 auto 32px auto;
+        padding: 0 20px;
     }
-    .map-overlay-title {
-        font-size: 24px;
+
+    .map-section-title {
+        font-size: 32px;
         font-weight: 800;
-        color: #1f2937;
-        margin: 0 0 4px 0;
+        color: #111827;
+        margin: 0 0 8px 0;
+        line-height: 1.2;
     }
-    .map-overlay-subtitle {
-        font-size: 14px;
+
+    .map-section-subtitle {
+        font-size: 16px;
         color: #4b5563;
         margin: 0;
+        line-height: 1.5;
     }
+
+    .map-container-relative {
+        position: relative;
+        width: 100%;
+    }
+
+    .map-floating-controls {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.92);
+        padding: 6px 8px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        backdrop-filter: blur(8px);
+    }
+
+    .map-floating-select {
+        padding: 7px 12px;
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+        background: #ffffff;
+        font-size: 12px;
+        font-weight: 600;
+        color: #374151;
+        outline: none;
+        cursor: pointer;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        transition: border-color 0.2s ease;
+    }
+    .map-floating-select:hover, .map-floating-select:focus {
+        border-color: #2b9d9f;
+    }
+
+    .map-floating-btn {
+        padding: 7px 12px;
+        border-radius: 6px;
+        border: 1px solid #d1d5db;
+        background: #ffffff;
+        font-size: 12px;
+        font-weight: 600;
+        color: #374151;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        transition: all 0.2s ease;
+    }
+    .map-floating-btn:hover {
+        background: #f3f4f6;
+        border-color: #9ca3af;
+    }
+
     #interactive-map {
         width: 100%;
         margin: 0;
         border-radius: 0;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        border-top: 4px solid white;
-        border-bottom: 4px solid white;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         z-index: 1;
     }
+
+    /* Industry Marker Variants & Pulsing Effects */
     .leaflet-custom-marker {
-        background-color: #0f766e;
+        width: 24px !important;
+        height: 24px !important;
         border-radius: 50%;
         border: 2px solid white;
-        box-shadow: 0 0 10px #0f766e, 0 0 20px #0f766e;
-        animation: pulse-marker 2s infinite;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
     }
-    @keyframes pulse-marker {
-        0% { box-shadow: 0 0 0 0 rgba(15, 118, 110, 0.7); }
-        70% { box-shadow: 0 0 0 10px rgba(15, 118, 110, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(15, 118, 110, 0); }
+    .leaflet-custom-marker svg {
+        width: 12px;
+        height: 12px;
+        display: block;
+        pointer-events: none;
+    }
+    .leaflet-custom-marker:hover {
+        transform: scale(1.35);
+        z-index: 1000 !important;
+    }
+    
+    .leaflet-custom-marker.marker-pulp_paper {
+        background-color: #10b981;
+        box-shadow: 0 0 10px #10b981, 0 0 20px #10b981;
+        animation: pulse-pulp 2s infinite ease-in-out;
+    }
+    .leaflet-custom-marker.marker-chemical {
+        background-color: #06b6d4;
+        box-shadow: 0 0 10px #06b6d4, 0 0 20px #06b6d4;
+        animation: pulse-chemical 2s infinite ease-in-out;
+    }
+    .leaflet-custom-marker.marker-energy {
+        background-color: #f59e0b;
+        box-shadow: 0 0 10px #f59e0b, 0 0 20px #f59e0b;
+        animation: pulse-energy 2s infinite ease-in-out;
+    }
+    .leaflet-custom-marker.marker-manufacturing {
+        background-color: #8b5cf6;
+        box-shadow: 0 0 10px #8b5cf6, 0 0 20px #8b5cf6;
+        animation: pulse-manufacturing 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-pulp {
+        0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.8); }
+        70% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    @keyframes pulse-chemical {
+        0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.8); }
+        70% { box-shadow: 0 0 0 14px rgba(6, 182, 212, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+    }
+    @keyframes pulse-energy {
+        0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.8); }
+        70% { box-shadow: 0 0 0 14px rgba(245, 158, 11, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    }
+    @keyframes pulse-manufacturing {
+        0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.8); }
+        70% { box-shadow: 0 0 0 14px rgba(139, 92, 246, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+    }
+
+    /* Map Legend Overlay */
+    .map-legend {
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 12px 18px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        backdrop-filter: blur(4px);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #374151;
+    }
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .legend-dot {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .legend-dot svg {
+        width: 11px;
+        height: 11px;
+        display: block;
+    }
+    .legend-dot.dot-pulp_paper { background-color: #10b981; box-shadow: 0 0 6px #10b981; }
+    .legend-dot.dot-chemical { background-color: #06b6d4; box-shadow: 0 0 6px #06b6d4; }
+    .legend-dot.dot-energy { background-color: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
+    .legend-dot.dot-manufacturing { background-color: #8b5cf6; box-shadow: 0 0 6px #8b5cf6; }
+
+    @media (max-width: 768px) {
+        .map-overlay-text {
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            max-width: none;
+            padding: 10px 16px;
+        }
+        .map-floating-controls {
+            top: 90px;
+            left: 12px;
+            right: 12px;
+            justify-content: space-between;
+        }
+        .map-floating-select {
+            flex: 1;
+            min-width: 100px;
+        }
+        .map-legend {
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            justify-content: center;
+            padding: 10px;
+            gap: 12px;
+            font-size: 11px;
+        }
     }
 </style>
 
@@ -957,27 +1260,85 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="home-section">
         <div class="about-grid">
             <div class="about-content">
-                <h3>About Us</h3>
-                <h2>Who We Are</h2>
-                <p>With years of experience in providing industrial solutions, we are committed to delivering the highest quality products and services to our clients. At the heart of our mission is a dedication to reliability, innovation, and exceptional customer satisfaction. Our comprehensive approach ensures that every solution is tailored to meet the unique needs of diverse industries.</p>
-                <a href="/about-us" class="about-btn">Read More</a>
+                <h3>About PT Misuba Guna Indonesia</h3>
+                <h2>Built on Trust, Driven by Excellence</h2>
+                <p>Established in <strong>2020</strong>, PT Misuba Guna Indonesia is an authorized global partner and trusted supplier of industrial mechanical engineering, electrical services, thermal expansion systems, and technical components across Indonesia.</p>
+                <p>We deliver high-quality products, competitive pricing, precise execution, and rapid field technical support tailored to the demanding operational needs of <strong>Pulp & Paper, Oleochemicals, Energy & Mining, and Manufacturing</strong> plants nationwide.</p>
+                
+                <div class="about-pillars">
+                    <div class="pillar-item">
+                        <div class="pillar-icon">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Prioritize Quality</strong>
+                            <span>Certified global brands & top-grade materials</span>
+                        </div>
+                    </div>
+                    <div class="pillar-item">
+                        <div class="pillar-icon">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>On-Time Delivery</strong>
+                            <span>Fast response & zero unnecessary downtime</span>
+                        </div>
+                    </div>
+                    <div class="pillar-item">
+                        <div class="pillar-icon">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Right Solution</strong>
+                            <span>Custom engineering sizing & technical selection</span>
+                        </div>
+                    </div>
+                    <div class="pillar-item">
+                        <div class="pillar-icon">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <strong>Exceptional Support</strong>
+                            <span>Field engineering assistance & long-term care</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-action-btns">
+                    <a href="/about-us" class="about-btn">Read Full Profile</a>
+                    <a href="/wp-content/uploads/2023/11/Misuba-Guna-Indonesia-Company-Profile_Interactive.pdf" target="_blank" class="about-btn-secondary">
+                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Company Profile (PDF)
+                    </a>
+                </div>
             </div>
+
             <div class="stats-grid">
                 <div class="stat-box">
-                    <div class="stat-number" data-target="15">0</div>
-                    <div class="stat-label">Years of Industry Expertise</div>
+                    <div class="stat-number" data-target="2020" data-suffix="">0</div>
+                    <div class="stat-label">Year Established</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number" data-target="100">0</div>
-                    <div class="stat-label">Satisfied Clients</div>
+                    <div class="stat-number" data-target="200" data-suffix="+">0</div>
+                    <div class="stat-label">Satisfied Industrial Clients</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number" data-target="500">0</div>
-                    <div class="stat-label">Successful Projects Delivered</div>
+                    <div class="stat-number" data-target="4" data-suffix=" Heavy">0</div>
+                    <div class="stat-label">Core Industry Sectors</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number" data-target="20">0</div>
-                    <div class="stat-label">Global Partners Supporting Us</div>
+                    <div class="stat-number" data-target="100" data-suffix="%">0</div>
+                    <div class="stat-label">Quality & On-Time Commitment</div>
                 </div>
             </div>
         </div>
@@ -1029,6 +1390,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="map-pin" style="top: 56%; left: 20%;"><span class="pin-tooltip">PT. Priamanaya Energi</span></div>
                 <div class="map-pin" style="top: 57%; left: 20.5%;"><span class="pin-tooltip">PT. Dizamatra Powerindo</span></div>
                 <div class="map-pin" style="top: 36%; left: 18.5%;"><span class="pin-tooltip">PT. Riau Andalan Pulp and Paper</span></div>
+                <div class="map-pin" style="top: 44%; left: 19%;"><span class="pin-tooltip">PT. Lontar Papyrus Pulp & Paper Industry (LPPPI)</span></div>
                 
                 <!-- Java -->
                 <div class="map-pin" style="top: 72%; left: 30.5%;"><span class="pin-tooltip">PT. Arwana Anugerah Keramik. Tbk</span></div>
@@ -1059,11 +1421,38 @@ document.addEventListener('DOMContentLoaded', function() {
     <!-- Interactive Map Section -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <div class="home-section interactive-map-section">
-        <div class="map-overlay-text">
-            <h2 class="map-overlay-title">Client Locations</h2>
-            <p class="map-overlay-subtitle">Serving industrial partners across Indonesia.</p>
+        <div class="map-section-header">
+            <h2 class="map-section-title">Client Locations</h2>
+            <p class="map-section-subtitle">Featured key plant facilities across Indonesia (part of 200+ satisfied clients nationwide).</p>
         </div>
-        <div id="interactive-map" style="height: 600px;"></div>
+
+        <div class="map-container-relative">
+            <div class="map-floating-controls">
+                <select id="map-client-select" class="map-floating-select">
+                    <option value="">🎯 Jump to Location...</option>
+                </select>
+
+                <select id="map-style-select" class="map-floating-select style-select">
+                    <option value="osm">🗺️ Open Color Map</option>
+                    <option value="satellite">🛰️ Satellite View</option>
+                    <option value="topo">🏔️ Topographic Map</option>
+                    <option value="muted">🌫️ Muted Light</option>
+                </select>
+
+                <button id="map-reset-btn" class="map-floating-btn" title="Reset Indonesia View">
+                    🇮🇩 Reset
+                </button>
+            </div>
+
+            <div id="interactive-map" style="height: 600px;"></div>
+
+            <div class="map-legend">
+                <div class="legend-item"><span class="legend-dot dot-pulp_paper"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span> Pulp & Paper</div>
+                <div class="legend-item"><span class="legend-dot dot-chemical"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.313a1 1 0 0 1-.118.474L5.14 19.24A1 1 0 0 0 6.04 20.7h11.92a1 1 0 0 0 .9-1.46L14.118 9.787A1 1 0 0 1 14 9.313V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/><line x1="7.5" y1="15" x2="16.5" y2="15"/></svg></span> Chemicals & Oleo</div>
+                <div class="legend-item"><span class="legend-dot dot-energy"><svg viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg></span> Energy, Mining & Gas</div>
+                <div class="legend-item"><span class="legend-dot dot-manufacturing"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V10l4 2V10l4 2V8l5 3V4h4v16H4z"/></svg></span> Cement & Manufacturing</div>
+            </div>
+        </div>
     </div>
 
     <!-- Contact CTA Section -->
@@ -1082,79 +1471,212 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('interactive-map')) {
         var map = L.map('interactive-map', {scrollWheelZoom: false}).setView([-0.789, 113.921], 5);
         
-        // Add CartoDB Positron (Light Mode) tiles
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: 'abcd',
-            maxZoom: 20
-        }).addTo(map);
+        // Define tile layers for dynamic map style control
+        var tileLayers = {
+            'osm': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                subdomains: 'abc',
+                maxZoom: 19
+            }),
+            'satellite': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri',
+                maxZoom: 18
+            }),
+            'topo': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri',
+                maxZoom: 18
+            }),
+            'muted': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri',
+                maxZoom: 16
+            })
+        };
 
-        var customIcon = L.divIcon({
-            className: 'leaflet-custom-marker',
-            iconSize: [14, 14],
-            iconAnchor: [7, 7]
-        });
+        var currentTileLayer = tileLayers.osm;
+        currentTileLayer.addTo(map);
+
+        setTimeout(function() {
+            map.invalidateSize();
+        }, 300);
+
+        // Map style switcher listener
+        var styleSelect = document.getElementById('map-style-select');
+        if (styleSelect) {
+            styleSelect.addEventListener('change', function(e) {
+                var selectedStyle = e.target.value;
+                if (tileLayers[selectedStyle]) {
+                    map.removeLayer(currentTileLayer);
+                    currentTileLayer = tileLayers[selectedStyle];
+                    currentTileLayer.addTo(map);
+                }
+            });
+        }
+
+        var industryLabels = {
+            'pulp_paper': 'Pulp & Paper',
+            'chemical': 'Chemicals & Oleo',
+            'energy': 'Energy, Mining & Gas',
+            'manufacturing': 'Cement & Manufacturing'
+        };
+
+        var industryColors = {
+            'pulp_paper': '#10b981',
+            'chemical': '#06b6d4',
+            'energy': '#f59e0b',
+            'manufacturing': '#8b5cf6'
+        };
+
+        var industryIcons = {
+            'pulp_paper': '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+            'chemical': '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.313a1 1 0 0 1-.118.474L5.14 19.24A1 1 0 0 0 6.04 20.7h11.92a1 1 0 0 0 .9-1.46L14.118 9.787A1 1 0 0 1 14 9.313V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/><line x1="7.5" y1="15" x2="16.5" y2="15"/></svg>',
+            'energy': '<svg viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>',
+            'manufacturing': '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V10l4 2V10l4 2V8l5 3V4h4v16H4z"/></svg>'
+        };
 
         var clients = [
-            {name: "PT. Toba Pulp Lestari, Tbk", lat: 2.45, lng: 99.15},
-            {name: "PT. Padang Raya Cakrawala", lat: -0.95, lng: 100.35},
-            {name: "PT. Calang Sejati Indah", lat: 4.63, lng: 95.58},
-            {name: "PT. Sari Dumai Sejati", lat: 1.68, lng: 101.45},
-            {name: "PT. Sari Dumai Oleo", lat: 1.69, lng: 101.46},
-            {name: "PT. Apical Kao Chemical", lat: 1.70, lng: 101.44},
-            {name: "PT. Oki Pulp & Paper", lat: -3.05, lng: 105.20},
-            {name: "PT. Indah Kiat Pulp & Paper Perawang", lat: 0.67, lng: 101.60},
-            {name: "PT. Pratama Nusantara Sakti", lat: -3.20, lng: 105.30},
-            {name: "PT. Priamanaya Energi", lat: -3.75, lng: 103.55},
-            {name: "PT. Dizamatra Powerindo", lat: -3.76, lng: 103.56},
-            {name: "PT. Riau Andalan Pulp and Paper", lat: 0.40, lng: 101.85},
-            {name: "PT. Arwana Anugerah Keramik. Tbk", lat: -6.15, lng: 106.35},
-            {name: "PT. Styrindo Mono Indonesia", lat: -5.95, lng: 106.00},
-            {name: "PT. Indah Kiat Pulp & Paper Tbk", lat: -6.05, lng: 106.25},
-            {name: "PT. Cemindo Gemilang Tbk", lat: -6.90, lng: 106.25},
-            {name: "PT. Pindo Deli Pulp & Paper 1 & 2", lat: -6.35, lng: 107.30},
-            {name: "PT. Lotus Lingga Pratama", lat: -6.90, lng: 107.60},
-            {name: "PT. Solusi Bangun Indonesia", lat: -7.70, lng: 109.00},
-            {name: "PT Pabrik Kertas Tjiwi Kimia Tbk", lat: -7.45, lng: 112.45},
-            {name: "PT Excel Techno Lestari", lat: -6.30, lng: 107.15},
-            {name: "PT. Indonesia Chemical Alumina", lat: -0.05, lng: 110.10},
-            {name: "PT. SKS Listrik Kalimantan", lat: -1.25, lng: 113.80},
-            {name: "PT. Kutai Refinery Nusantara", lat: -1.20, lng: 116.85},
-            {name: "PT. Kayan LNG Nusantara", lat: 3.35, lng: 117.60},
-            {name: "PT. Kayan Putra Utama Coal", lat: 4.10, lng: 117.20},
-            {name: "PT. Phoenix Resource International", lat: 3.36, lng: 117.61},
-            {name: "PT. Vale Indonesia Tbk", lat: -2.55, lng: 121.35}
+            {name: "PT. Toba Pulp Lestari, Tbk", lat: 2.435, lng: 99.155, industry: "pulp_paper"},
+            {name: "PT. Padang Raya Cakrawala", lat: -0.998, lng: 100.375, industry: "chemical"},
+            {name: "PT. Calang Sejati Indah", lat: 4.635, lng: 95.595, industry: "manufacturing"},
+            {name: "PT. Sari Dumai Sejati", lat: 1.670, lng: 101.370, industry: "chemical"},
+            {name: "PT. Sari Dumai Oleo", lat: 1.672, lng: 101.378, industry: "chemical"},
+            {name: "PT. Apical Kao Chemical", lat: 1.675, lng: 101.382, industry: "chemical"},
+            {name: "PT. Oki Pulp & Paper", lat: -2.755, lng: 105.050, industry: "pulp_paper"},
+            {name: "PT. Indah Kiat Pulp & Paper Perawang", lat: 0.665, lng: 101.605, industry: "pulp_paper"},
+            {name: "PT. Lontar Papyrus Pulp & Paper Industry (LPPPI)", lat: -1.145, lng: 103.115, industry: "pulp_paper"},
+            {name: "PT. Pratama Nusantara Sakti", lat: -3.350, lng: 105.150, industry: "manufacturing"},
+            {name: "PT. Priamanaya Energi", lat: -3.790, lng: 103.530, industry: "energy"},
+            {name: "PT. Dizamatra Powerindo", lat: -3.760, lng: 103.560, industry: "energy"},
+            {name: "PT. Riau Andalan Pulp and Paper", lat: 0.405, lng: 101.860, industry: "pulp_paper"},
+            {name: "PT. Arwana Anugerah Keramik. Tbk", lat: -6.180, lng: 106.360, industry: "manufacturing"},
+            {name: "PT. Styrindo Mono Indonesia", lat: -5.990, lng: 106.015, industry: "chemical"},
+            {name: "PT. Indah Kiat Pulp & Paper Tbk (Serang)", lat: -6.130, lng: 106.240, industry: "pulp_paper"},
+            {name: "PT. Indah Kiat Pulp & Paper Tbk (Tangerang)", lat: -6.246, lng: 106.652, industry: "pulp_paper"},
+            {name: "PT. Cemindo Gemilang Tbk", lat: -6.910, lng: 106.255, industry: "manufacturing"},
+            {name: "PT. Pindo Deli Pulp & Paper 1 & 2", lat: -6.350, lng: 107.300, industry: "pulp_paper"},
+            {name: "PT. Lotus Lingga Pratama", lat: -6.900, lng: 107.600, industry: "manufacturing"},
+            {name: "PT. Solusi Bangun Indonesia Tbk (Cilacap)", lat: -7.715, lng: 109.005, industry: "manufacturing"},
+            {name: "PT. Solusi Bangun Indonesia Tbk (Tuban)", lat: -6.814, lng: 111.886, industry: "manufacturing"},
+            {name: "PT Pabrik Kertas Tjiwi Kimia Tbk", lat: -7.450, lng: 112.450, industry: "pulp_paper"},
+            {name: "PT Excel Techno Lestari", lat: -6.300, lng: 107.150, industry: "pulp_paper"},
+            {name: "PT. Indonesia Chemical Alumina", lat: -0.050, lng: 110.100, industry: "chemical"},
+            {name: "PT. SKS Listrik Kalimantan", lat: -1.250, lng: 113.800, industry: "energy"},
+            {name: "PT. Kutai Refinery Nusantara", lat: -1.185, lng: 116.825, industry: "chemical"},
+            {name: "PT. Kayan LNG Nusantara", lat: 3.355, lng: 117.560, industry: "energy"},
+            {name: "PT. Kayan Putra Utama Coal", lat: 4.100, lng: 117.200, industry: "energy"},
+            {name: "PT. Phoenix Resource International", lat: 3.365, lng: 117.555, industry: "pulp_paper"},
+            {name: "PT. Tanjungenim Lestari Pulp & Paper (TEL)", lat: -3.600, lng: 103.850, industry: "pulp_paper"},
+            {name: "PT. DSSP Power Kendari", lat: -4.051, lng: 122.653, industry: "energy"},
+            {name: "PT. Vale Indonesia Tbk", lat: -2.525, lng: 121.345, industry: "energy"}
         ];
 
-        clients.forEach(function(client) {
-            L.marker([client.lat, client.lng], {icon: customIcon})
-                .addTo(map)
-                .bindPopup('<b>' + client.name + '</b>');
+        var markersByName = {};
+
+        // Populate client dropdown
+        var clientSelect = document.getElementById('map-client-select');
+        var sortedClients = clients.slice().sort((a,b) => a.name.localeCompare(b.name));
+        
+        if (clientSelect) {
+            sortedClients.forEach(function(c) {
+                var opt = document.createElement('option');
+                opt.value = c.name;
+                opt.textContent = c.name + ' (' + (industryLabels[c.industry] || 'Client') + ')';
+                clientSelect.appendChild(opt);
+            });
+
+            clientSelect.addEventListener('change', function(e) {
+                var selectedName = e.target.value;
+                if (!selectedName) return;
+                
+                var item = markersByName[selectedName];
+                if (item) {
+                    map.flyTo([item.lat, item.lng], 9, {
+                        duration: 1.5,
+                        easeLinearity: 0.25
+                    });
+                    setTimeout(function() {
+                        item.marker.openPopup();
+                    }, 1200);
+                }
+            });
+        }
+
+        window.zoomToMarker = function(lat, lng) {
+            map.flyTo([lat, lng], 9, { duration: 1.2 });
+        };
+
+        clients.forEach(function(client, idx) {
+            var iconClass = 'leaflet-custom-marker marker-' + client.industry;
+            var svgContent = industryIcons[client.industry] || '';
+            var customIcon = L.divIcon({
+                className: iconClass,
+                html: svgContent,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12]
+            });
+            var marker = L.marker([client.lat, client.lng], {icon: customIcon}).addTo(map);
+
+            if (marker._icon) {
+                marker._icon.style.animationDelay = (idx % 5 * 0.4) + 's';
+            }
+
+            var industryLabel = industryLabels[client.industry] || 'Industrial Partner';
+            var industryColor = industryColors[client.industry] || '#0f766e';
+
+            var popupContent = '<div style="padding: 4px; min-width: 180px;">' +
+                '<span style="display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 12px; background: ' + industryColor + '20; color: ' + industryColor + ';">' + industryLabel + '</span>' +
+                '<h4 style="margin: 6px 0 10px 0; font-size: 13px; font-weight: 700; color: #111827; line-height: 1.3;">' + client.name + '</h4>' +
+                '<button onclick="zoomToMarker(' + client.lat + ', ' + client.lng + ')" style="display: block; width: 100%; text-align: center; padding: 6px 10px; font-size: 11px; font-weight: 600; color: #ffffff; background: ' + industryColor + '; border: none; border-radius: 6px; cursor: pointer; transition: opacity 0.2s;">🔍 Focus Location</button>' +
+                '</div>';
+
+            marker.bindPopup(popupContent);
+
+            markersByName[client.name] = {
+                client: client,
+                lat: client.lat,
+                lng: client.lng,
+                marker: marker
+            };
         });
+
+        // Reset View button handler
+        var resetBtn = document.getElementById('map-reset-btn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function() {
+                map.setView([-0.789, 113.921], 5);
+                if (clientSelect) clientSelect.value = '';
+            });
+        }
     }
 
     // Animate Counter Numbers on scroll
     const counters = document.querySelectorAll('.stat-number');
-    const speed = 200; // The lower the slower
 
     const animateCounters = () => {
         counters.forEach(counter => {
-            const updateCount = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText.replace('+', '');
-                
-                // Lower inc to slow and higher to speed up
-                const inc = target / speed;
+            const target = +counter.getAttribute('data-target');
+            const suffix = counter.getAttribute('data-suffix') !== null ? counter.getAttribute('data-suffix') : '+';
+            const prefix = counter.getAttribute('data-prefix') || '';
+            const duration = 1200; // Total animation duration in ms
+            const steps = 40;
+            const stepTime = duration / steps;
+            let currentStep = 0;
 
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + inc) + "+";
-                    setTimeout(updateCount, 20);
-                } else {
-                    counter.innerText = target + "+";
+            if (isNaN(target)) {
+                counter.innerText = prefix + counter.getAttribute('data-target') + suffix;
+                return;
+            }
+
+            const timer = setInterval(() => {
+                currentStep++;
+                const progress = currentStep / steps;
+                const currentVal = Math.round(target * progress);
+                counter.innerText = prefix + currentVal + suffix;
+
+                if (currentStep >= steps) {
+                    counter.innerText = prefix + target + suffix;
+                    clearInterval(timer);
                 }
-            };
-
-            updateCount();
+            }, stepTime);
         });
     };
 

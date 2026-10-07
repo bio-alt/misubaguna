@@ -14,11 +14,11 @@ class ServiceController extends Controller
     public function index()
     {
         $page = PublicPage::where('url_path', '/services/')->first() ?? (object) [
-            'title' => 'Industrial Engineering Services | PT Misuba Guna Indonesia',
+            'title' => 'Industrial Engineering & Technical Services | PT Misuba Guna Indonesia',
             'headline' => 'Industrial Field Services & Technical Repair',
-            'summary' => 'PT Misuba Guna Indonesia provides comprehensive industrial services including cooling tower repair, heat exchanger service, thermal spray coating, protective lining, expansion joint installation, and on-site mechanical maintenance.',
+            'summary' => 'PT Misuba Guna Indonesia provides comprehensive industrial plant maintenance services including cooling tower repair, heat exchanger retubing, thermal spray coating, protective lining, expansion joint replacement, and rotating equipment overhaul.',
             'url_path' => '/services/',
-            'canonical_url' => url('/services/'),
+            'canonical_url' => PublicSeo::canonicalUrl('/services/'),
             'robots_index' => true,
             'robots_follow' => true,
         ];
@@ -28,13 +28,37 @@ class ServiceController extends Controller
         $seo = PublicSeo::buildSeoData($page, $siteSettings);
 
         $breadcrumbs = [
-            ['name' => 'Home', 'url' => url('/')],
-            ['name' => 'Services', 'url' => url('/services/')],
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'Industrial Services', 'url' => '/services/'],
+        ];
+
+        $serviceItems = [];
+        foreach ($services as $idx => $s) {
+            $serviceItems[] = [
+                '@type' => 'ListItem',
+                'position' => $idx + 1,
+                'name' => $s->name,
+                'url' => PublicSeo::canonicalUrl('/services/' . $s->slug . '/'),
+            ];
+        }
+
+        $collectionSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'CollectionPage',
+            'name' => 'Industrial Engineering & Field Maintenance Services | PT Misuba Guna Indonesia',
+            'description' => 'Comprehensive industrial plant maintenance and field repair services across Indonesia.',
+            'url' => PublicSeo::canonicalUrl('/services/'),
+            'mainEntity' => [
+                '@type' => 'ItemList',
+                'numberOfItems' => count($serviceItems),
+                'itemListElement' => $serviceItems,
+            ],
         ];
 
         $seo['schema_json'] = [
             PublicSeo::organizationSchema($siteSettings),
             PublicSeo::breadcrumbSchema($breadcrumbs),
+            $collectionSchema,
         ];
 
         return view('public.services.index', compact('page', 'services', 'seo', 'siteSettings', 'breadcrumbs'));
@@ -56,9 +80,9 @@ class ServiceController extends Controller
         $seo = PublicSeo::buildSeoData($service, $siteSettings);
 
         $breadcrumbs = [
-            ['name' => 'Home', 'url' => url('/')],
-            ['name' => 'Services', 'url' => url('/services/')],
-            ['name' => $service->name, 'url' => url($service->url_path)],
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'Services', 'url' => '/services/'],
+            ['name' => $service->name, 'url' => $service->url_path ?: ('/services/' . $service->slug . '/')],
         ];
 
         $seo['schema_json'] = [

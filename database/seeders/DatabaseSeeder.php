@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PublicSiteSeeder::class,
             PublicSiteContentSeeder::class,
+            FiltrationClarificationSeeder::class,
         ]);
 
         User::firstOrCreate(

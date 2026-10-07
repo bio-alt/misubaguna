@@ -33,6 +33,8 @@ Route::get('/services/{slug}/', [ServiceController::class, 'show'])->name('publi
 
 Route::get('/toolkit/', [ToolkitController::class, 'index'])->name('public.toolkit.index');
 Route::get('/toolkit/flange-standards/', [ToolkitController::class, 'flangeStandards'])->name('public.toolkit.flange-standards');
+Route::get('/toolkit/calculator/', [ToolkitController::class, 'calculator'])->name('public.toolkit.calculator');
+Route::get('/toolkit/material-specs/', [ToolkitController::class, 'materialSpecs'])->name('public.toolkit.material-specs');
 
 Route::get('/sitemap.xml', function () {
     $pages = PublicPage::where('is_published', true)->where('sitemap_include', true)->get();
@@ -40,14 +42,37 @@ Route::get('/sitemap.xml', function () {
     $categories = PublicProductCategory::where('is_published', true)->where('sitemap_include', true)->get();
     $services = PublicService::where('is_published', true)->where('sitemap_include', true)->get();
 
-    return response()->view('public.sitemap', compact('pages', 'products', 'categories', 'services'))
+    $toolkits = [
+        ['loc' => '/toolkit/', 'priority' => '0.8', 'changefreq' => 'weekly'],
+        ['loc' => '/toolkit/flange-standards/', 'priority' => '0.8', 'changefreq' => 'monthly'],
+        ['loc' => '/toolkit/calculator/', 'priority' => '0.8', 'changefreq' => 'monthly'],
+        ['loc' => '/toolkit/material-specs/', 'priority' => '0.8', 'changefreq' => 'monthly'],
+    ];
+
+    return response()->view('public.sitemap', compact('pages', 'products', 'categories', 'services', 'toolkits'))
         ->header('Content-Type', 'application/xml');
 })->name('public.sitemap');
 
 Route::get('/robots.txt', function () {
     return response()->view('public.robots')
-        ->header('Content-Type', 'text/plain');
+        ->header('Content-Type', 'text/plain; charset=utf-8');
 })->name('public.robots');
+
+Route::get('/llms.txt', function () {
+    $file = public_path('llms.txt');
+    if (file_exists($file)) {
+        return response(file_get_contents($file), 200, ['Content-Type' => 'text/plain; charset=utf-8']);
+    }
+    abort(404);
+})->name('public.llms');
+
+Route::get('/llms-full.txt', function () {
+    $file = public_path('llms-full.txt');
+    if (file_exists($file)) {
+        return response(file_get_contents($file), 200, ['Content-Type' => 'text/plain; charset=utf-8']);
+    }
+    abort(404);
+})->name('public.llms-full');
 
 Route::redirect('/indexpage', '/', 301);
 Route::redirect('/indexpage/', '/', 301);

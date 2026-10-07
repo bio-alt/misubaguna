@@ -15,6 +15,23 @@ class ProjectController extends Controller
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
         $seo = PublicSeo::buildSeoData($page, $siteSettings);
 
-        return view('public.pages.projects', compact('page', 'seo', 'siteSettings'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'Project Experience & References', 'url' => '/project-list/'],
+        ];
+
+        $seo['schema_json'] = [
+            PublicSeo::organizationSchema($siteSettings),
+            PublicSeo::breadcrumbSchema($breadcrumbs),
+            [
+                '@context' => 'https://schema.org',
+                '@type' => 'CollectionPage',
+                'name' => 'Project References & Track Record | PT Misuba Guna Indonesia',
+                'description' => 'Industrial project reference list and completed maintenance track records by PT Misuba Guna Indonesia across power plants, paper mills, and petrochemical facilities.',
+                'url' => PublicSeo::canonicalUrl('/project-list/'),
+            ],
+        ];
+
+        return view('public.pages.projects', compact('page', 'seo', 'siteSettings', 'breadcrumbs'));
     }
 }
