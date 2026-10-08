@@ -427,7 +427,7 @@
     <header class="{{ request()->is('/') ? 'transparent-nav' : '' }}">
         <div class="nav-container">
             <a href="/" class="nav-logo">
-                <img src="https://misubaguna.com/wp-content/uploads/2021/07/2021-04-20-18_55_17-Window.jpg"
+                <img src="{{ asset('images/misuba-original-logo.png') }}"
                      alt="PT Misuba Guna Indonesia">
             </a>
 
@@ -471,7 +471,7 @@
     <div id="mob-backdrop"></div>
     <div id="mob-drawer">
         <div class="mob-head">
-            <img src="https://misubaguna.com/wp-content/uploads/2021/07/2021-04-20-18_55_17-Window.jpg" alt="Logo">
+            <img src="{{ asset('images/misuba-original-logo.png') }}" alt="Logo">
             <button class="mob-close-btn" id="mob-close" type="button">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
