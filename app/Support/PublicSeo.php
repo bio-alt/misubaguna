@@ -5,7 +5,7 @@ namespace App\Support;
 class PublicSeo
 {
     public const DEFAULT_DOMAIN = 'https://misubaguna.com';
-    public const DEFAULT_LOGO = 'https://misubaguna.com/images/misuba-original-logo.png';
+    public const DEFAULT_LOGO = 'https://misubaguna.com/images/misuba-logo.png';
     public const DEFAULT_DESC = 'PT Misuba Guna Indonesia provides high-performance industrial engineering products and plant maintenance services, specializing in expansion joints, sealing systems, corrosion protection linings, and equipment overhaul.';
 
     public static function canonicalUrl(?string $urlOrPath = '/'): string

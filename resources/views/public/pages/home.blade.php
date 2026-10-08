@@ -972,6 +972,18 @@
         animation: pulse-manufacturing 2s infinite ease-in-out;
     }
 
+    .leaflet-custom-marker.marker-agriculture {
+        background-color: #84cc16;
+        box-shadow: 0 0 10px #84cc16, 0 0 20px #84cc16;
+        animation: pulse-agriculture 2s infinite ease-in-out;
+    }
+
+    .leaflet-custom-marker.marker-fertilizer {
+        background-color: #f43f5e;
+        box-shadow: 0 0 10px #f43f5e, 0 0 20px #f43f5e;
+        animation: pulse-fertilizer 2s infinite ease-in-out;
+    }
+
     @keyframes pulse-pulp {
         0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.8); }
         70% { box-shadow: 0 0 0 14px rgba(16, 185, 129, 0); }
@@ -986,6 +998,16 @@
         0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.8); }
         70% { box-shadow: 0 0 0 14px rgba(245, 158, 11, 0); }
         100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    }
+    @keyframes pulse-agriculture {
+        0% { box-shadow: 0 0 0 0 rgba(132, 204, 22, 0.8); }
+        70% { box-shadow: 0 0 0 14px rgba(132, 204, 22, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(132, 204, 22, 0); }
+    }
+    @keyframes pulse-fertilizer {
+        0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.8); }
+        70% { box-shadow: 0 0 0 14px rgba(244, 63, 94, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
     }
     @keyframes pulse-manufacturing {
         0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.8); }
@@ -1034,6 +1056,8 @@
     .legend-dot.dot-chemical { background-color: #06b6d4; box-shadow: 0 0 6px #06b6d4; }
     .legend-dot.dot-energy { background-color: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
     .legend-dot.dot-manufacturing { background-color: #8b5cf6; box-shadow: 0 0 6px #8b5cf6; }
+    .legend-dot.dot-agriculture { background-color: #84cc16; box-shadow: 0 0 6px #84cc16; }
+    .legend-dot.dot-fertilizer { background-color: #f43f5e; box-shadow: 0 0 6px #f43f5e; }
 
     @media (max-width: 768px) {
         .map-overlay-text {
@@ -1073,7 +1097,7 @@
         <div class="hero-content">
             <h1 class="hero-title">{{ $page->headline ?? 'PT Misuba Guna Indonesia' }}</h1>
             <p class="hero-subtitle">{{ $page->excerpt ?? 'Partner with PT Misuba Guna Indonesia for reliable, high-quality technical solutions.' }}</p>
-            <a href="/catalogue/" class="hero-btn">
+            <a href="/catalog/" class="hero-btn">
                 Discover Our Catalog
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -1087,7 +1111,7 @@
         <img src="/images/hero/slider2.jpg" alt="Hero Background 2" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+2'">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Build on Trust, Driving on Excellence</h1>
+            <h2 class="hero-title">Build on Trust, Driving on Excellence</h2>
             <p class="hero-subtitle">We drive business forward with innovation, excellence, and trust across all our product lines.</p>
             <a href="/about-us/" class="hero-btn">
                 Learn About Us
@@ -1103,7 +1127,7 @@
         <img src="/images/hero/slider3.jpg" alt="Hero Background 3" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+3'">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Comprehensive Product Range</h1>
+            <h2 class="hero-title">Comprehensive Product Range</h2>
             <p class="hero-subtitle">From Flexible Joints to Sealing Systems, we provide industry-leading solutions for your needs.</p>
             <a href="/project-list/" class="hero-btn">
                 View Project List
@@ -1119,7 +1143,7 @@
         <img src="/images/hero/slider4.jpg" alt="Hero Background 4" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+4'">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Advanced Engineering Toolkit</h1>
+            <h2 class="hero-title">Advanced Engineering Toolkit</h2>
             <p class="hero-subtitle">Access our rich library of technical data, calculators, and detailed documentation.</p>
             <a href="{{ route('public.toolkit.index') }}" class="hero-btn">
                 Explore Toolkit
@@ -1135,7 +1159,7 @@
         <img src="/images/hero/slider5.jpg" alt="Hero Background 5" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+5'">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Industry Standard Solutions</h1>
+            <h2 class="hero-title">Industry Standard Solutions</h2>
             <p class="hero-subtitle">Serving major infrastructure and industrial projects across Indonesia since our establishment.</p>
             <a href="/project-list/" class="hero-btn">
                 Our Projects
@@ -1151,7 +1175,7 @@
         <img src="/images/hero/slider6.jpg" alt="Hero Background 6" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+6'">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="hero-title">Ready for Your Next Project?</h1>
+            <h2 class="hero-title">Ready for Your Next Project?</h2>
             <p class="hero-subtitle">Contact our expert team today for consultations, product sizing, and quotes.</p>
             <a href="/contact-us/" class="hero-btn">
                 Contact Us
@@ -1385,6 +1409,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="map-pin" style="top: 31%; left: 16.5%;"><span class="pin-tooltip">PT. Sari Dumai Oleo</span></div>
                 <div class="map-pin" style="top: 32%; left: 16%;"><span class="pin-tooltip">PT. Apical Kao Chemical</span></div>
                 <div class="map-pin" style="top: 52%; left: 21%;"><span class="pin-tooltip">PT. Oki Pulp & Paper</span></div>
+                <div class="map-pin" style="top: 51.500%; left: 21.500%;"><span class="pin-tooltip">PT. Pupuk Swadaya Purimas</span></div>
                 <div class="map-pin" style="top: 35%; left: 18%;"><span class="pin-tooltip">PT. Indah Kiat Pulp & Paper Perawang</span></div>
                 <div class="map-pin" style="top: 54%; left: 22%;"><span class="pin-tooltip">PT. Pratama Nusantara Sakti</span></div>
                 <div class="map-pin" style="top: 56%; left: 20%;"><span class="pin-tooltip">PT. Priamanaya Energi</span></div>
@@ -1451,6 +1476,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="legend-item"><span class="legend-dot dot-chemical"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.313a1 1 0 0 1-.118.474L5.14 19.24A1 1 0 0 0 6.04 20.7h11.92a1 1 0 0 0 .9-1.46L14.118 9.787A1 1 0 0 1 14 9.313V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/><line x1="7.5" y1="15" x2="16.5" y2="15"/></svg></span> Chemicals & Oleo</div>
                 <div class="legend-item"><span class="legend-dot dot-energy"><svg viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg></span> Energy, Mining & Gas</div>
                 <div class="legend-item"><span class="legend-dot dot-manufacturing"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V10l4 2V10l4 2V8l5 3V4h4v16H4z"/></svg></span> Cement & Manufacturing</div>
+                <div class="legend-item"><span class="legend-dot dot-agriculture"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8"/><path d="M12 8c0-3 2-5 5-6 0 3-2 5-5 6z"/><path d="M12 13c0-2-1.5-4-4.500-4.500 0 2.500 1.500 4 4.500 4.500z"/></svg></span> Cane Plantation & Sugar Factory</div>
+                <div class="legend-item"><span class="legend-dot dot-fertilizer"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.500-2.500.800-6.400 3-10"/><path d="M9.500 9.400c1.900.700 3 2.200 3.500 4.100"/><path d="M13 10c0-3 2-5 5-6-.500 3.500-2.500 5.500-5 6z"/></svg></span> Fertilizer</div>
             </div>
         </div>
     </div>
@@ -1516,21 +1543,27 @@ document.addEventListener('DOMContentLoaded', function() {
             'pulp_paper': 'Pulp & Paper',
             'chemical': 'Chemicals & Oleo',
             'energy': 'Energy, Mining & Gas',
-            'manufacturing': 'Cement & Manufacturing'
+            'manufacturing': 'Cement & Manufacturing',
+            'agriculture': 'Cane Plantation & Sugar Factory',
+            'fertilizer': 'Fertilizer'
         };
 
         var industryColors = {
             'pulp_paper': '#10b981',
             'chemical': '#06b6d4',
             'energy': '#f59e0b',
-            'manufacturing': '#8b5cf6'
+            'manufacturing': '#8b5cf6',
+            'agriculture': '#84cc16',
+            'fertilizer': '#f43f5e'
         };
 
         var industryIcons = {
             'pulp_paper': '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
             'chemical': '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.313a1 1 0 0 1-.118.474L5.14 19.24A1 1 0 0 0 6.04 20.7h11.92a1 1 0 0 0 .9-1.46L14.118 9.787A1 1 0 0 1 14 9.313V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/><line x1="7.5" y1="15" x2="16.5" y2="15"/></svg>',
             'energy': '<svg viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>',
-            'manufacturing': '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V10l4 2V10l4 2V8l5 3V4h4v16H4z"/></svg>'
+            'manufacturing': '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V10l4 2V10l4 2V8l5 3V4h4v16H4z"/></svg>',
+            'agriculture': '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8"/><path d="M12 8c0-3 2-5 5-6 0 3-2 5-5 6z"/><path d="M12 13c0-2-1.5-4-4.500-4.500 0 2.500 1.500 4 4.500 4.500z"/></svg>',
+            'fertilizer': '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.500-2.500.800-6.400 3-10"/><path d="M9.500 9.400c1.900.700 3 2.200 3.500 4.100"/><path d="M13 10c0-3 2-5 5-6-.500 3.500-2.500 5.500-5 6z"/></svg>'
         };
 
         var clients = [
@@ -1541,9 +1574,10 @@ document.addEventListener('DOMContentLoaded', function() {
             {name: "PT. Sari Dumai Oleo", lat: 1.672, lng: 101.378, industry: "chemical"},
             {name: "PT. Apical Kao Chemical", lat: 1.675, lng: 101.382, industry: "chemical"},
             {name: "PT. Oki Pulp & Paper", lat: -2.755, lng: 105.050, industry: "pulp_paper"},
+            {name: "PT. Pupuk Swadaya Purimas", lat: -2.740, lng: 105.075, industry: "fertilizer"},
             {name: "PT. Indah Kiat Pulp & Paper Perawang", lat: 0.665, lng: 101.605, industry: "pulp_paper"},
             {name: "PT. Lontar Papyrus Pulp & Paper Industry (LPPPI)", lat: -1.145, lng: 103.115, industry: "pulp_paper"},
-            {name: "PT. Pratama Nusantara Sakti", lat: -3.350, lng: 105.150, industry: "manufacturing"},
+            {name: "PT. Pratama Nusantara Sakti", lat: -3.350, lng: 105.150, industry: "agriculture"},
             {name: "PT. Priamanaya Energi", lat: -3.790, lng: 103.530, industry: "energy"},
             {name: "PT. Dizamatra Powerindo", lat: -3.760, lng: 103.560, industry: "energy"},
             {name: "PT. Riau Andalan Pulp and Paper", lat: 0.405, lng: 101.860, industry: "pulp_paper"},

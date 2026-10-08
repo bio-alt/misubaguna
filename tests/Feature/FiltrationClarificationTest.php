@@ -84,10 +84,65 @@ class FiltrationClarificationTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('/product-category/filtration-clarification/', false);
+        $response->assertSee('Filter Press & Cake Clarification', false);
+        $response->assertSee('Continuous Self-Cleaning', false);
+        $response->assertSee('Vessels & Cartridge Housings', false);
+        $response->assertSee('Separators & Media', false);
         $response->assertSee('/product/filter-plate-press/', false);
+        $response->assertSee('/product/pressure-leaf-filter/', false);
+        $response->assertSee('/product/candle-filter/', false);
         $response->assertSee('/product/scraping-self-cleaning-filter/', false);
         $response->assertSee('/product/automated-backwash-filter/', false);
-        $response->assertSee('/product/candle-filter/', false);
-        $response->assertSee('/product/pressure-leaf-filter/', false);
+        $response->assertSee('/product/modular-integrated-backwash-filter/', false);
+        $response->assertSee('/product/bag-filter-system/', false);
+        $response->assertSee('/product/cartridge-filter-housing/', false);
+        $response->assertSee('/product/basket-strainer-filter/', false);
+        $response->assertSee('/product/centrifugal-solid-liquid-separator/', false);
+        $response->assertSee('/product/magnetic-iron-remover/', false);
+        $response->assertSee('/product/filter-cartridges-bags-consumables/', false);
+        $response->assertSee('CPO Dewatering & Clarification', false);
+    }
+
+    public function test_filtration_product_images_are_accurate_and_exist_on_disk(): void
+    {
+        // 1. Filter Plate Press
+        $fpp = $this->get('/product/filter-plate-press/');
+        $fpp->assertStatus(200);
+        $fpp->assertSee('images/products/filtration/filter-plate-press/filter-plate-press-main.webp', false);
+        $fpp->assertSee('images/products/filtration/filter-plate-press/filter-plates-detail.webp', false);
+        $fpp->assertSee('images/products/filtration/filter-plate-press/filter-press-automated-plant.webp', false);
+
+        // 2. Candle Filter (CFC)
+        $cfc = $this->get('/product/candle-filter/');
+        $cfc->assertStatus(200);
+        $cfc->assertSee('images/products/filtration/candle-filter/cfc-candle-filter-main.webp', false);
+        $cfc->assertSee('images/products/filtration/candle-filter/cfc-candle-elements.webp', false);
+        $cfc->assertSee('images/products/filtration/candle-filter/cfc-bottom-discharge-valve.webp', false);
+
+        // 3. Pressure Leaf Filter (CFP)
+        $cfp = $this->get('/product/pressure-leaf-filter/');
+        $cfp->assertStatus(200);
+        $cfp->assertSee('images/products/filtration/pressure-leaf-filter/cfp-plate-filter-main.webp', false);
+        $cfp->assertSee('images/products/filtration/pressure-leaf-filter/cfp-leaf-screens-internal.webp', false);
+        $cfp->assertSee('images/products/filtration/pressure-leaf-filter/cfp-leaf-screen-plate.webp', false);
+        $cfp->assertSee('images/products/filtration/pressure-leaf-filter/cfp-vibrator-unit.webp', false);
+
+        // Verify physical presence of all images on disk
+        $expectedFiles = [
+            'public/images/products/filtration/filter-plate-press/filter-plate-press-main.webp',
+            'public/images/products/filtration/filter-plate-press/filter-plates-detail.webp',
+            'public/images/products/filtration/filter-plate-press/filter-press-automated-plant.webp',
+            'public/images/products/filtration/candle-filter/cfc-candle-filter-main.webp',
+            'public/images/products/filtration/candle-filter/cfc-candle-elements.webp',
+            'public/images/products/filtration/candle-filter/cfc-bottom-discharge-valve.webp',
+            'public/images/products/filtration/pressure-leaf-filter/cfp-plate-filter-main.webp',
+            'public/images/products/filtration/pressure-leaf-filter/cfp-leaf-screens-internal.webp',
+            'public/images/products/filtration/pressure-leaf-filter/cfp-leaf-screen-plate.webp',
+            'public/images/products/filtration/pressure-leaf-filter/cfp-vibrator-unit.webp',
+        ];
+
+        foreach ($expectedFiles as $file) {
+            $this->assertFileExists(base_path($file), "Expected image {$file} does not exist on disk.");
+        }
     }
 }

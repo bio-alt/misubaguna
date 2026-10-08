@@ -283,7 +283,7 @@
                 <span class="mega-sub">Extraction (PKE)</span>
                 <a class="mega-link" href="/product/palm-kernel-expeller/">Palm Kernel Expeller</a>
                 <a class="mega-link" href="/product/kernel-preparation-system/">Kernel Preparation System</a>
-                <span class="mega-sub">Filtration & Clarification</span>
+                <span class="mega-sub">CPO Dewatering & Clarification</span>
                 <a class="mega-link" href="/product/filter-plate-press/" style="font-weight:700;">Filter Plate Press</a>
                 <a class="mega-link" href="/product/pressure-leaf-filter/">Pressure Leaf Filter (CFP)</a>
                 <span class="mega-sub">Spares & Wear Parts</span>
@@ -292,20 +292,21 @@
             </div>
             <div>
                 <a href="/product-category/filtration-clarification/" style="text-decoration:none;"><span class="mega-col-title" style="color:#ef4444; border-bottom: 2px solid #ef4444;">Filtration & Clarification</span></a>
-                <span class="mega-sub">Filter Press & Cake</span>
+                <span class="mega-sub">Filter Press & Cake Clarification</span>
                 <a class="mega-link" href="/product/filter-plate-press/" style="font-weight:700; color:#dc2626;">Filter Plate Press</a>
-                <a class="mega-link" href="/product/pressure-leaf-filter/">CFP Seal Plate Filter</a>
-                <a class="mega-link" href="/product/candle-filter/">CFC Candle Filter</a>
-                <span class="mega-sub">Self-Cleaning Filters</span>
+                <a class="mega-link" href="/product/pressure-leaf-filter/">CFP Seal Plate & Leaf Filter</a>
+                <a class="mega-link" href="/product/candle-filter/">CFC Sealed Candle Filter</a>
+                <span class="mega-sub">Continuous Self-Cleaning</span>
                 <a class="mega-link" href="/product/scraping-self-cleaning-filter/">AF Scraping Filter</a>
-                <a class="mega-link" href="/product/automated-backwash-filter/">AR Auto Backwash</a>
-                <a class="mega-link" href="/product/modular-integrated-backwash-filter/">MIF Modular Filter</a>
-                <span class="mega-sub">Vessels & Separators</span>
+                <a class="mega-link" href="/product/automated-backwash-filter/">AR Auto Backwash Filter</a>
+                <a class="mega-link" href="/product/modular-integrated-backwash-filter/">MIF Modular Filter Skid</a>
+                <span class="mega-sub">Vessels & Cartridge Housings</span>
                 <a class="mega-link" href="/product/bag-filter-system/">BT Bag Filter System</a>
                 <a class="mega-link" href="/product/cartridge-filter-housing/">CT Cartridge Housing</a>
-                <a class="mega-link" href="/product/basket-strainer-filter/">ST Basket Strainer</a>
+                <a class="mega-link" href="/product/basket-strainer-filter/">ST Basket Strainer & Filter</a>
+                <span class="mega-sub">Separators & Media</span>
                 <a class="mega-link" href="/product/centrifugal-solid-liquid-separator/">CS Centrifugal Separator</a>
-                <a class="mega-link" href="/product/magnetic-iron-remover/">MS Magnetic Remover</a>
+                <a class="mega-link" href="/product/magnetic-iron-remover/">MS Magnetic Iron Remover</a>
                 <a class="mega-link" href="/product/filter-cartridges-bags-consumables/">Filter Cartridges & Bags</a>
             </div>
             <div>
@@ -427,7 +428,7 @@
     <header class="{{ request()->is('/') ? 'transparent-nav' : '' }}">
         <div class="nav-container">
             <a href="/" class="nav-logo">
-                <img src="{{ asset('images/misuba-original-logo.png') }}"
+                <img src="/images/misuba-logo.png"
                      alt="PT Misuba Guna Indonesia">
             </a>
 
@@ -471,7 +472,7 @@
     <div id="mob-backdrop"></div>
     <div id="mob-drawer">
         <div class="mob-head">
-            <img src="{{ asset('images/misuba-original-logo.png') }}" alt="Logo">
+            <img src="/images/misuba-logo.png" alt="Logo">
             <button class="mob-close-btn" id="mob-close" type="button">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -498,7 +499,7 @@
                     <span class="mob-sub-label">Extraction (PKE)</span>
                     <a class="mob-cat-link" href="/product/palm-kernel-expeller/">Palm Kernel Expeller</a>
                     <a class="mob-cat-link" href="/product/kernel-preparation-system/">Kernel Preparation System</a>
-                    <span class="mob-sub-label">Filtration & Clarification</span>
+                    <span class="mob-sub-label">CPO Dewatering & Clarification</span>
                     <a class="mob-cat-link" href="/product/filter-plate-press/" style="font-weight:700; color:#dc2626;">Filter Plate Press</a>
                     <a class="mob-cat-link" href="/product/pressure-leaf-filter/">Pressure Leaf Filter (CFP)</a>
                     <span class="mob-sub-label">Spares & Wear Parts</span>
@@ -512,19 +513,20 @@
                 </button>
                 <div class="mob-cat-links" id="mc-filtration">
                     <a class="mob-cat-link" href="/product-category/filtration-clarification/" style="font-weight:700; color:#dc2626;">View All Filtration Systems →</a>
-                    <span class="mob-sub-label">Filter Press & Cake</span>
+                    <span class="mob-sub-label">Filter Press & Cake Clarification</span>
                     <a class="mob-cat-link" href="/product/filter-plate-press/" style="font-weight:700; color:#dc2626;">Filter Plate Press</a>
                     <a class="mob-cat-link" href="/product/pressure-leaf-filter/">CFP Seal Plate & Leaf Filter</a>
                     <a class="mob-cat-link" href="/product/candle-filter/">CFC Sealed Candle Filter</a>
-                    <span class="mob-sub-label">Self-Cleaning Filters</span>
-                    <a class="mob-cat-link" href="/product/scraping-self-cleaning-filter/">AF Scraping Self-Cleaning Filter</a>
-                    <a class="mob-cat-link" href="/product/automated-backwash-filter/">AR Automated Backwash Filter</a>
-                    <a class="mob-cat-link" href="/product/modular-integrated-backwash-filter/">MIF Modular Integrated Filter</a>
-                    <span class="mob-sub-label">Vessels & Separators</span>
+                    <span class="mob-sub-label">Continuous Self-Cleaning</span>
+                    <a class="mob-cat-link" href="/product/scraping-self-cleaning-filter/">AF Scraping Filter</a>
+                    <a class="mob-cat-link" href="/product/automated-backwash-filter/">AR Auto Backwash Filter</a>
+                    <a class="mob-cat-link" href="/product/modular-integrated-backwash-filter/">MIF Modular Filter Skid</a>
+                    <span class="mob-sub-label">Vessels & Cartridge Housings</span>
                     <a class="mob-cat-link" href="/product/bag-filter-system/">BT Bag Filter System</a>
-                    <a class="mob-cat-link" href="/product/cartridge-filter-housing/">CT Cartridge Filter Housing</a>
+                    <a class="mob-cat-link" href="/product/cartridge-filter-housing/">CT Cartridge Housing</a>
                     <a class="mob-cat-link" href="/product/basket-strainer-filter/">ST Basket Strainer & Filter</a>
-                    <a class="mob-cat-link" href="/product/centrifugal-solid-liquid-separator/">CS Centrifugal Separator & RS Filter</a>
+                    <span class="mob-sub-label">Separators & Media</span>
+                    <a class="mob-cat-link" href="/product/centrifugal-solid-liquid-separator/">CS Centrifugal Separator</a>
                     <a class="mob-cat-link" href="/product/magnetic-iron-remover/">MS Magnetic Iron Remover</a>
                     <a class="mob-cat-link" href="/product/filter-cartridges-bags-consumables/">Filter Cartridges & Bags</a>
                 </div>
@@ -707,14 +709,16 @@
             color: #d1d5db;
             padding: 64px 32px 32px;
             font-family: 'Plus Jakarta Sans', sans-serif;
+            text-align: left;
         }
         .footer-grid {
             max-width: 1280px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 48px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 40px;
             margin-bottom: 48px;
+            align-items: start;
         }
         .footer-col h3 {
             color: #ffffff;
@@ -735,7 +739,7 @@
         }
         .footer-col p {
             line-height: 1.8;
-            margin-bottom: 16px;
+            margin: 0;
             font-size: 15px;
         }
         .footer-col a {
@@ -766,6 +770,11 @@
             padding-top: 32px;
             text-align: center;
             font-size: 14px;
+        }
+        @media (max-width: 1100px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
         @media (max-width: 768px) {
             .footer-grid {
