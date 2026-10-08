@@ -132,6 +132,28 @@
     font-size: 0.85rem;
     line-height: 1.5;
 }
+.product-narrative-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 12px 0;
+    font-size: 0.85rem;
+}
+.product-narrative-content th,
+.product-narrative-content td {
+    border: 1px solid #e5e7eb;
+    padding: 8px 12px;
+    text-align: left;
+}
+.product-narrative-content thead th {
+    background: #1f2937;
+    color: #ffffff;
+    font-weight: 700;
+}
+.product-narrative-content tbody th {
+    background: #f9fafb;
+    color: #1f2937;
+    font-weight: 600;
+}
 
 .catalog-section { margin-bottom: 18px; }
 .catalog-section:last-child { margin-bottom: 0; }

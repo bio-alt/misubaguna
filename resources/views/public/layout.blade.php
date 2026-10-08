@@ -282,12 +282,11 @@
                 <a href="/product-category/palm-oil-kernel-machinery/" style="text-decoration:none;"><span class="mega-col-title">Palm Oil & Kernel</span></a>
                 <span class="mega-sub">Extraction (PKE)</span>
                 <a class="mega-link" href="/product/palm-kernel-expeller/">Palm Kernel Expeller</a>
-                <a class="mega-link" href="/product/kernel-preparation-system/">Kernel Preparation System</a>
                 <span class="mega-sub">CPO Dewatering & Clarification</span>
                 <a class="mega-link" href="/product/filter-plate-press/" style="font-weight:700;">Filter Plate Press</a>
                 <a class="mega-link" href="/product/pressure-leaf-filter/">Pressure Leaf Filter (CFP)</a>
                 <span class="mega-sub">Spares & Wear Parts</span>
-                <a class="mega-link" href="/product/expeller-screws-wear-parts/">Expeller Worms & Cages</a>
+                <a class="mega-link" href="/product/expeller-screws-wear-parts/">Expeller Spare Parts</a>
                 <a class="mega-link" href="/product/filter-leaf-screens/">Filter Leaf Screens & Mesh</a>
             </div>
             <div>
@@ -498,12 +497,11 @@
                     <a class="mob-cat-link" href="/product-category/palm-oil-kernel-machinery/" style="font-weight:700; color:#dc2626;">View All Palm Oil Systems →</a>
                     <span class="mob-sub-label">Extraction (PKE)</span>
                     <a class="mob-cat-link" href="/product/palm-kernel-expeller/">Palm Kernel Expeller</a>
-                    <a class="mob-cat-link" href="/product/kernel-preparation-system/">Kernel Preparation System</a>
                     <span class="mob-sub-label">CPO Dewatering & Clarification</span>
                     <a class="mob-cat-link" href="/product/filter-plate-press/" style="font-weight:700; color:#dc2626;">Filter Plate Press</a>
                     <a class="mob-cat-link" href="/product/pressure-leaf-filter/">Pressure Leaf Filter (CFP)</a>
                     <span class="mob-sub-label">Spares & Wear Parts</span>
-                    <a class="mob-cat-link" href="/product/expeller-screws-wear-parts/">Expeller Worms & Cages</a>
+                    <a class="mob-cat-link" href="/product/expeller-screws-wear-parts/">Expeller Spare Parts</a>
                     <a class="mob-cat-link" href="/product/filter-leaf-screens/">Filter Leaf Screens & Mesh</a>
                 </div>
 
