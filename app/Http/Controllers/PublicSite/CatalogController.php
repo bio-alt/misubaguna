@@ -21,7 +21,7 @@ class CatalogController extends Controller
             ['name' => 'Product Catalog', 'url' => '/catalog/'],
         ];
 
-        $categories = PublicProductCategory::where('is_published', true)->orderBy('sort_order')->get();
+        $categories = PublicProductCategory::publishedWithProducts();
         $catItems = [];
         foreach ($categories as $i => $cat) {
             $catItems[] = [
@@ -39,7 +39,7 @@ class CatalogController extends Controller
                 '@context' => 'https://schema.org',
                 '@type' => 'CollectionPage',
                 'name' => 'Industrial Product Catalog | PT Misuba Guna Indonesia',
-                'description' => 'Comprehensive catalog of industrial engineering products: expansion joints, sealing systems, linings, hoses, and filtration equipment.',
+                'description' => 'Comprehensive catalog of industrial engineering products: expansion joints, sealing systems, linings, hoses, and related equipment.',
                 'url' => PublicSeo::canonicalUrl('/catalog/'),
                 'mainEntity' => [
                     '@type' => 'ItemList',

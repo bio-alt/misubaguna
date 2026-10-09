@@ -12,10 +12,6 @@ class ProductController extends Controller
 {
     public function show(string $slug)
     {
-        if ($slug === 'membrane-filter-press') {
-            return redirect('/product/filter-plate-press/', 301);
-        }
-
         $product = PublicProduct::where('slug', $slug)->where('is_published', true)->firstOrFail();
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
         $seo = PublicSeo::buildSeoData($product, $siteSettings);
@@ -25,12 +21,26 @@ class ProductController extends Controller
             ['name' => 'Catalog', 'url' => '/catalog/'],
         ];
 
+        $category = null;
+        $related = collect();
+
         if ($product->product_group) {
-            $cat = PublicProductCategory::where('name', $product->product_group)->first();
-            if ($cat) {
-                $breadcrumbs[] = ['name' => $cat->name, 'url' => '/product-category/' . $cat->slug . '/'];
+            $category = PublicProductCategory::where('name', $product->product_group)->where('is_published', true)->first();
+            if ($category) {
+                $breadcrumbs[] = ['name' => $category->name, 'url' => '/product-category/' . $category->slug . '/'];
             }
+
+            // Same group, closest subgroup first, so the buyer keeps browsing.
+            $related = PublicProduct::where('is_published', true)
+                ->where('product_group', $product->product_group)
+                ->where('id', '!=', $product->id)
+                ->orderByRaw('CASE WHEN product_subgroup = ? THEN 0 ELSE 1 END', [(string) $product->product_subgroup])
+                ->orderBy('sort_order')
+                ->limit(4)
+                ->get();
         }
+
+        $categoryCount = $category ? $category->productsQuery()->count() : 0;
 
         $breadcrumbs[] = ['name' => $product->title ?? $product->name, 'url' => $product->url_path ?: ('/product/' . $product->slug . '/')];
 
@@ -39,6 +49,6 @@ class ProductController extends Controller
             PublicSeo::breadcrumbSchema($breadcrumbs),
         ];
 
-        return view('public.pages.product', compact('product', 'seo', 'siteSettings', 'breadcrumbs'));
+        return view('public.pages.product', compact('product', 'seo', 'siteSettings', 'breadcrumbs', 'category', 'categoryCount', 'related'));
     }
 }

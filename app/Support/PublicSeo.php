@@ -90,9 +90,7 @@ class PublicSeo
                 'Cooling Tower Maintenance & Overhaul',
                 'Heat Exchanger Tube Cleaning & Retubing',
                 'Thermal Spray Coating',
-                'Industrial Filtration Systems',
                 'Pulp and Paper Mill Equipment',
-                'Palm Oil Mill Machinery',
             ],
         ];
     }

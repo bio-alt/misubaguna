@@ -39,7 +39,7 @@ Route::get('/toolkit/material-specs/', [ToolkitController::class, 'materialSpecs
 Route::get('/sitemap.xml', function () {
     $pages = PublicPage::where('is_published', true)->where('sitemap_include', true)->get();
     $products = PublicProduct::where('is_published', true)->where('sitemap_include', true)->get();
-    $categories = PublicProductCategory::where('is_published', true)->where('sitemap_include', true)->get();
+    $categories = PublicProductCategory::publishedWithProducts()->where('sitemap_include', true);
     $services = PublicService::where('is_published', true)->where('sitemap_include', true)->get();
 
     $toolkits = [

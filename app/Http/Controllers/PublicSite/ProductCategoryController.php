@@ -13,17 +13,16 @@ class ProductCategoryController extends Controller
     public function show(string $slug)
     {
         $category = PublicProductCategory::where('slug', $slug)->where('is_published', true)->firstOrFail();
+
+        $products = $category->productsQuery()->orderBy('sort_order')->get();
+
+        // A category with nothing in it is a dead end for visitors and search engines.
+        if ($products->isEmpty()) {
+            return redirect('/catalog/', 301);
+        }
+
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
         $seo = PublicSeo::buildSeoData($category, $siteSettings);
-
-        $products = PublicProduct::where('is_published', true)
-            ->where(function ($query) use ($category) {
-                $query->where('product_group', $category->name)
-                    ->orWhere('product_group', $category->parent_group)
-                    ->orWhere('product_subgroup', $category->name);
-            })
-            ->orderBy('sort_order')
-            ->get();
 
         $breadcrumbs = [
             ['name' => 'Home', 'url' => '/'],

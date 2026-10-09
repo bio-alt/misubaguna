@@ -24,4 +24,29 @@ class PublicProductCategory extends Model
         'schema_json' => 'array',
         'is_published' => 'boolean',
     ];
+
+    /**
+     * Published products that belong to this category.
+     */
+    public function productsQuery()
+    {
+        return PublicProduct::where('is_published', true)
+            ->where(function ($query) {
+                $query->where('product_group', $this->name)
+                    ->orWhere('product_group', $this->parent_group)
+                    ->orWhere('product_subgroup', $this->name);
+            });
+    }
+
+    /**
+     * Published categories that actually list at least one product.
+     */
+    public static function publishedWithProducts()
+    {
+        return static::where('is_published', true)
+            ->orderBy('sort_order')
+            ->get()
+            ->filter(fn (self $category) => $category->productsQuery()->exists())
+            ->values();
+    }
 }

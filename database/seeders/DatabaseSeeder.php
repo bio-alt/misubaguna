@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PublicSiteSeeder::class,
             PublicSiteContentSeeder::class,
-            FiltrationClarificationSeeder::class,
+            PaperPulpContentSeeder::class,
+            ThermalSystemsContentSeeder::class,
         ]);
 
         User::firstOrCreate(
