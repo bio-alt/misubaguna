@@ -1,0 +1,145 @@
+<?php
+
+namespace App\Http\Controllers\PublicSite;
+
+use App\Ejma\BellowsType;
+use App\Ejma\Data\MaterialRepository;
+use App\Ejma\EjmaCalculator;
+use App\Ejma\EjmaInputException;
+use App\Ejma\FormingCondition;
+use App\Ejma\FormingMethod;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\EjmaCalculationRequest;
+use App\Models\EjmaCalculation;
+use App\Support\PublicSeo;
+use Illuminate\Database\UniqueConstraintViolationException;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
+
+class EjmaCalculatorController extends Controller
+{
+    private const PATH = '/toolkit/ejma-bellows-calculator/';
+
+    /** Form fields an engine error may be reported on; anything else is shown as a general error. */
+    private const FORM_FIELDS = [
+        'units', 'bellows_type', 'design_pressure', 'design_temperature', 'required_cycles', 'x_comp', 'x_ext',
+        'lateral', 'angular', 'Db', 'w', 't', 'n', 'N', 'q', 'rm', 'Lt', 'tc', 'Lc', 'Ld', 'Ar', 'Atc', 'Zc', 'ng',
+        'r', 'Dr', 'Dm', 'fw', 'bellows_material', 'collar_material', 'reinforcement_material', 'forming_condition',
+        'forming_method', 'Cwb', 'Cwc', 'Cwr', 'override_Sab', 'override_EbRt', 'override_EbDt', 'override_Sy',
+        'override_Sym',
+    ];
+
+    public function index(MaterialRepository $materials)
+    {
+        $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
+
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'Engineering Toolkit', 'url' => '/toolkit/'],
+            ['name' => 'EJMA Bellows Calculator', 'url' => self::PATH],
+        ];
+
+        $seo = [
+            'meta_title' => 'EJMA Bellows Calculator for Metal Expansion Joints | PT Misuba Guna Indonesia',
+            'meta_description' => 'Check a metal bellows expansion joint design against EJMA Standards: pressure stresses, fatigue life and squirm for unreinforced, reinforced and toroidal bellows.',
+            'canonical_url' => self::PATH,
+            'og_title' => 'EJMA Bellows Calculator | Misuba Guna',
+            'og_description' => 'Free online EJMA design check for unreinforced, reinforced and toroidal metal bellows, reviewed by our engineering team.',
+            'robots_index' => true,
+            'robots_follow' => true,
+            'schema_json' => [
+                PublicSeo::organizationSchema($siteSettings),
+                PublicSeo::breadcrumbSchema($breadcrumbs),
+                PublicSeo::webApplicationSchema(
+                    'EJMA Bellows Calculator',
+                    'Online design check of metal bellows expansion joints per EJMA Standards for unreinforced, reinforced and toroidal bellows.',
+                    self::PATH
+                ),
+            ],
+        ];
+
+        $materialOptions = [
+            'bellows' => $materials->availableFor('bellows'),
+            'collar' => $materials->availableFor('collar'),
+            'reinforcement' => $materials->availableFor('reinforcement'),
+        ];
+        $units = EjmaCalculationRequest::UNITS;
+        $quantities = EjmaCalculationRequest::QUANTITIES;
+        $bellowsTypes = BellowsType::cases();
+        $formingConditions = FormingCondition::cases();
+        $formingMethods = FormingMethod::cases();
+        $result = session('ejma_result');
+        $contactTo = config('mail.contact_to');
+
+        return view('public.toolkit.ejma-bellows-calculator', compact(
+            'seo', 'siteSettings', 'breadcrumbs', 'materialOptions', 'units', 'quantities',
+            'bellowsTypes', 'formingConditions', 'formingMethods', 'result', 'contactTo',
+        ));
+    }
+
+    public function store(EjmaCalculationRequest $request, EjmaCalculator $calculator)
+    {
+        if ($request->isHoneypot()) {
+            return redirect()->to(self::PATH);
+        }
+
+        try {
+            $result = $calculator->calculate($request->toCalculationRequest());
+        } catch (EjmaInputException $e) {
+            throw ValidationException::withMessages($this->engineError($e, $request->bellowsType()))
+                ->redirectTo(self::PATH.'#calculator-form');
+        }
+
+        $attributes = [
+            'bellows_type' => $result->type->value,
+            'verdict' => $result->verdict()->value,
+            'inputs' => $request->storedInputs(),
+            'results' => $result->toArray(),
+            'contact' => $request->contact(),
+            'ip_address' => $request->ip(),
+        ];
+
+        try {
+            $calculation = $this->persist($attributes);
+        } catch (UniqueConstraintViolationException) {
+            $calculation = $this->persist($attributes);
+        }
+
+        $this->sendReport($calculation);
+
+        return redirect()->to(self::PATH.'#result')->with('ejma_result', [
+            'reference' => $calculation->reference,
+            'verdict' => $calculation->verdict,
+        ]);
+    }
+
+    private function persist(array $attributes): EjmaCalculation
+    {
+        return DB::transaction(fn () => EjmaCalculation::create(
+            ['reference' => EjmaCalculation::nextReference()] + $attributes
+        ));
+    }
+
+    /** @return array<string, string> */
+    private function engineError(EjmaInputException $e, BellowsType $type): array
+    {
+        if ($e->field === 'geometry') {
+            $toroidal = $type === BellowsType::Toroidal;
+
+            return [$toroidal ? 'r' : 'rm' => $toroidal
+                ? 'This convolution geometry is outside the range of the EJMA design charts. Check the convolution radius r, mean diameter Dm and ply thickness t, or contact us for an engineering review.'
+                : 'This convolution geometry is outside the range of the EJMA design charts. Check the mean radius rm against the convolution height w (rm should not exceed w/2), the ply thickness t and the diameter Db, or contact us for an engineering review.',
+            ];
+        }
+
+        $field = in_array($e->field, self::FORM_FIELDS, true) ? $e->field : 'calculation';
+
+        return [$field => $e->getMessage()];
+    }
+
+    /** Emails the full calculation to the engineering team (Task 10). */
+    private function sendReport(EjmaCalculation $calculation): void
+    {
+        //
+    }
+}

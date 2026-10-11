@@ -124,5 +124,16 @@
         <h3>Material Specs Library</h3>
         <p>Searchable SolidWorks-style engineering material database with physical, mechanical, thermal, and chemical resistance properties.</p>
     </a>
+
+    <!-- EJMA Bellows Calculator Card -->
+    <a href="/toolkit/ejma-bellows-calculator/" class="toolkit-card">
+        <div class="toolkit-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h2m14 0h2M5 7v10m14-10v10M8 7v10m3-10v10m3-10v10m3-10v10" />
+            </svg>
+        </div>
+        <h3>EJMA Bellows Calculator</h3>
+        <p>Check a metal bellows expansion joint design against EJMA Standards for unreinforced, reinforced and toroidal bellows, reviewed by our engineers.</p>
+    </a>
 </div>
 @endsection

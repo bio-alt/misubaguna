@@ -1,0 +1,248 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Ejma\Data\MaterialRepository;
+use App\Ejma\EjmaCalculator;
+use App\Ejma\Verdict;
+use App\Models\EjmaCalculation;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
+use Tests\TestCase;
+
+class EjmaCalculatorPageTest extends TestCase
+{
+    use RefreshDatabase;
+
+    private const URL = '/toolkit/ejma-bellows-calculator/';
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Carbon::setTestNow('2026-10-11 10:00:00');
+
+        $tables = [
+            'allowable_mpa' => [20 => 138, 300 => 118],
+            'modulus_gpa' => [20 => 195, 300 => 180],
+            'yield_mpa' => [20 => 205, 300 => 150],
+        ];
+        config(['ejma.materials' => ['materials' => [
+            'fixture_ss' => ['name' => 'Fixture stainless', 'family' => 'austenitic', 'roles' => ['bellows', 'collar', 'reinforcement'], 'creep_limit_c' => 250] + $tables,
+            'inconel625' => ['name' => 'Inconel 625', 'family' => 'nickel', 'roles' => ['bellows', 'collar', 'reinforcement'], 'creep_limit_c' => null,
+                'allowable_mpa' => [], 'modulus_gpa' => [], 'yield_mpa' => []],
+        ]]]);
+        $this->app->forgetInstance(MaterialRepository::class);
+        $this->app->forgetInstance(EjmaCalculator::class);
+    }
+
+    protected function tearDown(): void
+    {
+        Carbon::setTestNow();
+        parent::tearDown();
+    }
+
+    /** EJMA benchmark case 1 (unreinforced) converted to metric. */
+    private function payload(array $overrides = []): array
+    {
+        return array_merge([
+            'units' => 'metric',
+            'bellows_type' => 'unreinforced',
+            'design_pressure' => '2.7579',
+            'design_temperature' => '21',
+            'required_cycles' => '1000',
+            'x_comp' => '25.4',
+            'x_ext' => '12.7',
+            'lateral' => '1.524',
+            'angular' => '5',
+            'Db' => '609.6',
+            'w' => '36.576',
+            't' => '0.762',
+            'n' => '2',
+            'N' => '12',
+            'q' => '25.4',
+            'rm' => '6.35',
+            'Lt' => '25.4',
+            'bellows_material' => 'fixture_ss',
+            'forming_condition' => 'annealed',
+            'forming_method' => 'mandrel_roll',
+            'Cwb' => '1',
+            'Cwc' => '1',
+            'Cwr' => '1',
+            'name' => 'Budi Santoso',
+            'company' => 'PT Industri Nusantara',
+            'email' => 'budi@example.com',
+            'phone' => '0812-3456-7890',
+            'notes' => 'Quote for 2 pcs.',
+            'website' => '',
+        ], $overrides);
+    }
+
+    public function test_page_renders_and_is_linked(): void
+    {
+        $this->get(self::URL)->assertOk()->assertSee('EJMA Bellows Calculator');
+
+        $this->get('/toolkit/')->assertOk()->assertSee(self::URL, false);
+
+        $this->get('/sitemap.xml')->assertOk()
+            ->assertSee('<loc>https://misubaguna.com/toolkit/ejma-bellows-calculator/</loc>', false);
+    }
+
+    public function test_only_materials_with_data_are_offered(): void
+    {
+        $this->get(self::URL)->assertOk()
+            ->assertSee('value="fixture_ss"', false)
+            ->assertDontSee('inconel625');
+    }
+
+    public function test_valid_submission_stores_and_shows_verdict_only(): void
+    {
+        $response = $this->post(self::URL, $this->payload());
+        $response->assertRedirect(self::URL.'#result');
+        $response->assertSessionHasNoErrors();
+
+        $this->assertDatabaseCount('ejma_calculations', 1);
+        $row = EjmaCalculation::first();
+        $this->assertSame('EJ-2026-0001', $row->reference);
+        $this->assertSame('unreinforced', $row->bellows_type);
+        $this->assertSame('budi@example.com', $row->contact['email']);
+        $this->assertSame('metric', $row->inputs['units']);
+        $this->assertEqualsWithDelta(24.0, $row->inputs['us']['Db'], 1e-9);
+        $this->assertEqualsWithDelta(609.6, $row->inputs['metric']['Db'], 1e-9);
+        $this->assertEqualsWithDelta(40.0, $row->inputs['us']['design_pressure'], 0.001);
+
+        $s1 = collect($row->results['lines'])->firstWhere('symbol', 'S1')['value'];
+        $this->assertIsFloat($s1);
+
+        $page = $this->followRedirects($response);
+        $page->assertOk()
+            ->assertSee(Verdict::from($row->verdict)->label())
+            ->assertSee('EJ-2026-0001')
+            ->assertSee('mailto:marketing@misubaguna.com?subject=EJMA%20calculation%20EJ-2026-0001', false)
+            ->assertSee('Email us for the results')
+            ->assertDontSee(number_format($s1, 0, '.', ''))
+            ->assertDontSee(number_format($s1, 1, '.', ''))
+            ->assertDontSee(number_format($s1, 0))
+            ->assertDontSee('S3+S4');
+    }
+
+    public function test_us_units_submission_stores_metric_conversions(): void
+    {
+        $this->post(self::URL, $this->payload([
+            'units' => 'us', 'design_pressure' => '40', 'design_temperature' => '70',
+            'x_comp' => '1', 'x_ext' => '0.5', 'lateral' => '0.06', 'Db' => '24', 'w' => '1.44',
+            't' => '0.03', 'q' => '1', 'rm' => '0.25', 'Lt' => '1',
+        ]))->assertRedirect(self::URL.'#result');
+
+        $row = EjmaCalculation::first();
+        $this->assertSame('us', $row->inputs['units']);
+        $this->assertEqualsWithDelta(609.6, $row->inputs['metric']['Db'], 1e-9);
+        $this->assertEqualsWithDelta(24.0, $row->inputs['us']['Db'], 1e-9);
+        $this->assertSame('24', $row->inputs['entered']['Db']['value']);
+        $this->assertSame('in', $row->inputs['entered']['Db']['unit']);
+    }
+
+    /** EJMA benchmark case 4 (toroidal), US units. */
+    private function toroidalPayload(array $overrides = []): array
+    {
+        return $this->payload(array_merge([
+            'units' => 'us', 'bellows_type' => 'toroidal', 'design_pressure' => '500', 'design_temperature' => '70',
+            'x_comp' => '0.75', 'x_ext' => '', 'lateral' => '', 'angular' => '',
+            'Db' => '24', 't' => '0.05', 'n' => '1', 'N' => '2', 'q' => '3.4625', 'w' => '', 'rm' => '', 'Lt' => '',
+            'tc' => '1', 'Ld' => '2.106', 'Ar' => '2.282', 'Atc' => '1.27', 'Zc' => '0.271', 'ng' => '12',
+            'r' => '1', 'Dr' => '25.1', 'Dm' => '27.496', 'fw' => '15714',
+            'collar_material' => 'fixture_ss', 'reinforcement_material' => 'fixture_ss',
+        ], $overrides));
+    }
+
+    public function test_toroidal_submission_is_calculated(): void
+    {
+        $this->post(self::URL, $this->toroidalPayload())
+            ->assertSessionHasNoErrors()
+            ->assertRedirect(self::URL.'#result');
+
+        $row = EjmaCalculation::first();
+        $this->assertSame('toroidal', $row->bellows_type);
+        $this->assertEqualsWithDelta(27.496, $row->inputs['us']['Dm'], 1e-9);
+        $this->assertArrayNotHasKey('rm', $row->inputs['us']);
+        $this->assertSame('fixture_ss', $row->inputs['materials']['collar']);
+    }
+
+    public function test_toroidal_geometry_error_maps_to_r(): void
+    {
+        $this->post(self::URL, $this->toroidalPayload(['r' => '5']))
+            ->assertSessionHasErrors('r');
+
+        $this->post(self::URL, $this->toroidalPayload(['reinforcement_material' => '']))
+            ->assertSessionHasErrors('reinforcement_material');
+
+        $this->assertDatabaseCount('ejma_calculations', 0);
+    }
+
+    public function test_reinforced_submission_is_calculated(): void
+    {
+        $this->post(self::URL, $this->payload([
+            'units' => 'us', 'bellows_type' => 'reinforced', 'design_pressure' => '100', 'design_temperature' => '70',
+            'x_comp' => '1', 'x_ext' => '0.5', 'lateral' => '', 'angular' => '5',
+            'Db' => '24', 't' => '0.03', 'n' => '2', 'N' => '8', 'q' => '1', 'w' => '1.44', 'rm' => '0.25', 'Lt' => '1.25',
+            'tc' => '0.375', 'Ar' => '0.15', 'Atc' => '0.43', 'Zc' => '0.0872', 'ng' => '8', 'fw' => '14751',
+            'collar_material' => 'fixture_ss', 'reinforcement_material' => 'fixture_ss',
+        ]))->assertSessionHasNoErrors()->assertRedirect(self::URL.'#result');
+
+        $this->assertSame('reinforced', EjmaCalculation::first()->bellows_type);
+    }
+
+    public function test_invalid_submission_shows_field_errors(): void
+    {
+        $this->post(self::URL, $this->payload(['Db' => '']))
+            ->assertSessionHasErrors('Db')
+            ->assertHeader('Location', 'http://localhost/toolkit/ejma-bellows-calculator/#calculator-form');
+
+        $this->assertDatabaseCount('ejma_calculations', 0);
+    }
+
+    public function test_required_cycles_is_required(): void
+    {
+        $this->post(self::URL, $this->payload(['required_cycles' => '']))
+            ->assertSessionHasErrors('required_cycles');
+
+        $this->assertDatabaseCount('ejma_calculations', 0);
+    }
+
+    public function test_engine_input_error_maps_to_field(): void
+    {
+        // T = 2·rm/w > 1: outside the Appendix I charts.
+        // Redirect keeps the trailing slash: a second (slash) redirect would consume the flashed errors.
+        $this->post(self::URL, $this->payload(['rm' => '25']))
+            ->assertSessionHasErrors('rm')
+            ->assertHeader('Location', 'http://localhost/toolkit/ejma-bellows-calculator/#calculator-form');
+        $this->assertStringContainsString('outside the range of the EJMA design charts', session('errors')->first('rm'));
+
+        // Above the material's creep limit (250 °C).
+        $this->post(self::URL, $this->payload(['design_temperature' => '280']))
+            ->assertSessionHasErrors('design_temperature');
+
+        // Tampered material without data.
+        $this->post(self::URL, $this->payload(['bellows_material' => 'inconel625']))
+            ->assertSessionHasErrors('bellows_material');
+
+        $this->assertDatabaseCount('ejma_calculations', 0);
+    }
+
+    public function test_honeypot_discards(): void
+    {
+        $this->post(self::URL, $this->payload(['website' => 'http://spam.example']))
+            ->assertRedirect(self::URL);
+
+        $this->assertDatabaseCount('ejma_calculations', 0);
+    }
+
+    public function test_rate_limited(): void
+    {
+        for ($i = 0; $i < 5; $i++) {
+            $this->post(self::URL, $this->payload(['Db' => '']))->assertStatus(302);
+        }
+
+        $this->post(self::URL, $this->payload(['Db' => '']))->assertStatus(429);
+    }
+}
