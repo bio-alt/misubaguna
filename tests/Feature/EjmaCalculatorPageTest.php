@@ -277,7 +277,7 @@ class EjmaCalculatorPageTest extends TestCase
     public function test_unexpected_engine_error_becomes_general_error(): void
     {
         config(['ejma.materials.materials.zero_e' => ['name' => 'Zero modulus', 'family' => 'other', 'roles' => ['collar', 'reinforcement'],
-            'creep_limit_c' => null, 'allowable_mpa' => [20 => 100, 300 => 90], 'modulus_gpa' => [20 => 0, 300 => 0], 'yield_mpa' => [20 => 200, 300 => 150]]]);
+            'creep_limit_c' => 250, 'allowable_mpa' => [20 => 100, 300 => 90], 'modulus_gpa' => [20 => 0, 300 => 0], 'yield_mpa' => [20 => 200, 300 => 150]]]);
         $this->app->forgetInstance(MaterialRepository::class);
         $this->app->forgetInstance(EjmaCalculator::class);
 

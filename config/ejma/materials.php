@@ -8,6 +8,8 @@
  *
  * The tables are intentionally empty: the company engineers fill them in.
  * A material with empty tables is hidden from the calculator.
+ * 'creep_limit_c' is required: set it to the temperature (deg C) above which the material
+ * is in the creep range. A material with a null creep_limit_c is hidden for every role.
  * Units: temperature in deg C, stress in MPa, modulus in GPa.
  * Bellows materials need a 20 deg C row in the modulus and yield tables (room-temperature
  * reference). Also add a row at or below the lowest expected design temperature

@@ -34,10 +34,10 @@ final readonly class Material
         return $this->allowableMpa !== [] && $this->modulusGpa !== [];
     }
 
-    /** Whether the material can serve the role: bellows needs 20 °C modulus and yield rows, collar/reinforcement only Sa and E. */
+    /** Whether the material can serve the role: bellows needs 20 ï¿½C modulus and yield rows, collar/reinforcement only Sa and E. */
     public function usableFor(string $role): bool
     {
-        if (! in_array($role, $this->roles, true) || ! $this->hasData()) {
+        if (! in_array($role, $this->roles, true) || ! $this->hasData() || $this->creepLimitC === null) {
             return false;
         }
 

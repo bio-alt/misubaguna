@@ -19,8 +19,8 @@ class MaterialRepositoryTest extends TestCase
         ];
 
         return ['materials' => [
-            'aus' => ['name' => 'Aus', 'family' => 'austenitic', 'roles' => ['bellows', 'collar', 'reinforcement'], 'creep_limit_c' => null] + $tables,
-            'nick' => ['name' => 'Nick', 'family' => 'nickel', 'roles' => ['bellows'], 'creep_limit_c' => null] + $tables,
+            'aus' => ['name' => 'Aus', 'family' => 'austenitic', 'roles' => ['bellows', 'collar', 'reinforcement'], 'creep_limit_c' => 500] + $tables,
+            'nick' => ['name' => 'Nick', 'family' => 'nickel', 'roles' => ['bellows'], 'creep_limit_c' => 500] + $tables,
             'empty' => ['name' => 'Empty', 'family' => 'austenitic', 'roles' => ['bellows'], 'creep_limit_c' => null,
                 'allowable_mpa' => [], 'modulus_gpa' => [], 'yield_mpa' => []],
         ]];
@@ -76,5 +76,18 @@ class MaterialRepositoryTest extends TestCase
         $this->assertSame(['aus', 'nick'], $bellows);
         $collar = array_map(fn ($m) => $m->id, $repo->availableFor('collar'));
         $this->assertSame(['aus', 'noyield', 'late'], $collar);
+    }
+
+    public function test_material_without_creep_limit_is_hidden_for_every_role(): void
+    {
+        $c = self::config();
+        $c['materials']['nocreep'] = ['creep_limit_c' => null] + $c['materials']['aus'];
+        $repo = new MaterialRepository($c);
+
+        foreach (['bellows', 'collar', 'reinforcement'] as $role) {
+            $ids = array_map(fn ($m) => $m->id, $repo->availableFor($role));
+            $this->assertNotContains('nocreep', $ids, $role);
+            $this->assertContains('aus', $ids, $role);
+        }
     }
 }
