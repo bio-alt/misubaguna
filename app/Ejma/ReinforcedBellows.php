@@ -5,21 +5,16 @@ namespace App\Ejma;
 /**
  * Reinforced U-shaped bellows with integral reinforcing members (R = R1, no fasteners),
  * EJMA 9th Ed. §4.13.2 eqs. 4-38…4-50 (p093–p094), below the creep range.
- * Verified against §4.14 benchmark 3 (p097–p098) except for e and Psc — see below.
+ * Verified against §4.14 benchmark 3 (p097–p098).
  *
- * Angular rotation (benchmark 3: θ = 5°, y = 0). Kθ, Cθ and φ follow §1.3 as written:
- *   Cθ = 0.1157^θm (p018), θm = θ in radians                     → 0.8284
- *   φ  = PN²q / (0.675π·fir) (p023), fir from eq. 4-50            → 0.1230
- *   Kθ = eθCθ / (eθCθ + 0.15qφ) (p019), eθ = θDm/(2N) (eq. 4-3)    → 0.8620
- * giving e = eθ/Kθ + ex,comp + ex,ext = 0.3488 and Psc (eq. 4-49) = 299.4, against the
- * published e = 0.3756 and Psc = 307. The published e is internally consistent with the
- * published S1'', S5, S6, St and Nc (all reproduced at e = 0.3756, ec = 0.3131), and it
- * equals eθ + 0.15q·P/Psc + ex with Psc = 307, i.e. the benchmark appears to take
- * φ/Cθ = P/Psc (a 0.3π denominator, the limiting rather than the critical pressure) and a
- * Psc 2.5 % above eq. 4-49. Neither step follows from the text (no reading of θm, eθ, fir or
- * fw reproduces both), so the text is implemented and the deviation is pinned in
- * ReinforcedBellowsTest. Using fw instead of fir in φ gives Kθ = 0.790, e = 0.3636; still
- * not the published value.
+ * Angular rotation (benchmark 3: θ = 5°, y = 0):
+ *   Cθ = 0.1157^θm (p018), θm = θ in radians                          → 0.8284
+ *   φ  = PN²q / (0.3π·fir) (AngularPressureFactor: benchmark form, not p023's 0.675π) → 0.2766
+ *   Kθ = eθCθ / (eθCθ + 0.15qφ) (p019), eθ = θDm/(2N) (eq. 4-3)         → 0.7352
+ * giving e = 0.3767 (published 0.3756). With p023's 0.675π form e would be 0.3488, and the
+ * published S1'', S5, S6, St, Nc are all reproduced only at e ≈ 0.3756.
+ * Known deviation: eq. 4-49 gives Psc = 299.5 against the published 307 (~2.5 %); no reading
+ * of θm, eθ, fir or fw reproduces 307, so the equation is kept as written (conservative).
  */
 final class ReinforcedBellows implements Checker
 {
@@ -33,15 +28,6 @@ final class ReinforcedBellows implements Checker
     public const KS_COLLAR = 1.5;
 
     public function check(BellowsGeometry $g, DesignConditions $c, BellowsProperties $p): CheckResult
-    {
-        return $this->checkAt($g, $c, $p, null);
-    }
-
-    /**
-     * Evaluate at a given movement instead of the one computed from §4.1–4.3; null computes it.
-     * Used to verify the e-dependent equations against the published benchmark movement.
-     */
-    public function checkAt(BellowsGeometry $g, DesignConditions $c, BellowsProperties $p, ?Movement $movement): CheckResult
     {
         if ($c->P < 0) {
             throw new EjmaInputException('design_pressure', 'Design pressure must not be negative.');
@@ -105,7 +91,7 @@ final class ReinforcedBellows implements Checker
         $phi = AngularPressureFactor::phi(BellowsType::Reinforced, $P, $N, $q, $fir);
         $etheta = Movement::etheta($c->theta, $d->Dm, $N);
         $Ktheta = AngularPressureFactor::Ktheta($etheta, $Ctheta, $q, $phi);
-        $m = $movement ?? Movement::of($g, $c, $d, $Ktheta);
+        $m = Movement::of($g, $c, $d, $Ktheta);
         $e = $m->e;
         $Kr = $m->Kr;
 

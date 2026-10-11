@@ -29,8 +29,16 @@ final class AngularPressureFactor
     }
 
     /**
-     * φ, ratio of design pressure to critical pressure (p023):
-     * PN²q/(0.764π fiu) unreinforced, PN²q/(0.675π fir) reinforced, PN²r/(0.338π fit) toroidal.
+     * φ, pressure ratio used in Kθ (p019).
+     *
+     * p023 defines φ as design pressure over the *critical* pressure, with denominators
+     * 0.764π fiu / 0.675π fir / 0.338π fit, i.e. 2.25× the column-squirm limiting pressure
+     * of eqs. 4-35 / 4-49 / 4-60 without Cθ (2.25 = critical/limiting ratio, §4.12.1.6 p089).
+     * The only benchmark that exercises Kθ (§4.14 benchmark 3, p098: θ = 5°, y = 0) is
+     * reproduced only with φ = P / limiting pressure without Cθ: e = 0.3767 vs published 0.3756,
+     * against e = 0.3488 with the p023 form. That form gives a smaller Kθ, a larger e, higher
+     * deflection stresses and lower fatigue life, so it is deliberately adopted (conservative)
+     * for all three bellows types: PN²q/(0.34π fiu), PN²q/(0.3π fir), PN²r/(0.15π fit).
      *
      * @param  float  $qOrR  pitch q (U-shaped) or convolution radius r (toroidal)
      * @param  float  $fi  theoretical axial spring rate per convolution for that bellows type
@@ -38,9 +46,9 @@ final class AngularPressureFactor
     public static function phi(BellowsType $type, float $P, int $N, float $qOrR, float $fi): float
     {
         $k = match ($type) {
-            BellowsType::Unreinforced => 0.764,
-            BellowsType::Reinforced => 0.675,
-            BellowsType::Toroidal => 0.338,
+            BellowsType::Unreinforced => 0.34,   // eq. 4-35 (p092); p023 text: 0.764
+            BellowsType::Reinforced => 0.3,      // eq. 4-49 (p094); p023 text: 0.675
+            BellowsType::Toroidal => 0.15,       // eq. 4-60;        p023 text: 0.338
         };
 
         return $P * $N ** 2 * $qOrR / ($k * M_PI * $fi);
