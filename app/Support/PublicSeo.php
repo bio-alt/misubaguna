@@ -5,7 +5,9 @@ namespace App\Support;
 class PublicSeo
 {
     public const DEFAULT_DOMAIN = 'https://misubaguna.com';
+
     public const DEFAULT_LOGO = 'https://misubaguna.com/images/misuba-logo.png';
+
     public const DEFAULT_DESC = 'PT Misuba Guna Indonesia provides high-performance industrial engineering products and plant maintenance services, specializing in expansion joints, sealing systems, corrosion protection linings, and equipment overhaul.';
 
     public static function canonicalUrl(?string $urlOrPath = '/'): string
@@ -21,13 +23,13 @@ class PublicSeo
             $urlOrPath = $path;
         }
 
-        $trimmed = '/' . ltrim($urlOrPath, '/');
+        $trimmed = '/'.ltrim($urlOrPath, '/');
         // Ensure trailing slash for directory routes, avoid for filenames like sitemap.xml, robots.txt, llms.txt
-        if (!preg_match('/\.[a-z0-9]+$/i', $trimmed) && !str_ends_with($trimmed, '/')) {
+        if (! preg_match('/\.[a-z0-9]+$/i', $trimmed) && ! str_ends_with($trimmed, '/')) {
             $trimmed .= '/';
         }
 
-        return self::DEFAULT_DOMAIN . $trimmed;
+        return self::DEFAULT_DOMAIN.$trimmed;
     }
 
     public static function defaultOgImage(): string
@@ -40,10 +42,10 @@ class PublicSeo
         return [
             '@context' => 'https://schema.org',
             '@type' => ['Organization', 'Corporation'],
-            '@id' => self::DEFAULT_DOMAIN . '/#organization',
+            '@id' => self::DEFAULT_DOMAIN.'/#organization',
             'name' => $settings['company_name'] ?? 'PT Misuba Guna Indonesia',
             'alternateName' => 'Misuba Guna Indonesia',
-            'url' => self::DEFAULT_DOMAIN . '/',
+            'url' => self::DEFAULT_DOMAIN.'/',
             'logo' => [
                 '@type' => 'ImageObject',
                 'url' => self::DEFAULT_LOGO,
@@ -100,12 +102,12 @@ class PublicSeo
         return [
             '@context' => 'https://schema.org',
             '@type' => 'WebSite',
-            '@id' => self::DEFAULT_DOMAIN . '/#website',
-            'url' => self::DEFAULT_DOMAIN . '/',
+            '@id' => self::DEFAULT_DOMAIN.'/#website',
+            'url' => self::DEFAULT_DOMAIN.'/',
             'name' => 'PT Misuba Guna Indonesia',
             'description' => 'Official website of PT Misuba Guna Indonesia - Industrial Engineering Solutions, Sealing Systems, Expansion Joints, and Plant Maintenance.',
             'publisher' => [
-                '@id' => self::DEFAULT_DOMAIN . '/#organization',
+                '@id' => self::DEFAULT_DOMAIN.'/#organization',
             ],
             'inLanguage' => 'en-US',
         ];
@@ -116,9 +118,9 @@ class PublicSeo
         return [
             '@context' => 'https://schema.org',
             '@type' => 'ProfessionalService',
-            '@id' => self::DEFAULT_DOMAIN . '/#localbusiness',
+            '@id' => self::DEFAULT_DOMAIN.'/#localbusiness',
             'name' => $settings['company_name'] ?? 'PT Misuba Guna Indonesia',
-            'url' => self::DEFAULT_DOMAIN . '/',
+            'url' => self::DEFAULT_DOMAIN.'/',
             'logo' => self::DEFAULT_LOGO,
             'image' => self::DEFAULT_LOGO,
             'telephone' => $settings['company_phone'] ?? '+62 21 55660700',
@@ -140,11 +142,11 @@ class PublicSeo
     {
         $get = fn ($key, $default = null) => is_array($product) ? ($product[$key] ?? $default) : ($product->{$key} ?? $default);
 
-        $productUrl = self::canonicalUrl($get('canonical_url') ?: $get('url_path', '/product/' . $get('slug') . '/'));
-        
+        $productUrl = self::canonicalUrl($get('canonical_url') ?: $get('url_path', '/product/'.$get('slug').'/'));
+
         $images = [];
         $gallery = $get('gallery');
-        if (is_array($gallery) && !empty($gallery)) {
+        if (is_array($gallery) && ! empty($gallery)) {
             foreach ($gallery as $img) {
                 $images[] = str_starts_with($img, 'http') ? $img : url($img);
             }
@@ -156,7 +158,7 @@ class PublicSeo
             '@context' => 'https://schema.org',
             '@type' => 'Product',
             'name' => $get('name'),
-            'description' => $get('summary') ?: $get('meta_description') ?: ('High-performance ' . $get('name') . ' engineered by PT Misuba Guna Indonesia.'),
+            'description' => $get('summary') ?: $get('meta_description') ?: ('High-performance '.$get('name').' engineered by PT Misuba Guna Indonesia.'),
             'url' => $productUrl,
             'brand' => [
                 '@type' => 'Brand',
@@ -165,7 +167,7 @@ class PublicSeo
             'manufacturer' => [
                 '@type' => 'Organization',
                 'name' => 'PT Misuba Guna Indonesia',
-                'url' => self::DEFAULT_DOMAIN . '/',
+                'url' => self::DEFAULT_DOMAIN.'/',
             ],
             'category' => $get('product_group') ?: 'Industrial Equipment & Sealing',
             'offers' => [
@@ -187,7 +189,7 @@ class PublicSeo
             ],
         ];
 
-        if (!empty($images)) {
+        if (! empty($images)) {
             $schema['image'] = count($images) === 1 ? $images[0] : $images;
         }
 
@@ -197,18 +199,18 @@ class PublicSeo
     public static function serviceSchema(object|array $service, array $settings = []): array
     {
         $get = fn ($key, $default = null) => is_array($service) ? ($service[$key] ?? $default) : ($service->{$key} ?? $default);
-        $serviceUrl = self::canonicalUrl($get('canonical_url') ?: $get('url_path', '/services/' . $get('slug') . '/'));
+        $serviceUrl = self::canonicalUrl($get('canonical_url') ?: $get('url_path', '/services/'.$get('slug').'/'));
 
         return [
             '@context' => 'https://schema.org',
             '@type' => 'Service',
             'name' => $get('name'),
-            'description' => $get('summary') ?: $get('meta_description') ?: ('Professional industrial service: ' . $get('name') . ' by PT Misuba Guna Indonesia.'),
+            'description' => $get('summary') ?: $get('meta_description') ?: ('Professional industrial service: '.$get('name').' by PT Misuba Guna Indonesia.'),
             'url' => $serviceUrl,
             'provider' => [
                 '@type' => 'Organization',
                 'name' => $settings['company_name'] ?? 'PT Misuba Guna Indonesia',
-                'url' => self::DEFAULT_DOMAIN . '/',
+                'url' => self::DEFAULT_DOMAIN.'/',
                 'telephone' => $settings['company_phone'] ?? '+62 21 55660700',
             ],
             'serviceType' => $get('service_group') ?: 'Industrial Engineering & Plant Maintenance',
@@ -216,15 +218,15 @@ class PublicSeo
                 '@type' => 'Country',
                 'name' => 'Indonesia',
             ],
-            'termsOfService' => self::DEFAULT_DOMAIN . '/contact-us/',
+            'termsOfService' => self::DEFAULT_DOMAIN.'/contact-us/',
         ];
     }
 
     public static function jobPostingSchema(array $job, array $settings = []): array
     {
-        $responsibilitiesList = !empty($job['responsibilities']) ? '<h3>Key Responsibilities:</h3><ul><li>' . implode('</li><li>', $job['responsibilities']) . '</li></ul>' : '';
-        $requirementsList = !empty($job['requirements']) ? '<h3>Requirements:</h3><ul><li>' . implode('</li><li>', $job['requirements']) . '</li></ul>' : '';
-        $desc = '<p>' . ($job['summary'] ?? '') . '</p>' . $responsibilitiesList . $requirementsList;
+        $responsibilitiesList = ! empty($job['responsibilities']) ? '<h3>Key Responsibilities:</h3><ul><li>'.implode('</li><li>', $job['responsibilities']).'</li></ul>' : '';
+        $requirementsList = ! empty($job['requirements']) ? '<h3>Requirements:</h3><ul><li>'.implode('</li><li>', $job['requirements']).'</li></ul>' : '';
+        $desc = '<p>'.($job['summary'] ?? '').'</p>'.$responsibilitiesList.$requirementsList;
 
         return [
             '@context' => 'https://schema.org',
@@ -237,7 +239,7 @@ class PublicSeo
             'hiringOrganization' => [
                 '@type' => 'Organization',
                 'name' => $settings['company_name'] ?? 'PT Misuba Guna Indonesia',
-                'sameAs' => self::DEFAULT_DOMAIN . '/',
+                'sameAs' => self::DEFAULT_DOMAIN.'/',
                 'logo' => self::DEFAULT_LOGO,
             ],
             'jobLocation' => [
@@ -273,7 +275,7 @@ class PublicSeo
             'creator' => [
                 '@type' => 'Organization',
                 'name' => 'PT Misuba Guna Indonesia',
-                'url' => self::DEFAULT_DOMAIN . '/',
+                'url' => self::DEFAULT_DOMAIN.'/',
             ],
         ];
     }
@@ -306,8 +308,8 @@ class PublicSeo
 
         $rawTitle = $get('meta_title') ?: $get('title') ?: $get('name') ?: config('app.name');
         // Ensure brand name is cleanly formatted
-        if (!str_contains($rawTitle, 'Misuba')) {
-            $seoTitle = $rawTitle . ' | PT Misuba Guna Indonesia';
+        if (! str_contains($rawTitle, 'Misuba')) {
+            $seoTitle = $rawTitle.' | PT Misuba Guna Indonesia';
         } else {
             $seoTitle = $rawTitle;
         }
@@ -315,7 +317,7 @@ class PublicSeo
         $seoDescription = $get('meta_description') ?: $get('excerpt') ?: $get('summary') ?: self::DEFAULT_DESC;
         // Truncate to clean length if too long (max 160 characters for optimal SERP display)
         if (mb_strlen($seoDescription) > 165) {
-            $seoDescription = mb_substr($seoDescription, 0, 157) . '...';
+            $seoDescription = mb_substr($seoDescription, 0, 157).'...';
         }
 
         $ogTitle = $get('og_title') ?: $seoTitle;

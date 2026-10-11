@@ -39,7 +39,7 @@ final class PropertyResolver
         float $Cwb,
         float $Cwc,
         float $Cwr,
-        BellowsType $type = BellowsType::Unreinforced,
+        BellowsType $type,
     ): BellowsProperties {
         $tC = Units::fToC($tF);
         $Cm = self::cm($condition, $method, $bellows->family, $derived->epsilonF);
@@ -60,6 +60,7 @@ final class PropertyResolver
             $Sy = 0.67 * $Cm * $Sym * $Syh / $Syc;
         }
 
+        // A missing collar/reinforcement is only allowed where its values are unused (callers enforce this).
         $collarM = $collar ?? $bellows;
         $reinfM = $reinf ?? $bellows;
 

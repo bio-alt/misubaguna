@@ -60,4 +60,21 @@ class MaterialRepositoryTest extends TestCase
     {
         $this->assertNull((new MaterialRepository(self::config()))->find('nick')->fatigue(BellowsType::Unreinforced));
     }
+
+    public function test_bellows_needs_yield_and_20c_modulus(): void
+    {
+        $c = self::config();
+        $noYield = $c['materials']['aus'];
+        $noYield['yield_mpa'] = [];
+        $late = $c['materials']['aus'];
+        $late['modulus_gpa'] = [40 => 195, 300 => 180];
+        $c['materials']['noyield'] = $noYield;
+        $c['materials']['late'] = $late;
+        $repo = new MaterialRepository($c);
+
+        $bellows = array_map(fn ($m) => $m->id, $repo->availableFor('bellows'));
+        $this->assertSame(['aus', 'nick'], $bellows);
+        $collar = array_map(fn ($m) => $m->id, $repo->availableFor('collar'));
+        $this->assertSame(['aus', 'noyield', 'late'], $collar);
+    }
 }

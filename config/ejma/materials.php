@@ -9,8 +9,10 @@
  * The tables are intentionally empty: the company engineers fill them in.
  * A material with empty tables is hidden from the calculator.
  * Units: temperature in deg C, stress in MPa, modulus in GPa.
- * Every table needs a 20 deg C row (room-temperature reference); interpolation
- * is linear and temperatures outside the table range are rejected.
+ * Bellows materials need a 20 deg C row in the modulus and yield tables (room-temperature
+ * reference). Also add a row at or below the lowest expected design temperature
+ * (for example 0 deg C or -29 deg C). Interpolation is linear and temperatures outside
+ * the table range are rejected.
  *
  * Optional per-material key 'fatigue' => ['unreinforced' => ['a', 'b', 'c'], 'reinforced' => [...],
  * 'toroidal' => [...]] with b and c in psi; austenitic materials default to EJMA Figure 4.20.

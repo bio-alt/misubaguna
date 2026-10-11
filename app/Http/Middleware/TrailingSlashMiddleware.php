@@ -21,8 +21,9 @@ class TrailingSlashMiddleware
         $path = $request->getPathInfo();
         $query = $request->getQueryString();
 
-        if ($path !== '/' && !str_ends_with($path, '/') && !str_contains($path, '.')) {
-            $absoluteUrl = $request->getSchemeAndHttpHost() . $path . '/' . ($query ? '?' . $query : '');
+        if ($path !== '/' && ! str_ends_with($path, '/') && ! str_contains($path, '.')) {
+            $absoluteUrl = $request->getSchemeAndHttpHost().$path.'/'.($query ? '?'.$query : '');
+
             return redirect()->to($absoluteUrl, 301);
         }
 

@@ -13,10 +13,12 @@ final class EjmaCalculator
     {
         $type = $r->geometry->type;
         $bellows = $this->material($r->bellowsMaterial, 'bellows_material', 'bellows');
-        $collar = $r->collarMaterial === null
-            ? null
-            : $this->material($r->collarMaterial, 'collar_material', 'collar');
-        $reinf = $type === BellowsType::Reinforced
+        $needsCollar = $type === BellowsType::Toroidal || $r->geometry->tc > 0;
+        $collar = $needsCollar || $r->collarMaterial !== null
+            ? $this->material((string) $r->collarMaterial, 'collar_material', 'collar')
+            : null;
+        $needsReinf = $type !== BellowsType::Unreinforced;
+        $reinf = $needsReinf
             ? $this->material((string) $r->reinforcementMaterial, 'reinforcement_material', 'reinforcement')
             : null;
 
@@ -45,6 +47,9 @@ final class EjmaCalculator
             $notes[] = 'Forming strain is not defined for toroidal bellows; Cm = 1.5 was used.';
         }
         $used = array_keys(array_filter($r->overrides, fn ($v) => $v !== null));
+        if (in_array('Sy', $used, true)) {
+            $used = array_values(array_diff($used, ['Sym']));
+        }
         if ($used !== []) {
             $notes[] = 'Overrides used: '.implode(', ', $used);
         }
@@ -60,7 +65,7 @@ final class EjmaCalculator
     private function material(string $id, string $field, string $role): Material
     {
         $m = $this->materials->find($id);
-        if ($m === null || ! $m->hasData() || ! in_array($role, $m->roles, true)) {
+        if ($m === null || ! $m->usableFor($role)) {
             throw new EjmaInputException($field, 'Selected material is not available');
         }
 

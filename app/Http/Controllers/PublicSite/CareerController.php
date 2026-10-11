@@ -30,7 +30,7 @@ class CareerController extends Controller
                     'Conduct comprehensive safety risk assessments, Job Safety Analysis (JSA), and mandatory pre-work toolbox talks.',
                     'Ensure full compliance with K3 standards, government safety regulations, and client-specific HSE requirements.',
                     'Perform regular site audits, safety inspections, hazard identification, and detailed incident reporting.',
-                    'Lead safety training sessions, emergency response drills, and promote a zero-incident safety culture.'
+                    'Lead safety training sessions, emergency response drills, and promote a zero-incident safety culture.',
                 ],
                 'requirements' => [
                     'Education: Diploma/Bachelor’s Degree in Occupational Health & Safety (K3), Environmental Engineering, or related technical field.',
@@ -38,8 +38,8 @@ class CareerController extends Controller
                     'Experience: Minimum 2+ years of HSE/Safety Officer experience in industrial manufacturing, heavy engineering, or field services.',
                     'Knowledge: In-depth understanding of OSHA/K3 safety standards, risk mitigation, PPE management, and emergency response.',
                     'Soft Skills: Excellent communication, leadership, analytical problem-solving, and assertive enforcement of safety practices.',
-                    'Mobility: Willingness to conduct regular site visits and field audits across Jabodetabek and industrial project areas.'
-                ]
+                    'Mobility: Willingness to conduct regular site visits and field audits across Jabodetabek and industrial project areas.',
+                ],
             ],
             [
                 'id' => 'sales-engineer-pulp-paper',
@@ -55,7 +55,7 @@ class CareerController extends Controller
                     'Conduct technical sales presentations, product selection/sizing, and prepare comprehensive commercial & technical proposals.',
                     'Establish and nurture long-term strategic relationships with pulp & paper mills, plant managers, and maintenance engineers.',
                     'Perform on-site technical surveys, analyze client operational pain points, and propose tailored engineering solutions.',
-                    'Collaborate with technical support, production, and field engineering teams to guarantee successful project execution and post-sales support.'
+                    'Collaborate with technical support, production, and field engineering teams to guarantee successful project execution and post-sales support.',
                 ],
                 'requirements' => [
                     'Education: Bachelor’s Degree in Mechanical Engineering, Chemical Engineering, Industrial Engineering, or related discipline.',
@@ -63,8 +63,8 @@ class CareerController extends Controller
                     'Domain Knowledge: Strong understanding of pulp & paper manufacturing processes, paper machine sections, rotating equipment, and piping systems.',
                     'Skills: Outstanding technical negotiation, consultative selling, presentation, and account management skills.',
                     'Language: Proficient in Bahasa Indonesia and business English.',
-                    'Mobility: Willingness to travel frequently to paper mill sites across Java, Sumatra, and other regions in Indonesia.'
-                ]
+                    'Mobility: Willingness to travel frequently to paper mill sites across Java, Sumatra, and other regions in Indonesia.',
+                ],
             ],
             [
                 'id' => 'driver-operasional',
@@ -80,7 +80,7 @@ class CareerController extends Controller
                     'Conduct routine vehicle inspections (engine oil, tire pressure, brakes, fluid levels, cleanliness) to ensure maximum road safety.',
                     'Assist the warehouse and logistics team with loading, unloading, and verifying delivery documents (Surat Jalan).',
                     'Comply strictly with traffic laws, safe driving protocols, and company vehicle maintenance schedules.',
-                    'Maintain accurate daily mileage logs, fuel receipts, and vehicle service records.'
+                    'Maintain accurate daily mileage logs, fuel receipts, and vehicle service records.',
                 ],
                 'requirements' => [
                     'Education: Minimum Senior High School diploma (SMA / SMK).',
@@ -88,8 +88,8 @@ class CareerController extends Controller
                     'Experience: Minimum 2+ years of working experience as an operational driver, logistics driver, or company driver.',
                     'Knowledge: Excellent knowledge of road routes across Jabodetabek, Tangerang, and surrounding industrial estates.',
                     'Attitude: Highly disciplined, punctual, trustworthy, physically fit, and customer-service oriented.',
-                    'Flexibility: Willing to work flexible hours or overtime when required for site deliveries.'
-                ]
+                    'Flexibility: Willing to work flexible hours or overtime when required for site deliveries.',
+                ],
             ],
             [
                 'id' => 'sales-manager',
@@ -105,7 +105,7 @@ class CareerController extends Controller
                     'Lead, mentor, and evaluate the performance of Sales Engineers and account representatives to achieve team targets.',
                     'Manage key corporate accounts, high-value contracts, EPC contractors, and major industrial plant clients.',
                     'Analyze market trends, competitor positioning, and customer insights to identify new business opportunities and revenue streams.',
-                    'Collaborate closely with management, technical engineering, procurement, and logistics teams to deliver seamless customer experiences.'
+                    'Collaborate closely with management, technical engineering, procurement, and logistics teams to deliver seamless customer experiences.',
                 ],
                 'requirements' => [
                     'Education: Bachelor’s Degree in Engineering, Business Administration, Marketing, or related field (Master’s degree is an advantage).',
@@ -113,9 +113,9 @@ class CareerController extends Controller
                     'Track Record: Proven track record of consistently meeting or exceeding high-value industrial sales targets.',
                     'Leadership: Exceptional strategic thinking, team building, contract negotiation, and senior executive communication skills.',
                     'Language: Fluent in written and spoken Bahasa Indonesia and English.',
-                    'Network: Strong existing network within power generation, chemical, pulp & paper, petrochemical, or heavy industrial sectors is highly preferred.'
-                ]
-            ]
+                    'Network: Strong existing network within power generation, chemical, pulp & paper, petrochemical, or heavy industrial sectors is highly preferred.',
+                ],
+            ],
         ];
 
         $breadcrumbs = [

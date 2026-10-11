@@ -27,7 +27,7 @@ class ProductController extends Controller
         if ($product->product_group) {
             $category = PublicProductCategory::where('name', $product->product_group)->where('is_published', true)->first();
             if ($category) {
-                $breadcrumbs[] = ['name' => $category->name, 'url' => '/product-category/' . $category->slug . '/'];
+                $breadcrumbs[] = ['name' => $category->name, 'url' => '/product-category/'.$category->slug.'/'];
             }
 
             // Same group, closest subgroup first, so the buyer keeps browsing.
@@ -42,7 +42,7 @@ class ProductController extends Controller
 
         $categoryCount = $category ? $category->productsQuery()->count() : 0;
 
-        $breadcrumbs[] = ['name' => $product->title ?? $product->name, 'url' => $product->url_path ?: ('/product/' . $product->slug . '/')];
+        $breadcrumbs[] = ['name' => $product->title ?? $product->name, 'url' => $product->url_path ?: ('/product/'.$product->slug.'/')];
 
         $seo['schema_json'] = [
             PublicSeo::productSchema($product),

@@ -34,6 +34,29 @@ final readonly class Material
         return $this->allowableMpa !== [] && $this->modulusGpa !== [];
     }
 
+    /** Whether the material can serve the role: bellows needs 20 °C modulus and yield rows, collar/reinforcement only Sa and E. */
+    public function usableFor(string $role): bool
+    {
+        if (! in_array($role, $this->roles, true) || ! $this->hasData()) {
+            return false;
+        }
+
+        return $role !== 'bellows'
+            || (self::hasPoint($this->modulusGpa, 20.0) && self::hasPoint($this->yieldMpa, 20.0));
+    }
+
+    /** @param  array<int|string, float|int>  $table */
+    private static function hasPoint(array $table, float $t): bool
+    {
+        foreach (array_keys($table) as $k) {
+            if (abs((float) $k - $t) < 1e-9) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function hasYield(): bool
     {
         return $this->yieldMpa !== [];

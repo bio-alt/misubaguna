@@ -37,7 +37,7 @@ final class MaterialRepository
     {
         return array_values(array_filter(
             $this->materials,
-            fn (Material $m) => $m->hasData() && in_array($role, $m->roles, true),
+            fn (Material $m) => $m->usableFor($role),
         ));
     }
 }

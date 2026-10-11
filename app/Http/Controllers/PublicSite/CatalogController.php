@@ -28,7 +28,7 @@ class CatalogController extends Controller
                 '@type' => 'ListItem',
                 'position' => $i + 1,
                 'name' => $cat->name,
-                'url' => PublicSeo::canonicalUrl('/product-category/' . $cat->slug . '/'),
+                'url' => PublicSeo::canonicalUrl('/product-category/'.$cat->slug.'/'),
             ];
         }
 

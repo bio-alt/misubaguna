@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\PublicSite;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactInquiry;
 use App\Models\PublicSite\PublicPage;
 use App\Support\PublicSeo;
-use App\Mail\ContactInquiry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
