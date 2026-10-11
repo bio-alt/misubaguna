@@ -391,6 +391,8 @@
                 <a class="mega-link" href="{{ route('public.toolkit.flange-standards') }}">Flange Standards</a>
                 <a class="mega-link" href="{{ route('public.toolkit.calculator') }}">Scientific Calculator</a>
                 <a class="mega-link" href="{{ route('public.toolkit.material-specs') }}">Material Specs Library</a>
+                <a class="mega-link" href="/toolkit/expansion-joint-selector/">Expansion Joint Selector</a>
+                <a class="mega-link" href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>
                 <a class="mega-link" href="{{ route('public.toolkit.ejma-calculator') }}">EJMA Bellows Calculator</a>
             </div>
             <div>
@@ -615,6 +617,8 @@
                     <a class="mob-cat-link" href="{{ route('public.toolkit.flange-standards') }}">Flange Standards</a>
                     <a class="mob-cat-link" href="{{ route('public.toolkit.calculator') }}">Scientific Calculator</a>
                     <a class="mob-cat-link" href="{{ route('public.toolkit.material-specs') }}">Material Specs Library</a>
+                    <a class="mob-cat-link" href="/toolkit/expansion-joint-selector/">Expansion Joint Selector</a>
+                    <a class="mob-cat-link" href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>
                     <a class="mob-cat-link" href="{{ route('public.toolkit.ejma-calculator') }}">EJMA Bellows Calculator</a>
                 </div>
 

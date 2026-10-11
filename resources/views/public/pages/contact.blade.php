@@ -475,17 +475,17 @@
                 <div class="form-group">
                     <label for="c_category">Product or Service Interest</label>
                     <select id="c_category" name="category" class="form-control">
-                        <option value="Flexible Joint" @selected(old('category') === 'Flexible Joint')>Flexible Joint (Expansion Joints, Rubber Hoses, Metal Hoses)</option>
-                        <option value="Corrosion Protection" @selected(old('category') === 'Corrosion Protection')>Corrosion Protection (PTFE/Rubber/Ceramic/FRP Linings & Coatings)</option>
-                        <option value="Sealing System" @selected(old('category') === 'Sealing System')>Sealing System (Gland Packing, Seals, Gaskets)</option>
-                        <option value="Engineering Service" @selected(old('category') === 'Engineering Service')>Technical & Field Services (Cooling Tower, Valve, Pump Repair, Metal Spray)</option>
-                        <option value="General Inquiry" @selected(old('category') === 'General Inquiry')>General Industrial Supply & Inquiry</option>
+                        <option value="Flexible Joint" @selected(old('category', request()->query('category')) === 'Flexible Joint')>Flexible Joint (Expansion Joints, Rubber Hoses, Metal Hoses)</option>
+                        <option value="Corrosion Protection" @selected(old('category', request()->query('category')) === 'Corrosion Protection')>Corrosion Protection (PTFE/Rubber/Ceramic/FRP Linings & Coatings)</option>
+                        <option value="Sealing System" @selected(old('category', request()->query('category')) === 'Sealing System')>Sealing System (Gland Packing, Seals, Gaskets)</option>
+                        <option value="Engineering Service" @selected(old('category', request()->query('category')) === 'Engineering Service')>Technical & Field Services (Cooling Tower, Valve, Pump Repair, Metal Spray)</option>
+                        <option value="General Inquiry" @selected(old('category', request()->query('category')) === 'General Inquiry')>General Industrial Supply & Inquiry</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="c_message">Operating Specifications & Message *</label>
-                    <textarea id="c_message" name="message" class="form-control" placeholder="Include line size (DN/NB), operating pressure/temperature, media type, and specific product requirements..." required>{{ old('message') }}</textarea>
+                    <textarea id="c_message" name="message" class="form-control" placeholder="Include line size (DN/NB), operating pressure/temperature, media type, and specific product requirements..." required>{{ old('message', request()->query('message')) }}</textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">Submit Inquiry</button>

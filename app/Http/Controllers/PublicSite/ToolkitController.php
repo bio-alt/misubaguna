@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PublicSite;
 
 use App\Http\Controllers\Controller;
+use App\Support\MaterialLibrary;
 use App\Support\PublicSeo;
 use Illuminate\Support\Facades\DB;
 
@@ -105,6 +106,8 @@ class ToolkitController extends Controller
 
     public function materialSpecs()
     {
+        $materials = MaterialLibrary::all();
+        $families = MaterialLibrary::FAMILIES;
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
 
         $breadcrumbs = [
@@ -115,7 +118,7 @@ class ToolkitController extends Controller
 
         $seo = [
             'meta_title' => 'Material Property Library & Engineering Database | PT Misuba Guna Indonesia',
-            'meta_description' => 'Searchable engineering material specification database for 45+ industrial alloys, polymers, elastomers, and composites with mechanical and thermal properties.',
+            'meta_description' => 'Mechanical, thermal, and chemical resistance properties for '.count($materials).' industrial materials: carbon and stainless steels, nickel alloys, elastomers, fluoropolymers, ceramics, and gasket sheets.',
             'canonical_url' => '/toolkit/material-specs/',
             'og_title' => 'Industrial Material Properties & Specifications Database | Misuba Guna',
             'og_description' => 'Searchable material property database for industrial piping, gaskets, linings, and expansion joints.',
@@ -126,12 +129,76 @@ class ToolkitController extends Controller
                 PublicSeo::breadcrumbSchema($breadcrumbs),
                 PublicSeo::webApplicationSchema(
                     'Industrial Material Properties Database',
-                    'Interactive engineering database for 45+ industrial materials including metals, polymers, and elastomers.',
+                    'Searchable property database for '.count($materials).' industrial materials including metals, polymers, elastomers, and ceramics.',
                     '/toolkit/material-specs/'
                 ),
             ],
         ];
 
-        return view('public.toolkit.material-specs', compact('seo', 'siteSettings', 'breadcrumbs'));
+        return view('public.toolkit.material-specs', compact('seo', 'siteSettings', 'breadcrumbs', 'materials', 'families'));
+    }
+
+    public function expansionJointSelector()
+    {
+        $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
+
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'Engineering Toolkit', 'url' => '/toolkit/'],
+            ['name' => 'Expansion Joint Selector', 'url' => '/toolkit/expansion-joint-selector/'],
+        ];
+
+        $seo = [
+            'meta_title' => 'Pipe Thermal Expansion Calculator & Expansion Joint Selector | PT Misuba Guna Indonesia',
+            'meta_description' => 'Calculate pipe thermal expansion and contraction, anchor pressure thrust, and get a rubber, PTFE, metal, or fabric expansion joint recommendation for your operating conditions.',
+            'canonical_url' => '/toolkit/expansion-joint-selector/',
+            'og_title' => 'Pipe Thermal Expansion Calculator & Expansion Joint Selector | Misuba Guna',
+            'og_description' => 'Free pipe thermal expansion calculator with expansion joint type selection by temperature, pressure, and media.',
+            'robots_index' => true,
+            'robots_follow' => true,
+            'schema_json' => [
+                PublicSeo::organizationSchema($siteSettings),
+                PublicSeo::breadcrumbSchema($breadcrumbs),
+                PublicSeo::webApplicationSchema(
+                    'Pipe Thermal Expansion Calculator & Expansion Joint Selector',
+                    'Calculates axial pipe growth between anchors and recommends an expansion joint type by temperature, pressure, and media.',
+                    '/toolkit/expansion-joint-selector/'
+                ),
+            ],
+        ];
+
+        return view('public.toolkit.expansion-joint-selector', compact('seo', 'siteSettings', 'breadcrumbs'));
+    }
+
+    public function chemicalResistance()
+    {
+        $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
+
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'Engineering Toolkit', 'url' => '/toolkit/'],
+            ['name' => 'Chemical Resistance Guide', 'url' => '/toolkit/chemical-resistance/'],
+        ];
+
+        $seo = [
+            'meta_title' => 'Chemical Resistance Chart: PTFE, EPDM, NBR, Viton, 316SS, FRP | PT Misuba Guna Indonesia',
+            'meta_description' => 'Searchable chemical compatibility chart rating PTFE, EPDM, NBR, FKM (Viton), Neoprene, Hypalon, natural rubber, 316 stainless steel, ceramic, and FRP against 40+ industrial chemicals.',
+            'canonical_url' => '/toolkit/chemical-resistance/',
+            'og_title' => 'Chemical Resistance Chart for Linings, Elastomers & Expansion Joints | Misuba Guna',
+            'og_description' => 'Check chemical compatibility of PTFE, rubber, stainless steel, ceramic, and FRP before choosing linings, hoses, gaskets, or expansion joints.',
+            'robots_index' => true,
+            'robots_follow' => true,
+            'schema_json' => [
+                PublicSeo::organizationSchema($siteSettings),
+                PublicSeo::breadcrumbSchema($breadcrumbs),
+                PublicSeo::webApplicationSchema(
+                    'Chemical Resistance Guide',
+                    'Chemical compatibility ratings for lining, elastomer, metal, ceramic, and FRP materials against common industrial chemicals.',
+                    '/toolkit/chemical-resistance/'
+                ),
+            ],
+        ];
+
+        return view('public.toolkit.chemical-resistance', compact('seo', 'siteSettings', 'breadcrumbs'));
     }
 }

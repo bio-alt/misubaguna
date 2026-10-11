@@ -122,7 +122,29 @@
             </svg>
         </div>
         <h3>Material Specs Library</h3>
-        <p>Searchable SolidWorks-style engineering material database with physical, mechanical, thermal, and chemical resistance properties.</p>
+        <p>Mechanical, thermal, and chemical resistance data for 55 steels, alloys, elastomers, plastics, and ceramics, with side-by-side comparison.</p>
+    </a>
+
+    <!-- Expansion Joint Selector Card -->
+    <a href="/toolkit/expansion-joint-selector/" class="toolkit-card">
+        <div class="toolkit-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h4m10 0h4M7 7v10m10-10v10M9.5 7l1.25 2.5L9.5 12l1.25 2.5L9.5 17m5-10l-1.25 2.5L14.5 12l-1.25 2.5L14.5 17" />
+            </svg>
+        </div>
+        <h3>Expansion Joint Selector</h3>
+        <p>Calculate pipe thermal expansion between anchors and get the right rubber, PTFE, metal, or fabric expansion joint for your conditions.</p>
+    </a>
+
+    <!-- Chemical Resistance Guide Card -->
+    <a href="/toolkit/chemical-resistance/" class="toolkit-card">
+        <div class="toolkit-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3h6m-5 0v6.5L4.5 19a1.5 1.5 0 001.3 2.25h12.4A1.5 1.5 0 0019.5 19L14 9.5V3M7 15h10" />
+            </svg>
+        </div>
+        <h3>Chemical Resistance Guide</h3>
+        <p>Check PTFE, EPDM, NBR, Viton, Hypalon, 316SS, ceramic, and FRP compatibility against 40+ industrial chemicals.</p>
     </a>
 
     <!-- EJMA Bellows Calculator Card -->

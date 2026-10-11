@@ -41,7 +41,9 @@
 - [Engineering Toolkit Hub](https://misubaguna.com/toolkit/): Interactive engineering utilities and technical reference suite.
 - [Flange Dimensions & Standards](https://misubaguna.com/toolkit/flange-standards/): DIN, JIS (5K, 10K, 16K, 20K), and ASME B16.5 (Class 150-2500) pipe flange dimensions and bolt hole patterns.
 - [Scientific & Engineering Calculator](https://misubaguna.com/toolkit/calculator/): Online engineering calculator with unit conversion and mathematical functions.
-- [Material Property Library](https://misubaguna.com/toolkit/material-specs/): Searchable engineering material database for 45+ industrial alloys, polymers, and elastomers.
+- [Material Property Library](https://misubaguna.com/toolkit/material-specs/): Searchable property database for 55 industrial materials: steels, nickel alloys, elastomers, fluoropolymers, ceramics, and gasket sheets.
+- [Expansion Joint Selector](https://misubaguna.com/toolkit/expansion-joint-selector/): Pipe thermal expansion calculator (axial growth, anchor thrust) with rubber, PTFE, metal, and fabric expansion joint type recommendation.
+- [Chemical Resistance Guide](https://misubaguna.com/toolkit/chemical-resistance/): Chemical compatibility chart for PTFE, EPDM, NBR, FKM (Viton), Neoprene, Hypalon, natural rubber, 316 stainless steel, ceramic, and FRP against 40+ industrial chemicals.
 - [EJMA Bellows Calculator](https://misubaguna.com/toolkit/ejma-bellows-calculator/): Online design check of metal bellows expansion joints (unreinforced, reinforced, toroidal) per EJMA Standards; results are reviewed by our engineering team.
 
 ## Key Navigation & Reference Pages

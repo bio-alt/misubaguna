@@ -39,6 +39,8 @@ Route::get('/toolkit/calculator/', [ToolkitController::class, 'calculator'])->na
 Route::get('/toolkit/material-specs/', [ToolkitController::class, 'materialSpecs'])->name('public.toolkit.material-specs');
 Route::get('/toolkit/ejma-bellows-calculator/', [EjmaCalculatorController::class, 'index'])->name('public.toolkit.ejma-calculator');
 Route::post('/toolkit/ejma-bellows-calculator/', [EjmaCalculatorController::class, 'store'])->middleware('throttle:30,60,ejma')->name('public.toolkit.ejma-calculator.store');
+Route::get('/toolkit/expansion-joint-selector/', [ToolkitController::class, 'expansionJointSelector'])->name('public.toolkit.expansion-joint-selector');
+Route::get('/toolkit/chemical-resistance/', [ToolkitController::class, 'chemicalResistance'])->name('public.toolkit.chemical-resistance');
 
 Route::get('/sitemap.xml', function () {
     $pages = PublicPage::where('is_published', true)->where('sitemap_include', true)->get();
@@ -52,6 +54,8 @@ Route::get('/sitemap.xml', function () {
         ['loc' => '/toolkit/calculator/', 'priority' => '0.8', 'changefreq' => 'monthly'],
         ['loc' => '/toolkit/material-specs/', 'priority' => '0.8', 'changefreq' => 'monthly'],
         ['loc' => '/toolkit/ejma-bellows-calculator/', 'priority' => '0.8', 'changefreq' => 'monthly'],
+        ['loc' => '/toolkit/expansion-joint-selector/', 'priority' => '0.8', 'changefreq' => 'monthly'],
+        ['loc' => '/toolkit/chemical-resistance/', 'priority' => '0.8', 'changefreq' => 'monthly'],
     ];
 
     return response()->view('public.sitemap', compact('pages', 'products', 'categories', 'services', 'toolkits'))
