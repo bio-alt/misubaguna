@@ -132,6 +132,10 @@ class EjmaCalculatorPageTest extends TestCase
         $response = $this->post(self::URL, $this->payload());
         $response->assertRedirect(self::URL.'#result');
         $response->assertSessionHasNoErrors();
+        // Input is kept so engineers can tweak and resubmit; the honeypot is not echoed back.
+        $response->assertSessionHasInput('Db', '609.6');
+        $response->assertSessionHasInput('email', 'budi@example.com');
+        $this->assertArrayNotHasKey('website', session()->getOldInput());
 
         $this->assertDatabaseCount('ejma_calculations', 1);
         $row = EjmaCalculation::first();
@@ -152,6 +156,8 @@ class EjmaCalculatorPageTest extends TestCase
             ->assertSee('EJ-2026-0001')
             ->assertSee('mailto:marketing@misubaguna.com?subject=EJMA%20calculation%20EJ-2026-0001', false)
             ->assertSee('Email us for the results')
+            ->assertSee('value="609.6"', false)
+            ->assertSee('value="budi@example.com"', false)
             ->assertDontSee(number_format($s1, 0, '.', ''))
             ->assertDontSee(number_format($s1, 1, '.', ''))
             ->assertDontSee(number_format($s1, 0))

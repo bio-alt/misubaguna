@@ -125,10 +125,13 @@ class EjmaCalculatorController extends Controller
 
         $this->sendReport($calculation);
 
-        return redirect()->to(self::PATH.'#result')->with('ejma_result', [
-            'reference' => $calculation->reference,
-            'verdict' => $calculation->verdict,
-        ]);
+        // Keep the input so engineers can tweak and resubmit.
+        return redirect()->to(self::PATH.'#result')
+            ->withInput($request->except('website'))
+            ->with('ejma_result', [
+                'reference' => $calculation->reference,
+                'verdict' => $calculation->verdict,
+            ]);
     }
 
     /**
