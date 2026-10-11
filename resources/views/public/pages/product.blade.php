@@ -33,6 +33,7 @@
     $kicker = $product->product_subgroup ?: $product->product_group;
     $waUrl = \App\Support\ProductContent::whatsappUrl($name);
     $catalogPdf = \App\Support\ProductContent::CATALOG_PDF;
+    $quoteChecklist = \App\Support\ProductContent::quoteChecklist($product->slug, $product->product_group);
 @endphp
 
 <div class="ds">
@@ -114,12 +115,11 @@
 
                 @if(! $hasFacts)
                     <section class="pd-need">
-                        <h2>To quote this, tell us</h2>
+                        <h2>To quote your {{ $name }}, tell us</h2>
                         <ul>
-                            <li>Line size or dimensions</li>
-                            <li>Design pressure and temperature</li>
-                            <li>Medium and operating conditions</li>
-                            <li>Quantity and delivery location</li>
+                            @foreach($quoteChecklist as $item)
+                                <li>{{ $item }}</li>
+                            @endforeach
                         </ul>
                     </section>
                 @endif
