@@ -124,6 +124,9 @@ class DesignSearchTest extends TestCase
         foreach ($tooling->profilesFor($request->Db) as $p) {
             foreach ($tooling->thicknessesIn() as $t) {
                 for ($n = 1; $n <= $tooling->maxPlies(); $n++) {
+                    if (! DesignSearch::fits($p, $t, $n)) {
+                        continue;
+                    }
                     for ($N = 1; $N <= $tooling->maxConvolutions(); $N++) {
                         $g = new BellowsGeometry(BellowsType::Unreinforced, $request->Db, $t, $n, $N, $p->qIn, $p->wIn, $p->rmIn, $tooling->tangentLengthIn());
                         try {
@@ -237,6 +240,40 @@ class DesignSearchTest extends TestCase
         $this->assertSame(Verdict::Pass, $result->best->result->verdict());
         // Lu = 36 fits at most N = 17 per bellows (2Lb < Lu); the loop stops instead of throwing to N = 30.
         $this->assertLessThan(3 * 17, $result->evaluated);
+    }
+
+    /** Reviewer repro (ruling P3-R4): w 5 mm, rm 2.45 mm, t 1.4 mm: 4 or 5 plies (5.6/7.0 mm) cannot fit the die. */
+    public function test_packs_that_do_not_fit_the_convolution_are_never_evaluated(): void
+    {
+        $profile = ['id' => 'small', 'name' => 'Small die', 'w_mm' => 5.0, 'q_mm' => 10.0, 'rm_mm' => 2.45, 'db_min_mm' => 200, 'db_max_mm' => 400];
+        $request = new DesignRequest(300 / self::IN, self::conditions(P: 15, cycles: 100), 70.0, 'aus', FormingCondition::Annealed, FormingMethod::MandrelOrRoll);
+        $search = fn (int $plies) => (new DesignSearch(self::calculator(), self::tooling([$profile], [1.4 / self::IN], $plies, 30)))->search($request);
+
+        $five = $search(5);
+        // n = 3 (4.2 mm) is the largest pack below both w and 2rm: allowing 5 plies evaluates nothing more.
+        $this->assertSame($search(3)->evaluated, $five->evaluated);
+        $this->assertGreaterThan(0, $five->evaluated);
+        foreach (array_filter([$five->best, ...$five->alternatives, $five->closestFailing]) as $c) {
+            $this->assertLessThan($c->profile->wIn, $c->n * $c->t);
+            $this->assertLessThan(2 * $c->profile->rmIn, $c->n * $c->t);
+        }
+    }
+
+    public function test_a_pack_exactly_filling_the_convolution_is_skipped(): void
+    {
+        $p = fn (float $w, float $rm) => new FormingProfile('p', 'p', $w, 1.0, $rm, 20.0, 30.0);
+
+        $this->assertTrue(DesignSearch::fits($p(0.5, 1.0), 0.25, 1));
+        $this->assertFalse(DesignSearch::fits($p(0.5, 1.0), 0.25, 2), 'n·t = w');
+        $this->assertFalse(DesignSearch::fits($p(2.0, 0.25), 0.25, 2), 'n·t = 2rm');
+        $this->assertFalse(DesignSearch::fits($p(2.0, 0.25), 0.25, 3), 'n·t > 2rm');
+
+        // Through the search: Db 100 mm, t 1.4 mm, rm 1.4 mm: n = 2 equals 2rm exactly (in inches too) and is skipped.
+        $profile = ['id' => 'eq', 'name' => 'Equal', 'w_mm' => 6.0, 'q_mm' => 10.0, 'rm_mm' => 1.4, 'db_min_mm' => 50, 'db_max_mm' => 200];
+        $request = new DesignRequest(100 / self::IN, self::conditions(P: 15, cycles: 100), 70.0, 'aus', FormingCondition::Annealed, FormingMethod::MandrelOrRoll);
+        $search = fn (int $plies) => (new DesignSearch(self::calculator(), self::tooling([$profile], [1.4 / self::IN], $plies, 30)))->search($request);
+        $this->assertGreaterThan(0, $search(1)->evaluated);
+        $this->assertSame($search(1)->evaluated, $search(2)->evaluated);
     }
 
     public function test_ordering_tie_breaks(): void

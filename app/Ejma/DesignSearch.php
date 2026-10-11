@@ -45,6 +45,9 @@ class DesignSearch
         foreach ($this->tooling->profilesFor($r->Db) as $profile) {
             foreach ($this->tooling->thicknessesIn() as $t) {
                 for ($n = 1; $n <= $this->tooling->maxPlies(); $n++) {
+                    if (! self::fits($profile, $t, $n)) {
+                        break;  // the pack only grows with n; no N changes the fit (ruling P3-R4)
+                    }
                     // Increase N from 1 and stop at the first passing N (spec §3.2).
                     for ($N = 1; $N <= $this->tooling->maxConvolutions(); $N++) {
                         $geometry = self::geometry($profile, $r->Db, $t, $n, $N, $Lt);
@@ -118,6 +121,17 @@ class DesignSearch
     private static function compareClosest(DesignCandidate $a, DesignCandidate $b): int
     {
         return ($a->utilisation() <=> $b->utilisation()) ?: self::compare($a, $b);
+    }
+
+    /**
+     * Physical fit (ruling P3-R4): the ply pack n·t must be strictly thinner than both the
+     * convolution height w and the root/crest diameter 2rm, or the die cannot form it.
+     */
+    public static function fits(FormingProfile $p, float $t, int $n): bool
+    {
+        $pack = $n * $t;
+
+        return $pack < $p->wIn && $pack < 2 * $p->rmIn;
     }
 
     private static function geometry(FormingProfile $p, float $Db, float $t, int $n, int $N, float $Lt): BellowsGeometry

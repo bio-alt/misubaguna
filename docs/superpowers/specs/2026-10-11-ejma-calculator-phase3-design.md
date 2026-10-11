@@ -62,6 +62,11 @@ Candidates: every profile whose Db range contains Db × every thickness × plies
 `EjmaCalculator::calculate` (no duplicated physics). Candidates that raise
 `EjmaInputException` (e.g. outside chart range) are skipped, not fatal.
 
+Physical fit (ruling P3-R4): before evaluation, a (profile, t, n) combination whose ply
+pack does not fit the die is skipped for every N: it must satisfy n·t < w AND n·t < 2rm
+(strict; a pack exactly equal to w or 2rm is skipped). Skipped combinations are not
+evaluated, not counted in `evaluated`, and can never be the closest failing candidate.
+
 Pruning: for a fixed (profile, t, n), increase N from 1 and stop at the first passing N;
 also stop when N exceeds what fits (instability or the Lb − x guard throws).
 
