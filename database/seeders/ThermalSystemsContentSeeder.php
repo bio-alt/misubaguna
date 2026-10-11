@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Thermal Systems page content (category + 4 products).
+ * Thermal Systems page content (category + 5 products).
  * Runs after PublicSiteContentSeeder so it supersedes the earlier placeholder copy.
  *
  * Specification values are typical industry ranges, not datasheet figures:
@@ -34,13 +34,13 @@ class ThermalSystemsContentSeeder extends Seeder
             ]);
         }
 
-        $meta = 'Cooling towers, shell and tube heat exchangers, plate heat exchangers and oil coolers for industrial process, power and HVAC duty.';
+        $meta = 'Cooling towers, shell and tube and finned-coil heat exchangers, plate heat exchangers, oil coolers and water-cooled cartridges for industrial process, power and HVAC duty.';
 
         DB::table('public_product_categories')
             ->where('url_path', '/product-category/thermal-systems/')
             ->update([
-                'summary' => 'Cooling towers, shell and tube and plate heat exchangers, and oil coolers for process cooling, heat recovery and lubrication systems.',
-                'description_html' => '<p>Heat has to go somewhere. Our thermal range covers the equipment that removes it from a plant: cooling towers that reject it to the atmosphere, heat exchangers that move it between process fluids, and oil coolers that keep hydraulic and lubrication systems inside their working temperature.</p><p>Units are sized to your duty, fluids and site conditions, and supplied new or as replacements for existing equipment. Repair, re-tubing, fill replacement and plate re-gasketing are covered by our field services.</p>',
+                'summary' => 'Cooling towers, shell and tube, finned-coil and plate heat exchangers, oil coolers and replacement water-cooled cartridges for process cooling, heat recovery and lubrication systems.',
+                'description_html' => '<p>Heat has to go somewhere. Our thermal range covers the equipment that removes it from a plant: cooling towers that reject it to the atmosphere, heat exchangers that move it between process fluids, and oil coolers that keep hydraulic and lubrication systems inside their working temperature, with replacement cartridges to renew them.</p><p>Units are sized to your duty, fluids and site conditions, and supplied new or as replacements for existing equipment. Repair, re-tubing, fill replacement and plate re-gasketing are covered by our field services.</p>',
                 'meta_description' => $meta,
                 'og_description' => $meta,
                 'updated_at' => $now,
@@ -121,52 +121,58 @@ class ThermalSystemsContentSeeder extends Seeder
             [
                 'url_path' => '/product/heat-exchanger/',
                 'title' => 'Heat Exchanger',
-                'h1' => 'Shell and Tube Heat Exchangers',
-                'summary' => 'Custom-built shell and tube heat exchangers to TEMA standards, in fixed tubesheet, U-tube and floating head designs.',
-                'meta' => 'Custom shell and tube heat exchangers built to TEMA standards, with fixed tubesheet, U-tube and floating head designs in carbon steel, stainless steel and alloy tubes.',
-                'intro' => 'The shell and tube exchanger is the standard choice for high pressure, high temperature and heavily fouling duties. We build units to your process data and to TEMA standards, in a layout that suits how often the bundle has to be cleaned or pulled.',
+                'h1' => 'Industrial Heat Exchangers: Shell and Tube & Finned Coil',
+                'summary' => 'Shell and tube heat exchangers to TEMA standards and finned-coil air-cooled heat exchangers, built to your process duty.',
+                'meta' => 'Shell and tube heat exchangers built to TEMA standards and finned-coil air-cooled heat exchangers, in carbon steel, stainless steel, copper and alloy tubes for process, power and HVAC duty.',
+                'intro' => 'We build two families of heat exchanger. Shell and tube units move heat between two process fluids and are the standard choice for high pressure, high temperature and fouling duties. Finned-coil units reject heat straight to the air, cooling or heating a fluid where cooling water is scarce or unwanted. Both are built to your process data and site conditions.',
                 'sections' => [
-                    'Construction Types' => [
+                    'Shell and Tube Heat Exchangers' => [
                         '<strong>Fixed tubesheet:</strong> simplest and lowest cost, for clean services where the shell side needs no mechanical cleaning.',
                         '<strong>U-tube:</strong> the bundle expands freely and can be pulled for shell-side cleaning, with the tube side limited to chemical cleaning.',
                         '<strong>Floating head:</strong> bundle removable for cleaning on both sides, for dirty services and wide temperature differences.',
+                        'Thermal and mechanical design to TEMA classes R, C or B and recognized pressure vessel codes, with baffle layout balanced against pressure drop and vibration.',
                     ],
-                    'Design Basis' => [
-                        'Thermal and mechanical design to your flow, temperatures, allowable pressure drop and fouling factors.',
-                        'Pressure vessel design to recognized codes, with TEMA classes R, C or B according to duty.',
-                        'Baffle layout chosen to balance heat transfer against pressure drop and vibration risk.',
-                        'Nozzle sizes, orientation and supports matched to your piping and foundations.',
+                    'Finned-Coil Heat Exchangers' => [
+                        '<strong>Air-cooled coolers:</strong> process fluid in finned tubes with fans moving ambient air across the coil. No cooling water, no cooling tower and no water treatment.',
+                        '<strong>Air heaters and coolers:</strong> steam, hot water or chilled water coils for heating or cooling process air, dryers and ventilation.',
+                        '<strong>Radiators and dry coolers:</strong> closed-loop cooling of engine jacket water, glycol and compressor circuits.',
+                        'Fin type, fin pitch, tube rows and circuiting chosen for the duty, the air side pressure drop and how dirty the air is.',
                     ],
-                    'Service and Retubing' => 'Tube leaks, fouling and corrosion are the usual end of a bundle. We offer <a href="/services/heat-exchanger-repair/">heat exchanger repair</a>, retubing and bundle replacement, so a failing exchanger can be renewed to its original footprint.',
+                    'Choosing Between Them' => 'Shell and tube suits liquid-to-liquid and steam duties, high pressures and fluids that foul. Finned coil suits sites where cooling water is limited or expensive, and duties where the fluid can be cooled to within 10–15 °C of ambient air. Send your process data and we will recommend the type.',
+                    'Service and Retubing' => 'Tube leaks, fouling, fin damage and corrosion are the usual end of a bundle or coil. We offer <a href="/services/heat-exchanger-repair/">heat exchanger repair</a>, retubing, coil cleaning and bundle replacement, so a failing exchanger can be renewed to its original footprint.',
                 ],
                 'features' => [
-                    'Built to your process data, with thermal rating and mechanical drawings supplied',
-                    'Fixed, U-tube and floating head designs for different cleaning needs',
-                    'Handles high pressure, high temperature and fouling fluids',
-                    'Wide choice of tube and shell materials for corrosive services',
-                    'Replacement bundles and exchangers matched to existing nozzle positions',
+                    'Shell and tube and finned-coil designs from one supplier',
+                    'Built to your process data, with thermal rating and drawings supplied',
+                    'Fixed, U-tube and floating head bundles for different cleaning needs',
+                    'Air-cooled coils that remove the need for cooling water',
+                    'Wide choice of tube, fin and shell materials for corrosive services',
+                    'Replacement bundles and coils matched to existing nozzles and frames',
                     'Hydrostatic test and inspection documentation on request',
                 ],
                 'applications' => [
                     'Process heating and cooling in refineries, chemical and petrochemical plants',
                     'Steam condensers and feed water heaters',
                     'Palm oil, food and beverage heating and cooling',
+                    'Air-cooled process and lube oil cooling on water-scarce sites',
+                    'Engine jacket water, glycol and compressor cooling',
+                    'Steam and hot water air heaters for dryers and ventilation',
                     'Heat recovery from process streams and flue gas',
-                    'Compressor, engine and jacket water cooling',
                 ],
                 'materials' => [
-                    'Carbon steel shell and channels',
+                    'Carbon steel or stainless steel shell, channels and coil frames',
                     'Tubes in carbon steel, stainless steel 304/316, duplex, copper alloy or titanium',
+                    'Fins in aluminium, copper or galvanized steel, wound, extruded or plate type',
                     'Tubesheets in carbon steel, stainless steel or clad construction',
-                    'Baffles and tie rods in carbon or stainless steel',
                     'Gaskets in spiral wound, graphite or PTFE',
                 ],
                 'specs' => [
-                    'Standards: TEMA classes R, C and B, with design to recognized pressure vessel codes',
-                    'Typical design pressure: up to 40 bar, higher by design',
-                    'Typical design temperature: up to 400 °C, depending on material',
-                    'Tube outside diameter: commonly 19.05 mm (3/4") or 25.4 mm (1")',
-                    'Surface area, passes and tube length configured to your duty',
+                    'Shell and tube standards: TEMA classes R, C and B, with design to recognized pressure vessel codes',
+                    'Shell and tube design pressure: typically up to 40 bar, higher by design',
+                    'Shell and tube design temperature: typically up to 400 °C, depending on material',
+                    'Finned coil approach: typically 10–15 °C above ambient air temperature',
+                    'Finned coil fin pitch: commonly 2.5–5 mm, wider for dusty air',
+                    'Surface area, passes, tube rows and fan power configured to your duty',
                 ],
             ],
             [
@@ -246,6 +252,7 @@ class ThermalSystemsContentSeeder extends Seeder
                     'Water-cooled and air-cooled options for any site',
                     'Compact designs for crowded machine rooms and mobile equipment',
                     'Removable tube bundles on larger shell and tube units',
+                    'Integral low-fin copper tubes for more heat transfer on the oil side',
                     'Materials selected for oil, cooling water and sea-water duty',
                     'Replacement coolers matched to existing mounting and ports',
                     'Pressure tested before dispatch',
@@ -271,6 +278,58 @@ class ThermalSystemsContentSeeder extends Seeder
                     'Cooling water: typically up to 32–35 °C inlet',
                     'Heat duty: from a few kW to several hundred kW',
                     'Duty, flow, ports and mounting configured to your system',
+                ],
+            ],
+            [
+                'url_path' => '/product/water-cooled-cartridge/',
+                'title' => 'Water-Cooled Cartridge',
+                'h1' => 'Water-Cooled Cartridges: Replacement Cooler Tube Bundles',
+                'summary' => 'Replaceable water-cooled tube bundle cartridges for oil coolers, compressor intercoolers and aftercoolers, and process coolers.',
+                'meta' => 'Water-cooled cartridge tube bundles for oil coolers, compressor intercoolers and aftercoolers, built to fit existing shells in copper, cupronickel, stainless steel and titanium.',
+                'intro' => 'A water-cooled cartridge is the removable tube bundle at the heart of a cooler: cooling water runs through the tubes while oil, air or gas passes over them inside the shell. When a bundle is fouled, leaking or corroded, replacing the cartridge restores full cooling duty without changing the shell, piping or mounting.',
+                'sections' => [
+                    'Cartridge Types' => [
+                        '<strong>Straight-tube:</strong> tubes between two tubesheets, cleanable on the water side by rodding. The usual design for oil and process coolers.',
+                        '<strong>U-tube:</strong> one tubesheet and free expansion of the bundle, for duties with a wide temperature difference.',
+                        '<strong>Finned-tube:</strong> copper or aluminium fins on the outside of the tubes, for air and gas cooling in compressor intercoolers and aftercoolers.',
+                    ],
+                    'Built to Fit' => [
+                        'Made to the dimensions of the original cartridge or drawn from the old bundle on site.',
+                        'Tubesheet diameter, tube count, length and baffle positions matched to the existing shell.',
+                        'Gasket and O-ring seats matched to the existing end covers.',
+                        'Tube material can be upgraded where the original suffered corrosion or erosion.',
+                    ],
+                    'Repair or Replace' => 'A bundle with a few leaking tubes can often be plugged or retubed, while one with widespread pitting or fouling is usually cheaper to replace. Our <a href="/services/heat-exchanger-repair/">heat exchanger repair service</a> inspects and pressure tests the old cartridge so you can decide on firm facts.',
+                ],
+                'features' => [
+                    'Drop-in replacement that keeps the existing shell, piping and mounting',
+                    'Removable bundle for water-side cleaning and inspection',
+                    'Optional wire turbulator inserts that raise tube-side heat transfer',
+                    'Straight-tube, U-tube and finned-tube designs',
+                    'Tube materials selected for fresh, cooling tower or sea water',
+                    'Reverse-engineered from the old cartridge when drawings are missing',
+                    'Pressure tested before dispatch',
+                ],
+                'applications' => [
+                    'Hydraulic and lube oil coolers',
+                    'Air compressor intercoolers and aftercoolers',
+                    'Turbine, gearbox and bearing oil systems',
+                    'Diesel engine and generator set coolers',
+                    'Marine and sea-water cooled machinery',
+                ],
+                'materials' => [
+                    'Tubes in copper, admiralty brass or cupronickel 90/10 and 70/30',
+                    'Stainless steel 304/316 or titanium tubes for corrosive water',
+                    'Tubesheets in naval brass, carbon steel or stainless steel',
+                    'Copper or aluminium fins for air and gas cooling',
+                    'Gaskets and O-rings chosen for the oil or gas being cooled',
+                ],
+                'specs' => [
+                    'Typical tube outside diameter: 6–19 mm, depending on cooler size',
+                    'Typical water-side pressure: up to 10–16 bar',
+                    'Typical shell-side pressure: up to 25 bar for oil, higher by design',
+                    'Cooling water: typically up to 32–35 °C inlet',
+                    'Dimensions, tube count and passes matched to the existing cooler',
                 ],
             ],
         ];

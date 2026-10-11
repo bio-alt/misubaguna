@@ -222,10 +222,10 @@
 ### Heat Exchanger
 - **URL:** https://misubaguna.com/product/heat-exchanger/
 - **Category:** Thermal Systems
-- **Summary:** Custom shell and tube heat exchangers designed for high temperature, pressure, and fluid process energy recovery.
-- **Key Features:** Robust shell and tube construction; Optimized baffle spacing for fluid velocity and turbulence; High pressure and temperature resistance; Easy tube bundle inspection and cleaning; Custom materials for corrosive or erosive process fluids
-- **Materials:** Carbon Steel; SS304 / SS316 / SS316L; Titanium; Copper Alloy / Brass
-- **Applications:** Oil refineries and chemical processing; Steam generation and boiler feed systems; Power plants and marine propulsion; Hydraulic oil cooling and turbine systems
+- **Summary:** Shell and tube and finned-coil air-cooled heat exchangers for process heating, cooling and heat recovery.
+- **Key Features:** Shell and tube and finned-coil designs; Fixed, U-tube and floating head bundles to TEMA standards; Air-cooled coils that remove the need for cooling water; Wide choice of tube, fin and shell materials; Replacement bundles and coils matched to existing equipment
+- **Materials:** Carbon steel; SS304 / SS316; Duplex; Copper alloy; Titanium; Aluminium, copper or galvanized steel fins
+- **Applications:** Refinery, chemical and petrochemical process heating and cooling; Steam condensers and feed water heaters; Palm oil and food processing; Air-cooled oil and jacket water cooling; Steam and hot water air heaters
 
 ### Plate Heat Exchanger
 - **URL:** https://misubaguna.com/product/plate-heat-exchanger/
@@ -242,6 +242,14 @@
 - **Key Features:** Prevents fluid degradation and seals damage from overheating; Air-cooled (aluminum fin bar) and water-cooled options; Integrated bypass valve options for cold startup protection; Compact, vibration-resistant construction; Suitable for mineral oils, synthetic fluids, and water-glycol mixtures
 - **Materials:** Aluminum Fin & Bar Matrix; Copper-Nickel Tubes; Carbon Steel Casing
 - **Applications:** Hydraulic power units and presses; Industrial gearboxes and drive systems; Injection molding machinery; Construction equipment and marine thrusters
+
+### Water-Cooled Cartridge
+- **URL:** https://misubaguna.com/product/water-cooled-cartridge/
+- **Category:** Thermal Systems
+- **Summary:** Replaceable water-cooled tube bundle cartridges for oil coolers, compressor intercoolers and aftercoolers, and process coolers.
+- **Key Features:** Drop-in replacement for the existing shell and connections; Removable for cleaning and inspection; Straight-tube, U-tube and finned-tube designs; Tube materials selected for cooling water quality; Pressure tested before dispatch
+- **Materials:** Copper, cupronickel 90/10 and 70/30, admiralty brass, stainless steel 304/316, titanium tubes; Brass, steel or stainless tubesheets; Copper or aluminium fins
+- **Applications:** Hydraulic and lube oil coolers; Air compressor intercoolers and aftercoolers; Engine and generator set coolers; Marine and sea-water cooled machinery
 
 ### High-Consistency Pulper
 - **URL:** https://misubaguna.com/product/hicon-pulper/

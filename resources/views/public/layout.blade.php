@@ -308,6 +308,7 @@
                 <a class="mega-link" href="/product/heat-exchanger/">Heat Exchanger</a>
                 <a class="mega-link" href="/product/plate-heat-exchanger/">Plate Heat Exchanger</a>
                 <a class="mega-link" href="/product/oil-cooler/">Oil Cooler</a>
+                <a class="mega-link" href="/product/water-cooled-cartridge/">Water-Cooled Cartridge</a>
             </div>
             <div>
                 <a href="/product-category/corrosion-protection/" style="text-decoration:none;"><span class="mega-col-title">Corrosion Protection</span></a>
@@ -497,6 +498,7 @@
                     <a class="mob-cat-link" href="/product/heat-exchanger/">Heat Exchanger</a>
                     <a class="mob-cat-link" href="/product/plate-heat-exchanger/">Plate Heat Exchanger</a>
                     <a class="mob-cat-link" href="/product/oil-cooler/">Oil Cooler</a>
+                    <a class="mob-cat-link" href="/product/water-cooled-cartridge/">Water-Cooled Cartridge</a>
                 </div>
 
                 <button class="mob-cat-btn" data-panel="mc-corr" type="button">
