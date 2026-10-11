@@ -10,10 +10,13 @@ use App\Ejma\EjmaInputException;
 use App\Ejma\FormingCondition;
 use App\Ejma\FormingMethod;
 use PHPUnit\Framework\TestCase;
+use Tests\RequiresEjmaData;
 use Tests\Unit\Ejma\Fixtures\Benchmarks;
 
 class EjmaCalculatorTest extends TestCase
 {
+    use RequiresEjmaData;
+
     private function calculator(array $mutate = []): EjmaCalculator
     {
         $config = MaterialRepositoryTest::config();

@@ -13,11 +13,13 @@ use App\Models\EjmaCalculation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Tests\RequiresEjmaData;
 use Tests\TestCase;
 
 class EjmaDesignModeTest extends TestCase
 {
     use RefreshDatabase;
+    use RequiresEjmaData;
 
     private const URL = '/toolkit/ejma-bellows-calculator/';
 

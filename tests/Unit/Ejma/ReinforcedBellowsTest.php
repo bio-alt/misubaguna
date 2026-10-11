@@ -3,63 +3,19 @@
 namespace Tests\Unit\Ejma;
 
 use App\Ejma\BellowsGeometry;
-use App\Ejma\BellowsType;
 use App\Ejma\CheckLine;
 use App\Ejma\DesignConditions;
 use App\Ejma\EjmaInputException;
 use App\Ejma\LineStatus;
 use App\Ejma\ReinforcedBellows;
 use PHPUnit\Framework\TestCase;
+use Tests\RequiresEjmaData;
 use Tests\Unit\Ejma\Fixtures\Benchmarks;
 
-/** EJMA 9th Ed. §4.14 benchmark 3 (single reinforced, p097–p098). */
+/** Reinforced bellows on the EJMA 9th Ed. §4.14 benchmark 3 inputs (p097); published results: Private suite. */
 class ReinforcedBellowsTest extends TestCase
 {
-    use EjmaAssertions;
-
-    private const COEFFICIENTS = ['Cp', 'Cf', 'Cd'];
-
-    private const RATIOS = ['Kr', 'e'];
-
-    /** Documented deviations, asserted separately below. */
-    private const DEVIATIONS = ['Psc', 'Nc'];
-
-    public function test_benchmark_3(): void
-    {
-        $b = Benchmarks::case3();
-        $result = (new ReinforcedBellows)->check($b['geometry'], $b['conditions'], $b['properties']);
-        $v = $result->values;
-
-        $this->assertSame(BellowsType::Reinforced, $result->type);
-        foreach ($b['expected'] as $key => $expected) {
-            $this->assertArrayHasKey($key, $v, "value $key");
-            if (in_array($key, self::DEVIATIONS, true)) {
-                continue;
-            }
-            if (in_array($key, self::COEFFICIENTS, true)) {
-                $this->assertCoefficient($expected, $v[$key], $key);
-            } elseif (in_array($key, self::RATIOS, true)) {
-                $this->assertRatio($expected, $v[$key], $key);
-            } else {
-                $this->assertEjmaValue($expected, $v[$key], $key);
-            }
-        }
-
-        // Kθ with φ = P/(limiting squirm pressure without Cθ) = PN²q/(0.3π fir) (AngularPressureFactor):
-        // Cθ = 0.1157^θm = 0.8284, φ = 0.2766, Kθ = 0.7352 → e = 0.3767 (published 0.3756, +0.29 %).
-        $this->assertEqualsWithDelta(0.82844, $v['Ctheta'], 1e-5);
-        $this->assertEqualsWithDelta(100 * 64 / (0.3 * M_PI * $v['fi']), $v['phi'], 1e-9);
-        $this->assertEqualsWithDelta(0.7352, $v['Ktheta'], 1e-4);
-
-        // Known deviation: eq. 4-49 as written gives Psc = 0.3π·Cθ·fir/(N²q) = 299.5; the published
-        // 307 is ~2.5 % higher and no reading of the text reproduces it. 299.5 is the conservative side.
-        $this->assertEqualsWithDelta(299.48, $v['Psc'], 0.05);
-
-        // Nc is steep in St (exponent 2.9): e +0.29 % (from the Psc gap above, since e uses P/Psc)
-        // puts St +0.27 % and Nc −0.9 % (8138 vs 8213). Case-3-only tolerance of 1.5 %;
-        // at the published e = 0.3756 the same equations give Nc = 8212.
-        $this->assertEqualsWithDelta($b['expected']['Nc'], $v['Nc'], 0.015 * $b['expected']['Nc'], 'Nc');
-    }
+    use RequiresEjmaData;
 
     public function test_benchmark_3_lines(): void
     {
@@ -104,10 +60,11 @@ class ReinforcedBellowsTest extends TestCase
         $withFw = (new ReinforcedBellows)->check($b['geometry'], $b['conditions'], $b['properties']);
         $noFw = (new ReinforcedBellows)->check($this->geometry(['fw' => null]), $b['conditions'], $b['properties']);
 
-        // fir (24545) > fw (14751) → larger gusset force and collar bending stress.
+        // fir > the given fw → larger gusset force and collar bending stress.
+        $this->assertGreaterThan($b['geometry']->fw, $noFw->values['fi']);
         $this->assertGreaterThan($withFw->values['S1pp'], $noFw->values['S1pp']);
         $this->assertEqualsWithDelta($noFw->values['fi'], $noFw->values['fspring'], 1e-9);
-        $this->assertEqualsWithDelta(14751, $withFw->values['fspring'], 1e-9);
+        $this->assertEqualsWithDelta($b['geometry']->fw, $withFw->values['fspring'], 1e-9);
     }
 
     public function test_no_collar_omits_collar_lines(): void
@@ -124,7 +81,8 @@ class ReinforcedBellowsTest extends TestCase
         $this->assertNotContains('collar_bending', $keys);
         $this->assertArrayNotHasKey('S1p', $result->values);
         $this->assertArrayNotHasKey('S1pp', $result->values);
-        $this->assertGreaterThan(3294, $result->values['S1'], 'no collar to share the tangent hoop load');
+        $withCollar = (new ReinforcedBellows)->check($b['geometry'], $b['conditions'], $b['properties']);
+        $this->assertGreaterThan($withCollar->values['S1'], $result->values['S1'], 'no collar to share the tangent hoop load');
     }
 
     public function test_missing_inputs_are_field_errors(): void
