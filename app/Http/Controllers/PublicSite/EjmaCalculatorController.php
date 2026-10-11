@@ -16,11 +16,14 @@ use App\Support\PublicSeo;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 
 class EjmaCalculatorController extends Controller
 {
     private const PATH = '/toolkit/ejma-bellows-calculator/';
+
+    private const CALCULATIONS_PER_HOUR = 5;
 
     /** The fragment after the trailing slash stops the URL generator trimming it (a slash redirect would drop flashed errors). */
     private const FORM_URL = self::PATH.'#calculator-form';
@@ -103,6 +106,8 @@ class EjmaCalculatorController extends Controller
             ])->redirectTo(self::FORM_URL);
         }
 
+        $this->consumeCalculationAllowance($request->ip());
+
         $attributes = [
             'bellows_type' => $result->type->value,
             'verdict' => $result->verdict()->value,
@@ -124,6 +129,23 @@ class EjmaCalculatorController extends Controller
             'reference' => $calculation->reference,
             'verdict' => $calculation->verdict,
         ]);
+    }
+
+    /**
+     * Only successful calculations count towards the hourly limit, so visitors fixing
+     * validation errors are never locked out. The route throttle is just a flood backstop.
+     */
+    private function consumeCalculationAllowance(?string $ip): void
+    {
+        $key = 'ejma-calc:'.$ip;
+
+        if (RateLimiter::tooManyAttempts($key, self::CALCULATIONS_PER_HOUR)) {
+            throw ValidationException::withMessages([
+                'calculation' => 'You have reached the limit of '.self::CALCULATIONS_PER_HOUR.' calculations per hour. Please try again later or contact us.',
+            ])->redirectTo(self::FORM_URL);
+        }
+
+        RateLimiter::hit($key, 3600);
     }
 
     private function persist(array $attributes): EjmaCalculation

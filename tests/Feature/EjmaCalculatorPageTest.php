@@ -279,14 +279,52 @@ class EjmaCalculatorPageTest extends TestCase
             $this->post('/contact-us/', $contact)->assertStatus(302);
         }
 
+        // The contact form's limit does not block calculations...
         for ($i = 0; $i < 5; $i++) {
-            $this->post(self::URL, $this->payload(['Db' => '']))->assertStatus(302);
+            $this->post(self::URL, $this->payload())->assertSessionHasNoErrors()->assertRedirect(self::URL.'#result');
         }
-        $this->post(self::URL, $this->payload(['Db' => '']))->assertStatus(429);
+        $this->post(self::URL, $this->payload())->assertSessionHasErrors('calculation');
 
-        // Calculator submissions do not lock the contact form either.
+        // ...and calculator submissions do not lock the contact form either.
         $this->travel(2)->minutes();
-        $this->post('/contact-us/', $contact)->assertStatus(302);
+        $this->post('/contact-us/', $contact)->assertStatus(302)->assertSessionHasNoErrors();
+    }
+
+    public function test_invalid_submissions_do_not_use_up_the_calculation_limit(): void
+    {
+        Mail::fake();
+        for ($i = 0; $i < 5; $i++) {
+            $this->post(self::URL, $this->payload(['Db' => '']))->assertSessionHasErrors('Db');
+        }
+
+        $this->post(self::URL, $this->payload())
+            ->assertSessionHasNoErrors()
+            ->assertRedirect(self::URL.'#result');
+        $this->assertDatabaseCount('ejma_calculations', 1);
+    }
+
+    public function test_sixth_successful_calculation_within_an_hour_is_refused_with_input_kept(): void
+    {
+        Mail::fake();
+        for ($i = 0; $i < 5; $i++) {
+            $this->post(self::URL, $this->payload())->assertSessionHasNoErrors()->assertRedirect(self::URL.'#result');
+        }
+
+        $this->post(self::URL, $this->payload(['Db' => '600']))
+            ->assertStatus(302)
+            ->assertHeader('Location', 'http://localhost/toolkit/ejma-bellows-calculator/#calculator-form')
+            ->assertSessionHasErrors('calculation')
+            ->assertSessionHasInput('Db', '600')
+            ->assertSessionHasInput('email', 'budi@example.com');
+        $this->assertSame(
+            'You have reached the limit of 5 calculations per hour. Please try again later or contact us.',
+            session('errors')->first('calculation'),
+        );
+        $this->assertDatabaseCount('ejma_calculations', 5);
+
+        $this->travel(61)->minutes();
+        $this->post(self::URL, $this->payload())->assertSessionHasNoErrors()->assertRedirect(self::URL.'#result');
+        $this->assertDatabaseCount('ejma_calculations', 6);
     }
 
     public function test_out_of_range_numbers_are_rejected_not_500(): void
@@ -332,9 +370,9 @@ class EjmaCalculatorPageTest extends TestCase
         $this->assertMatchesRegularExpression('#data-hint-types="toroidal"[^>]*>Required for toroidal bellows#', $html);
     }
 
-    public function test_rate_limited(): void
+    public function test_route_backstop_throttles_request_floods(): void
     {
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $this->post(self::URL, $this->payload(['Db' => '']))->assertStatus(302);
         }
 
