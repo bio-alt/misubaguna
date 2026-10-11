@@ -13,10 +13,16 @@ final class MaterialRepository
     public function __construct(array $config)
     {
         foreach ($config['materials'] ?? [] as $id => $m) {
+            $family = MaterialFamily::tryFrom((string) ($m['family'] ?? 'other'))
+                ?? throw new \InvalidArgumentException(sprintf(
+                    'EJMA material "%s" has an invalid family "%s" (expected one of: %s).',
+                    $id, (string) $m['family'], implode(', ', array_column(MaterialFamily::cases(), 'value')),
+                ));
+
             $this->materials[(string) $id] = new Material(
                 id: (string) $id,
                 name: $m['name'] ?? (string) $id,
-                family: MaterialFamily::from($m['family'] ?? 'other'),
+                family: $family,
                 roles: array_values($m['roles'] ?? []),
                 creepLimitC: isset($m['creep_limit_c']) ? (float) $m['creep_limit_c'] : null,
                 allowableMpa: $m['allowable_mpa'] ?? [],
