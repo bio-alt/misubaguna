@@ -195,7 +195,7 @@
 <div class="ms">
     <section class="ms-intro">
         <div class="ms-wrap">
-            <div class="ms-crumb"><a href="{{ route('public.toolkit.index') }}">Engineering Toolkit</a></div>
+            <div class="ms-crumb"><a href="/toolkit/">Engineering Toolkit</a></div>
             <h1>Material Property Library</h1>
             <p>Typical mechanical, thermal, and chemical resistance properties for the steels, alloys, elastomers, plastics, and ceramics used in expansion joints, linings, seals, and heat exchangers. Click a material for its full sheet, or tick up to three to compare.</p>
             <div class="ms-facts">
@@ -270,7 +270,7 @@
                 <ul>
                     <li>Values are typical room-temperature figures for the annealed or standard condition. Certified minimums are set by each standard and by the mill certificate, not by this table.</li>
                     <li>Max and min temperature are general service limits. Pressure, media, and cycling usually lower the practical limit.</li>
-                    <li>Chemical ratings are a broad screen at about 20 °C. For a specific chemical and concentration, use the <a href="{{ route('public.toolkit.chemical-resistance') }}">Chemical Resistance Guide</a>.</li>
+                    <li>Chemical ratings are a broad screen at about 20 °C. For a specific chemical and concentration, use the <a href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>.</li>
                     <li>Yield strength is not given for brittle ceramics, which fail without yielding.</li>
                 </ul>
             </div>
@@ -278,7 +278,7 @@
                 <h2>Need a material confirmed?</h2>
                 <p>Send us the media, temperature, pressure, and size. Our engineers will recommend a material and quote the expansion joint, lining, hose, or gasket to suit.</p>
                 <p><a class="ms-btn ms-btn-primary" href="/contact-us/?category=General+Inquiry#inquiry-form">Request a quote</a></p>
-                <p style="font-size:13px;">Sizing a joint? Try the <a href="{{ route('public.toolkit.expansion-joint-selector') }}">Expansion Joint Selector</a> or <a href="{{ route('public.toolkit.flange-standards') }}">Flange Standards</a>.</p>
+                <p style="font-size:13px;">Sizing a joint? Try the <a href="/toolkit/expansion-joint-selector/">Expansion Joint Selector</a> or <a href="/toolkit/flange-standards/">Flange Standards</a>.</p>
             </div>
         </div>
     </div>

@@ -15,6 +15,9 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
 # Anthropic (Claude)
 User-agent: ClaudeBot
 Allow: /
@@ -22,8 +25,33 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
 # Perplexity AI
 User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Microsoft Bing / Copilot
+User-agent: Bingbot
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# DuckDuckGo AI answers
+User-agent: DuckAssistBot
+Allow: /
+
+# Mistral Le Chat
+User-agent: MistralAI-User
 Allow: /
 
 # Google Gemini / AI Search
@@ -51,4 +79,6 @@ Allow: /
 
 # Sitemaps and AI Context
 Sitemap: https://misubaguna.com/sitemap.xml
-# LLM Context: https://misubaguna.com/llms.txt
+# LLM context files:
+# https://misubaguna.com/llms.txt
+# https://misubaguna.com/llms-full.txt

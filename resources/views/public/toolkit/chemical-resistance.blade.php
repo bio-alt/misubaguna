@@ -308,7 +308,7 @@
 </style>
 
 <div class="toolkit-page-header">
-    <div class="tk-crumb"><a href="{{ route('public.toolkit.index') }}">Engineering Toolkit</a></div>
+    <div class="tk-crumb"><a href="/toolkit/">Engineering Toolkit</a></div>
     <h1>Chemical Resistance Guide</h1>
     <p>Check how PTFE, rubber elastomers, stainless steel, ceramic, and FRP hold up against {{ count($chemicals) }} common industrial chemicals before you choose a lining, hose, gasket, or expansion joint. Click any chemical to see the best materials and matching products.</p>
 </div>

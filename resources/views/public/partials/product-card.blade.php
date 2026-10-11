@@ -4,13 +4,13 @@
     $itemName = $item->name;
     $itemGallery = array_values(array_filter((array) $item->gallery));
     $thumb = $itemGallery[0] ?? $item->og_image_path;
-    $href = $item->url_path ?: '/product/' . $item->slug . '/';
+    $href = \App\Support\PublicSeo::path($item->url_path ?: '/product/' . $item->slug . '/');
     $itemFacts = $compact ? [] : \App\Support\ProductContent::keyFacts(\App\Support\ProductContent::specRows($item->technical_specs), 2);
 @endphp
 <li class="pc-card">
     <div class="pc-media">
         @if($thumb)
-            <img src="{{ asset($thumb) }}" alt="" loading="lazy">
+            <img src="{{ asset($thumb) }}" alt="{{ $itemName }}" loading="lazy" {!! \App\Support\PublicSeo::imgSize($thumb) !!}>
         @else
             @include('public.partials.plate', ['label' => 'Photo on request'])
         @endif

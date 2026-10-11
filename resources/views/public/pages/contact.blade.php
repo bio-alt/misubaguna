@@ -352,6 +352,7 @@
         
         <!-- Contact Cards Column -->
         <div class="contact-cards-col">
+            <h2 class="visually-hidden">Contact details</h2>
             <!-- Direct Phone & WhatsApp -->
             <div class="c-card">
                 <div class="c-card-icon">

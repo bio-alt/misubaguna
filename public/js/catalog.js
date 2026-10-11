@@ -15,6 +15,9 @@
         var show = function (n) {
             if (thumbs.length === 0) { return; }
             index = (n + thumbs.length) % thumbs.length;
+            // The width/height attributes only reserve space for the first photo; let others size naturally.
+            main.removeAttribute('width');
+            main.removeAttribute('height');
             main.src = thumbs[index].dataset.src;
             if (count) { count.textContent = String(index + 1); }
             thumbs.forEach(function (thumb, i) {

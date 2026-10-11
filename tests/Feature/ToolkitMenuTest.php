@@ -12,7 +12,8 @@ class ToolkitMenuTest extends TestCase
     public function test_home_page_links_the_ejma_calculator_in_both_toolkit_menus(): void
     {
         $this->seed();
-        $url = e(route('public.toolkit.ejma-calculator'));
+        // Internal links carry the trailing slash so they never bounce through the 301.
+        $url = '/toolkit/ejma-bellows-calculator/';
 
         $this->get('/')->assertOk()
             ->assertSee('<a class="mega-link" href="'.$url.'">EJMA Bellows Calculator</a>', false)

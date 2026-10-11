@@ -78,7 +78,7 @@
             <figure class="pd-gallery {{ count($gallery) > 1 ? 'pd-gallery--multi' : '' }}" data-gallery tabindex="{{ count($gallery) > 1 ? '0' : '-1' }}" aria-label="Product photos">
                 @if(count($gallery) > 0)
                     <div class="pd-stage">
-                        <img id="pd-main" src="{{ asset($gallery[0]) }}" alt="{{ $name }}">
+                        <img id="pd-main" src="{{ asset($gallery[0]) }}" alt="{{ $name }}" {!! \App\Support\PublicSeo::imgSize($gallery[0]) !!} fetchpriority="high">
                         @if(count($gallery) > 1)
                             <button type="button" class="pd-nav pd-nav--prev" data-prev aria-label="Previous photo">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
@@ -94,7 +94,7 @@
                             @foreach($gallery as $i => $img)
                                 <li>
                                     <button type="button" class="pd-thumb" data-src="{{ asset($img) }}" aria-label="Show photo {{ $i + 1 }} of {{ count($gallery) }}" aria-current="{{ $i === 0 ? 'true' : 'false' }}">
-                                        <img src="{{ asset($img) }}" alt="" loading="lazy">
+                                        <img src="{{ asset($img) }}" alt="" loading="lazy" {!! \App\Support\PublicSeo::imgSize($img) !!}>
                                     </button>
                                 </li>
                             @endforeach
@@ -218,6 +218,18 @@
 
         @if($isCoupling)
             @include('public.partials.coupling-range', ['slug' => $product->slug])
+        @endif
+
+        @if(! empty($faq))
+            <section class="pd-faq" aria-labelledby="pd-faq-title">
+                <h2 class="ds-h2" id="pd-faq-title">{{ $name }}: common questions</h2>
+                @foreach($faq as $item)
+                    <details @if($loop->first) open @endif>
+                        <summary>{{ $item['q'] }}</summary>
+                        <p>{{ $item['a'] }}</p>
+                    </details>
+                @endforeach
+            </section>
         @endif
 
         @if($related->isNotEmpty() && ! $isHub)

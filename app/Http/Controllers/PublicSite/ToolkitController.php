@@ -19,10 +19,10 @@ class ToolkitController extends Controller
         ];
 
         $seo = [
-            'meta_title' => 'Engineering Toolkit & Sizing Tools | PT Misuba Guna Indonesia',
+            'meta_title' => 'Free Engineering Toolkit & Sizing Tools',
             'meta_description' => 'Access free engineering calculation tools, flange dimensions (DIN, JIS, ASME), scientific calculator, and industrial material specifications library.',
             'canonical_url' => '/toolkit/',
-            'og_title' => 'Engineering Toolkit & Sizing Tools | PT Misuba Guna Indonesia',
+            'og_title' => 'Free Engineering Toolkit & Sizing Tools',
             'og_description' => 'Interactive industrial engineering tools, flange standards, and material properties library.',
             'robots_index' => true,
             'robots_follow' => true,
@@ -51,7 +51,7 @@ class ToolkitController extends Controller
         ];
 
         $seo = [
-            'meta_title' => 'Flange Dimensions & Standards (DIN, JIS, ASME B16.5) | PT Misuba Guna Indonesia',
+            'meta_title' => 'Flange Dimensions: DIN, JIS & ASME B16.5',
             'meta_description' => 'Comprehensive industrial flange dimension reference tables covering DIN, JIS (5K, 10K, 16K, 20K), and ASME B16.5 (Class 150 to 2500) bolt holes and pipe sizing.',
             'canonical_url' => '/toolkit/flange-standards/',
             'og_title' => 'Flange Standards & Dimensions Reference (DIN, JIS, ASME) | Misuba Guna',
@@ -83,7 +83,7 @@ class ToolkitController extends Controller
         ];
 
         $seo = [
-            'meta_title' => 'Scientific & Engineering Calculator | PT Misuba Guna Indonesia',
+            'meta_title' => 'Online Scientific & Engineering Calculator',
             'meta_description' => 'Advanced online engineering and scientific calculator with trigonometric, logarithmic, memory functions, history log, and unit conversion tools.',
             'canonical_url' => '/toolkit/calculator/',
             'og_title' => 'Online Scientific & Engineering Calculator | Misuba Guna',
@@ -117,8 +117,8 @@ class ToolkitController extends Controller
         ];
 
         $seo = [
-            'meta_title' => 'Material Property Library & Engineering Database | PT Misuba Guna Indonesia',
-            'meta_description' => 'Mechanical, thermal, and chemical resistance properties for '.count($materials).' industrial materials: carbon and stainless steels, nickel alloys, elastomers, fluoropolymers, ceramics, and gasket sheets.',
+            'meta_title' => 'Engineering Material Property Library',
+            'meta_description' => 'Mechanical, thermal and chemical properties of '.count($materials).' industrial materials: carbon and stainless steels, nickel alloys, elastomers, PTFE, ceramics and gaskets.',
             'canonical_url' => '/toolkit/material-specs/',
             'og_title' => 'Industrial Material Properties & Specifications Database | Misuba Guna',
             'og_description' => 'Searchable material property database for industrial piping, gaskets, linings, and expansion joints.',
@@ -149,8 +149,8 @@ class ToolkitController extends Controller
         ];
 
         $seo = [
-            'meta_title' => 'Pipe Thermal Expansion Calculator & Expansion Joint Selector | PT Misuba Guna Indonesia',
-            'meta_description' => 'Calculate pipe thermal expansion and contraction, anchor pressure thrust, and get a rubber, PTFE, metal, or fabric expansion joint recommendation for your operating conditions.',
+            'meta_title' => 'Thermal Expansion Calculator & Joint Selector',
+            'meta_description' => 'Calculate pipe thermal expansion and anchor pressure thrust, then get a rubber, PTFE, metal or fabric expansion joint recommendation for your conditions.',
             'canonical_url' => '/toolkit/expansion-joint-selector/',
             'og_title' => 'Pipe Thermal Expansion Calculator & Expansion Joint Selector | Misuba Guna',
             'og_description' => 'Free pipe thermal expansion calculator with expansion joint type selection by temperature, pressure, and media.',
@@ -181,8 +181,8 @@ class ToolkitController extends Controller
         ];
 
         $seo = [
-            'meta_title' => 'Chemical Resistance Chart: PTFE, EPDM, NBR, Viton, 316SS, FRP | PT Misuba Guna Indonesia',
-            'meta_description' => 'Searchable chemical compatibility chart rating PTFE, EPDM, NBR, FKM (Viton), Neoprene, Hypalon, natural rubber, 316 stainless steel, ceramic, and FRP against 40+ industrial chemicals.',
+            'meta_title' => 'Chemical Resistance Chart: PTFE, Rubber, 316SS',
+            'meta_description' => 'Chemical compatibility chart rating PTFE, EPDM, NBR, Viton (FKM), Neoprene, Hypalon, natural rubber, 316 stainless, ceramic and FRP against 40+ chemicals.',
             'canonical_url' => '/toolkit/chemical-resistance/',
             'og_title' => 'Chemical Resistance Chart for Linings, Elastomers & Expansion Joints | Misuba Guna',
             'og_description' => 'Check chemical compatibility of PTFE, rubber, stainless steel, ceramic, and FRP before choosing linings, hoses, gaskets, or expansion joints.',

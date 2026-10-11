@@ -48,15 +48,21 @@ Route::get('/sitemap.xml', function () {
     $categories = PublicProductCategory::publishedWithProducts()->where('sitemap_include', true);
     $services = PublicService::where('is_published', true)->where('sitemap_include', true)->get();
 
-    $toolkits = [
-        ['loc' => '/toolkit/', 'priority' => '0.8', 'changefreq' => 'weekly'],
-        ['loc' => '/toolkit/flange-standards/', 'priority' => '0.8', 'changefreq' => 'monthly'],
-        ['loc' => '/toolkit/calculator/', 'priority' => '0.8', 'changefreq' => 'monthly'],
-        ['loc' => '/toolkit/material-specs/', 'priority' => '0.8', 'changefreq' => 'monthly'],
-        ['loc' => '/toolkit/ejma-bellows-calculator/', 'priority' => '0.8', 'changefreq' => 'monthly'],
-        ['loc' => '/toolkit/expansion-joint-selector/', 'priority' => '0.8', 'changefreq' => 'monthly'],
-        ['loc' => '/toolkit/chemical-resistance/', 'priority' => '0.8', 'changefreq' => 'monthly'],
-    ];
+    // lastmod comes from the view file, so it only moves when the page itself changes.
+    $toolkits = collect([
+        '/toolkit/' => 'index',
+        '/toolkit/flange-standards/' => 'flange-standards',
+        '/toolkit/calculator/' => 'calculator',
+        '/toolkit/material-specs/' => 'material-specs',
+        '/toolkit/ejma-bellows-calculator/' => 'ejma-bellows-calculator',
+        '/toolkit/expansion-joint-selector/' => 'expansion-joint-selector',
+        '/toolkit/chemical-resistance/' => 'chemical-resistance',
+    ])->map(fn ($view, $loc) => [
+        'loc' => $loc,
+        'lastmod' => date('Y-m-d', @filemtime(resource_path("views/public/toolkit/{$view}.blade.php")) ?: time()),
+        'priority' => '0.8',
+        'changefreq' => 'monthly',
+    ])->values()->all();
 
     return response()->view('public.sitemap', compact('pages', 'products', 'categories', 'services', 'toolkits'))
         ->header('Content-Type', 'application/xml');
@@ -67,21 +73,13 @@ Route::get('/robots.txt', function () {
         ->header('Content-Type', 'text/plain; charset=utf-8');
 })->name('public.robots');
 
-Route::get('/llms.txt', function () {
-    $file = public_path('llms.txt');
-    if (file_exists($file)) {
-        return response(file_get_contents($file), 200, ['Content-Type' => 'text/plain; charset=utf-8']);
-    }
-    abort(404);
-})->name('public.llms');
+// On the live host the static copies in public/ (built by `php artisan seo:llms`) are served first;
+// these routes build the same text on the fly wherever no static file exists.
+Route::get('/llms.txt', fn () => response(\App\Support\LlmsText::short(), 200, ['Content-Type' => 'text/plain; charset=utf-8']))
+    ->name('public.llms');
 
-Route::get('/llms-full.txt', function () {
-    $file = public_path('llms-full.txt');
-    if (file_exists($file)) {
-        return response(file_get_contents($file), 200, ['Content-Type' => 'text/plain; charset=utf-8']);
-    }
-    abort(404);
-})->name('public.llms-full');
+Route::get('/llms-full.txt', fn () => response(\App\Support\LlmsText::full(), 200, ['Content-Type' => 'text/plain; charset=utf-8']))
+    ->name('public.llms-full');
 
 Route::redirect('/indexpage', '/', 301);
 Route::redirect('/indexpage/', '/', 301);

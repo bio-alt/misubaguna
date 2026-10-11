@@ -430,9 +430,9 @@
 
 <div class="toolkit-container">
     <div class="breadcrumbs">
-        <a href="{{ route('public.home') }}">Home</a>
+        <a href="/">Home</a>
         <span>/</span>
-        <a href="{{ route('public.toolkit.index') }}">Engineering Toolkit</a>
+        <a href="/toolkit/">Engineering Toolkit</a>
         <span>/</span>
         <span>Scientific Calculator</span>
     </div>
@@ -528,6 +528,7 @@
 
         <!-- RIGHT: Side Panel (History & Converters) -->
         <div class="side-panel">
+            <h2 class="visually-hidden">History and unit converters</h2>
             <!-- Calculation History Card -->
             <div class="panel-card">
                 <h3>

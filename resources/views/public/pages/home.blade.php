@@ -1092,7 +1092,7 @@
 <div class="hero-slider-container">
     <!-- Slide 1 -->
     <div class="hero-slide active">
-        <img src="/images/hero/slider1.jpg" alt="Hero Background 1" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+1'">
+        <img src="/images/hero/slider1.jpg" alt="" class="hero-bg" width="1908" height="1080" fetchpriority="high">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title">{{ $page->headline ?? 'PT Misuba Guna Indonesia' }}</h1>
@@ -1108,7 +1108,7 @@
 
     <!-- Slide 2 -->
     <div class="hero-slide">
-        <img src="/images/hero/slider2.jpg" alt="Hero Background 2" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+2'">
+        <img src="/images/hero/slider2.jpg" alt="" class="hero-bg" width="1536" height="1024" loading="lazy" decoding="async">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2 class="hero-title">Build on Trust, Driving on Excellence</h2>
@@ -1124,7 +1124,7 @@
 
     <!-- Slide 3 -->
     <div class="hero-slide">
-        <img src="/images/hero/slider3.jpg" alt="Hero Background 3" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+3'">
+        <img src="/images/hero/slider3.jpg" alt="" class="hero-bg" width="1536" height="864" loading="lazy" decoding="async">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2 class="hero-title">Comprehensive Product Range</h2>
@@ -1140,12 +1140,12 @@
 
     <!-- Slide 4 -->
     <div class="hero-slide">
-        <img src="/images/hero/slider4.jpg" alt="Hero Background 4" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+4'">
+        <img src="/images/hero/slider4.jpg" alt="" class="hero-bg" width="1280" height="960" loading="lazy" decoding="async">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2 class="hero-title">Advanced Engineering Toolkit</h2>
             <p class="hero-subtitle">Access our rich library of technical data, calculators, and detailed documentation.</p>
-            <a href="{{ route('public.toolkit.index') }}" class="hero-btn">
+            <a href="/toolkit/" class="hero-btn">
                 Explore Toolkit
                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -1156,7 +1156,7 @@
 
     <!-- Slide 5 -->
     <div class="hero-slide">
-        <img src="/images/hero/slider5.jpg" alt="Hero Background 5" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+5'">
+        <img src="/images/hero/slider2.jpg" alt="" class="hero-bg" width="1536" height="1024" loading="lazy" decoding="async">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2 class="hero-title">Industry Standard Solutions</h2>
@@ -1172,7 +1172,7 @@
 
     <!-- Slide 6 -->
     <div class="hero-slide">
-        <img src="/images/hero/slider6.jpg" alt="Hero Background 6" class="hero-bg" onerror="this.onerror=null; this.src='https://via.placeholder.com/1920x1080?text=Slider+6'">
+        <img src="/images/hero/slider3.jpg" alt="" class="hero-bg" width="1536" height="864" loading="lazy" decoding="async">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h2 class="hero-title">Ready for Your Next Project?</h2>
@@ -1337,7 +1337,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
 
                 <div class="about-action-btns">
-                    <a href="/about-us" class="about-btn">Read Full Profile</a>
+                    <a href="/about-us/" class="about-btn">Read Full Profile</a>
                     <a href="/wp-content/uploads/2023/11/Misuba-Guna-Indonesia-Company-Profile_Interactive.pdf" target="_blank" class="about-btn-secondary">
                         <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -1378,14 +1378,15 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="marquee-container mb-12">
             <div class="marquee-track">
+                @php $clientNames = ['Lotus', 'Apical', 'Arwana Ceramics', 'Client', 'PT Priamanaya Energi', 'Client', 'KPUC', 'ICA', 'Pratama', 'Vale', 'PRI', 'Dizamatra Powerindo', 'Indah Kiat Pulp and Paper']; @endphp
                 <!-- Group 1 -->
-                @for ($i = 1; $i <= 13; $i++)
-                    <div class="logo-item"><img src="/images/clients/cl{{ $i }}.png" alt="Client {{ $i }}" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x60?text=Client+{{ $i }}'"></div>
-                @endfor
-                <!-- Group 2 (Duplicate for seamless loop) -->
-                @for ($i = 1; $i <= 13; $i++)
-                    <div class="logo-item"><img src="/images/clients/cl{{ $i }}.png" alt="Client {{ $i }}" onerror="this.onerror=null; this.src='https://via.placeholder.com/150x60?text=Client+{{ $i }}'"></div>
-                @endfor
+                @foreach ($clientNames as $n => $clientName)
+                    <div class="logo-item"><img src="/images/clients/cl{{ $n + 1 }}.png" alt="{{ $clientName }} logo" loading="lazy" {!! \App\Support\PublicSeo::imgSize('/images/clients/cl' . ($n + 1) . '.png') !!}></div>
+                @endforeach
+                <!-- Group 2 (Duplicate for seamless loop, hidden from screen readers) -->
+                @foreach ($clientNames as $n => $clientName)
+                    <div class="logo-item" aria-hidden="true"><img src="/images/clients/cl{{ $n + 1 }}.png" alt="" loading="lazy" {!! \App\Support\PublicSeo::imgSize('/images/clients/cl' . ($n + 1) . '.png') !!}></div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -1399,7 +1400,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             <div class="map-container">
                 <!-- Using the map image from the old website -->
-                <img src="https://misubaguna.com/wp-content/uploads/2025/01/Indonesia-Maps-1024x377.png" alt="Indonesia Map" class="indonesia-map">
+                <img src="https://misubaguna.com/wp-content/uploads/2025/01/Indonesia-Maps-1024x377.png" alt="Map of Indonesia" class="indonesia-map" width="1024" height="377" loading="lazy">
                 
                 <!-- Sumatra -->
                 <div class="map-pin" style="top: 20%; left: 10%;"><span class="pin-tooltip">PT. Toba Pulp Lestari, Tbk</span></div>
@@ -1487,7 +1488,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="cta-content">
             <h2>Ready to Partner with Us?</h2>
             <p>Get started today and experience why businesses trust us as their technical supplier of choice.</p>
-            <a href="/contact-us" class="cta-btn">Contact Us Now</a>
+            <a href="/contact-us/" class="cta-btn">Contact Us Now</a>
         </div>
     </div>
 

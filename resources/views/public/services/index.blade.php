@@ -284,7 +284,7 @@
                         <span class="service-badge">{{ $service->service_group }}</span>
                     @endif
                     <h3 class="service-card-title">
-                        <a href="{{ url($service->url_path) }}">{{ $service->name }}</a>
+                        <a href="{{ \App\Support\PublicSeo::path($service->url_path) }}">{{ $service->name }}</a>
                     </h3>
                     <p class="service-card-desc">{{ $service->summary }}</p>
 
@@ -298,7 +298,7 @@
                 </div>
 
                 <div>
-                    <a href="{{ url($service->url_path) }}" class="service-card-btn">
+                    <a href="{{ \App\Support\PublicSeo::path($service->url_path) }}" class="service-card-btn">
                         View Service Details
                         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7-7 7m7-7H3"/>

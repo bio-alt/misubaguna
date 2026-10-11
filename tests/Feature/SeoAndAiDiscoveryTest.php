@@ -78,10 +78,47 @@ class SeoAndAiDiscoveryTest extends TestCase
             $resp->assertStatus(200);
             $content = $resp->getContent();
 
-            $this->assertMatchesRegularExpression('/<title>[^<]+PT Misuba Guna Indonesia<\/title>/', $content);
+            $this->assertMatchesRegularExpression('/<title>[^<]+\| (PT )?Misuba Guna( Indonesia)?<\/title>/', $content);
+            preg_match('/<title>([^<]+)<\/title>/', $content, $m);
+            $this->assertLessThanOrEqual(60, mb_strlen(html_entity_decode($m[1])), $url);
             $this->assertMatchesRegularExpression('/<meta\s+name=["\']description["\']\s+content=["\'][^"\']+["\']/', $content);
             $this->assertStringContainsString('application/ld+json', $content);
             $this->assertStringContainsString('https://misubaguna.com' . $url, $content);
         }
+    }
+
+    public function test_title_helper_keeps_brand_once_and_fits_serp_width(): void
+    {
+        $this->assertSame('Coupling | PT Misuba Guna Indonesia', \App\Support\PublicSeo::title('Coupling - PT Misuba Guna Indonesia'));
+        $this->assertSame('Cooling Tower Repair & Refurbishment Services | Misuba Guna', \App\Support\PublicSeo::title('Cooling Tower Repair & Refurbishment Services - PT Misuba Guna Indonesia'));
+        $this->assertSame('PT Misuba Guna Indonesia - Build on Trust', \App\Support\PublicSeo::title('PT Misuba Guna Indonesia - Build on Trust'));
+    }
+
+    public function test_description_helper_cuts_on_a_word_boundary(): void
+    {
+        $long = str_repeat('pressure ', 40);
+        $desc = \App\Support\PublicSeo::description($long);
+        $this->assertLessThanOrEqual(160, mb_strlen($desc));
+        $this->assertStringEndsWith('pressure…', $desc);
+    }
+
+    public function test_path_helper_adds_trailing_slash_but_not_to_files(): void
+    {
+        $this->assertSame('/product/coupling/', \App\Support\PublicSeo::path('/product/coupling'));
+        $this->assertSame('/sitemap.xml', \App\Support\PublicSeo::path('/sitemap.xml'));
+        $this->assertSame('/', \App\Support\PublicSeo::path(''));
+    }
+
+    public function test_robots_txt_lists_ai_search_crawlers(): void
+    {
+        $content = $this->get('/robots.txt')->getContent();
+        foreach (['OAI-SearchBot', 'Claude-SearchBot', 'Perplexity-User', 'Bingbot'] as $bot) {
+            $this->assertStringContainsString('User-agent: ' . $bot, $content);
+        }
+    }
+
+    public function test_pages_use_the_share_image_not_the_logo(): void
+    {
+        $this->get('/toolkit/')->assertSee('og-default.jpg', false)->assertDontSee('og:locale:alternate', false);
     }
 }

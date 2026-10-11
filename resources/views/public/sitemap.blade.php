@@ -1,5 +1,5 @@
 {!! '<?xml version="1.0" encoding="UTF-8"?>' !!}
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 @foreach($pages as $page)
     <url>
         <loc>{{ \App\Support\PublicSeo::canonicalUrl($page->canonical_url ?: $page->url_path) }}</loc>
@@ -13,7 +13,7 @@
 @foreach($toolkits as $tool)
     <url>
         <loc>{{ \App\Support\PublicSeo::canonicalUrl($tool['loc']) }}</loc>
-        <lastmod>{{ date('Y-m-d') }}</lastmod>
+        <lastmod>{{ $tool['lastmod'] ?? date('Y-m-d') }}</lastmod>
         <changefreq>{{ $tool['changefreq'] ?? 'monthly' }}</changefreq>
         <priority>{{ $tool['priority'] ?? '0.8' }}</priority>
     </url>
@@ -46,6 +46,11 @@
         <lastmod>{{ optional($product->updated_at)->format('Y-m-d') ?: date('Y-m-d') }}</lastmod>
         <changefreq>{{ $product->sitemap_changefreq ?? 'monthly' }}</changefreq>
         <priority>{{ $product->sitemap_priority ?? '0.7' }}</priority>
+@foreach(array_slice(array_values(array_filter((array) $product->gallery)), 0, 10) as $img)
+        <image:image>
+            <image:loc>{{ \App\Support\PublicSeo::assetUrl($img) }}</image:loc>
+        </image:image>
+@endforeach
     </url>
 @endforeach
 </urlset>

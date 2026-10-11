@@ -51,4 +51,38 @@ class CouplingCatalogPagesTest extends TestCase
             $this->get($url)->assertDontSee('JLBH')->assertDontSee('Binhao');
         }
     }
+
+    public function test_product_pages_publish_honest_structured_data(): void
+    {
+        $html = $this->get('/product/jaw-coupling/')->assertOk()->getContent();
+
+        preg_match_all('/<script type="application\/ld\+json">(.*?)<\/script>/s', $html, $blocks);
+        $types = [];
+        foreach ($blocks[1] as $json) {
+            $data = json_decode($json, true);
+            $this->assertNotNull($data, 'JSON-LD must be valid JSON');
+            foreach (isset($data['@type']) ? [$data] : $data as $item) {
+                $types[] = $item['@type'];
+            }
+        }
+
+        $this->assertContains('Product', $types);
+        $this->assertContains('FAQPage', $types);
+        $this->assertContains('ItemList', $types);
+        $this->assertContains('BreadcrumbList', $types);
+        // No invented price or stock claim.
+        $this->assertStringNotContainsString('"price":"0"', $html);
+        $this->assertStringNotContainsString('InStock', $html);
+        $this->assertSame(1, substr_count($html, '<h1'));
+        $this->assertStringContainsString('<meta property="og:type" content="product">', $html);
+        $this->assertMatchesRegularExpression('/<title>Jaw Coupling Supplier in Indonesia \| [^<]+<\/title>/', $html);
+    }
+
+    public function test_llms_txt_lists_every_coupling_page(): void
+    {
+        $text = $this->get('/llms.txt')->assertOk()->getContent();
+        foreach (CouplingCatalog::families() as $family) {
+            $this->assertStringContainsString('https://misubaguna.com' . $family['url'], $text);
+        }
+    }
 }

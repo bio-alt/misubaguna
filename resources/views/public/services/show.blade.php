@@ -401,7 +401,7 @@
 
 {{-- MAIN CONTENT --}}
 <div class="service-body-container">
-    <main>
+    <div class="service-main">
         {{-- KEY FEATURES & CAPABILITIES --}}
         @if(!empty($service->key_features) && is_array($service->key_features))
             <div class="service-section-box">
@@ -497,7 +497,7 @@
                 </div>
             </div>
         @endif
-    </main>
+    </div>
 
     {{-- SIDEBAR --}}
     <aside>
@@ -536,7 +536,7 @@
                 <h3>Related Industrial Products</h3>
                 <div class="related-products-list">
                     @foreach($relatedProducts as $prod)
-                        <a href="{{ url($prod->url_path) }}" class="related-product-card">
+                        <a href="{{ \App\Support\PublicSeo::path($prod->url_path) }}" class="related-product-card">
                             <div class="related-product-title">{{ $prod->title }}</div>
                             <div class="related-product-desc">{{ $prod->summary }}</div>
                         </a>

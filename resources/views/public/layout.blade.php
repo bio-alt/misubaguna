@@ -17,6 +17,12 @@
             font-family: 'Plus Jakarta Sans', sans-serif !important;
         }
 
+        /* Heading kept for screen readers and the document outline, not shown */
+        .visually-hidden {
+            position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
+
         /* =====================================================
            MEGA MENU NAVBAR
         ===================================================== */
@@ -387,13 +393,13 @@
     <div id="toolkit-mega-menu">
         <div class="mega-inner" style="grid-template-columns: repeat(3, 1fr);">
             <div>
-                <a href="{{ route('public.toolkit.index') }}" style="text-decoration:none;"><span class="mega-col-title">Engineering Toolkit</span></a>
-                <a class="mega-link" href="{{ route('public.toolkit.flange-standards') }}">Flange Standards</a>
-                <a class="mega-link" href="{{ route('public.toolkit.calculator') }}">Scientific Calculator</a>
-                <a class="mega-link" href="{{ route('public.toolkit.material-specs') }}">Material Specs Library</a>
+                <a href="/toolkit/" style="text-decoration:none;"><span class="mega-col-title">Engineering Toolkit</span></a>
+                <a class="mega-link" href="/toolkit/flange-standards/">Flange Standards</a>
+                <a class="mega-link" href="/toolkit/calculator/">Scientific Calculator</a>
+                <a class="mega-link" href="/toolkit/material-specs/">Material Specs Library</a>
                 <a class="mega-link" href="/toolkit/expansion-joint-selector/">Expansion Joint Selector</a>
                 <a class="mega-link" href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>
-                <a class="mega-link" href="{{ route('public.toolkit.ejma-calculator') }}">EJMA Bellows Calculator</a>
+                <a class="mega-link" href="/toolkit/ejma-bellows-calculator/">EJMA Bellows Calculator</a>
             </div>
             <div>
                 <span class="mega-col-title">Documentation</span>
@@ -414,7 +420,7 @@
     <header class="{{ request()->is('/') ? 'transparent-nav' : '' }}">
         <div class="nav-container">
             <a href="/" class="nav-logo">
-                <img src="/images/misuba-logo.png"
+                <img src="/images/misuba-logo-nav.png" width="360" height="105"
                      alt="PT Misuba Guna Indonesia">
             </a>
 
@@ -458,7 +464,7 @@
     <div id="mob-backdrop"></div>
     <div id="mob-drawer">
         <div class="mob-head">
-            <img src="/images/misuba-logo.png" alt="Logo">
+            <img src="/images/misuba-logo-nav.png" width="360" height="105" alt="PT Misuba Guna Indonesia">
             <button class="mob-close-btn" id="mob-close" type="button">
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -613,13 +619,13 @@
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
                 <div class="mob-cat-links" id="mc-engdata">
-                    <a class="mob-cat-link" href="{{ route('public.toolkit.index') }}">Toolkit Home</a>
-                    <a class="mob-cat-link" href="{{ route('public.toolkit.flange-standards') }}">Flange Standards</a>
-                    <a class="mob-cat-link" href="{{ route('public.toolkit.calculator') }}">Scientific Calculator</a>
-                    <a class="mob-cat-link" href="{{ route('public.toolkit.material-specs') }}">Material Specs Library</a>
+                    <a class="mob-cat-link" href="/toolkit/">Toolkit Home</a>
+                    <a class="mob-cat-link" href="/toolkit/flange-standards/">Flange Standards</a>
+                    <a class="mob-cat-link" href="/toolkit/calculator/">Scientific Calculator</a>
+                    <a class="mob-cat-link" href="/toolkit/material-specs/">Material Specs Library</a>
                     <a class="mob-cat-link" href="/toolkit/expansion-joint-selector/">Expansion Joint Selector</a>
                     <a class="mob-cat-link" href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>
-                    <a class="mob-cat-link" href="{{ route('public.toolkit.ejma-calculator') }}">EJMA Bellows Calculator</a>
+                    <a class="mob-cat-link" href="/toolkit/ejma-bellows-calculator/">EJMA Bellows Calculator</a>
                 </div>
 
                 <button class="mob-cat-btn" data-panel="mc-docs" type="button">
@@ -669,7 +675,7 @@
             margin-bottom: 48px;
             align-items: start;
         }
-        .footer-col h3 {
+        .footer-col h2 {
             color: #ffffff;
             font-size: 20px;
             font-weight: 700;
@@ -677,7 +683,7 @@
             position: relative;
             padding-bottom: 12px;
         }
-        .footer-col h3::after {
+        .footer-col h2::after {
             content: '';
             position: absolute;
             left: 0;
@@ -736,7 +742,7 @@
         <div class="footer-grid">
             <!-- Operational -->
             <div class="footer-col">
-                <h3>Operational & Warehouse</h3>
+                <h2>Operational & Warehouse</h2>
                 <div class="footer-contact-item">
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     <p>Ruko Mutiara Karawaci Blok C29, Bencongan Indah, Kecamatan Kelapa Dua, Tangerang, Banten. 15810</p>
@@ -745,7 +751,7 @@
 
             <!-- Billing -->
             <div class="footer-col">
-                <h3>Billing Address</h3>
+                <h2>Billing Address</h2>
                 <div class="footer-contact-item">
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                     <p>Gedung STC Senayan Lantai 4 No 89, Jalan Asia Afrika Pintu IX, Gelora Senayan, Tanah Abang Jakarta Pusat</p>
@@ -754,7 +760,7 @@
 
             <!-- Contact Us -->
             <div class="footer-col">
-                <h3>Contact Us</h3>
+                <h2>Contact Us</h2>
                 <div class="footer-contact-item">
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                     <p>+62 21 55660700<br>+62 811-8715-671</p>
@@ -771,7 +777,7 @@
 
             <!-- Map Location -->
             <div class="footer-col">
-                <h3>Our Location</h3>
+                <h2>Our Location</h2>
                 <div class="footer-map" style="border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
                     <iframe src="https://maps.google.com/maps?q=Gedung+STC+Senayan,+Jakarta&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
@@ -781,14 +787,14 @@
         <div class="footer-bottom">
             <p style="margin-bottom: 6px;">&copy; {{ date('Y') }} PT Misuba Guna Indonesia. All rights reserved.</p>
             <p style="font-size: 13px; color: #9ca3af; margin: 0;">
-                <a href="{{ route('public.home') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Home</a> &bull;
-                <a href="{{ route('public.about') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">About Us</a> &bull;
-                <a href="{{ route('public.catalog') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Products</a> &bull;
-                <a href="{{ route('public.services.index') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Services</a> &bull;
-                <a href="{{ route('public.toolkit.index') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Engineering Toolkit</a> &bull;
-                <a href="{{ route('public.contact') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Contact</a> &bull;
-                <a href="{{ route('public.sitemap') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Sitemap (XML)</a> &bull;
-                <a href="{{ route('public.llms') }}" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">AI / LLM Reference</a>
+                <a href="/" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Home</a> &bull;
+                <a href="/about-us/" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">About Us</a> &bull;
+                <a href="/catalog/" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Products</a> &bull;
+                <a href="/services/" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Services</a> &bull;
+                <a href="/toolkit/" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Engineering Toolkit</a> &bull;
+                <a href="/contact-us/" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Contact</a> &bull;
+                <a href="/sitemap.xml" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Sitemap (XML)</a> &bull;
+                <a href="/llms.txt" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">AI / LLM Reference</a>
             </p>
         </div>
     </footer>

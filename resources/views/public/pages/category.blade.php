@@ -27,7 +27,7 @@
             <h1>{{ $category->name }}</h1>
             <p class="pc-lede">{{ $category->summary ?? ($category->name . ' from PT Misuba Guna Indonesia.') }}</p>
             @if($category->description_html)
-                <div class="pd-prose">{!! $category->description_html !!}</div>
+                <div class="pd-prose">{!! \App\Support\PublicSeo::demoteH1($category->description_html) !!}</div>
             @endif
         </div>
 

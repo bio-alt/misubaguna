@@ -6,6 +6,11 @@ class PublicSeo
 {
     public const DEFAULT_DOMAIN = 'https://misubaguna.com';
     public const DEFAULT_LOGO = 'https://misubaguna.com/images/misuba-logo.png';
+    public const DEFAULT_OG_IMAGE = 'https://misubaguna.com/images/og-default.jpg';
+    public const BRAND = 'PT Misuba Guna Indonesia';
+    public const BRAND_SHORT = 'Misuba Guna';
+    public const TITLE_MAX = 60;
+    public const DESC_MAX = 160;
     public const DEFAULT_DESC = 'PT Misuba Guna Indonesia provides high-performance industrial engineering products and plant maintenance services, specializing in expansion joints, sealing systems, corrosion protection linings, and equipment overhaul.';
 
     public static function canonicalUrl(?string $urlOrPath = '/'): string
@@ -30,9 +35,114 @@ class PublicSeo
         return self::DEFAULT_DOMAIN . $trimmed;
     }
 
+    /** Site-relative path with a trailing slash, so internal links skip the slash redirect. */
+    public static function path(?string $urlOrPath): string
+    {
+        $path = parse_url((string) $urlOrPath, PHP_URL_PATH) ?: '/';
+        $path = '/' . ltrim($path, '/');
+
+        if (! preg_match('/\.[a-z0-9]+$/i', $path) && ! str_ends_with($path, '/')) {
+            $path .= '/';
+        }
+
+        return $path;
+    }
+
+    /** Absolute URL on the canonical domain for a public file such as an image. */
+    public static function assetUrl(?string $path): ?string
+    {
+        if (empty($path)) {
+            return null;
+        }
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+            return $path;
+        }
+
+        $segments = array_map('rawurlencode', explode('/', ltrim($path, '/')));
+
+        return self::DEFAULT_DOMAIN . '/' . implode('/', $segments);
+    }
+
+    /**
+     * width/height attributes for a local image so the browser reserves its box (no layout shift).
+     * Returns '' when the file is missing or unreadable.
+     */
+    public static function imgSize(?string $path): string
+    {
+        static $cache = [];
+
+        if (empty($path) || str_starts_with($path, 'http')) {
+            return '';
+        }
+        if (! array_key_exists($path, $cache)) {
+            $file = public_path(rawurldecode(ltrim($path, '/')));
+            $size = is_file($file) ? @getimagesize($file) : false;
+            $cache[$path] = $size ? 'width="' . $size[0] . '" height="' . $size[1] . '"' : '';
+        }
+
+        return $cache[$path];
+    }
+
+    /** Page title kept within what search results show, with the brand appended once. */
+    public static function title(?string $raw): string
+    {
+        $raw = trim((string) $raw);
+        if ($raw === '') {
+            return self::BRAND;
+        }
+
+        // A title that leads with the brand (the home page) is already final.
+        if (str_starts_with($raw, 'PT Misuba') || str_starts_with($raw, 'Misuba')) {
+            return $raw;
+        }
+
+        $base = trim(preg_replace('/\s*[|\-–—]\s*(PT\s+)?Misuba(\s+Guna)?(\s+Indonesia)?\s*$/iu', '', $raw));
+        $base = $base === '' ? $raw : $base;
+
+        // The brand is already worked into the wording ("Contact ... with PT Misuba Guna Indonesia").
+        if (str_contains($base, 'Misuba')) {
+            return $raw;
+        }
+
+        foreach ([self::BRAND, self::BRAND_SHORT] as $brand) {
+            $candidate = $base . ' | ' . $brand;
+            if (mb_strlen($candidate) <= self::TITLE_MAX) {
+                return $candidate;
+            }
+        }
+
+        return $base . ' | ' . self::BRAND_SHORT;
+    }
+
+    /** Meta description cut on a word boundary so it never ends mid-word in search results. */
+    public static function description(?string $raw): string
+    {
+        $text = trim(preg_replace('/\s+/u', ' ', strip_tags((string) $raw)));
+        if ($text === '') {
+            return self::DEFAULT_DESC;
+        }
+        if (mb_strlen($text) <= self::DESC_MAX) {
+            return $text;
+        }
+
+        $cut = mb_substr($text, 0, self::DESC_MAX - 1);
+        $space = mb_strrpos($cut, ' ');
+        if ($space !== false && $space > 100) {
+            $cut = mb_substr($cut, 0, $space);
+        }
+
+        return rtrim($cut, " ,;:-–") . '…';
+    }
+
+    /** Editor HTML placed under the page's own h1 must not add a second h1. */
+    public static function demoteH1(?string $html): string
+    {
+        return preg_replace(['/<h1(\s|>)/i', '/<\/h1>/i'], ['<h2$1', '</h2>'], (string) $html);
+    }
+
     public static function defaultOgImage(): string
     {
-        return self::DEFAULT_LOGO;
+        return self::DEFAULT_OG_IMAGE;
     }
 
     public static function organizationSchema(array $settings = []): array
@@ -47,8 +157,8 @@ class PublicSeo
             'logo' => [
                 '@type' => 'ImageObject',
                 'url' => self::DEFAULT_LOGO,
-                'width' => '320',
-                'height' => '80',
+                'width' => 1920,
+                'height' => 561,
             ],
             'image' => self::DEFAULT_LOGO,
             'description' => self::DEFAULT_DESC,
@@ -79,6 +189,7 @@ class PublicSeo
                     'availableLanguage' => ['English', 'Indonesian'],
                 ],
             ],
+            'areaServed' => ['@type' => 'Country', 'name' => 'Indonesia'],
             'sameAs' => [
                 'https://wa.me/628118715671',
             ],
@@ -141,57 +252,99 @@ class PublicSeo
         $get = fn ($key, $default = null) => is_array($product) ? ($product[$key] ?? $default) : ($product->{$key} ?? $default);
 
         $productUrl = self::canonicalUrl($get('canonical_url') ?: $get('url_path', '/product/' . $get('slug') . '/'));
-        
-        $images = [];
-        $gallery = $get('gallery');
-        if (is_array($gallery) && !empty($gallery)) {
-            foreach ($gallery as $img) {
-                $images[] = str_starts_with($img, 'http') ? $img : url($img);
-            }
-        } elseif ($get('og_image_path')) {
-            $images[] = str_starts_with($get('og_image_path'), 'http') ? $get('og_image_path') : url($get('og_image_path'));
-        }
 
+        $paths = array_values(array_filter((array) $get('gallery')));
+        if (empty($paths) && $get('og_image_path')) {
+            $paths = [$get('og_image_path')];
+        }
+        $images = array_map(fn ($img) => self::assetUrl($img), $paths);
+
+        // Price and stock are quoted per enquiry, so no Offer is published: a made-up price or
+        // availability would be a false statement to search engines and AI answer engines.
         $schema = [
             '@context' => 'https://schema.org',
             '@type' => 'Product',
+            '@id' => $productUrl . '#product',
             'name' => $get('name'),
-            'description' => $get('summary') ?: $get('meta_description') ?: ('High-performance ' . $get('name') . ' engineered by PT Misuba Guna Indonesia.'),
+            'description' => $get('summary') ?: $get('meta_description') ?: ($get('name') . ' supplied by PT Misuba Guna Indonesia.'),
             'url' => $productUrl,
             'brand' => [
                 '@type' => 'Brand',
-                'name' => 'PT Misuba Guna Indonesia',
+                'name' => 'Misuba Guna',
             ],
-            'manufacturer' => [
-                '@type' => 'Organization',
-                'name' => 'PT Misuba Guna Indonesia',
-                'url' => self::DEFAULT_DOMAIN . '/',
-            ],
-            'category' => $get('product_group') ?: 'Industrial Equipment & Sealing',
-            'offers' => [
-                '@type' => 'Offer',
-                'url' => $productUrl,
-                'priceCurrency' => 'IDR',
-                'price' => '0',
-                'priceSpecification' => [
-                    '@type' => 'PriceSpecification',
-                    'priceCurrency' => 'IDR',
-                    'valueAddedTaxIncluded' => true,
-                ],
-                'availability' => 'https://schema.org/InStock',
-                'itemCondition' => 'https://schema.org/NewCondition',
-                'seller' => [
-                    '@type' => 'Organization',
-                    'name' => 'PT Misuba Guna Indonesia',
-                ],
+            'category' => trim(implode(' > ', array_filter([$get('product_group'), $get('product_subgroup')]))) ?: 'Industrial Equipment',
+            'audience' => [
+                '@type' => 'BusinessAudience',
+                'audienceType' => 'Industrial plants, EPC contractors and maintenance teams',
             ],
         ];
 
-        if (!empty($images)) {
+        if (! empty($images)) {
             $schema['image'] = count($images) === 1 ? $images[0] : $images;
         }
 
+        $materials = array_values(array_filter((array) $get('materials')));
+        if (! empty($materials)) {
+            $schema['material'] = implode('; ', array_slice($materials, 0, 12));
+        }
+
+        $properties = [];
+        foreach (ProductContent::specRows((array) $get('technical_specs')) as $row) {
+            if ($row['label']) {
+                $properties[] = ['@type' => 'PropertyValue', 'name' => $row['label'], 'value' => $row['value']];
+            }
+        }
+        if (! empty($properties)) {
+            $schema['additionalProperty'] = $properties;
+        }
+
         return $schema;
+    }
+
+    /**
+     * FAQ built only from the product's own fields, so every answer is already stated on the page.
+     *
+     * @return array<int, array{q: string, a: string}>
+     */
+    public static function productFaq(object $product, array $quoteChecklist = []): array
+    {
+        $name = $product->name;
+        $faq = [];
+
+        $applications = array_values(array_filter((array) $product->applications));
+        if (! empty($applications)) {
+            $faq[] = ['q' => "Where is {$name} used?", 'a' => implode('; ', array_slice($applications, 0, 8)) . '.'];
+        }
+
+        $materials = array_values(array_filter((array) $product->materials));
+        if (! empty($materials)) {
+            $faq[] = ['q' => "What materials are available for {$name}?", 'a' => implode('; ', array_slice($materials, 0, 8)) . '.'];
+        }
+
+        if (! empty($quoteChecklist)) {
+            $faq[] = ['q' => "What do you need to quote {$name}?", 'a' => implode('; ', $quoteChecklist) . '.'];
+        }
+
+        $faq[] = [
+            'q' => "Who supplies {$name} in Indonesia?",
+            'a' => "PT Misuba Guna Indonesia supplies {$name} to industrial plants across Indonesia from its base in Tangerang, Banten. Send your operating conditions and quantity to sales@misubaguna.com or WhatsApp +62 811-8715-671 for a quotation.",
+        ];
+
+        return $faq;
+    }
+
+    /** @param  array<int, array{q: string, a: string}>  $faq */
+    public static function faqSchema(array $faq): array
+    {
+        return [
+            '@context' => 'https://schema.org',
+            '@type' => 'FAQPage',
+            'mainEntity' => array_map(fn ($item) => [
+                '@type' => 'Question',
+                'name' => $item['q'],
+                'acceptedAnswer' => ['@type' => 'Answer', 'text' => $item['a']],
+            ], $faq),
+        ];
     }
 
     public static function serviceSchema(object|array $service, array $settings = []): array
@@ -278,6 +431,34 @@ class PublicSeo
         ];
     }
 
+    /**
+     * ItemList of products (with url) or product variants (without).
+     *
+     * @param  array<int, array{name: string, url?: string, description?: string, image?: string}>  $items
+     */
+    public static function itemListSchema(string $name, array $items): array
+    {
+        $elements = [];
+        foreach (array_values($items) as $i => $item) {
+            $thing = array_filter([
+                '@type' => 'Product',
+                'name' => $item['name'],
+                'description' => $item['description'] ?? null,
+                'url' => isset($item['url']) ? self::canonicalUrl($item['url']) : null,
+                'image' => isset($item['image']) ? self::assetUrl($item['image']) : null,
+            ]);
+            $elements[] = ['@type' => 'ListItem', 'position' => $i + 1, 'item' => $thing];
+        }
+
+        return [
+            '@context' => 'https://schema.org',
+            '@type' => 'ItemList',
+            'name' => $name,
+            'numberOfItems' => count($elements),
+            'itemListElement' => $elements,
+        ];
+    }
+
     public static function breadcrumbSchema(array $items): array
     {
         $elements = [];
@@ -304,23 +485,12 @@ class PublicSeo
         $path = $get('url_path') ?: '/';
         $canonicalUrl = self::canonicalUrl($get('canonical_url') ?: $path);
 
-        $rawTitle = $get('meta_title') ?: $get('title') ?: $get('name') ?: config('app.name');
-        // Ensure brand name is cleanly formatted
-        if (!str_contains($rawTitle, 'Misuba')) {
-            $seoTitle = $rawTitle . ' | PT Misuba Guna Indonesia';
-        } else {
-            $seoTitle = $rawTitle;
-        }
-
-        $seoDescription = $get('meta_description') ?: $get('excerpt') ?: $get('summary') ?: self::DEFAULT_DESC;
-        // Truncate to clean length if too long (max 160 characters for optimal SERP display)
-        if (mb_strlen($seoDescription) > 165) {
-            $seoDescription = mb_substr($seoDescription, 0, 157) . '...';
-        }
+        $seoTitle = self::title($get('meta_title') ?: $get('title') ?: $get('name') ?: config('app.name'));
+        $seoDescription = self::description($get('meta_description') ?: $get('excerpt') ?: $get('summary') ?: self::DEFAULT_DESC);
 
         $ogTitle = $get('og_title') ?: $seoTitle;
         $ogDescription = $get('og_description') ?: $seoDescription;
-        $ogImage = $get('og_image_path') ?: self::DEFAULT_LOGO;
+        $ogImage = $get('og_image_path') ?: self::DEFAULT_OG_IMAGE;
 
         return [
             'meta_title' => $seoTitle,

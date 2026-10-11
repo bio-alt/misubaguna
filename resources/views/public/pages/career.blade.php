@@ -207,6 +207,7 @@
         letter-spacing: 0.04em;
     }
     .position-title {
+        margin: 0;
         font-size: 22px;
         font-weight: 800;
         color: #0f172a;
@@ -558,6 +559,7 @@
 <div class="career-container">
     
     <!-- Benefits Grid -->
+    <h2 class="visually-hidden">Why work with us</h2>
     <div class="benefits-grid">
         <div class="benefit-card">
             <div class="benefit-icon">
@@ -605,7 +607,7 @@
             <div class="position-header">
                 <div class="position-main">
                     <span class="position-badge-tag">{{ $pos['badge'] }}</span>
-                    <div class="position-title">{{ $pos['title'] }}</div>
+                    <h3 class="position-title">{{ $pos['title'] }}</h3>
                     <div class="position-meta">
                         <span class="meta-item">
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>

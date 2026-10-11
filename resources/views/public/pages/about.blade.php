@@ -141,13 +141,13 @@
         border-top: 1px solid rgba(255,255,255,0.15);
         padding-top: 20px;
     }
-    .stat-box h4 {
+    .stat-box .stat-value {
         font-size: 1.5rem;
         font-weight: 800;
         color: #e67e22;
         margin: 0 0 4px 0;
     }
-    .stat-box p {
+    .stat-box p:not(.stat-value) {
         font-size: 0.8rem;
         color: #cbd5e1;
         margin: 0;
@@ -391,11 +391,11 @@
 
             <div class="stat-list">
                 <div class="stat-box">
-                    <h4>2020</h4>
+                    <p class="stat-value">2020</p>
                     <p>Established</p>
                 </div>
                 <div class="stat-box">
-                    <h4>Global</h4>
+                    <p class="stat-value">Global</p>
                     <p>Authorized Agent</p>
                 </div>
             </div>

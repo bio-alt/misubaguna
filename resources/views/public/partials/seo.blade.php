@@ -3,22 +3,27 @@
     $yieldDescription = trim($__env->yieldContent('meta_description'));
 
     $seoTitle = $seo['meta_title'] ?? $seo->meta_title ?? ($yieldTitle ?: ($seo['title'] ?? $seo->title ?? config('app.name')));
-    if ($seoTitle && !str_contains($seoTitle, 'Misuba')) {
-        $seoTitle .= ' | PT Misuba Guna Indonesia';
-    }
+    $seoTitle = \App\Support\PublicSeo::title($seoTitle);
 
     $seoDescription = $seo['meta_description'] ?? $seo->meta_description ?? ($yieldDescription ?: ($seo['excerpt'] ?? $seo->excerpt ?? $seo['summary'] ?? $seo->summary ?? \App\Support\PublicSeo::DEFAULT_DESC));
+    $seoDescription = \App\Support\PublicSeo::description($seoDescription);
 
     $rawCanonical = $seo['canonical_url'] ?? $seo->canonical_url ?? request()->path();
     $canonicalUrl = \App\Support\PublicSeo::canonicalUrl($rawCanonical);
 
     $ogTitle = $seo['og_title'] ?? $seo->og_title ?? $seoTitle;
     $ogDescription = $seo['og_description'] ?? $seo->og_description ?? $seoDescription;
-    $ogImagePath = $seo['og_image_path'] ?? $seo->og_image_path ?? \App\Support\PublicSeo::DEFAULT_LOGO;
-
-    if ($ogImagePath && !str_starts_with($ogImagePath, 'http')) {
-        $ogImagePath = url($ogImagePath);
+    $ogImageRaw = ($seo['og_image_path'] ?? $seo->og_image_path ?? null) ?: \App\Support\PublicSeo::DEFAULT_OG_IMAGE;
+    // The wide logo crops badly in link previews; use the 1200x630 share image instead.
+    if (str_contains($ogImageRaw, 'misuba-logo')) {
+        $ogImageRaw = \App\Support\PublicSeo::DEFAULT_OG_IMAGE;
     }
+    $ogImagePath = \App\Support\PublicSeo::assetUrl($ogImageRaw);
+    $ogImageSize = str_starts_with($ogImageRaw, 'http') ? null : @getimagesize(public_path(rawurldecode(ltrim($ogImageRaw, '/'))));
+    if ($ogImageRaw === \App\Support\PublicSeo::DEFAULT_OG_IMAGE) {
+        $ogImageSize = [1200, 630];
+    }
+    $ogType = $seo['og_type'] ?? 'website';
 
     $robotsIndex = (bool)($seo['robots_index'] ?? $seo->robots_index ?? true);
     $robotsFollow = (bool)($seo['robots_follow'] ?? $seo->robots_follow ?? true);
@@ -33,7 +38,7 @@
 <meta name="robots" content="{{ $robotsIndex ? 'index' : 'noindex' }}, {{ $robotsFollow ? 'follow' : 'nofollow' }}, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
 <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
-<meta property="og:type" content="website">
+<meta property="og:type" content="{{ $ogType }}">
 <meta property="og:site_name" content="PT Misuba Guna Indonesia">
 <meta property="og:title" content="{{ $ogTitle }}">
 @if($ogDescription)
@@ -41,8 +46,12 @@
 @endif
 <meta property="og:url" content="{{ $canonicalUrl }}">
 <meta property="og:image" content="{{ $ogImagePath }}">
+@if($ogImageSize)
+<meta property="og:image:width" content="{{ $ogImageSize[0] }}">
+<meta property="og:image:height" content="{{ $ogImageSize[1] }}">
+@endif
+<meta property="og:image:alt" content="{{ $ogTitle }}">
 <meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="id_ID">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
@@ -53,7 +62,8 @@
 <meta name="twitter:image" content="{{ $ogImagePath }}">
 
 <!-- AI / LLM Discovery Standard Link -->
-<link rel="help" type="text/plain" href="https://misubaguna.com/llms.txt" title="LLM Context">
+<link rel="alternate" type="text/plain" href="https://misubaguna.com/llms.txt" title="LLM summary of PT Misuba Guna Indonesia">
+<link rel="alternate" type="application/xml" href="https://misubaguna.com/sitemap.xml" title="Sitemap">
 
 @if($schemaJson)
 <script type="application/ld+json">

@@ -252,7 +252,7 @@
 </style>
 
 <div class="toolkit-page-header">
-    <div class="tk-crumb"><a href="{{ route('public.toolkit.index') }}">Engineering Toolkit</a></div>
+    <div class="tk-crumb"><a href="/toolkit/">Engineering Toolkit</a></div>
     <h1>Expansion Joint Selector</h1>
     <p>Calculate how much your pipe grows between anchors, the pressure thrust your anchors must hold, and which expansion joint type fits your temperature, pressure, and media.</p>
 </div>

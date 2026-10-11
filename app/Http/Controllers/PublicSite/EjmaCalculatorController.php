@@ -54,8 +54,8 @@ class EjmaCalculatorController extends Controller
         ];
 
         $seo = [
-            'meta_title' => 'EJMA Bellows Calculator for Metal Expansion Joints | PT Misuba Guna Indonesia',
-            'meta_description' => 'Check a metal bellows expansion joint design against EJMA Standards: pressure stresses, fatigue life and squirm for unreinforced, reinforced and toroidal bellows.',
+            'meta_title' => 'EJMA Bellows Calculator for Expansion Joints',
+            'meta_description' => 'Check a metal bellows expansion joint against EJMA Standards: pressure stress, fatigue life and squirm for unreinforced, reinforced and toroidal bellows.',
             'canonical_url' => self::PATH,
             'og_title' => 'EJMA Bellows Calculator | Misuba Guna',
             'og_description' => 'Free online EJMA design check for unreinforced, reinforced and toroidal metal bellows, reviewed by our engineering team.',

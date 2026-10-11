@@ -738,6 +738,7 @@
 
     <!-- Below Viewer Content: Catalog Overview & CTA -->
     <div class="catalog-details-container">
+        <h2 class="visually-hidden">What the catalog covers</h2>
         <div class="details-grid">
             <div class="detail-card">
                 <div class="card-num">SECTION 01</div>

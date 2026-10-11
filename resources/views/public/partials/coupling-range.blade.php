@@ -18,7 +18,7 @@
         <ul class="cr-grid">
             @foreach($families as $item)
                 <li class="cr-fam">
-                    <div class="cr-media"><img src="{{ asset($item['gallery'][0]) }}" alt="" loading="lazy"></div>
+                    <div class="cr-media"><img src="{{ asset($item['gallery'][0]) }}" alt="{{ $item['name'] }}" loading="lazy" {!! \App\Support\PublicSeo::imgSize($item['gallery'][0]) !!}></div>
                     <div class="cr-body">
                         <h3 class="cr-name"><a href="{{ $item['url'] }}">{{ $item['name'] }}</a></h3>
                         <p class="cr-text">{{ $item['tile'] }}</p>
@@ -42,7 +42,7 @@
         <ul class="cr-grid cr-grid--series">
             @foreach($family['series'] as $series)
                 <li class="cr-ser">
-                    <div class="cr-media"><img src="{{ asset($series['image']) }}" alt="{{ $series['name'] }}" loading="lazy"></div>
+                    <div class="cr-media"><img src="{{ asset($series['image']) }}" alt="{{ $series['code'] }} {{ $series['name'] }}" loading="lazy" {!! \App\Support\PublicSeo::imgSize($series['image']) !!}></div>
                     <div class="cr-body">
                         <p class="cr-code">{{ $series['code'] }}</p>
                         <h3 class="cr-name">{{ $series['name'] }}</h3>

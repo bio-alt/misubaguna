@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # One canonical host: send www.misubaguna.com to https://misubaguna.com
+    RewriteCond %{HTTP_HOST} ^www\.misubaguna\.com$ [NC]
+    RewriteRule ^ https://misubaguna.com%{REQUEST_URI} [L,R=301]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

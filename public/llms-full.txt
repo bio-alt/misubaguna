@@ -1,60 +1,37 @@
 # PT Misuba Guna Indonesia
 
-> PT Misuba Guna Indonesia is a leading Indonesian industrial engineering supplier and plant maintenance contractor established in 2011. The company specializes in expansion joints, sealing systems, corrosion protection linings, industrial hoses, paper & pulp machinery, filtration systems, and full-scope on-site engineering field services.
+> PT Misuba Guna Indonesia is an Indonesian industrial engineering supplier and plant maintenance contractor. It supplies expansion joints, sealing systems, corrosion protection linings and coatings, couplings, thermal equipment and pulp & paper machinery, and provides on-site repair, lining and maintenance services to industrial plants across Indonesia.
+
+Prices, stock and lead times are quoted per enquiry; none are published on the website.
 
 ## Company Overview
 - **Legal Entity:** PT Misuba Guna Indonesia
 - **Website:** https://misubaguna.com/
-- **Main Sales Email:** sales@misubaguna.com / marketing@misubaguna.com
+- **Sales Email:** sales@misubaguna.com
 - **Phone:** +62 21 55660700
 - **WhatsApp:** +62 811-8715-671
-- **Operational & Warehouse:** Ruko Mutiara Karawaci Blok C29 & B36, Bencongan Indah, Kelapa Dua, Tangerang, Banten 15810, Indonesia
-- **Billing Office:** Gedung STC Senayan Lantai 4 No 89, Jl. Asia Afrika, Gelora Senayan, Jakarta Pusat, Indonesia
-- **Industries Served:** Power Generation, Petrochemical, Chemical Processing, Pulp & Paper, Palm Oil Milling, Mining, Water Treatment, Food & Beverage, Heavy Manufacturing.
+- **Operational & Warehouse:** Ruko Mutiara Karawaci Blok C29, Bencongan Indah, Kelapa Dua, Tangerang, Banten 15810, Indonesia
+- **Billing Office:** Gedung STC Senayan Lantai 4 No 89, Jl. Asia Afrika Pintu IX, Gelora Senayan, Tanah Abang, Jakarta Pusat, Indonesia
+- **Industries Served:** Power generation, petrochemical, chemical processing, pulp & paper, palm oil, mining, water treatment, food & beverage, heavy manufacturing.
+- **Languages:** English, Indonesian
 
-## Core Products & Engineering Solutions
-- [Corrosion Protection](https://misubaguna.com/product-category/corrosion-protection/): Corrosion Protection solutions for industrial piping and process plants.
-- [Coating](https://misubaguna.com/product-category/coating/): Coating solutions for industrial piping and process plants.
-- [Rubber Hose](https://misubaguna.com/product-category/rubber-hose/): Rubber Hose solutions for industrial piping and process plants.
-- [PTFE Expansion Joint](https://misubaguna.com/product-category/ptfe-expansion-joint/): PTFE Expansion Joint solutions for industrial piping and process plants.
-- [Sealing System](https://misubaguna.com/product-category/sealing-system/): Sealing System solutions for industrial piping and process plants.
-- [Gasket Sheet](https://misubaguna.com/product-category/gasket-sheet/): Gasket Sheet solutions for industrial piping and process plants.
-- [Thermal Systems](https://misubaguna.com/product-category/thermal-systems/): Thermal Systems solutions for industrial piping and process plants.
-- [Paper & Pulp Machinery](https://misubaguna.com/product-category/paper-pulp-machinery/): Paper & Pulp Machinery solutions for industrial piping and process plants.
 
-## Industrial Engineering & Plant Maintenance Services
-
-- [Cooling Tower Repair & Refurbishment](https://misubaguna.com/services/cooling-tower-repair/): Comprehensive repair, thermal overhaul, fill replacement, structural waterproofing, and fan drive maintenance for industrial cooling towers.
-- [Heat Exchanger Service & Repair](https://misubaguna.com/services/heat-exchanger-repair/): On-site and workshop repair services for shell & tube and plate heat exchangers including retubing, hydrostatic testing, and re-gasket service.
-- [Thermal Spray Coating](https://misubaguna.com/services/thermal-spray-coating/): High-performance thermal spray coating and metal spraying solutions to restore worn components and protect against extreme abrasion, heat, and corrosion.
-- [Rubber Lining](https://misubaguna.com/services/rubber-lining/): Workshop and field application of rubber lining sheets for tanks, vessels, pipes, and agitators to resist chemical attack and heavy abrasion.
-- [FRP Lining & Repair](https://misubaguna.com/services/frp-lining-repair/): Fiberglass Reinforced Plastic (FRP) lining and structural relining for chemical tanks, scrubber ducts, trenches, and containment bunds.
-- [PTFE Lining & Bonding](https://misubaguna.com/services/ptfe-lining-bonding/): Expert bonding and sleeve fitting of PTFE and PFA liners for piping, columns, valves, and ultra-pure chemical process equipment.
-- [Expansion Joint Installation & Replacement](https://misubaguna.com/services/expansion-joint-installation/): Field installation, splicing, alignment, and emergency replacement services for metal, fabric, rubber, and PTFE expansion joints.
-- [Mechanical Maintenance & Repair](https://misubaguna.com/services/mechanical-maintenance/): Preventive and corrective mechanical maintenance services for pumps, valves, rotating shafts, couplings, and mechanical seals.
-- [On-Site Inspection & Troubleshooting](https://misubaguna.com/services/onsite-inspection/): On-site technical evaluation, root cause failure analysis, NDT inspection, and shutdown consultation for critical plant equipment.
-- [Valve Repair & Overhaul](https://misubaguna.com/services/valve-repair/): Complete workshop and on-site repair, seat lapping, seal replacement, and pressure testing for control valves, safety valves, gate/globe valves, and actuators.
-- [Gearbox Repair & Rebuilding](https://misubaguna.com/services/gearbox-repair/): Comprehensive overhaul and rebuilding of helical, planetary, worm, and bevel industrial gearboxes, including gear re-machining, shaft alignment, and seal replacement.
-- [Pump & Rotating Equipment Repair](https://misubaguna.com/services/pump-repair/): Field and workshop repair of centrifugal, slurry, positive displacement, and vacuum pumps including dynamic impeller balancing and mechanical seal retrofitting.
-
-## Engineering Toolkit & Technical Calculators
-- [Engineering Toolkit Hub](https://misubaguna.com/toolkit/): Interactive engineering utilities and technical reference suite.
-- [Flange Dimensions & Standards](https://misubaguna.com/toolkit/flange-standards/): DIN, JIS (5K, 10K, 16K, 20K), and ASME B16.5 (Class 150-2500) pipe flange dimensions and bolt hole patterns.
+## Engineering Toolkit (free tools)
+- [Engineering Toolkit Hub](https://misubaguna.com/toolkit/): Free engineering utilities and technical reference tables.
+- [Flange Dimensions & Standards](https://misubaguna.com/toolkit/flange-standards/): DIN, JIS (5K, 10K, 16K, 20K) and ASME B16.5 (Class 150-2500) pipe flange dimensions and bolt patterns.
 - [Scientific & Engineering Calculator](https://misubaguna.com/toolkit/calculator/): Online engineering calculator with unit conversion and mathematical functions.
-- [Material Property Library](https://misubaguna.com/toolkit/material-specs/): Searchable property database for 55 industrial materials: steels, nickel alloys, elastomers, fluoropolymers, ceramics, and gasket sheets.
-- [Expansion Joint Selector](https://misubaguna.com/toolkit/expansion-joint-selector/): Pipe thermal expansion calculator (axial growth, anchor thrust) with rubber, PTFE, metal, and fabric expansion joint type recommendation.
-- [Chemical Resistance Guide](https://misubaguna.com/toolkit/chemical-resistance/): Chemical compatibility chart for PTFE, EPDM, NBR, FKM (Viton), Neoprene, Hypalon, natural rubber, 316 stainless steel, ceramic, and FRP against 40+ industrial chemicals.
+- [Material Property Library](https://misubaguna.com/toolkit/material-specs/): Searchable property database of industrial materials: steels, nickel alloys, elastomers, fluoropolymers, ceramics and gasket sheets.
+- [Expansion Joint Selector](https://misubaguna.com/toolkit/expansion-joint-selector/): Pipe thermal expansion calculator (axial growth, anchor thrust) with rubber, PTFE, metal and fabric expansion joint recommendation.
+- [Chemical Resistance Guide](https://misubaguna.com/toolkit/chemical-resistance/): Chemical compatibility chart for PTFE, EPDM, NBR, FKM (Viton), Neoprene, Hypalon, natural rubber, 316 stainless steel, ceramic and FRP against 40+ industrial chemicals.
 - [EJMA Bellows Calculator](https://misubaguna.com/toolkit/ejma-bellows-calculator/): Online design check of metal bellows expansion joints (unreinforced, reinforced, toroidal) per EJMA Standards; results are reviewed by our engineering team.
 
-## Key Navigation & Reference Pages
-- [About Us](https://misubaguna.com/about-us/): Company history, mission, vision, and core engineering certifications.
-- [Product Catalog](https://misubaguna.com/catalog/): Complete online interactive product catalog.
-- [Project References](https://misubaguna.com/project-list/): Track record of completed client projects in power plants, mills, and refineries.
+## Key Pages
+- [About Us](https://misubaguna.com/about-us/): Company history, mission, vision and capabilities.
+- [Product Catalog](https://misubaguna.com/catalog/): Company profile and downloadable product catalog (PDF).
+- [Project References](https://misubaguna.com/project-list/): Completed client projects in power plants, mills and refineries.
 - [Careers](https://misubaguna.com/career/): Current job openings at PT Misuba Guna Indonesia.
-- [Contact Us](https://misubaguna.com/contact-us/): Inquiry form, direct sales contacts, WhatsApp chat, and office locations.
-- [XML Sitemap](https://misubaguna.com/sitemap.xml): Complete machine-readable XML sitemap.
-- [Full LLM Knowledge File](https://misubaguna.com/llms-full.txt): Complete product specifications and service scopes for LLMs.
-
+- [Contact Us](https://misubaguna.com/contact-us/): Inquiry form, sales contacts, WhatsApp and office locations.
+- [XML Sitemap](https://misubaguna.com/sitemap.xml): Machine-readable list of every public page.
 
 ---
 
@@ -62,13 +39,74 @@
 
 ## All Industrial Products
 
+### PTFE Lining
+- **URL:** https://misubaguna.com/product/ptfe-lining/
+- **Category:** Corrosion Protection > Lining
+- **Summary:** Advanced fluoropolymer PTFE lining solutions applied to pipes, fittings, vessels, and chemical columns to provide an impermeable, non-stick chemical barrier against aggressive acids and high temperatures.
+- **Key Features:** Complete chemical inertness against concentrated nitric, sulfuric, hydrochloric, and hydrofluoric acids up to 260°C; Thick-wall paste extruded PTFE liner prevents permeation and thermal vacuum collapse in continuous vacuum lines; Seamless flared-over sealing faces eliminate separate gaskets at pipe spool and vessel flange connections; Ultra-smooth non-stick surface coefficient prevents scaling, chemical fouling, and pressure drop in transfer lines; 100% Non-destructive electro-spark tested (20kV+ DC) to guarantee zero pinholes or micro-cracks before dispatch
+- **Materials:** Liner Material: 100% Virgin PTFE, Conductive PTFE (Antistatic), PFA, FEP; Substrate Steel: Carbon Steel (A106 Gr B, A53), SS304, SS316L, ASTM A395 Ductile Iron fittings; Flange Standards: ANSI B16.5 Class 150/300, DIN EN 1092-1, JIS B2220
+- **Applications:** Petrochemical acid wash columns, chlorine headers, and pickling acid recirculation loops; Agrochemical and fertilizer manufacturing acid feed lines; Pharmaceutical API synthesis reactors and high-purity solvent transfer lines; Power plant FGD (Flue Gas Desulfurization) chemical dosing and neutralization tanks; Palm oil oleochemical fatty acid distillation columns and chlor-alkali plants
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Rubber Lining
+- **URL:** https://misubaguna.com/product/rubber-lining/
+- **Category:** Corrosion Protection > Lining
+- **Summary:** Heavy-duty elastomeric rubber lining applications applied to tanks, pipes, slurry pumps, and process vessels for severe acid corrosion protection and coarse particle abrasion resistance.
+- **Key Features:** Dual protection: Exceptional impact and slurry abrasion resistance combined with complete acid and alkali barrier protection; Available in soft rubber (40-60 Shore A) for high-velocity particle impact and hard ebonite (75-80 Shore D) for chemical immersion; Superior elastomeric flexibility dampens structural vibration and accommodates thermal contraction without cracking; High-bond strength adhesive system (>10 N/mm peel strength) prevents liner disbondment under vacuum or pressure swings; Cold-bonding site repair systems available for quick field maintenance of tank linings without autoclave requirement
+- **Specifications:** Substrate Preparation: Grit blasting to ISO 8501-1 SA 2.5 profile (75-100 microns); Testing Standards: ASTM D429 (Adhesion), ASTM D5162 / NACE SP0188 (Spark holiday testing 5kV per mm); Temperature Limit: Soft Rubber (-30°C to +85°C); Butyl / EPDM (-30°C to +120°C)
+- **Materials:** Rubber Compounds: Natural Rubber (Soft & Ebonite Hard), Chlorobutyl, Bromobutyl, EPDM, Neoprene, Synthetic NBR; Bonding System: Multi-layer chemlok/isocyanic adhesive primer systems; Lining Thickness: Standard 3mm, 4mm, 6mm, up to 25mm multi-ply build-up
+- **Applications:** Mining ore slurry pipelines, hydrocyclones, flotation cells, and ball mill shells; Power plant FGD scrubber towers, slurry recirculation pumps, and gypsum slurry tanks; Phosphoric acid storage tanks, water treatment demineralizer vessels, and cation/anion beds; Chemical processing transport tankers, acid pickling vats, and waste neutralization pits; Palm oil mill effluent (POME) treatment tanks and coastal seawater intake pipes
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Ceramic Lining
+- **URL:** https://misubaguna.com/product/ceramic-lining/
+- **Category:** Corrosion Protection > Lining
+- **Summary:** High-density 92% and 95% Alumina ceramic tile lining systems for extreme abrasive wear, sliding friction, and erosion in mining, cement, coal, and bulk material handling.
+- **Key Features:** Diamond-hard 92%/95% Alumina ceramic tiles provide unmatched resistance to sliding abrasion and fine particle erosion; Rubber-cushioned ceramic composite panels absorb severe rock impact while eliminating ceramic tile fracture; Weld-through ceramic tiles with tapered steel lock cups ensure secure mechanical attachment under high thermal stress; Extends component service life up to 10x longer than hardfaced overlay plates, reducing unplanned plant shutdown; Custom engineered interlocking sleeve segments for pipe elbows and cyclones eliminate exposed adhesive seams
+- **Specifications:** Tile Thickness: 6mm, 10mm, 12.5mm, 20mm, 25mm, up to 50mm heavy block tiles; Hardness: Mohs Hardness 9 (Vickers HV10 ≥ 1100); Temperature Range: Epoxy bonded (up to 150°C); Weld-attached (up to 750°C)
+- **Materials:** Ceramic Media: 92% Alumina (Al2O3), 95% Alumina, Zirconia-Toughened Alumina (ZTA), Silicon Carbide (SiC); Backing & Bonding: High-impact natural rubber matrix, Two-part high-temperature epoxy resin adhesive; Fixation Hardware: Weldable steel caps, Countersunk SS304 studs, Interlocking tongue-and-groove joints
+- **Applications:** Cement plant raw meal chutes, clinker transfer hoppers, cyclone dipleg pipes, and separator cones; Power plant pulverized coal burner lines, bottom ash sluice pipes, and coal bunker chutes; Mining mineral processing plant chutes, slurry launders, vibrating screen hoppers, and hydrocyclones; Steel mill iron ore sinter transfer points and coke handling chutes; Glass manufacturing silica sand pneumatic convey lines
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### FRP Lining
+- **URL:** https://misubaguna.com/product/frp-lining/
+- **Category:** Corrosion Protection > Lining
+- **Summary:** Seamless glass-fiber reinforced plastic (FRP / GRP) composite lining systems applied on steel, concrete, and brick structures for heavy chemical, acid, and wastewater corrosion protection.
+- **Key Features:** Custom resin selection (Vinyl Ester, Novolac, Isophthalic) matched to specific acid, solvent, or alkali exposure; Monolithic, jointless composite lining seals concrete cracks and prevents chemical seepage into surrounding groundwater; High mechanical strength-to-weight ratio allows structural rehabilitation of thin-wall corroded steel tanks; Integral C-glass synthetic surface veil provides a resin-rich (>80%) chemical barrier preventing fiber prominence; Excellent thermal expansion match with concrete and steel, preventing delamination during seasonal temperature cycles
+- **Specifications:** Laminate Thickness: 3-ply (approx 3mm), 5-ply (approx 5mm), heavy duty 7-ply structural lining (>7mm); Barcol Hardness: ≥ 35 Barcol; Temperature Resistance: Up to 120°C continuous wet immersion depending on resin selection
+- **Materials:** Resin Matrix: Novolac Vinyl Ester (Derakane 470/411), Bisphenol A, Premium Isophthalic Polyester; Reinforcement: E-glass Chopped Strand Mat (CSM 300/450/600 g/m²), Woven Roving (WR 600), C-glass surface veil; Primers: Moisture-tolerant epoxy primer for concrete, Silane-treated steel primer
+- **Applications:** Chemical plant primary and secondary containment dikes, bund walls, and floor trenches; Wastewater treatment plant (WWTP) equalization tanks, clarifiers, and acid neutralization pits; Power plant demisalization water storage tanks and chemical dosing sumps; Pulp and paper chemical storage vessels and bleach plant effluent gutters; Electroplating acid rinse tanks and battery room floor protection
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Ceramic Coating
+- **URL:** https://misubaguna.com/product/ceramic-coating/
+- **Category:** Corrosion Protection > Coating
+- **Summary:** Advanced liquid ceramic polymer coatings and thermal spray ceramic barriers applied to metal components to prevent high-temperature oxidation, cavitation, erosion, and chemical corrosion.
+- **Key Features:** Restores cavitated pump impellers and volutes to original hydraulic efficiency, reducing power consumption; Ultra-smooth ceramic finish improves fluid hydrodynamic flow efficiency by up to 3-5% while preventing erosion; High micro-hardness ceramic particles protect pump casings and valve seats against severe particle impact and cavitation; Exhibits superior dielectric strength, eliminating galvanic corrosion between dissimilar metal assemblies; High thermal barrier properties protect boiler tubes and engine manifolds from high-temperature gas scaling
+- **Specifications:** Coating Thickness: 500 microns to 3000 microns for liquid ceramic; 150-400 microns for thermal spray; Adhesion Strength: >20 MPa (Elcometer pull-off test on steel per ASTM D4541); Temperature Limit: Liquid Ceramic (up to 180°C wet / 230°C dry); Thermal Spray Ceramic (up to 900°C)
+- **Materials:** Polymer Base: Ceramic-reinforced 100% solids epoxy matrix (solvent-free), Novolac epoxy ceramic; Ceramic Fillers: Micro-spherical Alumina (Al2O3), Silicon Carbide (SiC), Quartz flour; Thermal Spray Ceramics: Chromium Oxide (Cr2O3), Alumina-Titania (Al2O3-TiO2 87/13)
+- **Applications:** Cooling water pump casings, impellers, suction bells, and cutlass bearing journals; Plate heat exchanger end plates, tube sheets, and water box covers; Slurry pump volutes, dredging pump components, and hydrocyclone bodies; Industrial control valves, butterfly valve discs, and sea chest strainers; Boiler economizer tubes, exhaust fan blades, and duct expansion sleeves
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### PTFE Coating
+- **URL:** https://misubaguna.com/product/ptfe-coating/
+- **Category:** Corrosion Protection > Coating
+- **Summary:** Precision industrial PTFE / Xylan fluoropolymer coating service applied to fasteners, valves, molds, and process components for non-stick release, low friction, and salt-spray corrosion protection.
+- **Key Features:** Ultra-low coefficient of friction (0.05 to 0.10) prevents thread galling and breakout torque spikes on industrial stud bolts; Exceptional salt-spray corrosion resistance (>1500 to 3000+ hours ASTM B117 salt spray test) for offshore marine fasteners; Superior non-stick release properties prevent sticky polymer, rubber, food, or chemical residue adhesion on mold tooling; Chemically resistant to solvents, fuel, hydraulic fluids, and weathering without degrading or flaking; Food-contact compliant (FDA 21 CFR) formulations available for food processing and packaging machinery
+- **Specifications:** Dry Film Thickness (DFT): 15 to 50 microns for fasteners; up to 100+ microns for heavy release/chemical duty; Corrosion Resistance: Exceeds 1,500 hours ASTM B117 salt spray without red rust; Continuous Temperature Rating: -195°C to +260°C (PTFE/PFA)
+- **Materials:** Coating Systems: PTFE (Polytetrafluoroethylene), PFA, FEP, Xylan® 1014 / 1424 fluoropolymer resin matrices; Primer Layer: Zinc phosphate, Epoxy-polyamide primer, Chromate-free corrosion inhibitor primer; Substrate Compatibility: Carbon Steel, Alloy Steel (B7/B16), SS304/SS316, Inconel, Aluminum, Brass
+- **Applications:** Offshore oil & gas subsea stud bolts, nuts, and flange fastener assemblies (Xylan coated ASTM A193 B7/B16); Chemical control valve plugs, ball valve spheres, and actuator internal components; Rubber and plastic molding dies, tire molds, and thermoforming tooling; Food & bakery dough hoppers, heat sealing jaws, and conveyor guide rails; Automotive fuel rail components, throttle shafts, and lock mechanisms
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
 ### Fabric Expansion Joint
 - **URL:** https://misubaguna.com/product/fabric-expansion-joint/
 - **Category:** Flexible Joint
 - **Summary:** Custom non-metallic fabric expansion joints designed by PT Misuba Guna Indonesia for high-temperature ductwork, boiler exhaust lines, and severe vibration isolation.
 - **Key Features:** Absorbs multi-directional thermal movement (axial, lateral, angular) without inducing spring rate stress on duct supports; Custom multi-layer composite belting tailored for continuous operating temperatures from 150°C to over 1000°C; Integrated ceramic fiber insulating belt protects gastight outer layers from direct thermal radiation; Easily field-welded or bolted to existing companion flanges with internal metal liner sleeves to prevent ash erosion; Zero maintenance fabric construction that eliminates fatigue cracking common in thin-gauge metal duct bellows
+- **Specifications:** Duct Geometry: Custom round (DN200 to DN4000+) or rectangular (any aspect ratio); Operating Pressure: Low pressure ducting (-0.5 bar to +0.8 bar); Temperature Capability: Up to 1100°C continuous service with multi-layer ceramic insulation
 - **Materials:** Outer Cover: Silicone-coated glass cloth, Fluoroelastomer canvas, EPDM; Gas Barrier: Solid PTFE sheet foil, PTFE-impregnated fiberglass; Thermal Insulation: Needle-felted ceramic fiber blanket, high-silica glass mat; Reinforcement & Liner: SS304/SS316 wire mesh, internal SS304 flow sleeve, carbon steel backing bars
 - **Applications:** Power plant boiler flue gas and turbine exhaust ducting (PLTU, PLTG, PLTU Biomass); Cement plant kiln preheaters, calciner ducts, and raw mill dust extraction lines; Steel mill sintering lines and blast furnace flue gas ductwork; Petrochemical incinerators and flare stack gas lines; Industrial boiler ID fan and FD fan inlet/outlet isolation joints
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Metal Expansion Joint
 - **URL:** https://misubaguna.com/product/metal-expansion-joint/
@@ -77,6 +115,7 @@
 - **Key Features:** Multi-ply bellows design provides high pressure capacity combined with low axial spring rate and maximum flex fatigue life; SS321 and SS316L standard bellows offer exceptional resistance to high-temperature scaling and stress corrosion cracking; Internal flow sleeves minimize pressure drop and prevent flow-induced vibration in high-velocity steam lines; External protective covers prevent external mechanical damage and debris accumulation in bellows convolutions; Available with fixed/floating flanges, butt-weld ends, or threaded pipe stubs matching international standards (DIN, ANSI, JIS)
 - **Materials:** Bellows: SS304, SS316L, SS321, SS310S, Inconel 625, Hastelloy C-276; End Fittings: Carbon steel (A105, A234 WPB), SS304, SS316, or alloy steel; Internal Sleeve / External Shroud: SS304, SS316L, Heavy carbon steel
 - **Applications:** High-pressure steam distribution headers and condensate return lines; Thermal oil heating systems in palm oil refineries (PKS) and oleochemical plants; Petrochemical refinery process piping and heat exchanger nozzle connections; District heating pipelines and power plant steam turbine cross-over piping; Marine engine exhaust manifolds and ballast water piping
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Rubber Expansion Joint
 - **URL:** https://misubaguna.com/product/rubber-expansion-joint/
@@ -85,6 +124,7 @@
 - **Key Features:** Outstanding vibration and sound attenuation for cooling water pumps, chillers, and compressors; High-tensile nylon cord and steel wire reinforcement prevents ballooning under surge pressure and vacuum conditions; Full-face rubber flange design creates a self-sealing joint, eliminating separate gasket requirements during installation; Elastomer tube options tailored for specific chemical resistance, oil compatibility, or potable water certification; Available with control rods (limit bolts) to prevent pipe over-extension and protect unanchored pump nozzles
 - **Materials:** Inner Tube / Outer Cover: EPDM (water/steam), NBR (oil/fuel), Neoprene, Viton/FKM, Natural Rubber; Reinforcement: Nylon fabric cord, synthetic polyester yarn, spiral steel wire reinforcement rings; Retaining Flanges: Galvanized carbon steel, SS304, SS316
 - **Applications:** Main cooling water pumps and condenser lines in power plants and manufacturing facilities; Water and wastewater treatment plant piping (WTP & WWTP); Palm oil mill effluent (POME) lines and raw water intake systems; Marine engine room sea chest cooling lines and bilge pumps; Industrial HVAC chilled water and condenser water circuits
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### PTFE Expansion Joint
 - **URL:** https://misubaguna.com/product/ptfe-expansion-joint/
@@ -93,6 +133,7 @@
 - **Key Features:** 100% virgin PTFE construction provides total corrosion resistance against concentrated acids (HCl, H2SO4, HNO3), alkalis, and solvents; Non-contaminating, smooth non-stick inner surface prevents product build-up and complies with high-purity chemical standards; Low flexural modulus minimizes stress on delicate FRP, PVC, CPVC, and glass-lined vessel nozzles; Fitted with stainless steel tie-rods and limit washers to regulate axial compression, extension, and angular movement limits; Standard metallic root rings placed between convolutions prevent vacuum collapse and over-expansion under pressure
 - **Materials:** Bellows Body: 100% Virgin PTFE (molded or machined convolutions), optional antistatic conductive PTFE; External Root Rings: SS304 or SS316 stainless steel wire rings; Backing Flanges: Ductile iron, Carbon steel with epoxy coating, SS304, or SS316; Tie-Rods: SS304/SS316 control tie-rods with rubber isolation bushings
 - **Applications:** Chemical synthesis plants, acid pickling lines, and chlorine/caustic electrolysis facilities; Semiconductor and electronic chemical delivery systems; Fertilizer and phosphoric acid production lines; Pharmaceutical API manufacturing and ultra-pure water distribution; Pulp bleaching operations using chlorine dioxide
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### PTFE Lined Expansion Joint (Rubber and Metal)
 - **URL:** https://misubaguna.com/product/ptfe-lined-rubber-metal-expansion-joint/
@@ -101,6 +142,7 @@
 - **Key Features:** Dual protection: Impermeable PTFE inner liner handles severe chemicals while outer elastomer/metal body bears high pressure and vibration; Seamless flare-over PTFE sealing faces fit directly against companion pipe flanges without needing separate gaskets; Eliminates chemical degradation of rubber compounds in hot hydrocarbon, solvent, or mixed acid applications; Absorbs high lateral displacement and vibration in dynamic chemical transfer lines; Vacuum-resistant liner configurations equipped with internal metallic or PTFE support rings
 - **Materials:** Liner: Virgin PTFE sheet flare-formed into flange faces; Outer Body: EPDM / NBR rubber matrix with steel wire reinforcement, OR SS304/SS316 hydroformed bellows; Flanges: Carbon steel, Ductile Iron, SS304, or SS316
 - **Applications:** Petrochemical refinery acid gas scrubber lines and hydro-cracking chemical feeds; Steel plant pickling bath recirculation pumps and waste acid lines; Mining slurry treatment facilities with high chemical and abrasive content; Chemical tanker ship unloading manifolds and offshore chemical dosing lines
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Rubber Hose
 - **URL:** https://misubaguna.com/product/rubber-hose/
@@ -109,6 +151,7 @@
 - **Key Features:** Specialized tube compounds engineered for specific resistance to oils, petroleum fuels, hot water, steam, chemicals, or abrasive slurries; Heavy-duty outer cover resists weather, UV, ozone, abrasion, and dragging across rough industrial concrete floors; Steel wire helix reinforced options support full vacuum suction service without collapsing or kinking; Factory-crimped safety couplings ensure leak-free operation under high working pressures and pressure spikes; Wide range of flex tolerance for tight bend radius requirements in mobile equipment and factory drop lines
 - **Materials:** Inner Tube: NBR (Oil/Fuel), EPDM (Steam/Hot Water), SBR (Abrasives/Water), White FDA EPDM (Food), Hypalon; Reinforcement: High-tensile synthetic cord, steel wire helix; Cover: Weather & abrasion resistant EPDM, NBR/PVC blend, Neoprene; Fittings: Stainless steel SS316, SS304, Aluminum, Brass, Carbon Steel
 - **Applications:** Plant air lines, water washdown, and pneumatic tool supply; Diesel fuel, lubricant, and hydraulic oil transfer in palm oil mills and mining fleets; Cement powder, dry fly ash, and sand suction/discharge lines; Food & beverage liquid transfer (milk, palm olein, syrup, potable water); Chemical transfer hoses for chemical dosing stations and tank truck unloading
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Flexible Metal Hose
 - **URL:** https://misubaguna.com/product/flexible-metal-hose/
@@ -117,293 +160,466 @@
 - **Key Features:** 100% gas-tight annular corrugated stainless steel tube eliminates permeation of hazardous gases and liquids; High-density SS wire braiding absorbs internal hoop stress, allowing working pressures up to 300+ bar; Unmatched temperature resilience from cryogenic liquid nitrogen (-200°C) to high-temperature engine exhaust (+600°C); Fire-safe construction prevents sudden rupture during plant emergency fire conditions; Custom welded end fittings (ANSI/JIS flanges, unions, thread nipples, quick couplers) tested per ISO 10380 standards
 - **Materials:** Corrugated Hose Tube: SS304, SS316L, SS321; Braid Mesh: SS304 or SS316 stainless steel wire braid (Single or Double layer); End Fittings: Carbon Steel, SS304, SS316L (Flanged, Union, BSP/NPT Threaded, Weld Ends, Camlock)
 - **Applications:** Steam header connections to moving press platens in plywood and palm oil plants; Gas turbine fuel supply lines, burner hoses, and generator vibration isolation; Chemical reactor feed lines, acid loading arms, and LPG/LNG transfer hoses; High-pressure hydraulic and compressor discharge lines; Thermal expansion loops for solar thermal and power plant piping
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
-### PTFE Lining
-- **URL:** https://misubaguna.com/product/ptfe-lining/
-- **Category:** Corrosion Protection
-- **Summary:** Advanced fluoropolymer PTFE lining solutions applied to pipes, fittings, vessels, and chemical columns to provide an impermeable, non-stick chemical barrier against aggressive acids and high temperatures.
-- **Key Features:** Complete chemical inertness against concentrated nitric, sulfuric, hydrochloric, and hydrofluoric acids up to 260°C; Thick-wall paste extruded PTFE liner prevents permeation and thermal vacuum collapse in continuous vacuum lines; Seamless flared-over sealing faces eliminate separate gaskets at pipe spool and vessel flange connections; Ultra-smooth non-stick surface coefficient prevents scaling, chemical fouling, and pressure drop in transfer lines; 100% Non-destructive electro-spark tested (20kV+ DC) to guarantee zero pinholes or micro-cracks before dispatch
-- **Materials:** Liner Material: 100% Virgin PTFE, Conductive PTFE (Antistatic), PFA, FEP; Substrate Steel: Carbon Steel (A106 Gr B, A53), SS304, SS316L, ASTM A395 Ductile Iron fittings; Flange Standards: ANSI B16.5 Class 150/300, DIN EN 1092-1, JIS B2220
-- **Applications:** Petrochemical acid wash columns, chlorine headers, and pickling acid recirculation loops; Agrochemical and fertilizer manufacturing acid feed lines; Pharmaceutical API synthesis reactors and high-purity solvent transfer lines; Power plant FGD (Flue Gas Desulfurization) chemical dosing and neutralization tanks; Palm oil oleochemical fatty acid distillation columns and chlor-alkali plants
+### High-Consistency Pulper
+- **URL:** https://misubaguna.com/product/hicon-pulper/
+- **Category:** Paper & Pulp Machinery > Stock Preparation
+- **Summary:** Helical-rotor batch pulper running at 15–16% consistency, with the drum pulpers, dilution pulpers and reject-handling equipment that make up a complete waste paper pulping section.
+- **Key Features:** Helical rotor delivers efficient defibering at 15–16% consistency with high fiber yield; Good ink detachment for deinking writing and printing grades; High-consistency pulping uses less water and power per tonne; Contaminants are kept intact for simple removal in coarse screening; Dilution pulper frees the batch pulper to start the next batch immediately; Ragger and rope cutter provide continuous removal of film, textiles and wire; Reject compacter reduces the volume and cost of disposal; Models for wet-strength, cup stock, virgin and broke pulping
+- **Specifications:** Batch pulper capacity: 8–700 TPD across the model range; Operating consistency: 15–16% (batch pulper), 15–18% (drum pulper); Batch discharge consistency: approx. 4%; Drive: integrated gearbox or belt-and-pulley; Dilution pulper screen plate: 6–8 mm drilled holes; Virgin pulper: 4–5% consistency, 12–16 mm plates; Drum pulper net energy: approx. 15–25 kWh/t; Sizes, capacity and drive power configured to plant capacity
+- **Materials:** Stainless steel wetted vat and fittings; Cast stainless helical rotor with hard-faced edges; Drilled stainless extraction and screen plates; Heavy-duty bearings and drive shaft
+- **Applications:** Recycled packaging paper lines using old corrugated containers and mixed waste; Deinking lines for writing, printing and tissue grades; Wet-strength and carton packaging recycling; Broke and trim recovery directly beneath the paper machine
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
-### Rubber Lining
-- **URL:** https://misubaguna.com/product/rubber-lining/
-- **Category:** Corrosion Protection
-- **Summary:** Heavy-duty elastomeric rubber lining applications applied to tanks, pipes, slurry pumps, and process vessels for severe acid corrosion protection and coarse particle abrasion resistance.
-- **Key Features:** Dual protection: Exceptional impact and slurry abrasion resistance combined with complete acid and alkali barrier protection; Available in soft rubber (40-60 Shore A) for high-velocity particle impact and hard ebonite (75-80 Shore D) for chemical immersion; Superior elastomeric flexibility dampens structural vibration and accommodates thermal contraction without cracking; High-bond strength adhesive system (>10 N/mm peel strength) prevents liner disbondment under vacuum or pressure swings; Cold-bonding site repair systems available for quick field maintenance of tank linings without autoclave requirement
-- **Materials:** Rubber Compounds: Natural Rubber (Soft & Ebonite Hard), Chlorobutyl, Bromobutyl, EPDM, Neoprene, Synthetic NBR; Bonding System: Multi-layer chemlok/isocyanic adhesive primer systems; Lining Thickness: Standard 3mm, 4mm, 6mm, up to 25mm multi-ply build-up
-- **Applications:** Mining ore slurry pipelines, hydrocyclones, flotation cells, and ball mill shells; Power plant FGD scrubber towers, slurry recirculation pumps, and gypsum slurry tanks; Phosphoric acid storage tanks, water treatment demineralizer vessels, and cation/anion beds; Chemical processing transport tankers, acid pickling vats, and waste neutralization pits; Palm oil mill effluent (POME) treatment tanks and coastal seawater intake pipes
+### Double Disc Refiner
+- **URL:** https://misubaguna.com/product/disc-refiner/
+- **Category:** Paper & Pulp Machinery > Stock Preparation
+- **Summary:** Twin disc, conical and cylindrical refiners for controlled fiber development, with precise gap control and options for every furnish.
+- **Key Features:** Precise gap control for stable freeness and consistent results from batch to batch; Lower specific energy per tonne refined and low no-load power; Gentle treatment that reduces fiber cutting and fines; Better tensile, burst and tear strength, formation and dewatering; Compatible with DCS and PLC systems for automated refining control; Compact footprint suited to retrofits, with quick filling changes
+- **Specifications:** Twin disc refiner: 8–600 TPD, 37–3,000 kW; Conical refiner: 10–350 TPD, 30–600 kW, low intensity; Cylindrical refiner: 315–700 kW, several configurations; Disc options: milled, cast or welded; stainless steel or special alloys; Custom configurations available on request
+- **Materials:** Stainless steel wetted parts; Heavy-duty cast housing and bearings; Wear-resistant stainless and chrome alloy refiner fillings
+- **Applications:** Stock preparation for virgin, recycled and blended furnishes; Packaging papers, board, writing and printing grades; Tissue stock preparation; Approach flow refining for final freeness adjustment
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
-### Ceramic Lining
-- **URL:** https://misubaguna.com/product/ceramic-lining/
-- **Category:** Corrosion Protection
-- **Summary:** High-density 92% and 95% Alumina ceramic tile lining systems for extreme abrasive wear, sliding friction, and erosion in mining, cement, coal, and bulk material handling.
-- **Key Features:** Diamond-hard 92%/95% Alumina ceramic tiles provide unmatched resistance to sliding abrasion and fine particle erosion; Rubber-cushioned ceramic composite panels absorb severe rock impact while eliminating ceramic tile fracture; Weld-through ceramic tiles with tapered steel lock cups ensure secure mechanical attachment under high thermal stress; Extends component service life up to 10x longer than hardfaced overlay plates, reducing unplanned plant shutdown; Custom engineered interlocking sleeve segments for pipe elbows and cyclones eliminate exposed adhesive seams
-- **Materials:** Ceramic Media: 92% Alumina (Al2O3), 95% Alumina, Zirconia-Toughened Alumina (ZTA), Silicon Carbide (SiC); Backing & Bonding: High-impact natural rubber matrix, Two-part high-temperature epoxy resin adhesive; Fixation Hardware: Weldable steel caps, Countersunk SS304 studs, Interlocking tongue-and-groove joints
-- **Applications:** Cement plant raw meal chutes, clinker transfer hoppers, cyclone dipleg pipes, and separator cones; Power plant pulverized coal burner lines, bottom ash sluice pipes, and coal bunker chutes; Mining mineral processing plant chutes, slurry launders, vibrating screen hoppers, and hydrocyclones; Steel mill iron ore sinter transfer points and coke handling chutes; Glass manufacturing silica sand pneumatic convey lines
+### Screening & Cleaning System
+- **URL:** https://misubaguna.com/product/screening-cleaning-system/
+- **Category:** Paper & Pulp Machinery > Stock Preparation
+- **Summary:** Cleaners, coarse and fine screens, reject handling and thickeners that remove contaminants and protect the paper machine.
+- **Key Features:** Staged contaminant removal protects refiners, pumps and the paper machine; Rotor designs that limit pulsation and keep basket openings clear; Reject handling recovers fiber and reduces disposal volume; Low pressure drop and reduced power consumption; Hole and slot baskets chosen for each stage; Compact designs and easy access for inspection
+- **Specifications:** Coarse screen: 2–3% consistency, up to 610 TPD, 8 sizes; Fine screen: 0.4–1% consistency, up to 1,360 TPD, 12 sizes; Medium-consistency cleaner: 2–3% consistency; Low-consistency cleaner: up to 2% consistency; Screen basket holes: 1.0–4.0 mm; slots: 0.10–0.80 mm; Capacity and number of stages designed per line
+- **Materials:** Stainless steel screen vessels; Wedge-wire and milled-slot baskets, hard chrome plated; Hard-faced aerofoil and multi-vane rotors; Ceramic or steel hydrocyclone bodies
+- **Applications:** Coarse and fine screening in recycled pulp lines; Approach flow screening ahead of the headbox; Deinking plant screening and cleaning; Virgin and chemical pulp mill screening
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
-### FRP Lining
-- **URL:** https://misubaguna.com/product/frp-lining/
-- **Category:** Corrosion Protection
-- **Summary:** Seamless glass-fiber reinforced plastic (FRP / GRP) composite lining systems applied on steel, concrete, and brick structures for heavy chemical, acid, and wastewater corrosion protection.
-- **Key Features:** Custom resin selection (Vinyl Ester, Novolac, Isophthalic) matched to specific acid, solvent, or alkali exposure; Monolithic, jointless composite lining seals concrete cracks and prevents chemical seepage into surrounding groundwater; High mechanical strength-to-weight ratio allows structural rehabilitation of thin-wall corroded steel tanks; Integral C-glass synthetic surface veil provides a resin-rich (>80%) chemical barrier preventing fiber prominence; Excellent thermal expansion match with concrete and steel, preventing delamination during seasonal temperature cycles
-- **Materials:** Resin Matrix: Novolac Vinyl Ester (Derakane 470/411), Bisphenol A, Premium Isophthalic Polyester; Reinforcement: E-glass Chopped Strand Mat (CSM 300/450/600 g/m²), Woven Roving (WR 600), C-glass surface veil; Primers: Moisture-tolerant epoxy primer for concrete, Silane-treated steel primer
-- **Applications:** Chemical plant primary and secondary containment dikes, bund walls, and floor trenches; Wastewater treatment plant (WWTP) equalization tanks, clarifiers, and acid neutralization pits; Power plant demisalization water storage tanks and chemical dosing sumps; Pulp and paper chemical storage vessels and bleach plant effluent gutters; Electroplating acid rinse tanks and battery room floor protection
+### Complete Paper Machine
+- **URL:** https://misubaguna.com/product/paper-machine-line/
+- **Category:** Paper & Pulp Machinery > Paper & Tissue
+- **Summary:** Turnkey paper machines from headbox to pope reel for kraft, board, writing, printing and specialty grades, up to 1,200 TPD and 1,200 m/min.
+- **Key Features:** Single-source supply from approach flow to pope reel; Complete turnkey line or individual sections; Uniform basis weight profile through cross-direction control; Shoe press option for higher dryness and lower steam use; Configurations from single wire to multi-wire for different grades; Rebuild and upgrade programmes for older machines
+- **Specifications:** Capacity: 30–1,200 TPD; Design speed: up to 1,200 m/min; Deckle width: up to 10 m; Basis weight: 50–120 GSM; Wire configuration: single, double, triple, four or multi-wire; Shoe press: 200–300 mm nip, line load up to 1,200 kN/m
+- **Materials:** Stainless steel headbox flow channels; Ceramic wire-section dewatering elements; Cast iron dryer cylinders built to pressure vessel standards; Structural steel frame with protective coating
+- **Applications:** Kraft liner, testliner and fluting medium; Duplex board, folding boxboard and art card; Writing, printing and newsprint grades; Specialty papers
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
-### Ceramic Coating
-- **URL:** https://misubaguna.com/product/ceramic-coating/
-- **Category:** Corrosion Protection
-- **Summary:** Advanced liquid ceramic polymer coatings and thermal spray ceramic barriers applied to metal components to prevent high-temperature oxidation, cavitation, erosion, and chemical corrosion.
-- **Key Features:** Restores cavitated pump impellers and volutes to original hydraulic efficiency, reducing power consumption; Ultra-smooth ceramic finish improves fluid hydrodynamic flow efficiency by up to 3-5% while preventing erosion; High micro-hardness ceramic particles protect pump casings and valve seats against severe particle impact and cavitation; Exhibits superior dielectric strength, eliminating galvanic corrosion between dissimilar metal assemblies; High thermal barrier properties protect boiler tubes and engine manifolds from high-temperature gas scaling
-- **Materials:** Polymer Base: Ceramic-reinforced 100% solids epoxy matrix (solvent-free), Novolac epoxy ceramic; Ceramic Fillers: Micro-spherical Alumina (Al2O3), Silicon Carbide (SiC), Quartz flour; Thermal Spray Ceramics: Chromium Oxide (Cr2O3), Alumina-Titania (Al2O3-TiO2 87/13)
-- **Applications:** Cooling water pump casings, impellers, suction bells, and cutlass bearing journals; Plate heat exchanger end plates, tube sheets, and water box covers; Slurry pump volutes, dredging pump components, and hydrocyclone bodies; Industrial control valves, butterfly valve discs, and sea chest strainers; Boiler economizer tubes, exhaust fan blades, and duct expansion sleeves
+### Tissue Machine
+- **URL:** https://misubaguna.com/product/tissue-machine/
+- **Category:** Paper & Pulp Machinery > Paper & Tissue
+- **Summary:** Crescent former tissue machines with Yankee dryer, hood and pope reel for facial tissue, toilet rolls, napkins and kitchen towels.
+- **Key Features:** Crescent forming for high bulk, softness and absorbency; Optimised headbox for uniform formation; Fast, energy-efficient drying with hot air hood; Consistent creping and sheet quality; Bulk-preserving reel and winding; Integrated stock preparation and process automation
+- **Specifications:** Forming: crescent former, twin wire; Speed: up to 1,500 m/min; Basis weight: 13–35 GSM; Capacity: 100+ TPD per line; Yankee cylinder: 12–16 ft diameter, paper width up to 4,500 mm; Enquire for a tailored technical proposal
+- **Materials:** Stainless steel headbox and wetted surfaces; Cast iron or steel Yankee cylinder; Ceramic wire-section elements; Rubber-covered suction press roll
+- **Applications:** Facial tissue; Toilet tissue; Napkins; Kitchen towels and hand towels
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
-### PTFE Coating
-- **URL:** https://misubaguna.com/product/ptfe-coating/
-- **Category:** Corrosion Protection
-- **Summary:** Precision industrial PTFE / Xylan fluoropolymer coating service applied to fasteners, valves, molds, and process components for non-stick release, low friction, and salt-spray corrosion protection.
-- **Key Features:** Ultra-low coefficient of friction (0.05 to 0.10) prevents thread galling and breakout torque spikes on industrial stud bolts; Exceptional salt-spray corrosion resistance (>1500 to 3000+ hours ASTM B117 salt spray test) for offshore marine fasteners; Superior non-stick release properties prevent sticky polymer, rubber, food, or chemical residue adhesion on mold tooling; Chemically resistant to solvents, fuel, hydraulic fluids, and weathering without degrading or flaking; Food-contact compliant (FDA 21 CFR) formulations available for food processing and packaging machinery
-- **Materials:** Coating Systems: PTFE (Polytetrafluoroethylene), PFA, FEP, Xylan® 1014 / 1424 fluoropolymer resin matrices; Primer Layer: Zinc phosphate, Epoxy-polyamide primer, Chromate-free corrosion inhibitor primer; Substrate Compatibility: Carbon Steel, Alloy Steel (B7/B16), SS304/SS316, Inconel, Aluminum, Brass
-- **Applications:** Offshore oil & gas subsea stud bolts, nuts, and flange fastener assemblies (Xylan coated ASTM A193 B7/B16); Chemical control valve plugs, ball valve spheres, and actuator internal components; Rubber and plastic molding dies, tire molds, and thermoforming tooling; Food & bakery dough hoppers, heat sealing jaws, and conveyor guide rails; Automotive fuel rail components, throttle shafts, and lock mechanisms
+### Molded Fiber Plant
+- **URL:** https://misubaguna.com/product/molded-fiber-machine/
+- **Category:** Paper & Pulp Machinery > Molded Fiber
+- **Summary:** Automatic and robotic molded fiber forming machines, trimming, molds and prototyping, from single machines to turnkey plants.
+- **Key Features:** Fully automatic cycle from forming to hot pressing, trimming and stacking; Large 1500 × 1500 mm platen for high output per cycle; Robotic handling to cut rejects and labour; Machines sized from compact to high-capacity; In-house mold design, prototyping and product development; Biodegradable products suited to food-service use
+- **Specifications:** Platens: 1500 × 1500, 1300 × 750, 1000 × 950 mm; Output: 350–850 kg/day depending on model; Edge trimmer platen: 760 × 600 mm; Plant capacity and layout designed per project
+- **Materials:** Corrosion-resistant alloy molds with non-stick finish; Welded structural steel machine frame; Heated steel platens with hydraulic clamping
+- **Applications:** Food-service tableware: plates, bowls, trays and clamshells; Electronics and appliance packaging; Industrial and automotive protective packaging; Egg trays and fruit packaging
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Refiner Plates & Screen Baskets
+- **URL:** https://misubaguna.com/product/refiner-discs-screen-baskets/
+- **Category:** Paper & Pulp Machinery > Wear Parts & Spares
+- **Summary:** Replacement refiner fillings, plates and screen baskets for all major refiner and screen makes, built for long life and low energy use.
+- **Key Features:** Metallurgy and bar geometry matched to furnish and mill conditions; Zero-draft design keeps refining intensity stable through service life; Re-millable plates for lower cost per tonne; Basket profiles for low pressure drop and even wear; Fits all major refiner and screen makes as a replacement; Supplied with dynamically balanced rotors where required
+- **Specifications:** Refiner fillings: 12–64 inch diameter; Hole baskets: 1.0–4.0 mm; Slotted baskets: 0.10–0.80 mm; Basket size: Ø200–2,000 mm, height up to 2,000 mm; Plate sectors: 7–24 per plate, flat disc and conical; Heat-treated alloys to suit the application
+- **Materials:** SS-304, 17-4 PH and martensitic chrome stainless alloys; Premium cast alloys with custom heat treatment, verified by spectroscopy; Wedge bars in SS316Ti on 2205 duplex stainless support rings; Hard chrome plating 100–400 µm with electropolished finish; Hard-faced cast rotors
+- **Applications:** Twin disc, conical and cylindrical refiner replacement; Coarse, fine and approach flow pressure screens; Disperser and deflaker upgrades; MDF and fibreboard defibrators
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Chain & Grid Coupling
+- **URL:** https://misubaguna.com/product/chain-grid-coupling/
+- **Category:** Power Transfer > Coupling
+- **Summary:** Roller chain couplings for simple, tolerant low-speed drives and serpentine spring grid couplings for heavy torque with shock damping.
+- **Key Features:** Chain type is simple, compact and quick to fit; Tolerates heat, humidity and dust; Grid spring cushions shock and torsional vibration; Grid couplings cover very high torque in one range
+- **Specifications:** Torque range: 40 – 932,000 N·m; Bore range: 13 – 600 mm; Flexible element: Duplex roller chain or serpentine spring grid; Covers: Optional chain cover; vertical or horizontal split grid covers
+- **Applications:** Conveyors; Crushers and mills; Mixers and agitators; Steel and cement plants; Pumps; Paper machines
+- **Series KC:** KC chain coupling. Duplex roller chain coupling with cover, 4012 – 16018. (Up to 26,400 N·m max; Bores to 160 mm)
+- **Series GL:** GL chain coupling. Roller chain coupling GL1 – GL15, with or without cover. (40 – 25,000 N·m; Bores 16 – 190 mm)
+- **Series JS:** JS grid coupling. Serpentine spring coupling with vertical split cover, JS1 – JS15. (45 – 50,000 N·m; Bores 18 – 240 mm)
+- **Series T10:** T10 grid coupling. Serpentine spring coupling with horizontal split cover, 1020T – 1260T. (52 – 932,000 N·m; Bores 13 – 600 mm)
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Coupling
+- **URL:** https://misubaguna.com/product/coupling/
+- **Category:** Power Transfer > Coupling
+- **Summary:** 60 coupling series in ten families, from miniature servo couplings to grid couplings for mill drives. Choose a family below, or send us the motor power, speed and shaft sizes and we will size it for you.
+- **Key Features:** Ten coupling families from one supplier; Replacement spiders, blocks, sleeves and pins; Interchangeable with common GR, L, HRC, NM, FALK-R and tyre coupling sizes; Sizing support from motor power, speed and shaft sizes
+- **Specifications:** Coupling families: 10; Series: 60, with spare elements; Torque range: 0.8 – 932,000 N·m; Bore range: 3 – 600 mm
+- **Materials:** Rigid coupling options; Flexible coupling options; Gear coupling options; Grid coupling options; Fluid coupling options
+- **Applications:** Pumps and compressors; Motors and gear reducers; Conveyors and crushers; Fans and blowers; Machine tools and servo drives; Marine, power and mining equipment
+- **Family:** [Jaw Coupling](https://misubaguna.com/product/jaw-coupling/): Star (spider) jaw couplings in keyed, clamp, taper-bush, expansion-sleeve and flange hubs, with spare spiders.
+- **Family:** [Plum Blossom Coupling](https://misubaguna.com/product/plum-blossom-coupling/): ML (LM) plum blossom couplings, NM and FALK-R claw couplings, with spare elements.
+- **Family:** [H-Block Elastic Coupling](https://misubaguna.com/product/h-block-coupling/): HTLA, HTLB and HTLD block couplings, HDS spacer and HTLP brake-disc couplings, with H blocks.
+- **Family:** [Gear Coupling](https://misubaguna.com/product/gear-coupling/): NL and TGL nylon-sleeve gear couplings, TGCL all-steel and GIICL drum gear couplings.
+- **Family:** [Pin & Bush Coupling](https://misubaguna.com/product/pin-coupling/): ZL pin-and-gear-ring, HL nylon pin, TL and FCL rubber-bush couplings.
+- **Family:** [Tyre & Elastic Sleeve Coupling](https://misubaguna.com/product/tyre-coupling/): F and UL tyre couplings, Omega split couplings, CFA highly elastic and J/S sleeve couplings.
+- **Family:** [Disc Coupling](https://misubaguna.com/product/disc-coupling/): DJM single-disc and SJM double-disc spacer couplings with stainless steel disc packs.
+- **Family:** [Chain & Grid Coupling](https://misubaguna.com/product/chain-grid-coupling/): KC and GL roller chain couplings, JS and T10 serpentine grid couplings.
+- **Family:** [Servo & Precision Coupling](https://misubaguna.com/product/servo-coupling/): Aluminium jaw, disc, bellows and slit couplings for servo motors, encoders and ball screws.
+- **Family:** [Rigid Coupling & Torque Limiter](https://misubaguna.com/product/rigid-coupling-torque-limiter/): JK clamp-shell rigid couplings, TLC and JTAL torque limiters, pump bell housings and brackets.
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Disc Coupling
+- **URL:** https://misubaguna.com/product/disc-coupling/
+- **Category:** Power Transfer > Coupling
+- **Summary:** All-steel diaphragm couplings with stacked stainless disc packs: zero backlash, torsionally stiff and maintenance-free, rated to 280 °C.
+- **Key Features:** Zero backlash with high torsional stiffness; No wearing parts and no lubrication; Low reaction force on bearings; Spacer type leaves room to service pumps and seals
+- **Specifications:** Nominal torque: 9.8 – 173,830 N·m; Bore range: 3 – 290 mm; Flexible element: Stainless spring-steel disc packs; Temperature: Up to 280 °C
+- **Applications:** Process pumps; Compressors and blowers; Turbines and generators; Paper and steel mills; Test rigs; High-temperature drives
+- **Series DJM:** DJM single-disc coupling. One stainless disc pack between two hubs, DJM00 – DJM23. (9.8 – 173,830 N·m; Bores 3 – 290 mm)
+- **Series SJM:** SJM double-disc spacer coupling. Two disc packs with a spacer, SJM00 – SJM14. (9.8 – 25,410 N·m; Bores 3 – 155 mm)
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Gear Coupling
+- **URL:** https://misubaguna.com/product/gear-coupling/
+- **Category:** Power Transfer > Coupling
+- **Summary:** Crowned-tooth gear couplings, from maintenance-free nylon-sleeve NL and TGL types to all-steel TGCL and GIICL drum gear couplings for heavy torque.
+- **Key Features:** High torque for its outside diameter; Crowned teeth accept angular, radial and axial offset; Nylon sleeves need no lubrication and run quietly; Steel sleeves take heavy and shock-loaded duty; TGL flange version mounts to SAE engine flywheels
+- **Specifications:** Nominal torque: 10 – 174,000 N·m; Bore range: 6 – 265 mm; Sleeve: Nylon (NL, TGL) or steel (TGCL, GIICL); Motor range (NL): 0.75 – 180 kW
+- **Applications:** Hydraulic pumps; Electric motors and reducers; Rolling mills; Cranes and hoists; Conveyors; Engine-driven equipment
+- **Series NL:** NL nylon-sleeve gear coupling. Steel hubs with a nylon internal-tooth sleeve, NL1 – NL10. (40 – 3,150 N·m; Bores 6 – 100 mm)
+- **Series NL-S:** NL nylon sleeve. Replacement nylon sleeves NL1 – NL10.
+- **Series TGL:** TGL curved-tooth coupling. Curved-tooth hubs with nylon sleeve, TGL14 – TGL125. (10 – 2,500 N·m; Bores 6 – 125 mm)
+- **Series TGL-F:** TGL flywheel flange coupling. Nylon flange for SAE 6.5" – 14" flywheels on engine drives. (Bores 20 – 125 mm)
+- **Series TGCL:** TGCL steel drum gear coupling. All-steel crowned gear sleeve, TGCL85 – TGCL440. (550 – 174,000 N·m; Bores 18 – 265 mm)
+- **Series GIICL:** GIICL drum gear coupling. Narrow drum-tooth gear coupling, GIICL1 – GIICL14. (Bores 16 – 250 mm)
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### H-Block Elastic Coupling
+- **URL:** https://misubaguna.com/product/h-block-coupling/
+- **Category:** Power Transfer > Coupling
+- **Summary:** Flexible couplings that drive through separate H-shaped elastic blocks. Blocks change without moving the hubs; spacer and brake-disc versions are available.
+- **Key Features:** Blocks replace individually without moving the machines; Damps shock loads and torsional vibration; Spacer type gives room for pump and seal service; Brake-disc type combines coupling and brake in one assembly
+- **Specifications:** Nominal torque: 19 – 19,000 N·m; Bore range: Up to 190 mm; Elastic blocks: NBR 75–85 ShA (-30 to 110 °C) or PU 75–98 ShA (-40 to 100 °C); Versions: Standard, flange ring, spacer and brake disc
+- **Applications:** Centrifugal pumps; Conveyors and crushers; Cranes and hoists; Fans; Compressors; Steel and mining drives
+- **Series HTLA:** HTLA H-block coupling. Compact two-hub H-block coupling, sizes 58 – 280. (19 – 3,900 N·m; Bores to 110 mm)
+- **Series HTLB:** HTLB H-block coupling. Flange-ring H-block coupling for heavier drives, sizes 110 – 480. (180 – 18,000 N·m; Bores to 180 mm)
+- **Series HTLD:** HTLD H-block coupling. Bolted flange H-block coupling, sizes 110 – 280. (225 – 5,500 N·m; Bores to 125 mm)
+- **Series HDS:** HDS spacer coupling. H-block coupling with spacer lengths 100 – 250 mm, sizes 80 – 440. (85 – 19,000 N·m; Bores to 190 mm)
+- **Series HTLP:** HTLP brake-disc coupling. H-block coupling with brake disc 315 – 500 mm diameter. (500 – 10,800 N·m; Bores to 165 mm)
+- **Series H:** H elastic block. Replacement blocks H80 – H710 in NBR or polyurethane.
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Jaw Coupling
+- **URL:** https://misubaguna.com/product/jaw-coupling/
+- **Category:** Power Transfer > Coupling
+- **Summary:** Curved-jaw couplings with a polyurethane star spider, from compact L-type to heavy XL/GR clamp hubs. Interchangeable with the common GR, L, HRC and pump-coupling sizes.
+- **Key Features:** Spider damps shock and vibration between motor and load; Absorbs radial, angular and axial misalignment; Fail-safe: the jaws keep driving if the spider wears; Only the spider wears, and it is replaced without new hubs; GR, L, HRC and pump-coupling sizes for existing machines
+- **Specifications:** Nominal torque: 4.5 – 12,000 N·m; Bore range: 5 – 130 mm; Elastomer: Polyurethane spider, 92 ShA, 98 ShA or 64 ShD; Hub fixing: Keyway, clamp, taper bush, expansion sleeve or flange
+- **Applications:** Pumps and compressors; Fans and blowers; Gear reducers; Machine tools; Conveyors; Hydraulic power units
+- **Series XL/GR:** Star coupling, keyed hubs. Standard curved-jaw coupling in GR sizes, XL0–XL12 (GR14–GR110). (16 – 9,000 N·m; Bores 8 – 125 mm)
+- **Series XL/GR-C:** Star coupling, clamp hubs. Clamp-screw hubs grip the shaft with no keyway play. (21 – 9,000 N·m; Bores 8 – 125 mm)
+- **Series XL/GR-E:** Expansion-sleeve star coupling. Internal expansion sleeve for keyless, backlash-free locking. (21 – 3,600 N·m; Bores 10 – 105 mm)
+- **Series XL/GR-TB:** Taper-bush star coupling. Fits standard taper bushes 1008 – 4545 for quick bore changes. (75 – 9,000 N·m; Bores 10 – 110 mm)
+- **Series XL/GR-F:** Flange-type star coupling. Bolted flange hub so the spider can be changed without moving the machines. (75 – 9,000 N·m; Bores 10 – 130 mm)
+- **Series XL-S:** Split clamp star coupling. Forged steel hubs with double clamp screws plus keyway. (Up to 7,200 N·m max; Bores to 110 mm)
+- **Series XL-D:** Separable clamp star coupling. Separable clamp hubs for keyed shafts on machine tools and heavy conveyors. (Up to 12,000 N·m max; Bores to 120 mm)
+- **Series CR:** CR jaw coupling. Curved-jaw coupling CR050 – CR90100 with matching spiders. (Bores 5 – 110 mm)
+- **Series L:** L-type three-jaw coupling. Compact three-jaw coupling with steel or aluminium hubs, L035 – L275. (4.5 – 397 N·m; Bores to 75 mm)
+- **Series HRC:** HRC coupling. Cast hubs in B (bored), F and H (taper bush) styles, HRC070 – HRC280. (31 – 3,150 N·m; Bores to 115 mm)
+- **Series OMT-ND:** Aluminium pump coupling. Light aluminium hubs with polyurethane insert, ND48 – ND143, for motor–pump sets. (Motor bores 11 – 75 mm)
+- **Series GR:** GR star spider. Replacement spiders GR19 – GR110 in three hardness grades. (7.5 – 9,000 N·m)
+- **Series HRC-P:** HRC spider. Replacement elastomers HRC70 – HRC280.
+- **Series R:** R polyurethane spider. Replacement inserts R42 – R103 for aluminium pump couplings.
+- **Series T:** T hexagonal pad. Six- and eight-lobe pads T75 – T210 in PU, rubber or FKM.
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Pin & Bush Coupling
+- **URL:** https://misubaguna.com/product/pin-coupling/
+- **Category:** Power Transfer > Coupling
+- **Summary:** Flanged couplings that drive through nylon pins or rubber-bushed pins: simple, rugged and repairable on site, for medium to very high torque.
+- **Key Features:** Few parts, simple to inspect and repair on site; Pins cushion shock and allow small misalignment; Worn pins or bushes replace at low cost; Covers small pumps up to large mill drives
+- **Specifications:** Nominal torque: 6.3 – 180,000 N·m; Bore range: 9 – 340 mm; Flexible element: Nylon pins or rubber-bushed pins; Sizes: ZL1–ZL15, HL1–HL14, TL1–TL13, FCL90–FCL630
+- **Applications:** Water pumps; Motor–reducer drives; Metallurgy and mining; Power plants; Cement and chemical plants; Hoists
+- **Series ZL:** ZL pin and gear-ring coupling. Nylon pins inside a gear ring for high torque, ZL1 – ZL15. (112 – 160,000 N·m; Bores 12 – 300 mm)
+- **Series HL:** HL nylon pin coupling. Flanged hubs driven through nylon pins, HL1 – HL14. (250 – 180,000 N·m; Bores 12 – 340 mm)
+- **Series TL:** TL bushed-pin coupling. Steel pins with rubber elastic sleeves, TL1 – TL13. (6.3 – 16,000 N·m; Bores 9 – 170 mm)
+- **Series FCL:** FCL bushed-pin coupling. Flange coupling with rubber-bushed pins, FCL90 – FCL630. (Flange 90 – 630 mm)
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Plum Blossom Coupling
+- **URL:** https://misubaguna.com/product/plum-blossom-coupling/
+- **Category:** Power Transfer > Coupling
+- **Summary:** Claw couplings that transmit torque through a multi-lobe polyurethane element: ML (GB/T 5272 LM) plum blossom couplings, NM multi-cam couplings and FALK-R housed couplings.
+- **Key Features:** Compression-loaded element cushions start-up shock; Compensates axial, radial and angular displacement; No lubrication or maintenance between element changes; Element resists wear, oil and temperature
+- **Specifications:** Nominal torque: 20 – 15,000 N·m; Bore range: 7 – 190 mm; Element: Polyurethane or rubber, 4 to 12 lobes; Standard: ML to GB/T 5272 (LM)
+- **Applications:** Mining and metallurgy drives; Pumps and fans; Compressors; Conveyors; Lifting and hoisting; Gear reducers
+- **Series ML:** ML plum blossom coupling. GB/T 5272 LM type, ML1 – ML13, also with brake-disc hubs. (25 – 12,500 N·m; Bores 10 – 140 mm)
+- **Series MT:** MT plum blossom element. Polyurethane elements MT1 – MT13 for ML couplings, 4 to 12 lobes.
+- **Series NM:** NM claw coupling. Cam-ring claw coupling NM50 – NM214 with an elastic ring insert. (20 – 2,400 N·m; Bores 7 – 95 mm)
+- **Series FALK-R:** FALK-R claw coupling. Housed claw coupling 3R – 80R with polyurethane element. (34 – 15,000 N·m; Bores to 190 mm)
+- **Series FALK-E:** FALK-R elastomer. Replacement polyurethane elements 5R – 80R.
+- **Series AR:** AR elastic ring. Multi-lug elastic rings AR28 – AR90, 8 to 12 lugs.
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Rigid Coupling & Torque Limiter
+- **URL:** https://misubaguna.com/product/rigid-coupling-torque-limiter/
+- **Category:** Power Transfer > Coupling
+- **Summary:** JK clamp-shell rigid couplings, friction and ball-detent torque limiters that protect drives from overload, and the bell housings and brackets that mount pumps to motors.
+- **Key Features:** Clamp-shell rigid coupling fits without moving the machines; Adjustable slip or release torque protects against overload; Bell housings align and guard pump–motor couplings; Aluminium and cast-iron housings and floor brackets
+- **Specifications:** Rigid coupling torque: 25 – 15,000 N·m (JK); Torque limiter setting: 2.9 – 1,860 N·m (TLC), 5 – 1,200 N·m (JTAL); Bell housings: Motors 0.55 – 45 kW (PK aluminium); Bore range: 6 – 210 mm
+- **Applications:** Line shafts and agitators; Conveyors and packaging lines; Hydraulic power units; Pump–motor sets; Machine tools; Automation equipment
+- **Series JK:** JK clamp-shell rigid coupling. Split shell clamped by bolts, JK-40 – JK-300. (25 – 15,000 N·m; Bores to 210 mm)
+- **Series TLC:** TLC friction torque limiter. Friction plates slip at an adjustable torque, TLC200 – TLC1024. (2.9 – 1,860 N·m; Bores 6 – 90 mm)
+- **Series JTAL:** JTAL ball torque limiter. Steel-ball detent disengages on overload, sizes 01 – 06. (5 – 1,200 N·m; Bores 8 – 80 mm)
+- **Series PK:** PK aluminium bell housing. Motor–pump bell housings PK140 – PK450. (Motors 0.55 – 45 kW)
+- **Series DL:** DL / DLK pump bracket. HT250 cast-iron floor-mounted pump brackets.
+- **Series DL-F:** DL-F cast-iron bell housing. Cast-iron bell housings for flange-mounted pumps.
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Servo & Precision Coupling
+- **URL:** https://misubaguna.com/product/servo-coupling/
+- **Category:** Power Transfer > Coupling
+- **Summary:** Small, low-inertia aluminium couplings with clamp hubs for servo and stepper motors, encoders and ball screws. Zero-backlash disc, bellows and slit designs.
+- **Key Features:** Zero backlash for forward and reverse motion; Low inertia for fast acceleration; Clamp hubs fix without keyways; Disc and bellows types are torsionally stiff
+- **Specifications:** Torque range: 0.8 – 520 N·m; Bore range: 3 – 68 mm; Hubs: Aluminium alloy, clamp screw fixing; Element: Stainless disc, stainless bellows, helical slit or PU spider
+- **Applications:** Servo and stepper motors; Ball screws and linear stages; Encoders; CNC machine tools; Robotics and automation; Packaging machines
+- **Series XL-A:** Aluminium jaw coupling. Aluminium clamp hubs with PU spider, XL-14 – XL-120. (1.1 – 520 N·m; Bores 3 – 68 mm)
+- **Series SDM:** SDM double-disc coupling. Two 304 stainless discs, 12 – 82 mm outside diameter. (Bores 3 – 42 mm)
+- **Series DDM:** DDM single-disc coupling. One 304 stainless disc for compact, stiff drives, 12 – 82 mm OD. (Bores 3 – 42 mm)
+- **Series GRC:** GRC bellows coupling. Stainless bellows between aluminium clamp hubs, GRC-16 – GRC-105. (0.8 – 200 N·m; Bores 4 – 50 mm)
+- **Series GC:** GC slit coupling. One-piece helical slit coupling for encoders and light drives. (0.9 – 2 N·m; Bores 4 – 12 mm)
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
+
+### Tyre & Elastic Sleeve Coupling
+- **URL:** https://misubaguna.com/product/tyre-coupling/
+- **Category:** Power Transfer > Coupling
+- **Summary:** Highly flexible couplings with a rubber tyre, split urethane element or toothed elastomer sleeve. They take large misalignment and soak up shock and torsional vibration.
+- **Key Features:** Takes large angular, parallel and axial misalignment; Soaks up shock loads and torsional vibration; No lubrication and no metal-to-metal contact; Split elements replace without moving the machines
+- **Specifications:** Nominal torque: 10 – 38,400 N·m; Bore range: 8 – 229 mm; Element: Rubber tyre, urethane or toothed elastomer sleeve; Hubs: Bored or taper bush (F type B, F and H)
+- **Applications:** Pumps and compressors; Crushers and mixers; Fans; Conveyors; Generator sets; Marine drives
+- **Series F:** F tyre coupling. Rubber tyre with B, F or H (taper bush) flanges, F040 – F250. (25 – 14,680 N·m; Bores to 190 mm)
+- **Series UL:** UL tyre coupling. Tyre coupling with clamp-ring rubber tyre, UL1 – UL16. (10 – 10,000 N·m; Bores 11 – 140 mm)
+- **Series OMEGA:** Omega split coupling. Split urethane element bolted to hubs, E2 – E140. (22 – 38,400 N·m; Bores to 229 mm)
+- **Series CFA:** CFA highly elastic coupling. Segmented rubber flange coupling, CFA-01 – CFA-400. (10 – 4,000 N·m; Bores 8 – 130 mm)
+- **Series J/S:** J/S sleeve coupling. Toothed elastomer sleeve, solid (J) or split (S), sizes 3 – 14. (Bores 9 – 127 mm)
+- **Series H/HS:** H/HS elastomer sleeve. Replacement solid (H) and split (HS) sleeves, sizes 3 – 14.
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Gland Packing
 - **URL:** https://misubaguna.com/product/gland-packing/
 - **Category:** Sealing System
 - **Summary:** Our premium gland packing solutions provide dependable, low-friction sealing for rotating and reciprocating shafts. Available in diverse materials, they are engineered to minimize leakage and reduce equipment wear.
 - **Key Features:** Effective sealing under various pressure and temperature conditions; Graphite, PTFE, aramid, carbon fiber, and other material options; Chemical and temperature resistance options; Durable construction; Easy maintenance and repacking
+- **Specifications:** Material selection depends on media, shaft speed, temperature, pressure, and equipment type
 - **Materials:** Graphite; PTFE; Aramid; Carbon fiber; Lubricants and special coatings
 - **Applications:** Centrifugal, reciprocating, and screw pumps; Industrial valves; Mixers and agitators; Marine and offshore equipment; Petrochemical processing; Power generation; Pulp and paper; Mining and mineral processing
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Oil Seal
 - **URL:** https://misubaguna.com/product/oil-seal/
 - **Category:** Sealing System
 - **Summary:** Designed to retain critical lubricants while excluding environmental contaminants, our radial oil seals ensure the smooth operation of rotating machinery. They are manufactured to strict tolerances for reliable, long-term performance.
 - **Key Features:** Prevents lubricant leakage; Blocks contaminant entry; Extends equipment life; Available in many sizes, designs, and materials; High-temperature and chemical-resistant material options
+- **Specifications:** Material and profile depend on speed, temperature, media, shaft condition, and operating environment
 - **Materials:** Metal case; Elastomer sealing lip; Garter spring; NBR; FKM/Viton; Silicone rubber; PTFE
 - **Applications:** Automotive engines, transmissions, and axles; Industrial pumps and compressors; Gearboxes and drive motors; Agricultural and construction machinery; Marine propulsion systems; Wind turbines and heavy-duty equipment
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### O-Ring
 - **URL:** https://misubaguna.com/product/o-ring/
 - **Category:** Sealing System
 - **Summary:** Our comprehensive range of elastomer O-rings provides versatile, high-integrity sealing for both static and dynamic applications. They are available in precise formulations to meet specific pressure and media requirements.
 - **Key Features:** Simple and reliable sealing element; Wide material compatibility; Suitable for static and dynamic sealing; Easy installation and replacement; Available in many sizes and hardness options
+- **Specifications:** Needs final size/material standards added from catalogue or supplier data
 - **Materials:** NBR; FKM/Viton; EPDM; Silicone; Other elastomers by application
 - **Applications:** Pumps; Valves; Hydraulic cylinders; Pneumatic equipment; Flanges and couplings; General industrial sealing
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Gasket Sheet
 - **URL:** https://misubaguna.com/product/gasket-sheet/
 - **Category:** Sealing System
 - **Summary:** Supplying versatile sealing for flanged connections, our gasket sheet materials are formulated to handle a wide spectrum of pressures, temperatures, and industrial media. They ensure a secure, leak-free joint in critical assemblies.
 - **Key Features:** Flexible sealing material for custom gasket shapes; Helps prevent leakage between mating surfaces; Material options for temperature, pressure, and media compatibility; Can be cut to drawing or sample; Useful for maintenance and repair stock
+- **Specifications:** Current page may have repeated heading/content; verify before final import
 - **Materials:** Compressed fiber; Rubber sheet; PTFE sheet; Graphite sheet; Non-asbestos sheet depending on service
 - **Applications:** Pipe flanges; Pump and valve covers; Heat exchanger joints; Equipment manholes and covers; General industrial sealing
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Mechanical Seal
 - **URL:** https://misubaguna.com/product/mechanical-seal/
 - **Category:** Sealing System
 - **Summary:** Engineered to provide advanced fluid containment, our mechanical seals minimize leakage and friction in rotating equipment. They are a highly efficient, low-maintenance upgrade for critical pumps and mixers.
 - **Key Features:** Reliable fluid/gas leakage prevention; Reduces wear compared with traditional packing; Improves operating efficiency; Low maintenance when correctly selected; Suitable for broad industrial media
+- **Specifications:** Selection depends on shaft size, pressure, temperature, speed, and media
 - **Materials:** Seal faces selected by media and duty; Elastomers selected by chemical/temperature service; Metal parts selected by corrosion requirement
 - **Applications:** Pumps; Mixers; Compressors; Chemical process equipment; Water treatment equipment; Power and general industry rotating equipment
-
-### Coupling
-- **URL:** https://misubaguna.com/product/coupling/
-- **Category:** Power Transfer
-- **Summary:** Our industrial couplings deliver smooth, reliable torque transmission while accommodating necessary shaft misalignment. They are essential components for protecting drivetrains and reducing mechanical shock.
-- **Key Features:** Smooth torque transfer; Compensates misalignment depending on type; Reduces shock load transmission; Multiple type options for different equipment duty; Supports maintenance and reliability of rotating machinery
-- **Materials:** Rigid coupling options; Flexible coupling options; Gear coupling options; Grid coupling options; Fluid coupling options
-- **Applications:** Pumps; Motors; Gearboxes; Compressors; Conveyors; General rotating equipment
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Cooling Tower
 - **URL:** https://misubaguna.com/product/cooling-tower/
 - **Category:** Thermal Systems
-- **Summary:** High-efficiency cooling towers designed for industrial heat rejection and HVAC thermal management.
-- **Key Features:** High thermal performance fill material; Corrosion-resistant casing options (FRP / Stainless Steel / Galvanized Steel); Low noise axial fan assemblies; Water-saving drift eliminator design; Modular installation and low maintenance
-- **Materials:** FRP (Fiber Reinforced Plastic); SS304 / SS316; Galvanized Steel; PVC Fill Packs
-- **Applications:** Power generation plants; Petrochemical and chemical refineries; HVAC and commercial refrigeration; Plastic molding and steel manufacturing; Food processing facilities
+- **Summary:** Induced-draft counterflow and crossflow cooling towers in FRP, timber or concrete, sized to your heat load and wet-bulb conditions.
+- **Key Features:** Sized to your heat load, range, approach and design wet-bulb temperature; Counterflow, crossflow, modular and field-erected configurations; Corrosion-resistant FRP structure that suits humid, chemical and coastal sites; Low-drift eliminators that limit water loss and plume carry-over; Efficient axial fans with variable speed drive as an option; Replacement towers designed to fit existing basins and piping
+- **Specifications:** Typical capacity: from small modular cells up to several thousand m³/h per tower; Typical cooling range: 5–10 °C, with approach to wet-bulb of 3–6 °C; Drift loss: typically 0.001–0.005% of circulating flow with low-drift eliminators; Design wet-bulb: set to local site conditions; Capacity, number of cells and fan power configured to your duty
+- **Materials:** FRP, hot-dip galvanized steel, timber or reinforced concrete structure; PVC or PP fill and drift eliminators; FRP or aluminium fan blades; Stainless steel or hot-dip galvanized fasteners; HDPE, PVC or stainless steel distribution piping and nozzles
+- **Applications:** Process cooling in chemical, petrochemical and food plants; Condenser water for power generation and cogeneration; Air-conditioning and chiller plant heat rejection; Plastics, injection molding and compressor cooling; Pulp, paper and textile mills
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Heat Exchanger
 - **URL:** https://misubaguna.com/product/heat-exchanger/
 - **Category:** Thermal Systems
-- **Summary:** Shell and tube and finned-coil air-cooled heat exchangers for process heating, cooling and heat recovery.
-- **Key Features:** Shell and tube and finned-coil designs; Fixed, U-tube and floating head bundles to TEMA standards; Air-cooled coils that remove the need for cooling water; Wide choice of tube, fin and shell materials; Replacement bundles and coils matched to existing equipment
-- **Materials:** Carbon steel; SS304 / SS316; Duplex; Copper alloy; Titanium; Aluminium, copper or galvanized steel fins
-- **Applications:** Refinery, chemical and petrochemical process heating and cooling; Steam condensers and feed water heaters; Palm oil and food processing; Air-cooled oil and jacket water cooling; Steam and hot water air heaters
+- **Summary:** Shell and tube heat exchangers to TEMA standards and finned-coil air-cooled heat exchangers, built to your process duty.
+- **Key Features:** Shell and tube and finned-coil designs from one supplier; Built to your process data, with thermal rating and drawings supplied; Fixed, U-tube and floating head bundles for different cleaning needs; Air-cooled coils that remove the need for cooling water; Wide choice of tube, fin and shell materials for corrosive services; Replacement bundles and coils matched to existing nozzles and frames; Hydrostatic test and inspection documentation on request
+- **Specifications:** Shell and tube standards: TEMA classes R, C and B, with design to recognized pressure vessel codes; Shell and tube design pressure: typically up to 40 bar, higher by design; Shell and tube design temperature: typically up to 400 °C, depending on material; Finned coil approach: typically 10–15 °C above ambient air temperature; Finned coil fin pitch: commonly 2.5–5 mm, wider for dusty air; Surface area, passes, tube rows and fan power configured to your duty
+- **Materials:** Carbon steel or stainless steel shell, channels and coil frames; Tubes in carbon steel, stainless steel 304/316, duplex, copper alloy or titanium; Fins in aluminium, copper or galvanized steel, wound, extruded or plate type; Tubesheets in carbon steel, stainless steel or clad construction; Gaskets in spiral wound, graphite or PTFE
+- **Applications:** Process heating and cooling in refineries, chemical and petrochemical plants; Steam condensers and feed water heaters; Palm oil, food and beverage heating and cooling; Air-cooled process and lube oil cooling on water-scarce sites; Engine jacket water, glycol and compressor cooling; Steam and hot water air heaters for dryers and ventilation; Heat recovery from process streams and flue gas
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Plate Heat Exchanger
 - **URL:** https://misubaguna.com/product/plate-heat-exchanger/
 - **Category:** Thermal Systems
-- **Summary:** Compact gasketed and brazed plate heat exchangers delivering rapid thermal response and high efficiency.
-- **Key Features:** High thermal efficiency with minimal temperature approach; Compact footprint saving installation space; Expandable frame design (add/remove plates as capacity changes); Corrosion-resistant titanium and stainless plates; Quick disassembly for servicing and plate cleaning
-- **Materials:** SS304; SS316L; Titanium; Hastelloy; EPDM / NBR / Viton Gaskets
-- **Applications:** HVAC water chillers and district heating; Food, dairy, and beverage pasteurization; Pharmaceutical pure water heat exchange; Marine engine jacket water cooling
+- **Summary:** Compact plate heat exchangers with high heat transfer per square metre, in gasketed, brazed and welded versions.
+- **Key Features:** High heat transfer in a compact, lightweight frame; Close temperature approach for efficient heat recovery; Gasketed units open fully for cleaning and inspection; Capacity can be extended by adding plates; Multiple plate patterns to balance heat transfer and pressure drop; Replacement plates and gaskets for common makes
+- **Specifications:** Typical design pressure: gasketed up to 25 bar, welded and brazed higher; Typical design temperature: gasketed up to about 150–180 °C, depending on gasket; Plate thickness: commonly 0.4–0.8 mm; Temperature approach: as close as 1–2 °C in counterflow; Plate area, number of plates and connection sizes configured to your duty
+- **Materials:** Plates in stainless steel 304/316, titanium or Hastelloy; Gaskets in NBR, EPDM or Viton, chosen for the fluid and temperature; Carbon steel frame with protective coating; Brazed units with stainless steel plates and copper or nickel braze
+- **Applications:** Central cooling loops and closed-circuit cooling; Chiller, HVAC and district cooling systems; Food, beverage and dairy heating, cooling and pasteurizing; Palm oil and edible oil heating; Heat recovery between process streams; Swimming pool and utility water heating
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Oil Cooler
 - **URL:** https://misubaguna.com/product/oil-cooler/
 - **Category:** Thermal Systems
-- **Summary:** High-performance air and water-cooled oil exchangers for hydraulic systems, gearboxes, and heavy machinery.
-- **Key Features:** Prevents fluid degradation and seals damage from overheating; Air-cooled (aluminum fin bar) and water-cooled options; Integrated bypass valve options for cold startup protection; Compact, vibration-resistant construction; Suitable for mineral oils, synthetic fluids, and water-glycol mixtures
-- **Materials:** Aluminum Fin & Bar Matrix; Copper-Nickel Tubes; Carbon Steel Casing
-- **Applications:** Hydraulic power units and presses; Industrial gearboxes and drive systems; Injection molding machinery; Construction equipment and marine thrusters
+- **Summary:** Shell and tube and air-cooled oil coolers for hydraulic, lubrication, gearbox and engine oil systems.
+- **Key Features:** Water-cooled and air-cooled options for any site; Compact designs for crowded machine rooms and mobile equipment; Removable tube bundles on larger shell and tube units; Integral low-fin copper tubes for more heat transfer on the oil side; Materials selected for oil, cooling water and sea-water duty; Replacement coolers matched to existing mounting and ports; Pressure tested before dispatch
+- **Specifications:** Typical oil working pressure: up to 16–25 bar, higher by design; Typical oil temperature: up to about 120 °C; Cooling water: typically up to 32–35 °C inlet; Heat duty: from a few kW to several hundred kW; Duty, flow, ports and mounting configured to your system
+- **Materials:** Copper or cupronickel tubes for general duty; Stainless steel 304/316 or titanium for corrosive water; Aluminium finned cores for air-cooled units; Carbon steel or cast iron shell and end covers; Oil-resistant gaskets and O-rings
+- **Applications:** Hydraulic power units and presses; Gearbox and bearing lubrication systems; Compressor and turbine oil circuits; Diesel engine and generator set oil cooling; Injection molding machines and machine tools; Marine and offshore machinery
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
 ### Water-Cooled Cartridge
 - **URL:** https://misubaguna.com/product/water-cooled-cartridge/
 - **Category:** Thermal Systems
 - **Summary:** Replaceable water-cooled tube bundle cartridges for oil coolers, compressor intercoolers and aftercoolers, and process coolers.
-- **Key Features:** Drop-in replacement for the existing shell and connections; Removable for cleaning and inspection; Straight-tube, U-tube and finned-tube designs; Tube materials selected for cooling water quality; Pressure tested before dispatch
-- **Materials:** Copper, cupronickel 90/10 and 70/30, admiralty brass, stainless steel 304/316, titanium tubes; Brass, steel or stainless tubesheets; Copper or aluminium fins
-- **Applications:** Hydraulic and lube oil coolers; Air compressor intercoolers and aftercoolers; Engine and generator set coolers; Marine and sea-water cooled machinery
+- **Key Features:** Drop-in replacement that keeps the existing shell, piping and mounting; Removable bundle for water-side cleaning and inspection; Optional wire turbulator inserts that raise tube-side heat transfer; Straight-tube, U-tube and finned-tube designs; Tube materials selected for fresh, cooling tower or sea water; Reverse-engineered from the old cartridge when drawings are missing; Pressure tested before dispatch
+- **Specifications:** Typical tube outside diameter: 6–19 mm, depending on cooler size; Typical water-side pressure: up to 10–16 bar; Typical shell-side pressure: up to 25 bar for oil, higher by design; Cooling water: typically up to 32–35 °C inlet; Dimensions, tube count and passes matched to the existing cooler
+- **Materials:** Tubes in copper, admiralty brass or cupronickel 90/10 and 70/30; Stainless steel 304/316 or titanium tubes for corrosive water; Tubesheets in naval brass, carbon steel or stainless steel; Copper or aluminium fins for air and gas cooling; Gaskets and O-rings chosen for the oil or gas being cooled
+- **Applications:** Hydraulic and lube oil coolers; Air compressor intercoolers and aftercoolers; Turbine, gearbox and bearing oil systems; Diesel engine and generator set coolers; Marine and sea-water cooled machinery
+- **How to buy:** Request a quotation from sales@misubaguna.com or WhatsApp +62 811-8715-671 with operating conditions and quantity.
 
-### High-Consistency Pulper
-- **URL:** https://misubaguna.com/product/hicon-pulper/
-- **Category:** Paper & Pulp Machinery
-- **Summary:** High-efficiency batch pulping system operating at 15–18% consistency for gentle fiber defibering, effective ink detachment, and complete contaminant retention during stock preparation.
-- **Key Features:** 15–18% High-Consistency Operation for rapid defibering with low specific energy input; Contaminant Preservation keeping plastics, wet-strength films, and foils intact; Cast Stainless Helical Rotor with hard-faced leading edges for optimal vortex circulation; Superior Deinking Efficiency for detached ink removal in writing, printing, and tissue lines; Robust SS-304/316 Fabricated Vat with heavy structural stiffeners; Flexible Planetary Gearbox or V-Belt Drive options to suit mill footprint; Fully Automated Batch Control for water addition, pulping time, dilution, and discharge
-- **Materials:** SS-304 / SS-316 Clad Stainless Steel Vat; Cast SS-304 / SS-316 Helical Rotor with Stellite/Carbide hard-facing; SS-316L Extraction Plate; Forged Alloy Steel Shaft with Spherical Roller Bearings
-- **Applications:** Deinking and bleaching stock preparation for writing, printing, and tissue paper; Recycled packaging paper lines (OCC, Kraft linerboard, fluting medium); Virgin pulp fiberization for duplex board and folding boxboard; Processing wet-strength papers with thermal and chemical assistance
-
-### Double Disc Refiner
-- **URL:** https://misubaguna.com/product/disc-refiner/
-- **Category:** Paper & Pulp Machinery
-- **Summary:** Precision Double Disc (Twin Disc) Stock Refining System engineered for controlled fiber cutting, fibrillation, and freeness development across stock preparation and approach flow lines.
-- **Key Features:** Self-Centering Floating Splined Shaft balancing hydraulic forces across dual refining zones; Ultra-Lightweight Open Rotor reducing no-load power consumption by up to 25%; Precision Electromechanical or Hydraulic Gap Positioning with micron-level readout; Tailored CNC-Milled Segment Profiles for specific fiber cutting or fibrillation; Hinged Front Access Door for rapid refiner plate changes and maintenance; Symmetrical Twin Stock Inlets providing uniform pressure and zero axial thrust; DCS/PLC Automation for constant Specific Edge Load (SEL) and energy control
-- **Materials:** SS-304 / SS-316 Stainless Steel Wetted Casing; Forged Alloy Steel Shaft with Stainless Sleeve & Splined Hub; SS-316L / 17-4 PH / Martensitic Chrome Steel Refiner Plates; Dual Mechanical Seals or Water-Flushed Gland Packing
-- **Applications:** Stock preparation for Kraft linerboard, fluting medium, and duplex board; Refining virgin softwood/hardwood kraft pulp, bagasse, and bamboo pulp; Post-refining recycled OCC stock and deinked fibers for tissue and printing grades; Approach flow tickler refining for real-time headbox freeness control
-
-### Screening & Cleaning System
-- **URL:** https://misubaguna.com/product/screening-cleaning-system/
-- **Category:** Paper & Pulp Machinery
-- **Summary:** Multi-stage pressure screens and high/low-density cleaners engineered for complete contaminant isolation, shive removal, and stock purification.
-- **Key Features:** Comprehensive High-Density Cleaners, Pressure Screens, and LDC Hydrocyclones; Non-Blinding Aerofoil Rotors generating suction pulses to maintain continuous slot clearance; Precision Wedge-Wire Slotted Baskets (down to 0.10 mm) with Hard Chrome Plating; Low Pressure Drop Design reducing pump energy consumption per ton of pulp; Alumina Ceramic and Polyurethane Lower Cones for extreme sand and abrasive resistance; Zero-Fiber-Loss Tailing & Reject Sorters maximizing good fiber recovery; Full Stainless Steel Vessel Construction polished for corrosion protection and cleanliness
-- **Materials:** SS-304 / SS-316L Polished Stainless Steel Screen Vessel; SS-316L Wedge-Wire Basket with Hard Chrome Coating (100–150 microns); Cast SS-316 Aerofoil Rotor with Stellite/Carbide hard-faced foils; Alumina Ceramic / Polyurethane Hydrocyclone Lower Cones
-- **Applications:** Coarse and fine stock screening in recycled OCC, MOW, and SOP pulp lines; Approach flow screening immediately upstream of paper machine headboxes; Deinking plant stock screening and light contaminant hydrocyclone cleaning; Brownstock knotting and screening in chemical pulp mills
-
-### Complete Paper Machine
-- **URL:** https://misubaguna.com/product/paper-machine-line/
-- **Category:** Paper & Pulp Machinery
-- **Summary:** Turnkey Paper Machine Production Lines engineered from high-turbulence headbox to automated pope reel for Kraft liner, fluting, duplex board, and graphic paper manufacturing.
-- **Key Features:** Complete Turnkey Solution from approach flow system to automatic pope reel; Hydraulic / Pressurized Headbox with CD Dilution Control for GSM variation within ±1.5%; High-Dewatering Shoe Press (Maxi-Press™) raising sheet dryness to 45–50%; Vibration-Free Heavy Structural Framing with SS-304 wet-end cladding; Energy-Optimized Dryer Hood & Steam Cascade System reducing steam consumption; Fully Integrated DCS and QCS Control for real-time speed, GSM, and moisture regulation; Automatic Spool Change Pope Reel for non-stop full-speed roll changes
-- **Materials:** SS-316L Solid Stainless Steel Headbox with mirror polish; High-Purity Alumina Ceramic Dewatering Elements; HT250 / HT300 Alloy Cast Iron ASME-certified Dryer Cylinders; Heavy Structural Steel Framing with SS-304 Cladding
-- **Applications:** Kraft Linerboard, Testliner, and Corrugating Medium paper manufacturing; Multi-ply Duplex Board, Triplex Board, and Folding Boxboard (FBB) lines; High-grade Writing, Printing, Offset, and Copier paper production; Specialty industrial paper grades and heavy linerboard
-
-### Tissue Machine
-- **URL:** https://misubaguna.com/product/tissue-machine/
-- **Category:** Paper & Pulp Machinery
-- **Summary:** High-speed Crescent Former Tissue Machine lines integrated with Steel/Cast Iron Yankee Dryers and high-velocity hot air hoods for facial, toilet, and towel tissue production.
-- **Key Features:** Crescent Former Forming Unit delivering high sheet bulk and uniform MD/CD tensile ratio; High Design Speeds up to 1,600 m/min with low mechanical vibration; Precision Steel or Cast Iron Yankee Dryer with metallized protective coating; High-Velocity Gas-Fired Air Hood (up to 500°C) with 15–20% heat recovery savings; Optional Multi-Layer Headbox for soft outer layers and strong core fibers; Rigid Oscillating Creping Doctor Assembly for precise micro-crepe hand-feel; Soft-Nip Tissue Pope Reel preserving reel bulk and crepe structure
-- **Materials:** Solid SS-316L Stainless Steel Headbox and Crescent Former Roll; Alloy Cast Iron / Welded Steel Yankee Dryer with Metallized Coating; Stainless Steel Inner Air Hood with mineral wool insulation; Carbon Fiber / Alloy Steel Doctor Beams with SS-316L holders
-- **Applications:** Premium Facial Tissue paper production; Toilet Tissue and Bathroom Tissue rolls; High-absorbency Kitchen Towels and Industrial Wiping paper; Napkin and Hand Towel tissue products
-
-### Molded Fiber Plant
-- **URL:** https://misubaguna.com/product/molded-fiber-machine/
-- **Category:** Paper & Pulp Machinery
-- **Summary:** Automated pulp molding production lines for eco-friendly biodegradable tableware, egg packaging, industrial protective packaging, and medical disposables.
-- **Key Features:** Fully Automatic Production Cycle from slurry suction to hot pressing, trimming, and stacking; Large Platen Surface (up to 1500 × 1500 mm) maximizing multi-cavity output; In-Mold Thermoforming Technology creating smooth, plastic-like surfaces on both sides; Multi-Raw-Material Processing: Sugarcane bagasse, bamboo, wheat straw, ONP, and OCC; Energy-Optimized Electric/Thermal Oil Heating Platens with insulated shrouds; Integrated Safety Light Curtains and PLC Touchscreen Control Interface; Custom CNC-Machined Aluminum (6061-T6) or Stainless Steel Mold Tooling
-- **Materials:** CNC-Machined Aircraft Aluminum Alloy (6061-T6) / SS-316 Molds; Heavy Welded Structural Steel Frame with Epoxy Anti-Corrosion Finish; Ductile Cast Iron / Forged Steel Heating Platens
-- **Applications:** Biodegradable Foodware: Plates, bowls, lunchboxes, coffee lids, and meal trays; Poultry & Agriculture: 30-cell egg trays, retail egg cartons, and fruit packaging; Industrial Packaging: Cushioning end-caps for electronics, appliances, and hardware; Medical Disposables: Urinals, kidney dishes, bedpans, and hospital pulp containers
-
-### Refiner Plates & Screen Baskets
-- **URL:** https://misubaguna.com/product/refiner-discs-screen-baskets/
-- **Category:** Paper & Pulp Machinery
-- **Summary:** High-durability refiner segment plates, welding-free wedge-wire screen baskets, pulper rotors, and wear spares engineered in specialized stainless steel and chrome-nickel alloys.
-- **Key Features:** Custom Metallurgical Formulations (17-4 PH, SS-316L, High-Chrome Alloys) for specific mill pH and abrasion; Zero-Draft CNC Bar Milling maintaining sharp bar edges for stable refining intensity; Welding-Free Wedge-Wire Screen Baskets eliminating stress concentration and slot cracking; Hard Chrome & Carbide Coating (100–200 microns) protecting against heavy sand and filler erosion; ISO G2.5 Dynamic Balancing for rotors ensuring vibration-free screen operation; 30%–50% Longer Service Life reducing annual wear part costs and unplanned downtime; Universal Compatibility with major international brands of refiners and pressure screens
-- **Materials:** 17-4 PH Stainless Steel / SS-316L / High-Chrome Alloys (38–58 HRC); SS-316L / SS-316Ti Wedge-Wire with Hard Chrome Plating (100–200 microns); Cast SS-304 / SS-316 Rotors with Stellite / Tungsten Carbide hard-facing
-- **Applications:** Replacement refiner segment plates for Double Disc Refiners and Conical Refiners; Wedge-wire screen baskets and rotors for coarse, fine, and headbox pressure screens; Pulper rotor and extraction plate replacement for High-Consistency and Low-Consistency pulpers; Deflaker rings, agitator impellers, and wear scrapers across stock preparation systems
-
-## All Industrial Services
+## All Services
 
 ### Cooling Tower Repair & Refurbishment
 - **URL:** https://misubaguna.com/services/cooling-tower-repair/
-- **Service Group:** Thermal & Cooling Systems
+- **Group:** Thermal & Cooling Systems
 - **Summary:** Comprehensive repair, thermal overhaul, fill replacement, structural waterproofing, and fan drive maintenance for industrial cooling towers.
-- **Key Capabilities:** Complete thermal capability restoration; High-efficiency fill and drift eliminator replacement; FRP and concrete basin structural leak repairs; Fan assembly, gearbox, and drive shaft alignment
+- **Capabilities:** Complete thermal capability restoration; High-efficiency fill and drift eliminator replacement; FRP and concrete basin structural leak repairs; Fan assembly, gearbox, and drive shaft alignment
 - **Scope of Work:** On-site inspection and thermal capacity audit; Removal and eco-disposal of degraded fill packs; High-pressure cleaning and basin surface re-coating; Installation of new high-performance PVC/PP fill packs; Dynamic balancing and shaft alignment for fan drives
+- **Problems Solved:** Scale buildup and fouled fill media lowering cooling efficiency; Corrosion, cracking, and water leakage in basin structure; Vibration or mechanical failure in fan blades and gearboxes; Drift loss and high water consumption
 - **Industries Served:** Power Generation Plants; Petrochemical Refineries; HVAC & Commercial Refrigeration; Manufacturing & Steel Works; Palm Oil Mills
+- **Materials & Equipment:** FRP Casing & Basin Liners; High-Efficiency PVC Fill Packs; SS316 Mechanical Fasteners; Laser Shaft Alignment Equipment
 
 ### Heat Exchanger Service & Repair
 - **URL:** https://misubaguna.com/services/heat-exchanger-repair/
-- **Service Group:** Thermal & Cooling Systems
+- **Group:** Thermal & Cooling Systems
 - **Summary:** On-site and workshop repair services for shell & tube and plate heat exchangers including retubing, hydrostatic testing, and re-gasket service.
-- **Key Capabilities:** Complete tube bundle pull and hydro-jetting; Precision retubing and tube sheet expansion; Plate pack disassembly, chemical cleaning, and re-gasketing; ASME/TEMA hydrostatic pressure testing
+- **Capabilities:** Complete tube bundle pull and hydro-jetting; Precision retubing and tube sheet expansion; Plate pack disassembly, chemical cleaning, and re-gasketing; ASME/TEMA hydrostatic pressure testing
 - **Scope of Work:** Nondestructive testing (NDT) and eddy current tube inspection; High-pressure water jet cleaning of tubes and channels; Extraction of worn tubes and precision expansion of new tubes; Plate pack chemical bath dipping and fluorescent crack detection; Hydrostatic pressure test certification
+- **Problems Solved:** Tube leakages causing cross-contamination of fluids; Heavy fouling, scaling, and pressure drop increase; Gasket deterioration leading to external leakage; Erosion-corrosion at tube inlet and tube sheet joints
 - **Industries Served:** Chemical Processing; Oil & Gas Refineries; Marine & Offshore Engineering; Food & Dairy Processing; Fertilizer Manufacturing
+- **Materials & Equipment:** SS304 / SS316L / Titanium Tubes & Plates; EPDM / NBR / Viton Gaskets; Hydrostatic Test Rigs; Pneumatic Tube Expanders
 
 ### Thermal Spray Coating
 - **URL:** https://misubaguna.com/services/thermal-spray-coating/
-- **Service Group:** Protective Lining & Coating
+- **Group:** Protective Lining & Coating
 - **Summary:** High-performance thermal spray coating and metal spraying solutions to restore worn components and protect against extreme abrasion, heat, and corrosion.
-- **Key Capabilities:** Restores worn shaft journals, impellers, and valve seats; Delivers superior wear and oxidation resistance; Cold process application prevents thermal distortion of parent metal; High bond strength with custom alloy selection
+- **Capabilities:** Restores worn shaft journals, impellers, and valve seats; Delivers superior wear and oxidation resistance; Cold process application prevents thermal distortion of parent metal; High bond strength with custom alloy selection
 - **Scope of Work:** Pre-machining and surface grit blasting to Sa 2.5 cleanliness; Precision metal spray coating application using wire flame or HVOF systems; Post-spray sealant application for inter-particle sealing; Final precision grinding and finish machining to exact tolerances
+- **Problems Solved:** Severe surface wear, scoring, and dimensional loss on critical shafts; High-temperature oxidation and hot corrosion on turbine components; Cavitation erosion on pump impellers and hydraulic housings
 - **Industries Served:** Pulp & Paper Mills; Mining & Material Handling; Power Generation; Heavy Equipment Repair; Marine Thrusters & Shafts
+- **Materials & Equipment:** Stainless Steel Wire; Alumina-Titania Ceramics; Nickel-Cr-Mo Alloys; Metal Spraying Systems & HVOF Equipment
 
 ### Rubber Lining
 - **URL:** https://misubaguna.com/services/rubber-lining/
-- **Service Group:** Protective Lining & Coating
+- **Group:** Protective Lining & Coating
 - **Summary:** Workshop and field application of rubber lining sheets for tanks, vessels, pipes, and agitators to resist chemical attack and heavy abrasion.
-- **Key Capabilities:** Seamless protection against acids, alkalis, and slurries; Cold bonding and hot vulcanization techniques; High impact and sound dampening properties; Spark testing to ensure 100% pinhole-free barrier
+- **Capabilities:** Seamless protection against acids, alkalis, and slurries; Cold bonding and hot vulcanization techniques; High impact and sound dampening properties; Spark testing to ensure 100% pinhole-free barrier
 - **Scope of Work:** Abrasive blast cleaning of metal substrate; Primer and two-part adhesive application; Precision hand-tailored rubber sheet lay-up and seam rolling; Autoclave or ambient temperature vulcanization; High-voltage holiday spark testing (10kV–20kV)
+- **Problems Solved:** Corrosive pitting and chemical erosion of steel storage tanks; Rapid wear of slurry transfer pipe elbows in mining operations; Chemical attack on water treatment neutralization vessels
 - **Industries Served:** Mining & Mineral Processing; Acid Storage & Chemical Plants; Water & Wastewater Treatment; Steel Pickling Lines
+- **Materials & Equipment:** Natural Rubber; Neoprene Elastomers; EPDM & Nitrile Vulcanizates; High-Voltage Spark Tester
 
 ### FRP Lining & Repair
 - **URL:** https://misubaguna.com/services/frp-lining-repair/
-- **Service Group:** Protective Lining & Coating
+- **Group:** Protective Lining & Coating
 - **Summary:** Fiberglass Reinforced Plastic (FRP) lining and structural relining for chemical tanks, scrubber ducts, trenches, and containment bunds.
-- **Key Capabilities:** High chemical resistance to aggressive fumes and liquids; Lightweight structural reinforcement of corroded tanks; Seamless hand lay-up application; Fast turnaround time for industrial plant shutdowns
+- **Capabilities:** High chemical resistance to aggressive fumes and liquids; Lightweight structural reinforcement of corroded tanks; Seamless hand lay-up application; Fast turnaround time for industrial plant shutdowns
 - **Scope of Work:** Substrate grinding, cleaning, and surface profile preparation; Vinyl ester or epoxy resin primer coat application; Multi-layer glass mat lay-up and resin saturation; Topcoat veil application with wax barrier for air release; Barcol hardness and thickness quality verification
+- **Problems Solved:** Structural weakening and micro-cracking of aged chemical vessels; Corrosion of concrete containment dikes exposed to chemical spills; Fume leakage in exhaust ducts and scrubber columns
 - **Industries Served:** Textile & Dyeing Industries; Chemical Dosing Plants; Power Plant Scrubbers & Chimneys; Water Neutralization Basins
+- **Materials & Equipment:** Vinyl Ester Resin; E-Glass Chopped Strand Mat; Synthetic Surfacing Veils; Barcol Hardness Tester
 
 ### PTFE Lining & Bonding
 - **URL:** https://misubaguna.com/services/ptfe-lining-bonding/
-- **Service Group:** Protective Lining & Coating
+- **Group:** Protective Lining & Coating
 - **Summary:** Expert bonding and sleeve fitting of PTFE and PFA liners for piping, columns, valves, and ultra-pure chemical process equipment.
-- **Key Capabilities:** Unmatched resistance to full-range concentrated acids and solvents; Non-stick, ultra-clean surface preventing product build-up; Etched sheet bonding for high-vacuum resistance; 100% electrostatic spark tested
+- **Capabilities:** Unmatched resistance to full-range concentrated acids and solvents; Non-stick, ultra-clean surface preventing product build-up; Etched sheet bonding for high-vacuum resistance; 100% electrostatic spark tested
 - **Scope of Work:** Chemical etching of PTFE sheet backer; Precision bonding using temperature-resistant adhesive systems; Thermo-forming and flanging of liner sleeves over steel stub ends; Spark testing and vacuum decay verification
+- **Problems Solved:** Rapid degradation of standard coatings in concentrated nitric or sulfuric acid lines; Process fluid contamination from elastomer or metal leaching; Vacuum collapse of unbonded thin liners
 - **Industries Served:** Semiconductor & High-Purity Chemicals; Pharmaceutical Manufacturing; Petrochemical Acid Lines; Hazardous Waste Processing
+- **Materials & Equipment:** Virgin PTFE Sheet; PFA Molded Sleeves; Specialized Etching Reagents; Electrostatic Spark Tester
 
 ### Expansion Joint Installation & Replacement
 - **URL:** https://misubaguna.com/services/expansion-joint-installation/
-- **Service Group:** Mechanical & Field Services
+- **Group:** Mechanical & Field Services
 - **Summary:** Field installation, splicing, alignment, and emergency replacement services for metal, fabric, rubber, and PTFE expansion joints.
-- **Key Capabilities:** Turnkey removal of failed joints and precise fitting of replacements; On-site thermal splicing of fabric expansion joints; Pre-installation piping stress and alignment verification; Cold-draw and shipping bar management
+- **Capabilities:** Turnkey removal of failed joints and precise fitting of replacements; On-site thermal splicing of fabric expansion joints; Pre-installation piping stress and alignment verification; Cold-draw and shipping bar management
 - **Scope of Work:** Pre-installation survey of flange alignment and pipe anchors; Safe removal of old expansion joint assembly; Field positioning, bolting, and torqueing to engineering specification; On-site hot vulcanization or stitching of multi-layer fabric belts; Removal of shipping restraints and post-commissioning thermal inspection
+- **Problems Solved:** Premature bellows failure due to piping misalignment or unrecorded thermal expansion; Fabric joint tearing and hot flue gas leakage in ductwork; Improper shipping bar removal leading to joint binding
 - **Industries Served:** Power Generation Plants; Cement & Lime Plants; Petrochemical Complex; Pulp & Paper Mills; Steel Smelters
+- **Materials & Equipment:** Hot Splicing Irons; Torque Wrenches; Laser Misalignment Gauge; High-Temp Fabric Belt Assemblies
 
 ### Mechanical Maintenance & Repair
 - **URL:** https://misubaguna.com/services/mechanical-maintenance/
-- **Service Group:** Mechanical & Field Services
+- **Group:** Mechanical & Field Services
 - **Summary:** Preventive and corrective mechanical maintenance services for pumps, valves, rotating shafts, couplings, and mechanical seals.
-- **Key Capabilities:** Comprehensive overhaul of pumps, mixers, and drive units; Precision laser shaft alignment to eliminate vibration; Mechanical seal and gland packing replacement; Preventive plant shutdown maintenance support
+- **Capabilities:** Comprehensive overhaul of pumps, mixers, and drive units; Precision laser shaft alignment to eliminate vibration; Mechanical seal and gland packing replacement; Preventive plant shutdown maintenance support
 - **Scope of Work:** Disassembly, cleaning, and dimensional checking of rotating equipment; Replacement of worn bearings, oil seals, gaskets, and couplings; Installation of high-performance mechanical seals or gland packing; Precision laser alignment of motor-driven shaft assemblies; Vibration analysis and trial run verification
+- **Problems Solved:** Excessive vibration and premature bearing wear due to shaft misalignment; Process liquid leaking past worn gland packing or mechanical seals; Coupling element failure causing unscheduled machine stoppage
 - **Industries Served:** General Manufacturing; Palm Oil Refineries; Chemical Processing Facilities; Water Supply & Wastewater Stations
+- **Materials & Equipment:** Laser Alignment Tool; Vibration Analyzer; Mechanical Seal Kits; Braided Gland Packing
 
 ### On-Site Inspection & Troubleshooting
 - **URL:** https://misubaguna.com/services/onsite-inspection/
-- **Service Group:** Mechanical & Field Services
+- **Group:** Mechanical & Field Services
 - **Summary:** On-site technical evaluation, root cause failure analysis, NDT inspection, and shutdown consultation for critical plant equipment.
-- **Key Capabilities:** Rapid response for emergency plant troubleshooting; Non-destructive testing (NDT) including spark and ultrasonic thickness measurement; Detailed engineering inspection report with actionable recommendations; Root cause failure analysis for recurring breakdowns
+- **Capabilities:** Rapid response for emergency plant troubleshooting; Non-destructive testing (NDT) including spark and ultrasonic thickness measurement; Detailed engineering inspection report with actionable recommendations; Root cause failure analysis for recurring breakdowns
 - **Scope of Work:** On-site physical and visual inspection by experienced technical specialists; Ultrasonic wall thickness measurement and flaw detection; High-voltage spark testing of protective linings; Operating parameters and thermal survey data gathering; Delivery of comprehensive diagnostic report with engineered solutions
+- **Problems Solved:** Unexplained vibration or noise in fluid transfer systems; Recurring premature failure of seals, joints, or lining layers; Unknown corrosion rate or wall thickness reduction on critical piping
 - **Industries Served:** Power & Energy Sector; Petrochemical & Gas Processing; Mining & Slurry Transportation; Industrial Plant Operations
+- **Materials & Equipment:** Ultrasonic Thickness Gauge; Infrared Thermal Imager; Holiday Spark Tester; Vibration Analysis Meter
 
 ### Valve Repair & Overhaul
 - **URL:** https://misubaguna.com/services/valve-repair/
-- **Service Group:** Mechanical & Field Services
+- **Group:** Mechanical & Field Services
 - **Summary:** Complete workshop and on-site repair, seat lapping, seal replacement, and pressure testing for control valves, safety valves, gate/globe valves, and actuators.
-- **Key Capabilities:** Control valve calibration and actuator overhaul; Precision seat lapping, grinding, and re-facing; Soft & hard seal replacement (PTFE, Stellite, Graphite); API 598 hydrostatic and pneumatic seat leakage testing
+- **Capabilities:** Control valve calibration and actuator overhaul; Precision seat lapping, grinding, and re-facing; Soft & hard seal replacement (PTFE, Stellite, Graphite); API 598 hydrostatic and pneumatic seat leakage testing
 - **Scope of Work:** Disassembly, chemical decontamination, and dimensional measurement; Abrasive grit blasting of valve body and internal components; CNC machining or portable lapping of seating surfaces; Installation of new gland packings, bonnet gaskets, and O-rings; API 598 hydrostatic pressure body and seat leakage certification
+- **Problems Solved:** Internal seat leakage causing fluid loss and safety hazards; Stem scoring, packing deterioration, and gland leakage; Actuator diaphragm rupture or positioner signal drift; Severe cavitation pitting in high-pressure steam and acid lines
 - **Industries Served:** Oil & Gas Refineries; Chemical & Petrochemical Plants; Power Generation Utilities; Pulp & Paper Mills; Fertilizer Manufacturing
+- **Materials & Equipment:** Stellite Hardfacing Alloy; Flexible Graphite Packing; Spiral Wound Gaskets; Valve Hydrostatic Test Rig; Portable Seat Lapping Machine
 
 ### Gearbox Repair & Rebuilding
 - **URL:** https://misubaguna.com/services/gearbox-repair/
-- **Service Group:** Mechanical & Field Services
+- **Group:** Mechanical & Field Services
 - **Summary:** Comprehensive overhaul and rebuilding of helical, planetary, worm, and bevel industrial gearboxes, including gear re-machining, shaft alignment, and seal replacement.
-- **Key Capabilities:** Overhaul of spur, helical, planetary, and bevel gearboxes; Precision shaft journal restoration via thermal spray grinding; Heavy-duty bearing and radial oil seal replacement; Full-load run testing, vibration analysis, and backlash check
+- **Capabilities:** Overhaul of spur, helical, planetary, and bevel gearboxes; Precision shaft journal restoration via thermal spray grinding; Heavy-duty bearing and radial oil seal replacement; Full-load run testing, vibration analysis, and backlash check
 - **Scope of Work:** Teardown, ultrasonic cleaning, and magnetic particle inspection (MPI); Gear tooth re-grinding or precision gear set replacement; Shaft journal thermal spray restoration and dynamic balancing; Installation of new premium bearings and Viton oil seals; No-load and full-load test run with temperature and vibration logging
+- **Problems Solved:** Gear tooth pitting, spalling, and tooth breakage from shock loads; Bearing failure causing shaft misalignment and excessive vibration; Oil leakage from damaged shaft radial oil seals; Overheating due to lubrication breakdown or improper gear mesh
 - **Industries Served:** Mining & Material Handling; Palm Oil Mills & Extruders; Cement & Steel Rolling Mills; Rubber & Plastic Mixers; Power Generation Drives
+- **Materials & Equipment:** Alloy Steel Gears (20CrMnTi / 42CrMo); Viton Oil Seals; Dynamic Balancing Bench; Vibration Analyzer; Gear Hobbing Machine
 
 ### Pump & Rotating Equipment Repair
 - **URL:** https://misubaguna.com/services/pump-repair/
-- **Service Group:** Mechanical & Field Services
+- **Group:** Mechanical & Field Services
 - **Summary:** Field and workshop repair of centrifugal, slurry, positive displacement, and vacuum pumps including dynamic impeller balancing and mechanical seal retrofitting.
-- **Key Capabilities:** Dynamic balancing of impellers and thermal spray coating; Mechanical seal conversion and gland packing maintenance; Casing wear ring clearance adjustment and volumetric repair; Laser shaft alignment for pump-motor drivelines
+- **Capabilities:** Dynamic balancing of impellers and thermal spray coating; Mechanical seal conversion and gland packing maintenance; Casing wear ring clearance adjustment and volumetric repair; Laser shaft alignment for pump-motor drivelines
 - **Scope of Work:** Teardown, cleaning, and non-destructive casing wall thickness testing; Ceramic anti-erosion coating application on impeller and volute; Shaft journal restoration and dynamic balancing; Precision mechanical seal installation and pressure check; Laser driveline alignment during on-site commissioning
+- **Problems Solved:** Cavitation erosion on impellers reducing discharge flow; Mechanical seal failure leading to liquid leakage and bearing contamination; High vibration and shaft deflection from misalignment; Corrosive chemical thinning of pump volute casing walls
 - **Industries Served:** Chemical & Acid Processing; Mining Slurry Operations; Water & Wastewater Utilities; Power Plant Boiler Feed; Food & Beverage Processing
+- **Materials & Equipment:** Duplex Stainless Steel; Ceramic Epoxy Coatings; Laser Shaft Alignment System; Dynamic Balancing Rig
