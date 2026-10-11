@@ -13,15 +13,36 @@
     $T = 'toroidal';
     $ALL = 'unreinforced reinforced toroidal';
 
-    // [name, label, required (true, or the bellows types that require it), types, hint (text, or [types => text])]
+    $assemblyValues = array_map(fn ($a) => $a->value, $assemblyTypes);
+    $currentAssembly = in_array(old('assembly_type'), $assemblyValues, true) ? old('assembly_type') : 'single';
+    $UNI = 'universal tied_universal';
+    $MOVING = 'single universal tied_universal';
+    $assemblyHints = [
+        'single' => 'One bellows taking axial, lateral and angular movement',
+        'universal' => 'Two bellows joined by a centre spool',
+        'tied_universal' => 'Two bellows; tie rods carry the pressure thrust',
+        'hinged' => 'One bellows; hinges allow rotation in one plane only',
+        'gimbal' => 'One bellows; gimbal ring allows rotation in any plane',
+    ];
+
+    // [name, label, required (true, or the bellows types that require it), types, hint (text, or [types => text]),
+    //  assemblies the field applies to (null = all), [assemblies => [alternative label, alternative hint]]]
+    $assemblyFields = [
+        ['Lu', 'Length Lu', true, $ALL, 'Between the outer convolution ends of both bellows', $UNI],
+        ['tie_rods', 'Number of tie rods', true, $ALL, 'At least 2', 'tied_universal'],
+        ['spool_weight', 'Centre-spool weight', false, $ALL, 'Optional; unsupported spool between the bellows', $UNI],
+        ['spool_angle', 'Centre-spool angle θu', false, $ALL, 'From horizontal; required with a spool weight', $UNI],
+    ];
     $conditionFields = [
         ['design_pressure', 'Design pressure', true, $ALL, 'Internal pressure, gauge'],
         ['design_temperature', 'Design temperature', true, $ALL, null],
         ['required_cycles', 'Required cycle life', true, $ALL, 'Number of movement cycles'],
-        ['x_comp', 'Axial compression x', false, $ALL, 'Total for the bellows'],
-        ['x_ext', 'Axial extension x', false, $ALL, 'Total for the bellows'],
-        ['lateral', 'Lateral offset y', false, $ALL, null],
-        ['angular', 'Angular rotation θ', false, $ALL, null],
+        ['x_comp', 'Axial compression x', false, $ALL, 'Total for the joint', $MOVING,
+            ['tied_universal' => ['Axial growth between tie-rod plates', 'Pipe growth between the plates; compresses the bellows']]],
+        ['x_ext', 'Axial extension x', false, $ALL, 'Total for the joint', 'single universal'],
+        ['lateral', 'Lateral offset y', false, $ALL, null, $MOVING],
+        ['angular', 'Angular rotation θ', false, $ALL, null, 'single universal hinged gimbal', ['gimbal' => ['Angular rotation θ1 (plane 1)', null]]],
+        ['angular_2', 'Angular rotation θ2 (plane 2)', false, $ALL, 'Perpendicular to plane 1', 'gimbal'],
     ];
     $geometryFields = [
         ['Db', 'Bellows inside diameter Db', true, $ALL, null],
@@ -56,7 +77,7 @@
         ['override_Sy', 'Yield strength Sy', false, $ALL, 'Overrides the derived value'],
         ['override_Sym', 'Yield strength from test report', false, $ALL, 'Room temperature, certified'],
     ];
-    $integerFields = ['required_cycles', 'n', 'N', 'ng'];
+    $integerFields = ['required_cycles', 'n', 'N', 'ng', 'tie_rods'];
     $defaults = ['Cwb' => '1.0', 'Cwc' => '1.0', 'Cwr' => '1.0'];
     $typeLabels = [
         'unreinforced' => ['Unreinforced', 'U-shaped convolutions without rings'],
@@ -422,20 +443,6 @@
             </div>
         @endif
 
-        {{-- 1. Bellows type --}}
-        <fieldset class="ejma-section">
-            <h2><span class="ejma-step">1</span> Bellows type</h2>
-            <div class="ejma-choice">
-                @foreach ($bellowsTypes as $type)
-                    <label>
-                        <input type="radio" name="bellows_type" value="{{ $type->value }}" @checked($currentType === $type->value)>
-                        <span><strong>{{ $typeLabels[$type->value][0] }}</strong><span>{{ $typeLabels[$type->value][1] }}</span></span>
-                    </label>
-                @endforeach
-            </div>
-            @error('bellows_type')<span class="error">{{ $message }}</span>@enderror
-        </fieldset>
-
         @php
             $reqMark = function ($required) use ($currentType) {
                 if ($required === true) {
@@ -461,28 +468,55 @@
 
                 return $html;
             };
-            $renderField = function (array $f) use ($quantities, $units, $unitIndex, $integerFields, $defaults, $errors, $reqMark, $hintHtml) {
+            // Shown only for the listed assemblies; the script toggles it (and disables its inputs) on change.
+            $assemblyAttr = function (?string $assemblies) use ($currentAssembly) {
+                if ($assemblies === null) {
+                    return '';
+                }
+                $hidden = in_array($currentAssembly, explode(' ', $assemblies), true) ? '' : ' hidden';
+
+                return ' data-assemblies="'.e($assemblies).'"'.$hidden;
+            };
+            $renderField = function (array $f) use ($quantities, $units, $unitIndex, $integerFields, $defaults, $errors, $reqMark, $hintHtml, $assemblyAttr, $assemblyValues) {
                 [$name, $label, $required, $types, $hint] = $f;
+                $assemblies = $f[5] ?? null;
+                $alternatives = $f[6] ?? [];
                 $kind = $quantities[$name] ?? 'ratio';
                 $unit = $units[$kind][$unitIndex];
                 $value = old($name, $defaults[$name] ?? '');
                 $step = in_array($name, $integerFields, true) ? '1' : 'any';
                 $id = 'ejma_'.$name;
-                $html = '<div class="ejma-field'.($errors->has($name) ? ' has-error' : '').'" data-types="'.e($types).'">';
-                $html .= '<label for="'.e($id).'">'.e($label).$reqMark($required).'</label>';
+
+                // Assembly-specific label and hint (e.g. tied universal: axial growth between the tie-rod plates).
+                $labelHtml = e($label);
+                $hintMarkup = $hint ? $hintHtml($hint) : '';
+                if ($alternatives !== []) {
+                    $others = implode(' ', array_diff($assemblyValues, array_keys($alternatives)));
+                    $labelHtml = '<span'.$assemblyAttr($others).'>'.e($label).'</span>';
+                    $hintMarkup = $hint ? '<span class="hint"'.$assemblyAttr($others).'>'.e($hint).'</span>' : '';
+                    foreach ($alternatives as $for => [$altLabel, $altHint]) {
+                        $labelHtml .= '<span'.$assemblyAttr($for).'>'.e($altLabel).'</span>';
+                        if ($altHint) {
+                            $hintMarkup .= '<span class="hint"'.$assemblyAttr($for).'>'.e($altHint).'</span>';
+                        }
+                    }
+                }
+
+                $html = '<div class="ejma-field'.($errors->has($name) ? ' has-error' : '').'" data-types="'.e($types).'"'.$assemblyAttr($assemblies).'>';
+                $html .= '<label for="'.e($id).'">'.$labelHtml.$reqMark($required).'</label>';
                 $html .= '<div class="ejma-input"><input type="number" inputmode="decimal" step="'.$step.'" id="'.e($id).'" name="'.e($name).'" value="'.e($value).'"'.($errors->has($name) ? ' aria-invalid="true"' : '').'>';
                 $html .= '<span class="unit" data-kind="'.e($kind).'">'.e($unit).'</span></div>';
                 if ($errors->has($name)) {
                     $html .= '<span class="error">'.e($errors->first($name)).'</span>';
-                } elseif ($hint) {
-                    $html .= $hintHtml($hint);
+                } else {
+                    $html .= $hintMarkup;
                 }
 
                 return $html.'</div>';
             };
-            $renderSelect = function (string $name, string $label, bool|string $required, string $types, array $options, string|array|null $hint = null, bool $placeholder = true) use ($errors, $reqMark, $hintHtml) {
+            $renderSelect = function (string $name, string $label, bool|string $required, string $types, array $options, string|array|null $hint = null, bool $placeholder = true, string $default = '') use ($errors, $reqMark, $hintHtml) {
                 $id = 'ejma_'.$name;
-                $selected = (string) old($name, '');
+                $selected = (string) old($name, $default);
                 $html = '<div class="ejma-field'.($errors->has($name) ? ' has-error' : '').'" data-types="'.e($types).'">';
                 $html .= '<label for="'.e($id).'">'.e($label).$reqMark($required).'</label>';
                 $html .= '<div class="ejma-input"><select id="'.e($id).'" name="'.e($name).'">';
@@ -504,10 +538,49 @@
             $materialList = fn (string $role) => collect($materialOptions[$role])->mapWithKeys(fn ($m) => [$m->id => $m->name])->all();
         @endphp
 
-        {{-- 2. Design conditions --}}
+        {{-- 1. Assembly --}}
         <fieldset class="ejma-section">
-            <h2><span class="ejma-step">2</span> Design conditions</h2>
-            <p class="intro">Movements are the total for the whole bellows. Leave a movement empty if it does not apply.</p>
+            <h2><span class="ejma-step">1</span> Expansion joint assembly</h2>
+            <div class="ejma-grid">
+                <div class="ejma-field @error('assembly_type') has-error @enderror">
+                    <label for="ejma_assembly_type">Assembly <span class="req">*</span></label>
+                    <div class="ejma-input"><select id="ejma_assembly_type" name="assembly_type">
+                        @foreach ($assemblyTypes as $assembly)
+                            <option value="{{ $assembly->value }}" @selected($currentAssembly === $assembly->value)>{{ $assembly->label() }}</option>
+                        @endforeach
+                    </select></div>
+                    @error('assembly_type')
+                        <span class="error">{{ $message }}</span>
+                    @else
+                        @foreach ($assemblyHints as $assembly => $text)
+                            <span class="hint" data-assemblies="{{ $assembly }}" @if ($currentAssembly !== $assembly) hidden @endif>{{ $text }}</span>
+                        @endforeach
+                    @enderror
+                </div>
+                @foreach ($assemblyFields as $f)
+                    {!! $renderField($f) !!}
+                @endforeach
+            </div>
+        </fieldset>
+
+        {{-- 2. Bellows type --}}
+        <fieldset class="ejma-section">
+            <h2><span class="ejma-step">2</span> Bellows type</h2>
+            <div class="ejma-choice">
+                @foreach ($bellowsTypes as $type)
+                    <label>
+                        <input type="radio" name="bellows_type" value="{{ $type->value }}" @checked($currentType === $type->value)>
+                        <span><strong>{{ $typeLabels[$type->value][0] }}</strong><span>{{ $typeLabels[$type->value][1] }}</span></span>
+                    </label>
+                @endforeach
+            </div>
+            @error('bellows_type')<span class="error">{{ $message }}</span>@enderror
+        </fieldset>
+
+        {{-- 3. Design conditions --}}
+        <fieldset class="ejma-section">
+            <h2><span class="ejma-step">3</span> Design conditions</h2>
+            <p class="intro">Movements are the totals imposed at the ends of the expansion joint. Leave a movement empty if it does not apply.</p>
             <div class="ejma-grid">
                 @foreach ($conditionFields as $f)
                     {!! $renderField($f) !!}
@@ -515,9 +588,9 @@
             </div>
         </fieldset>
 
-        {{-- 3. Geometry --}}
+        {{-- 4. Geometry --}}
         <fieldset class="ejma-section">
-            <h2><span class="ejma-step">3</span> Geometry</h2>
+            <h2><span class="ejma-step">4</span> Geometry</h2>
             <div class="ejma-diagram">
                 <figure data-types="{{ $U }}">
                     <svg viewBox="0 0 360 170" role="img" aria-label="U-shaped convolution dimensions">
@@ -571,9 +644,9 @@
             </div>
         </fieldset>
 
-        {{-- 4. Materials & fabrication --}}
+        {{-- 5. Materials & fabrication --}}
         <fieldset class="ejma-section">
-            <h2><span class="ejma-step">4</span> Materials &amp; fabrication</h2>
+            <h2><span class="ejma-step">5</span> Materials &amp; fabrication</h2>
             <div class="ejma-grid">
                 {!! $renderSelect('bellows_material', 'Bellows material', true, $ALL, $materialList('bellows')) !!}
                 {!! $renderSelect('collar_material', 'Collar material', $T, $ALL, $materialList('collar'), [$U => 'Required when a collar is given']) !!}
@@ -595,9 +668,9 @@
             </details>
         </fieldset>
 
-        {{-- 5. Contact --}}
+        {{-- 6. Contact --}}
         <fieldset class="ejma-section">
-            <h2><span class="ejma-step">5</span> Contact details</h2>
+            <h2><span class="ejma-step">6</span> Contact details</h2>
             <p class="intro">We send the detailed results to our engineering team, who will follow up with you.</p>
             <div class="ejma-grid">
                 @foreach ([['name', 'Full name', 'text', 'name'], ['company', 'Company', 'text', 'organization'], ['email', 'Email', 'email', 'email'], ['phone', 'Phone', 'tel', 'tel']] as [$name, $label, $type, $auto])
@@ -630,11 +703,19 @@
         var unitLabels = @json($units);
         var unitsInput = document.getElementById('ejma-units');
 
+        var assemblySelect = document.getElementById('ejma_assembly_type');
+
+        function listed(el, attr, value) {
+            return !el.hasAttribute(attr) || el.getAttribute(attr).split(' ').indexOf(value) !== -1;
+        }
+
+        // A field shows (and submits) only when it applies to both the bellows type and the assembly.
         function applyType() {
             var checked = form.querySelector('input[name="bellows_type"]:checked');
             var type = checked ? checked.value : 'unreinforced';
-            document.querySelectorAll('[data-types]').forEach(function (el) {
-                var show = el.getAttribute('data-types').split(' ').indexOf(type) !== -1;
+            var assembly = assemblySelect ? assemblySelect.value : 'single';
+            document.querySelectorAll('[data-types], [data-assemblies]').forEach(function (el) {
+                var show = listed(el, 'data-types', type) && listed(el, 'data-assemblies', assembly);
                 el.hidden = !show;
                 el.querySelectorAll('input, select, textarea').forEach(function (input) { input.disabled = !show; });
             });
@@ -659,6 +740,7 @@
         form.querySelectorAll('input[name="bellows_type"]').forEach(function (radio) {
             radio.addEventListener('change', applyType);
         });
+        if (assemblySelect) assemblySelect.addEventListener('change', applyType);
         form.querySelectorAll('[data-units]').forEach(function (btn) {
             btn.addEventListener('click', function () { applyUnits(btn.getAttribute('data-units')); });
         });

@@ -47,11 +47,10 @@ final class UnreinforcedBellows implements Checker
         // Eq. 4-37 at design temperature (§1.3: E is at design temperature unless specified); reproduces benchmark fi = 12562.
         $fi = 1.7 * $d->Dm * $p->EbDt * $tp ** 3 * $n / ($w ** 3 * $Cf);
 
-        $Ctheta = AngularPressureFactor::Ctheta($c->y, $c->theta);
-        $phi = AngularPressureFactor::phi(BellowsType::Unreinforced, $P, $g->N, $q, $fi);
-        $etheta = Movement::etheta($c->theta, $d->Dm, $g->N);
-        $Ktheta = AngularPressureFactor::Ktheta($etheta, $Ctheta, $q, $phi);
-        $m = Movement::of($g, $c, $d, $Ktheta);
+        $apf = AngularPressureFactor::forAssembly(BellowsType::Unreinforced, $c, $d->Dm, $g->N, $q, $q, $fi);
+        $Ctheta = $apf->Ctheta;
+        $Ktheta = $apf->Ktheta;
+        $m = Movement::of($g, $c, $d, $Ktheta, $fi);
         $e = $m->e;
 
         // Eqs. 4-27/4-28 at design temperature; with no collar the modulus cancels (benchmark S1 = 6301 either way).
@@ -72,7 +71,8 @@ final class UnreinforcedBellows implements Checker
         $St = 0.7 * ($S3 + $S4) + ($S5 + $S6);               // p092
         $Nc = Fatigue::cycles($St, $p->fatigue);              // eq. 4-34
 
-        $Psc = 0.34 * M_PI * $Ctheta * $fi / ($g->N ** 2 * $q);  // eq. 4-35
+        // Eq. 4-35; N = total convolutions in both bellows for universal (note to 4-35).
+        $Psc = 0.34 * M_PI * $Ctheta * $fi / (self::totalConvolutions($g, $c) ** 2 * $q);
         $delta = $K4 / (3 * $K2);                              // §1.3 p023
         $alpha = 1 + 2 * $delta ** 2 + sqrt(1 - 2 * $delta ** 2 + 4 * $delta ** 4);
         $Psi = 1.3 * $d->Ac * $p->Sy / ($m->Kr * $d->Dm * $q * sqrt($alpha));  // eq. 4-36
@@ -86,6 +86,7 @@ final class UnreinforcedBellows implements Checker
         $lines[] = self::fatigueLine('4-34', $Nc, $c->requiredCycles);
         $lines[] = self::le('squirm_column', 'Column instability (squirm) pressure', '4-35', 'Psc', $P, $Psc, 'Psc');
         $lines[] = self::le('squirm_inplane', 'In-plane instability (squirm) pressure', '4-36', 'Psi', $P, $Psi, 'Psi');
+        $lines = [...$lines, ...self::movementLimitLines($g, $c, $d, $m, true), ...self::deadWeightLines($c, $p, $St)];
 
         $values = ['S1' => $S1];
         if ($S1p !== null) {
@@ -99,9 +100,9 @@ final class UnreinforcedBellows implements Checker
         }
         $values += [
             'Psc' => $Psc, 'Psi' => $Psi, 'fi' => $fi, 'Cp' => $Cp, 'Cf' => $Cf, 'Cd' => $Cd,
-            'Kr' => $m->Kr, 'e' => $e, 'Ctheta' => $Ctheta, 'Ktheta' => $Ktheta, 'phi' => $phi, 'alpha' => $alpha,
+            'Kr' => $m->Kr, 'e' => $e, 'Ctheta' => $Ctheta, 'Ktheta' => $Ktheta, 'phi' => $apf->phi, 'alpha' => $alpha, 'Ku' => $m->Ku,
         ];
 
-        return new CheckResult(BellowsType::Unreinforced, $lines, $values);
+        return new CheckResult(BellowsType::Unreinforced, $lines, $values, [...self::assemblyNotes($c), ...self::extensionCapacityNotes($g)]);
     }
 }

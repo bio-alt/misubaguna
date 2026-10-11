@@ -54,10 +54,17 @@ final class EjmaCalculator
             $notes[] = 'Overrides used: '.implode(', ', $used);
         }
 
+        $loads = Loads::of($r->geometry, $r->conditions, $derived, $result, $props->Sy);
+        $notes[] = 'Joint loads: '.Loads::workingSpringRateBasis($r->geometry->fw, $result->values['St'], $props->Sy)
+            .' (EJMA §1.3); '.self::loadsBasis($r->conditions->assembly->type);
+        if (isset($loads['hardware_total'])) {
+            $notes[] = self::hardwareNote($r->conditions->assembly);
+        }
+
         return new CheckResult(
             $result->type,
             $result->lines,
-            [...$result->values, ...Loads::of($r->geometry, $r->conditions, $derived, $result), ...self::propertyValues($props, $collar !== null, $reinf !== null)],
+            [...$result->values, ...$loads, ...self::propertyValues($props, $collar !== null, $reinf !== null)],
             $notes,
         );
     }
@@ -78,6 +85,27 @@ final class EjmaCalculator
         }
 
         return $out;
+    }
+
+    /** How the joint forces and moments were evaluated for the assembly (eqs. 4-14 to 4-18). */
+    private static function loadsBasis(AssemblyType $type): string
+    {
+        return match ($type) {
+            AssemblyType::Single => 'forces and moments per eqs. 4-14 to 4-17, lateral shear at the compressed length Lb − x.',
+            AssemblyType::Universal => 'forces and moments per eqs. 4-14 to 4-16 and 4-18, lateral shear at the compressed length Lu − x.',
+            AssemblyType::TiedUniversal => 'anchor axial force is 0 (the tie rods carry fw·ex and the pressure thrust); lateral moment per eq. 4-15; lateral shear per eq. 4-18 with the span Lu (the tie rods hold the overall length).',
+            AssemblyType::Hinged, AssemblyType::Gimbal => 'angular rotation only: moment per eq. 4-16; no axial force, lateral moment or lateral shear.',
+        };
+    }
+
+    /** Which restraint hardware carries the pressure thrust (Phase 2 spec §3). */
+    private static function hardwareNote(AssemblyGeometry $a): string
+    {
+        return match ($a->type) {
+            AssemblyType::TiedUniversal => sprintf('Pressure thrust plus the bellows axial force fw·ex is carried by the %d tie rods (equal share per rod).', $a->tieRods),
+            AssemblyType::Hinged => 'Pressure thrust is carried by the 2 hinge pins (half per pin).',
+            default => 'Pressure thrust is carried by the gimbal pins (half per pin on each ring axis).',
+        };
     }
 
     private function material(string $id, string $field, string $role): Material

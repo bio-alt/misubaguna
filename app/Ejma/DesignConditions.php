@@ -11,5 +11,7 @@ final readonly class DesignConditions
         public float $y,
         public float $theta,
         public ?int $requiredCycles,
+        /** Joint-level assembly; defaults to a single expansion joint (Phase 1 behaviour). */
+        public AssemblyGeometry $assembly = new AssemblyGeometry,
     ) {}
 }

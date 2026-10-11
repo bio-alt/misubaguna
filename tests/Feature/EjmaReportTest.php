@@ -106,6 +106,127 @@ class EjmaReportTest extends TestCase
         $this->assertLessThan(300_000, strlen($pdf));
     }
 
+    public function test_pdf_movement_limit_lines_are_in_inches(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload());
+        $row = EjmaCalculation::first();
+        $ec = collect($row->results['lines'])->firstWhere('symbol', 'ec');
+        $this->assertSame('movement_ec_max', $ec['key']);
+
+        $html = (new EjmaCalculationReport($row))->pdfHtml();
+
+        $this->assertStringContainsString(number_format($ec['value'], 4).' in', $html);
+        $this->assertStringContainsString('0.4400 in', $html, 'ec(max) = q − 2rm − nt = 0.44 in');
+        $this->assertStringNotContainsString(number_format($ec['value'], 4).' psi', $html);
+    }
+
+    private function tiedPayload(array $overrides = []): array
+    {
+        return $this->payload(array_merge([
+            'assembly_type' => 'tied_universal', 'Lu' => '800', 'tie_rods' => '4',
+            'x_ext' => '', 'angular' => '2', 'lateral' => '2',
+        ], $overrides));
+    }
+
+    public function test_universal_subject_names_the_assembly(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->tiedPayload())->assertSessionHasNoErrors();
+        $subject = (new EjmaCalculationReport(EjmaCalculation::first()))->subjectLine();
+
+        $this->assertStringContainsString('609.6 mm tied universal unreinforced — ', $subject);
+    }
+
+    public function test_single_subject_keeps_phase1_format(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload());
+        $row = EjmaCalculation::first();
+        $subject = (new EjmaCalculationReport($row))->subjectLine();
+
+        $this->assertStringStartsWith('EJMA calc EJ-2026-0001 — PT Industri Nusantara — 609.6 mm unreinforced — '.strtoupper($row->verdict), $subject);
+        $this->assertStringNotContainsString('single', $subject);
+    }
+
+    public function test_pdf_for_tied_universal_prints_assembly_section(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->tiedPayload());
+        $row = EjmaCalculation::first();
+        $v = $row->results['values'];
+        $html = (new EjmaCalculationReport($row))->pdfHtml();
+
+        $this->assertStringContainsString('Assembly', $html);
+        $this->assertStringContainsString('Tied universal', $html);
+        $this->assertSame(1, substr_count(strtolower($html), 'checks apply to each'), 'stated once, in the assembly note');
+        $this->assertStringContainsString('Assembly: Tied universal (2 bellows; checks apply to each bellows)', $html);
+        $this->assertStringContainsString('Number of tie rods', $html);
+        $this->assertStringContainsString('Length Lu', $html);
+        $this->assertStringContainsString('per tie rod', $html);
+        $this->assertStringContainsString('Spring force at maximum axial movement (carried by the tie rods)', $html);
+        $this->assertStringContainsString(number_format($v['hardware_per_component'], 0).' lbf', $html);
+        $this->assertStringContainsString(number_format($v['hardware_per_component'] * 4.4482216152605, 0).' N', $html);
+        $this->assertStringContainsString('Ku', $html);
+        $this->assertStringContainsString('stresses and pressures are in psi', strtolower($html));
+        $this->assertStringStartsWith('%PDF', (new EjmaCalculationReport($row))->renderPdf());
+    }
+
+    public function test_email_and_pdf_headers_name_the_assembly_except_single(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload());
+        $this->post(self::URL, $this->tiedPayload());
+        [$single, $tied] = EjmaCalculation::orderBy('id')->get()->all();
+
+        $this->assertStringContainsString('Unreinforced bellows &middot;', (new EjmaCalculationReport($single))->render());
+        $this->assertStringContainsString('<td>Unreinforced</td>', (new EjmaCalculationReport($single))->pdfHtml());
+        $this->assertStringNotContainsString('carried by the tie rods', (new EjmaCalculationReport($single))->pdfHtml());
+        $this->assertStringContainsString('Unreinforced bellows, tied universal assembly', (new EjmaCalculationReport($tied))->render());
+        $this->assertStringContainsString('<td>Unreinforced, tied universal</td>', (new EjmaCalculationReport($tied))->pdfHtml());
+    }
+
+    public function test_pdf_for_reinforced_notes_ec_limit_basis(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload([
+            'units' => 'us', 'bellows_type' => 'reinforced', 'design_pressure' => '100', 'design_temperature' => '70',
+            'x_comp' => '1', 'x_ext' => '0.5', 'lateral' => '', 'angular' => '5',
+            'Db' => '24', 't' => '0.03', 'n' => '2', 'N' => '8', 'q' => '1', 'w' => '1.44', 'rm' => '0.25', 'Lt' => '1.25',
+            'tc' => '0.375', 'Ar' => '0.15', 'Atc' => '0.43', 'Zc' => '0.0872', 'ng' => '8', 'fw' => '14751',
+            'collar_material' => 'fixture_ss', 'reinforcement_material' => 'fixture_ss',
+        ]))->assertSessionHasNoErrors();
+        $html = (new EjmaCalculationReport(EjmaCalculation::first()))->pdfHtml();
+
+        $this->assertStringContainsString(e('ec(max) checked as q − 2rm − nt; equalizing-ring spacing not checked (integral reinforcement only).'), $html);
+    }
+
+    public function test_pdf_for_hinged_hides_ku(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload(['assembly_type' => 'hinged', 'x_comp' => '', 'x_ext' => '', 'lateral' => '', 'angular' => '3']))
+            ->assertSessionHasNoErrors();
+        $html = (new EjmaCalculationReport(EjmaCalculation::first()))->pdfHtml();
+
+        $this->assertStringContainsString('per hinge pin', $html);
+        $this->assertStringNotContainsString('Lateral distribution factor Ku', $html);
+    }
+
+    public function test_pdf_renders_for_phase1_row_without_assembly_type(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload());
+        $row = EjmaCalculation::first();
+        $row->forceFill(['assembly_type' => null])->save();
+        $mail = new EjmaCalculationReport($row->fresh());
+
+        $html = $mail->pdfHtml();
+        $this->assertStringContainsString('Single', $html);
+        $this->assertStringNotContainsString('Checks apply to each', $html);
+        $this->assertStringStartsWith('%PDF', $mail->renderPdf());
+        $this->assertStringNotContainsString('single', $mail->subjectLine());
+    }
+
     public function test_mail_failure_still_shows_result(): void
     {
         Mail::shouldReceive('to')->andThrow(new \RuntimeException('smtp down'));

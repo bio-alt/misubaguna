@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Ejma\AssemblyType;
 use App\Ejma\CheckLine;
 use App\Ejma\Data\MaterialRepository;
 use App\Ejma\LineStatus;
@@ -32,6 +33,11 @@ class EjmaCalculationReport extends Mailable
         'x_ext' => 'Axial extension',
         'lateral' => 'Lateral movement',
         'angular' => 'Angular rotation',
+        'Lu' => 'Length Lu (outermost convolution ends)',
+        'tie_rods' => 'Number of tie rods',
+        'angular_2' => 'Angular rotation, second plane',
+        'spool_weight' => 'Centre-spool weight',
+        'spool_angle' => 'Centre-spool angle from horizontal',
         'Db' => 'Bellows inside diameter Db',
         'w' => 'Convolution height w',
         't' => 'Ply thickness t',
@@ -108,10 +114,18 @@ class EjmaCalculationReport extends Mailable
     {
         $c = $this->calculation;
         $db = rtrim(rtrim(number_format((float) ($c->inputs['metric']['Db'] ?? 0), 1, '.', ''), '0'), '.');
-        $subject = "EJMA calc {$c->reference} — {$c->contact['company']} — {$db} mm {$c->bellows_type} — ".strtoupper($c->verdict);
+        $assembly = $this->assemblyType();
+        $label = $assembly === AssemblyType::Single ? '' : strtolower($assembly->label()).' ';
+        $subject = "EJMA calc {$c->reference} — {$c->contact['company']} — {$db} mm {$label}{$c->bellows_type} — ".strtoupper($c->verdict);
         $failure = $c->result()->firstFailure();
 
         return $failure ? $subject." ({$failure->label})" : $subject;
+    }
+
+    /** Phase 1 rows have no stored assembly: treat as a single expansion joint. */
+    private function assemblyType(): AssemblyType
+    {
+        return AssemblyType::tryFrom((string) $this->calculation->assembly_type) ?? AssemblyType::Single;
     }
 
     public function pdfHtml(): string
@@ -139,7 +153,7 @@ class EjmaCalculationReport extends Mailable
             }
             $kind = EjmaCalculationRequest::QUANTITIES[$field] ?? 'ratio';
             [$mUnit, $uUnit] = EjmaCalculationRequest::UNITS[$kind] ?? ['', ''];
-            $integer = in_array($field, ['n', 'N', 'ng', 'required_cycles'], true);
+            $integer = in_array($field, ['n', 'N', 'ng', 'required_cycles', 'tie_rods'], true);
             $us = (float) $inputs['us'][$field] / ($kind === 'modulus' ? 1e6 : 1);
             $metric = (float) ($inputs['metric'][$field] ?? $inputs['us'][$field]);
             $entered = $inputs['entered'][$field]['value'] ?? null;
@@ -217,11 +231,12 @@ class EjmaCalculationReport extends Mailable
                 $stresses[] = ['label' => $label, 'value' => self::num($values[$k]).' psi'];
             }
         }
+        $assembly = $this->assemblyType();
         $loads = [];
         foreach ([
-            'Ksr' => ['Spring rate per convolution-set Ksr', 'lbf/in', fn ($v) => [Units::lbfToN($v) / 25.4, 'N/mm']],
+            'Ksr' => ['Spring rate per convolution-set Ksr'.($assembly->isUniversal() ? ', per bellows' : ''), 'lbf/in', fn ($v) => [Units::lbfToN($v) / 25.4, 'N/mm']],
             'thrust' => ['Pressure thrust', 'lbf', fn ($v) => [Units::lbfToN($v), 'N']],
-            'spring_force' => ['Spring force at maximum axial movement', 'lbf', fn ($v) => [Units::lbfToN($v), 'N']],
+            'spring_force' => ['Spring force at maximum axial movement'.($assembly === AssemblyType::TiedUniversal ? ' (carried by the tie rods)' : ''), 'lbf', fn ($v) => [Units::lbfToN($v), 'N']],
             'Fg' => ['Force per fastener Fg', 'lbf', fn ($v) => [Units::lbfToN($v), 'N']],
         ] as $k => [$label, $unit, $conv]) {
             if (isset($values[$k])) {
@@ -245,8 +260,69 @@ class EjmaCalculationReport extends Mailable
             'coefficients' => $coefficients,
             'stresses' => $stresses,
             'loads' => $loads,
+            'assembly' => $this->assemblySection($assembly, $values),
             'lines' => $lines,
             'notes' => $result->notes,
+        ];
+    }
+
+    /**
+     * Joint-level section: movements per bellows, joint forces and restraint hardware, in both unit systems.
+     *
+     * @param  array<string, float>  $v
+     * @return array{type: string, isSingle: bool, rows: list<array{label: string, us: string, metric: string}>}
+     */
+    private function assemblySection(AssemblyType $type, array $v): array
+    {
+        $len = fn (float $in) => [self::num($in).' in', self::num(Units::inToMm($in)).' mm'];
+        $force = fn (float $lbf) => [self::num($lbf).' lbf', self::num(Units::lbfToN($lbf)).' N'];
+        $moment = fn (float $inLbf) => [self::num($inLbf).' in·lbf', self::num($inLbf * Units::lbfToN(1.0) * 0.0254).' N·m'];
+        $bellows = $type->isUniversal() ? ' (each bellows)' : '';
+
+        $rows = [];
+        $add = function (string $label, ?array $pair) use (&$rows) {
+            if ($pair !== null) {
+                $rows[] = ['label' => $label, 'us' => $pair[0], 'metric' => $pair[1]];
+            }
+        };
+        foreach ([
+            ['ex', 'Axial movement per convolution ex'.$bellows, $len],
+            ['ey', 'Lateral movement per convolution ey'.$bellows, $len],
+            ['etheta', 'Angular movement per convolution eθ'.$bellows, $len],
+            ['e', 'Total equivalent movement range per convolution e'.$bellows, $len],
+        ] as [$k, $label, $f]) {
+            $add($label, isset($v[$k]) ? $f($v[$k]) : null);
+        }
+        // Lateral distribution factor is meaningless where lateral movement is restrained.
+        if (isset($v['Ku']) && ! $type->isAngularOnly()) {
+            $add('Lateral distribution factor Ku', [self::num($v['Ku']), self::num($v['Ku'])]);
+        }
+        foreach ([
+            ['Fa', 'Axial force on the anchors Fa', $force],
+            ['M_theta', 'Angular moment Mθ', $moment],
+            ['M_lateral', 'Lateral moment Ml', $moment],
+            ['V_lateral', 'Lateral shear Vl', $force],
+            ['thrust', 'Pressure thrust', $force],
+        ] as [$k, $label, $f]) {
+            $add($label, isset($v[$k]) ? $f($v[$k]) : null);
+        }
+        $component = match ($type) {
+            AssemblyType::TiedUniversal => 'tie rod',
+            AssemblyType::Hinged => 'hinge pin',
+            AssemblyType::Gimbal => 'gimbal pin',
+            default => null,
+        };
+        if ($component !== null) {
+            $add('Restraint hardware load, total'.($type === AssemblyType::TiedUniversal ? ' (thrust + fw·ex)' : ''), isset($v['hardware_total']) ? $force($v['hardware_total']) : null);
+            $add('Restraint hardware load, per '.$component, isset($v['hardware_per_component']) ? $force($v['hardware_per_component']) : null);
+        }
+
+        return [
+            'type' => $type->label(),
+            // Views branch on this, never on the display label. "Checks apply to each bellows" is
+            // stated once, in the engine's assembly note.
+            'isSingle' => $type === AssemblyType::Single,
+            'rows' => $rows,
         ];
     }
 
@@ -254,7 +330,12 @@ class EjmaCalculationReport extends Mailable
     private function lineRow(CheckLine $l): array
     {
         $isCycles = $l->key === 'fatigue' || $l->symbol === 'Nc';
-        $unit = $isCycles ? ' cycles' : ' psi';
+        // Movement-per-convolution lines (§4.2 ec/ee, §4.7 ex) are lengths.
+        $unit = match (true) {
+            $isCycles => ' cycles',
+            in_array($l->symbol, ['ec', 'ee', 'ex'], true) => ' in',
+            default => ' psi',
+        };
         $notEvaluated = $l->status === LineStatus::NotEvaluated;
 
         if ($notEvaluated && $l->value === null) {

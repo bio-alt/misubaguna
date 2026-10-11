@@ -32,7 +32,7 @@
     <table class="meta">
         <tr><td width="18%"><strong>Reference</strong></td><td width="32%">{{ $calculation->reference }}</td><td width="18%"><strong>Date</strong></td><td>{{ $date }}</td></tr>
         <tr><td><strong>Company</strong></td><td>{{ $contact['company'] }}</td><td><strong>Contact</strong></td><td>{{ $contact['name'] }}, {{ $contact['email'] }}</td></tr>
-        <tr><td><strong>Bellows type</strong></td><td>{{ ucfirst($calculation->bellows_type) }}</td><td><strong>Phone</strong></td><td>{{ $contact['phone'] }}</td></tr>
+        <tr><td><strong>Bellows type</strong></td><td>{{ ucfirst($calculation->bellows_type) }}{{ $assembly['isSingle'] ? '' : ', '.strtolower($assembly['type']) }}</td><td><strong>Phone</strong></td><td>{{ $contact['phone'] }}</td></tr>
     </table>
     <div class="verdict">{{ $verdict }} &ndash; {{ $verdictLabel }}</div>
 
@@ -77,7 +77,16 @@
         @endforeach
     </table>
 
-    <h2>3. EJMA checks</h2>
+    <h2>3. Assembly</h2>
+    <p class="small" style="margin: 0 0 3pt 0;"><strong>Assembly type: {{ $assembly['type'] }}</strong></p>
+    <table>
+        <tr><th>Quantity</th><th class="r">US customary</th><th class="r">Metric</th></tr>
+        @foreach ($assembly['rows'] as $r)
+            <tr><td>{{ $r['label'] }}</td><td class="r">{{ $r['us'] }}</td><td class="r">{{ $r['metric'] }}</td></tr>
+        @endforeach
+    </table>
+
+    <h2>4. EJMA checks</h2>
     <table>
         <tr>
             <th>Symbol</th><th>Check</th><th class="r">Value</th><th>Limit</th><th class="r">Limit value</th>
@@ -97,7 +106,7 @@
         @endforeach
     </table>
 
-    <h2>4. Stresses, loads and spring rate</h2>
+    <h2>5. Stresses, loads and spring rate</h2>
     <table>
         <tr><th>Stress</th><th class="r">Value</th></tr>
         @foreach ($stresses as $s)
@@ -116,7 +125,7 @@
         @foreach ($notes as $note)
             <li>{{ $note }}</li>
         @endforeach
-        <li>Stresses and pressures are printed in psi; cycles are counts. Margin is the relative distance to the limit.</li>
+        <li>Stresses and pressures are in psi; movement limit lines (ec, ee, ex) are in inches; cycles are counts. Margin is the relative distance to the limit.</li>
     </ul>
 
     <div class="disclaimer">{{ $disclaimer }}</div>
