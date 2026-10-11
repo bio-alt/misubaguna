@@ -60,6 +60,14 @@
             <tr><td>Property overrides</td><td>None; material properties taken from the material data tables.</td></tr>
         @endforelse
     </table>
+    @if (count($properties))
+        <table style="margin-top: 6pt;">
+            <tr><th>Material properties used</th><th class="r">Metric</th><th class="r">US customary</th></tr>
+            @foreach ($properties as $p)
+                <tr><td>{{ $p['label'] }}</td><td class="r">{{ $p['metric'] }}</td><td class="r">{{ $p['us'] }}</td></tr>
+            @endforeach
+        </table>
+    @endif
 
     <h2>2. Derived geometry and coefficients</h2>
     <table>

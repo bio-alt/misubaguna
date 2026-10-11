@@ -88,6 +88,11 @@ class EjmaReportTest extends TestCase
         $mail = new EjmaCalculationReport($row);
         $html = $mail->pdfHtml();
 
+        $sab = (int) round($row->results['values']['prop_Sab']);
+        $this->assertStringContainsString(number_format($sab), $html);
+        $this->assertStringContainsString('Material properties used', $html);
+        $this->assertStringContainsString('609.6 mm', $html);
+        $this->assertStringNotContainsString('override_', $html);
         $this->assertStringContainsString('4-27', $html);
         $this->assertStringContainsString('Calculated per EJMA Standards, 9th Edition', $html);
         $this->assertStringContainsString(number_format($s1, 0), $html);
@@ -107,6 +112,28 @@ class EjmaReportTest extends TestCase
         $row = EjmaCalculation::first();
         $this->assertNull($row->emailed_at);
         $this->followRedirects($response)->assertSee($row->verdictEnum()->label());
+    }
+
+    public function test_resend_failure_leaves_emailed_at_unchanged(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload());
+        EjmaCalculation::first()->update(['emailed_at' => null]);
+        Mail::shouldReceive('to')->andThrow(new \RuntimeException('smtp down'));
+
+        $this->artisan('ejma:resend EJ-2026-0001')->assertExitCode(1);
+
+        $this->assertNull(EjmaCalculation::first()->emailed_at);
+    }
+
+    public function test_override_is_flagged_in_pdf(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload(['override_Sab' => '150']));
+        $html = (new EjmaCalculationReport(EjmaCalculation::first()))->pdfHtml();
+
+        $this->assertStringContainsString('Bellows allowable stress Sab (override)', $html);
+        $this->assertStringContainsString('150 MPa', $html);
     }
 
     public function test_resend_command(): void

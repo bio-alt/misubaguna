@@ -64,6 +64,22 @@ class EjmaCalculatorTest extends TestCase
         $this->assertContains('Overrides used: Sab', $result->notes);
     }
 
+    public function test_resolved_properties_are_returned(): void
+    {
+        $m = (new MaterialRepository(MaterialRepositoryTest::config()))->find('aus');
+        $tC = (70.0 - 32.0) * 5.0 / 9.0;
+        $result = $this->calculator()->calculate($this->request(overrides: ['Sab' => 20000.0]));
+
+        $this->assertSame(20000.0, $result->values['prop_Sab']);
+        $this->assertEqualsWithDelta($m->ePsi(20.0), $result->values['prop_EbRt'], 1);
+        $this->assertEqualsWithDelta($m->ePsi($tC), $result->values['prop_EbDt'], 1);
+        $this->assertArrayHasKey('prop_Sy', $result->values);
+        $this->assertArrayHasKey('prop_Cm', $result->values);
+        $this->assertSame(1.0, $result->values['prop_Cwb']);
+        $this->assertArrayNotHasKey('prop_Sar', $result->values);
+        $this->assertArrayNotHasKey('prop_Sac', $result->values);
+    }
+
     public function test_toroidal_requires_collar_and_reinforcement_materials(): void
     {
         $b = Benchmarks::case4();

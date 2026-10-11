@@ -136,14 +136,18 @@ class EjmaCalculationReport extends Mailable
             if (! isset($inputs['us'][$field])) {
                 continue;
             }
-            $us = (float) $inputs['us'][$field];
-            $metric = (float) ($inputs['metric'][$field] ?? $us);
             $kind = EjmaCalculationRequest::QUANTITIES[$field] ?? 'ratio';
             [$mUnit, $uUnit] = EjmaCalculationRequest::UNITS[$kind] ?? ['', ''];
+            $integer = in_array($field, ['n', 'N', 'ng', 'required_cycles'], true);
+            $us = (float) $inputs['us'][$field] / ($kind === 'modulus' ? 1e6 : 1);
+            $metric = (float) ($inputs['metric'][$field] ?? $inputs['us'][$field]);
+            $entered = $inputs['entered'][$field]['value'] ?? null;
+            $enteredUs = ($inputs['units'] ?? null) === 'us';
+            $fmt = fn (float $v, bool $verbatim, string $unit) => (($verbatim && $entered !== null) ? (string) $entered : ($integer ? (string) round($v) : self::sig($v))).($unit !== '' ? ' '.$unit : '');
             $rows[] = [
                 'label' => $label,
-                'metric' => self::num($metric).($mUnit !== '' ? ' '.$mUnit : ''),
-                'us' => self::num($us).($uUnit !== '' ? ' '.$uUnit : ''),
+                'metric' => $fmt($metric, ! $enteredUs, $mUnit),
+                'us' => $fmt($us, $enteredUs, $uUnit),
             ];
         }
 
@@ -155,7 +159,48 @@ class EjmaCalculationReport extends Mailable
                 $materials[] = ['role' => $label, 'name' => $repo->find($id)?->name ?? $id];
             }
         }
-        $overrides = array_keys(array_filter($inputs['us'] ?? [], fn ($v, $k) => str_starts_with($k, 'override_'), ARRAY_FILTER_USE_BOTH));
+        $overrides = [];
+        foreach ($inputs['us'] ?? [] as $k => $v) {
+            if (str_starts_with($k, 'override_')) {
+                $overrides[] = self::INPUT_LABELS[$k] ?? $k;
+            }
+        }
+
+        $v = $result->values;
+        $isOver = fn (string $k) => isset($inputs['us']['override_'.$k]);
+        $properties = [];
+        foreach ([
+            ['Sab', 'Bellows allowable stress Sab', 'stress'],
+            ['EbRt', 'Bellows modulus Eb, room temperature', 'modulus'],
+            ['EbDt', 'Bellows modulus Eb, design temperature', 'modulus'],
+            ['Sy', 'Bellows yield strength Sy', 'stress'],
+            ['Cm', 'Cm (forming strain factor)', 'ratio'],
+            ['Cwb', 'Weld factor Cwb', 'ratio'],
+            ['Sac', 'Collar allowable stress Sac', 'stress'],
+            ['EcDt', 'Collar modulus Ec, design temperature', 'modulus'],
+            ['Cwc', 'Weld factor Cwc', 'ratio'],
+            ['Sar', 'Reinforcement allowable stress Sar', 'stress'],
+            ['ErDt', 'Reinforcement modulus Er, design temperature', 'modulus'],
+            ['Cwr', 'Weld factor Cwr', 'ratio'],
+        ] as [$k, $label, $kind]) {
+            if (! isset($v['prop_'.$k])) {
+                continue;
+            }
+            $psi = $v['prop_'.$k];
+            $properties[] = [
+                'label' => $label.($isOver($k) ? ' (override)' : ''),
+                'us' => match ($kind) {
+                    'stress' => number_format($psi, 0).' psi',
+                    'modulus' => self::sig($psi / 1e6).' × 10⁶ psi',
+                    default => self::sig($psi),
+                },
+                'metric' => match ($kind) {
+                    'stress' => self::sig($psi / Units::mpaToPsi(1.0)).' MPa',
+                    'modulus' => self::sig($psi / Units::gpaToPsi(1.0)).' GPa',
+                    default => self::sig($psi),
+                },
+            ];
+        }
 
         $lines = array_map(fn (CheckLine $l) => $this->lineRow($l), $result->lines);
 
@@ -193,6 +238,7 @@ class EjmaCalculationReport extends Mailable
             'inputRows' => $rows,
             'materials' => $materials,
             'overrides' => $overrides,
+            'properties' => $properties,
             'formingCondition' => $inputs['forming_condition'] ?? null,
             'formingMethod' => $inputs['forming_method'] ?? null,
             'coefficients' => $coefficients,
@@ -238,6 +284,18 @@ class EjmaCalculationReport extends Mailable
             'statusKey' => $l->status->value,
             'equation' => $l->equation,
         ];
+    }
+
+    /** About 4 significant figures, trailing zeros trimmed. */
+    private static function sig(float $v): string
+    {
+        if ($v == 0.0) {
+            return '0';
+        }
+        $decimals = max(0, 3 - (int) floor(log10(abs($v))));
+        $s = number_format($v, min($decimals, 8), '.', '');
+
+        return str_contains($s, '.') ? rtrim(rtrim($s, '0'), '.') : $s;
     }
 
     private static function num(float $v): string

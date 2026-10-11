@@ -23,7 +23,14 @@ class EjmaResend extends Command
             return self::FAILURE;
         }
 
-        Mail::to(config('mail.contact_to'))->send(new EjmaCalculationReport($calculation));
+        try {
+            Mail::to(config('mail.contact_to'))->send(new EjmaCalculationReport($calculation));
+        } catch (\Throwable $e) {
+            report($e);
+            $this->error("Could not send the report for {$calculation->reference}: ".$e->getMessage());
+
+            return self::FAILURE;
+        }
         $calculation->forceFill(['emailed_at' => now()])->save();
 
         $this->info("Report for {$calculation->reference} sent.");

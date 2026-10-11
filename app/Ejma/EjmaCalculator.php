@@ -57,9 +57,27 @@ final class EjmaCalculator
         return new CheckResult(
             $result->type,
             $result->lines,
-            [...$result->values, ...Loads::of($r->geometry, $r->conditions, $derived, $result)],
+            [...$result->values, ...Loads::of($r->geometry, $r->conditions, $derived, $result), ...self::propertyValues($props, $collar !== null, $reinf !== null)],
             $notes,
         );
+    }
+
+    /**
+     * Resolved material properties actually used (psi / dimensionless), stored so reports can print them.
+     *
+     * @return array<string, float>
+     */
+    private static function propertyValues(BellowsProperties $p, bool $collar, bool $reinf): array
+    {
+        $out = ['prop_Sab' => $p->Sab, 'prop_EbRt' => $p->EbRt, 'prop_EbDt' => $p->EbDt, 'prop_Sy' => $p->Sy, 'prop_Cm' => $p->Cm, 'prop_Cwb' => $p->Cwb];
+        if ($collar) {
+            $out += ['prop_Sac' => $p->Sac, 'prop_EcDt' => $p->EcDt, 'prop_Cwc' => $p->Cwc];
+        }
+        if ($reinf) {
+            $out += ['prop_Sar' => $p->Sar, 'prop_ErDt' => $p->ErDt, 'prop_Cwr' => $p->Cwr];
+        }
+
+        return $out;
     }
 
     private function material(string $id, string $field, string $role): Material
