@@ -14,7 +14,8 @@ namespace App\Ejma;
  *  - single: eqs. 4-1, 4-3, 4-7 (Ku = 1.50);
  *  - universal: eqs. 4-2, 4-4, 4-5/4-6 with Ku from Figure 4.1 (p067), plus the
  *    centre-spool dead-weight movements of eqs. 4-12/4-13 (p068) when Wcs is given;
- *  - tied universal: as universal with x = 0 (axial restrained by the tie rods);
+ *  - tied universal: as universal, x = axial thermal growth of the pipe between the tie-rod
+ *    plates (p065 note under eq. 4-6; Appendix J Example 4), compression only (ruling P2-R3);
  *  - hinged: angular only, eq. 4-3;
  *  - gimbal: angular only, eq. 4-3 with θ = √(θ1² + θ2²) (vector sum, §4.2 p065).
  */
@@ -44,6 +45,13 @@ final readonly class Movement
         public float $Kr,
         /** Lateral distribution factor: 1.50 for a single bellows, Figure 4.1 (p067) for universal assemblies. */
         public float $Ku = self::KU_SINGLE,
+        /**
+         * Extension per convolution for the §4.2 ee ≤ 6rm − q limit only (ruling P2-R4): eq. 4-9 at the
+         * compression position, max(ey + eθ − |ex|, eθ/Kθ − |ex|), or the axial extension if larger,
+         * floored at 0. Lateral and angular movement extend one side of the convolutions even while
+         * the joint is compressed. The fatigue range e keeps the R4 definition.
+         */
+        public float $eeLimitCheck = 0.0,
     ) {}
 
     /** Eq. 4-3: equivalent axial movement per convolution due to angular rotation, |θ|·Dm / (2N). */
@@ -172,8 +180,10 @@ final readonly class Movement
         }
         $Lu = $a->Lu;
 
-        // Tied universal: the tie rods restrain axial movement across the joint (spec §3).
-        $xComp = $tied ? 0.0 : abs($c->xComp);
+        // Tied universal (ruling P2-R3): the tie rods restrain the external axial movement, but the
+        // pipe between the tie-rod plates still grows by x, compressing the bellows (p065 note under
+        // eq. 4-6; Appendix J Example 4). Only compression applies; extension is ignored.
+        $xComp = abs($c->xComp);
         $xExt = $tied ? 0.0 : abs($c->xExt);
 
         $spanComp = $Lu - $Lb - $xComp / 2;
@@ -243,6 +253,9 @@ final readonly class Movement
             (2 * ($q - $exComp) + $etheta / $Ktheta + $ey) / (2 * $q),
         );
 
-        return new self($exComp, $exExt, $ey, $eyExt, $etheta, $ec, $ee, $e, $Kr, $Ku);
+        // §4.2 extension-limit value, eq. 4-9 at the compression position (ruling P2-R4).
+        $eeLimitCheck = max(0.0, $ey + $etheta - $exComp, $etheta / $Ktheta - $exComp, $exExt);
+
+        return new self($exComp, $exExt, $ey, $eyExt, $etheta, $ec, $ee, $e, $Kr, $Ku, $eeLimitCheck);
     }
 }

@@ -16,7 +16,8 @@ final class Loads
     /**
      * Phase 1 keys Ksr (lbf/in), thrust (lbf), spring_force (lbf), plus fw (lbf/in per convolution),
      * Fa, V_lateral (lbf), M_lateral, M_theta (in·lbf) and, for tied universal / hinged / gimbal,
-     * hardware_total and hardware_per_component (lbf).
+     * hardware_total and hardware_per_component (lbf). Tied universal: anchor Fa = 0 and
+     * tie_rod_axial = fw·ex (the bellows spring force carried by the tie rods).
      *
      * @param  float  $Sy  bellows yield strength used for the fw rule (psi)
      * @return array<string, float>
@@ -30,19 +31,27 @@ final class Loads
         $thrust = self::pressureThrust($c->P, $d->Dm);
         // Axial movement per convolution at the larger of the two positions (eq. 4-1 / 4-2).
         $ex = max($m->exComp, $m->exExt);
+        $tied = $c->assembly->type === AssemblyType::TiedUniversal;
+        // Tied universal (ruling P2-R3): the bellows force fw·ex is reacted by the tie rods, not the anchors.
+        $tieRodAxial = $tied ? self::axialForce($fw, $ex) : 0.0;
 
-        return [
+        $out = [
             'Ksr' => $fi / $g->N,
             'thrust' => $thrust,
             // Theoretical-rate force at the larger axial position: fi·ex = (fi/N)·x for a single
             // bellows (Phase 1), fi·x/(2N) for two bellows in series, 0 when axial is restrained.
             'spring_force' => $fi * $ex,
             'fw' => $fw,
-            'Fa' => self::axialForce($fw, $ex),
+            'Fa' => $tied ? 0.0 : self::axialForce($fw, $ex),
             'M_lateral' => self::lateralMoment($fw, $d->Dm, $m->ey),
             'M_theta' => self::angularMoment($fw, $d->Dm, $m->etheta),
             'V_lateral' => $m->ey == 0.0 ? 0.0 : self::lateralShear($fw, $d->Dm, $m->ey, self::lateralSpan($c, $d)),
-        ] + self::hardware($c->assembly, $thrust);
+        ];
+        if ($tied) {
+            $out['tie_rod_axial'] = $tieRodAxial;
+        }
+
+        return $out + self::hardware($c->assembly, $thrust, $tieRodAxial);
     }
 
     /** §1.3 p022: the given fw, else fi for St ≤ 1.5·Sy, else 0.67·fi. */
@@ -91,7 +100,8 @@ final class Loads
 
     /**
      * Span of eqs. 4-17/4-18 at the compression position: Lb − x for a single bellows,
-     * Lu − x for a universal, Lu for a tied universal (x = 0). Angular-only assemblies carry
+     * Lu − x for a universal, Lu for a tied universal (the tie rods hold the overall length;
+     * Appendix J Example 4). Angular-only assemblies carry
      * no lateral, so Lb is returned for completeness.
      */
     public static function lateralSpan(DesignConditions $c, Derived $d): float
@@ -117,19 +127,21 @@ final class Loads
     }
 
     /**
-     * Restraint hardware load (Phase 2 spec §3): tie rods of a tied universal carry the thrust
-     * (per rod = T / rods); hinge pins and gimbal pins carry it with T/2 per pin (two pins per
+     * Restraint hardware load (Phase 2 spec §3): tie rods of a tied universal carry the thrust plus
+     * the bellows spring force fw·ex (ruling P2-R3; per rod = total / rods, tieRods ≥ 2 is
+     * validated by Movement); hinge pins and gimbal pins carry it with T/2 per pin (two pins per
      * hinge plane / ring axis). Untied single and universal joints have no hardware: the thrust
      * goes to the main anchors.
      *
      * @return array{hardware_total?: float, hardware_per_component?: float}
      */
-    public static function hardware(AssemblyGeometry $a, float $thrust): array
+    public static function hardware(AssemblyGeometry $a, float $thrust, float $tieRodAxial = 0.0): array
     {
         return match ($a->type) {
-            AssemblyType::TiedUniversal => $a->tieRods >= 2
-                ? ['hardware_total' => $thrust, 'hardware_per_component' => $thrust / $a->tieRods]
-                : throw new EjmaInputException('tie_rods', 'A tied universal expansion joint needs at least 2 tie rods.'),
+            AssemblyType::TiedUniversal => [
+                'hardware_total' => $thrust + $tieRodAxial,
+                'hardware_per_component' => ($thrust + $tieRodAxial) / $a->tieRods,
+            ],
             AssemblyType::Hinged, AssemblyType::Gimbal => ['hardware_total' => $thrust, 'hardware_per_component' => $thrust / 2],
             default => [],
         };

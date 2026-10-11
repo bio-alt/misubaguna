@@ -74,7 +74,7 @@ class AssemblyMovementTest extends TestCase
         $this->assertRatio($b['expected']['Kr'], $m->Kr, 'Kr');
     }
 
-    public function test_tied_universal_ignores_axial(): void
+    public function test_tied_universal_takes_internal_compression_only(): void
     {
         $g = Benchmarks::case2()['geometry'];
         $c = self::conditions(
@@ -83,12 +83,13 @@ class AssemblyMovementTest extends TestCase
         );
         $m = self::movement($g, $c);
 
-        $this->assertSame(0.0, $m->exComp);
+        // Ruling P2-R3: x = growth between the tie-rod plates (compression), extension ignored.
+        $this->assertEqualsWithDelta(1 / 8, $m->exComp, 1e-12, 'ex = x/(2N) (eq. 4-2)');
         $this->assertSame(0.0, $m->exExt);
         $Ku = 3456 / 3088;
-        // Eq. 4-6 with x = 0: Ku·Dm·y / (2N(Lu − Lb)).
-        $this->assertEqualsWithDelta($Ku * 25.5 * 2 / (2 * 4 * (36 - 4)), $m->ey, 1e-12, 'ey');
-        $this->assertEqualsWithDelta($m->ey, $m->e, 1e-12, 'e = ey only');
+        // Eq. 4-6: Ku·Dm·y / (2N(Lu − Lb − x/2)).
+        $this->assertEqualsWithDelta($Ku * 25.5 * 2 / (2 * 4 * (36 - 4 - 0.5)), $m->ey, 1e-12, 'ey');
+        $this->assertEqualsWithDelta($m->ey + 1 / 8, $m->e, 1e-12, 'e = ec = ey + ex');
     }
 
     public function test_hinged_angular_only(): void

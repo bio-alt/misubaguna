@@ -33,12 +33,13 @@ final readonly class CheckLine
 
     /**
      * Relative margin, positive when passing: (limit − value)/limit for 'le', (value − limit)/limit for 'ge'.
-     * Null when value or limit is missing or non-finite, or the limit is zero.
+     * Null when value or limit is missing or non-finite, or the limit is zero or negative
+     * (a negative limit, e.g. 6rm − q < 0, would flip the sign of the margin).
      */
     public function margin(): ?float
     {
         if ($this->value === null || $this->limit === null
-            || ! is_finite($this->value) || ! is_finite($this->limit) || $this->limit == 0.0) {
+            || ! is_finite($this->value) || ! is_finite($this->limit) || $this->limit <= 0.0) {
             return null;
         }
 

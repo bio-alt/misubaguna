@@ -45,7 +45,11 @@ assembly.
 **Additional checks (all assemblies, including single):**
 
 - Maximum convolution movement limits (§4.2, p066): ec ≤ q − 2rm − nt and
-  ee ≤ 6rm − q (U-shaped bellows only).
+  ee ≤ 6rm − q (U-shaped bellows only). For this check ee is per eq. 4-9 at the
+  compression position, max(ey + eθ − |ex|, eθ/Kθ − |ex|), or the axial extension
+  per convolution if larger, because lateral and angular movement extend one side of
+  the convolutions even while the joint is compressed. The fatigue range e keeps the
+  Phase 1 R4 definition.
 - Maximum axial compression from instability (§4.7, p073):
   ex ≤ 1.25·Dm² / (N²·q), with N = total convolutions in all unguided interconnected
   bellows.
@@ -72,7 +76,10 @@ cold springing (§4.5); rectangular bellows.
   - universal: ex = x/(2N) (eq. 4-2), eθ = θ·Dm/(4N) (eq. 4-4),
     ey = Ku·Dm·y / (2N(Lu − Lb ± x/2)) (eqs. 4-5/4-6), Ku from Figure 4.1;
     dead-weight movements from eqs. 4-12/4-13 added when Wcs is given.
-  - tied universal: as universal with x = 0 (axial restrained by tie rods).
+  - tied universal: as universal, where x is the axial thermal growth of the pipe
+    between the tie-rod attachment plates (EJMA p065 note under eq. 4-6; Appendix J
+    Example 4). The external axial movement is restrained by the tie rods (anchor
+    Fa = 0); the tie-rod load is the pressure thrust plus fw·ex.
   - hinged: angular only (x = y = 0), eθ per eq. 4-3.
   - gimbal: angular only, θ = √(θ1² + θ2²) (vector sum of the two planes, §4.2 note).
   The ±/compression convention, Kθ and Kr follow Phase 1 ruling R4 (lateral and angular
@@ -85,7 +92,7 @@ cold springing (§4.5); rectangular bellows.
   - Fa = fw·ex (4-14), Mθ = fw·Dm·eθ/4 (4-16), Ml = fw·Dm·ey/4 (4-15),
     Vl = fw·Dm·ey / (2(Lb ± x)) single (4-17) or /(2(Lu ± x)) universal (4-18);
   - pressure thrust T = P·π·Dm²/4;
-  - hardware: tied universal tie rods carry T (per rod = T / rods); hinged pins carry T
+  - hardware: tied universal tie rods carry T + fw·ex (per rod = total / rods); hinged pins carry T
     (per pin = T/2); gimbal T (per pin = T/2 for each ring axis). Untied single and
     universal report T as the main-anchor pressure thrust.
 - New check lines: `movement_ec_max`, `movement_ee_max` (U-shaped only), and
@@ -96,7 +103,9 @@ cold springing (§4.5); rectangular bellows.
 - New "Assembly" select at the top of the form (default Single). Assembly-specific
   fields shown or hidden like the bellows-type fields: Lu; number of tie rods; second
   plane rotation (gimbal); optional spool weight and angle (universal). Axial and lateral
-  inputs are disabled for hinged and gimbal; axial is disabled for tied universal.
+  inputs are disabled for hinged and gimbal; for tied universal the axial compression
+  field is relabelled "Axial growth between tie-rod plates" and axial extension is
+  disabled.
 - Validation by assembly type, with field-level errors as in Phase 1 (new public field
   names: `assembly_type`, `Lu`, `tie_rods`, `angular_2`, `spool_weight`,
   `spool_angle`).

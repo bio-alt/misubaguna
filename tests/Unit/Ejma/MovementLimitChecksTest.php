@@ -6,8 +6,10 @@ use App\Ejma\AssemblyGeometry;
 use App\Ejma\AssemblyType;
 use App\Ejma\CheckLine;
 use App\Ejma\CheckResult;
+use App\Ejma\Derived;
 use App\Ejma\DesignConditions;
 use App\Ejma\LineStatus;
+use App\Ejma\Movement;
 use App\Ejma\ReinforcedBellows;
 use App\Ejma\ToroidalBellows;
 use App\Ejma\UnreinforcedBellows;
@@ -47,7 +49,11 @@ class MovementLimitChecksTest extends TestCase
         $ee = $lines['movement_ee_max'];
         $this->assertSame('ee', $ee->symbol);
         $this->assertEqualsWithDelta(0.5, $ee->limit, 1e-12);
-        $this->assertEqualsWithDelta(0.5 / 12, $ee->value, 1e-12);
+        // Ruling P2-R4: eq. 4-9 at the compression position, max(ey + eθ − |ex|, eθ/Kθ − |ex|, ex ext).
+        $m = Movement::of($b['geometry'], $b['conditions'], Derived::of($b['geometry'], $b['conditions']), $result->values['Ktheta'], $result->values['fi']);
+        $expected = max($m->ey + $m->etheta - $m->exComp, $m->etheta / $result->values['Ktheta'] - $m->exComp, 0.5 / 12);
+        $this->assertEqualsWithDelta($expected, $ee->value, 1e-12);
+        $this->assertGreaterThan(0.5 / 12, $ee->value, 'lateral governs the extended side');
         $this->assertSame(LineStatus::Pass, $ee->status);
 
         // §4.7: ex ≤ 1.25·Dm²/(N²q), Dm = 25.5, N = 12.
@@ -115,14 +121,15 @@ class MovementLimitChecksTest extends TestCase
         $this->assertSame(LineStatus::Fail, $lines['movement_ee_max']->status);
     }
 
-    public function test_tied_universal_note_and_zero_axial(): void
+    public function test_tied_universal_note_and_internal_axial(): void
     {
         $b = Benchmarks::case2();
         $c = new DesignConditions(P: 100, xComp: 1, xExt: 0.5, y: 2, theta: 0, requiredCycles: null,
             assembly: new AssemblyGeometry(type: AssemblyType::TiedUniversal, Lu: 36, tieRods: 2));
         $result = (new UnreinforcedBellows)->check($b['geometry'], $c, $b['properties']);
 
-        $this->assertSame(0.0, self::lines($result)['instability_axial']->value);
+        // Ruling P2-R3: x is the growth between the tie-rod plates, ex = x/(2N) = 1/8.
+        $this->assertEqualsWithDelta(1 / 8, self::lines($result)['instability_axial']->value, 1e-12);
         $this->assertContains('Assembly: Tied universal (2 bellows; checks apply to each bellows)', $result->notes);
     }
 }

@@ -14,7 +14,7 @@ trait BuildsCheckLines
     /**
      * Movement limits per convolution, §4.2 (p066), U-shaped bellows only:
      * ec ≤ q − 2rm − nt (equalizing-ring spacing does not apply: integral reinforcement only)
-     * and ee ≤ 6rm − q; and maximum axial compression from instability, §4.7 (p073), all types:
+     * and ee ≤ 6rm − q (ee per eq. 4-9 at the compression position, ruling P2-R4); and maximum axial compression from instability, §4.7 (p073), all types:
      * ex ≤ 1.25·Dm² / (N²·q), N = total convolutions in all unguided interconnected bellows.
      *
      * @return list<CheckLine>
@@ -24,7 +24,7 @@ trait BuildsCheckLines
         $lines = [];
         if ($uShaped) {
             $lines[] = self::le('movement_ec_max', 'Maximum compression per convolution', '§4.2', 'ec', $m->ec, $g->q - 2 * $g->rm - $g->n * $g->t, 'q − 2rm − nt');
-            $lines[] = self::le('movement_ee_max', 'Maximum extension per convolution', '§4.2', 'ee', $m->ee, 6 * $g->rm - $g->q, '6rm − q');
+            $lines[] = self::le('movement_ee_max', 'Maximum extension per convolution', '§4.2', 'ee', $m->eeLimitCheck, 6 * $g->rm - $g->q, '6rm − q');
         }
         $Ntotal = self::totalConvolutions($g, $c);
         $lines[] = self::le('instability_axial', 'Maximum axial compression per convolution (instability)', '§4.7', 'ex', $m->exComp, 1.25 * $d->Dm ** 2 / ($Ntotal ** 2 * $g->q), '1.25·Dm²/(N²·q)');
