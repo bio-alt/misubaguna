@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PublicSite;
 
 use App\Http\Controllers\Controller;
+use App\Models\PublicSite\PublicProduct;
 use App\Models\PublicSite\PublicProductCategory;
 use App\Support\PublicSeo;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +27,7 @@ class ProductCategoryController extends Controller
         $breadcrumbs = [
             ['name' => 'Home', 'url' => '/'],
             ['name' => 'Catalog', 'url' => '/catalog/'],
-            ['name' => $category->name, 'url' => '/product-category/'.$category->slug.'/'],
+            ['name' => $category->name, 'url' => '/product-category/' . $category->slug . '/'],
         ];
 
         $itemListElements = [];
@@ -35,16 +36,16 @@ class ProductCategoryController extends Controller
                 '@type' => 'ListItem',
                 'position' => $idx + 1,
                 'name' => $prod->name,
-                'url' => PublicSeo::canonicalUrl($prod->url_path ?: ('/product/'.$prod->slug.'/')),
+                'url' => PublicSeo::canonicalUrl($prod->url_path ?: ('/product/' . $prod->slug . '/')),
             ];
         }
 
         $collectionSchema = [
             '@context' => 'https://schema.org',
             '@type' => 'CollectionPage',
-            'name' => $category->name.' | PT Misuba Guna Indonesia',
-            'description' => $category->description ?: ($category->name.' industrial products and engineering solutions.'),
-            'url' => PublicSeo::canonicalUrl('/product-category/'.$category->slug.'/'),
+            'name' => $category->name . ' | PT Misuba Guna Indonesia',
+            'description' => $category->description ?: ($category->name . ' industrial products and engineering solutions.'),
+            'url' => PublicSeo::canonicalUrl('/product-category/' . $category->slug . '/'),
             'mainEntity' => [
                 '@type' => 'ItemList',
                 'numberOfItems' => count($itemListElements),

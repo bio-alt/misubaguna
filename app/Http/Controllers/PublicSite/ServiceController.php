@@ -38,7 +38,7 @@ class ServiceController extends Controller
                 '@type' => 'ListItem',
                 'position' => $idx + 1,
                 'name' => $s->name,
-                'url' => PublicSeo::canonicalUrl('/services/'.$s->slug.'/'),
+                'url' => PublicSeo::canonicalUrl('/services/' . $s->slug . '/'),
             ];
         }
 
@@ -70,7 +70,7 @@ class ServiceController extends Controller
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
 
         $relatedProducts = collect();
-        if (! empty($service->related_products)) {
+        if (!empty($service->related_products)) {
             $relatedProducts = PublicProduct::whereIn('slug', $service->related_products)
                 ->where('is_published', true)
                 ->orderBy('sort_order')
@@ -82,7 +82,7 @@ class ServiceController extends Controller
         $breadcrumbs = [
             ['name' => 'Home', 'url' => '/'],
             ['name' => 'Services', 'url' => '/services/'],
-            ['name' => $service->name, 'url' => $service->url_path ?: ('/services/'.$service->slug.'/')],
+            ['name' => $service->name, 'url' => $service->url_path ?: ('/services/' . $service->slug . '/')],
         ];
 
         $seo['schema_json'] = [

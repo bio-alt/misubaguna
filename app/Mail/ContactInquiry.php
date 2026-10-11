@@ -13,7 +13,9 @@ class ContactInquiry extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public array $inquiry) {}
+    public function __construct(public array $inquiry)
+    {
+    }
 
     public function envelope(): Envelope
     {

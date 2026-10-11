@@ -27,7 +27,7 @@ class PageController extends Controller
             'description' => 'Learn about PT Misuba Guna Indonesia, leading industrial engineering supplier and maintenance contractor in Indonesia since 2011.',
             'url' => PublicSeo::canonicalUrl('/about-us/'),
             'mainEntity' => [
-                '@id' => PublicSeo::DEFAULT_DOMAIN.'/#organization',
+                '@id' => PublicSeo::DEFAULT_DOMAIN . '/#organization',
             ],
         ];
 

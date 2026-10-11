@@ -24,9 +24,9 @@ class ProductContent
 
     public static function whatsappUrl(string $subject): string
     {
-        $message = 'Hello PT Misuba Guna Indonesia, I would like to inquire about '.$subject.'.';
+        $message = 'Hello PT Misuba Guna Indonesia, I would like to inquire about ' . $subject . '.';
 
-        return 'https://wa.me/'.self::WHATSAPP_NUMBER.'?text='.rawurlencode($message);
+        return 'https://wa.me/' . self::WHATSAPP_NUMBER . '?text=' . rawurlencode($message);
     }
 
     /**
@@ -83,9 +83,9 @@ class ProductContent
             return '';
         }
 
-        $doc = new DOMDocument;
+        $doc = new DOMDocument();
         $previous = libxml_use_internal_errors(true);
-        $doc->loadHTML('<?xml encoding="utf-8"?><div id="root">'.$html.'</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $doc->loadHTML('<?xml encoding="utf-8"?><div id="root">' . $html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         libxml_clear_errors();
         libxml_use_internal_errors($previous);
 
