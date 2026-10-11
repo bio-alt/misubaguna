@@ -37,7 +37,7 @@ final readonly class Derived
 
         if ($toroidal) {
             if ($g->DmToroidal === null || $g->DmToroidal <= $g->Db) {
-                throw new EjmaInputException('dm', 'Toroidal mean diameter Dm must be given and exceed Db.');
+                throw new EjmaInputException('Dm', 'Toroidal mean diameter Dm must be given and exceed Db.');
             }
             if ($g->r === null || $g->r <= 0) {
                 throw new EjmaInputException('r', 'Toroidal convolution radius r must be given.');
@@ -73,7 +73,7 @@ final readonly class Derived
         } elseif ($g->Lt !== null) {
             $Ld = $g->Lt + $g->q / 2;
         } else {
-            throw new EjmaInputException('ld', 'Ld (or tangent length Lt) must be given.');
+            throw new EjmaInputException('Ld', 'Ld (or tangent length Lt) must be given.');
         }
 
         $k = $g->Lt === null ? 1.0 : min(1.0, $g->Lt / (1.5 * sqrt($g->Db * $g->t)));

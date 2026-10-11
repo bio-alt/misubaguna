@@ -84,7 +84,7 @@ class MovementTest extends TestCase
             Derived::of($g, $c);
             $this->fail('Expected EjmaInputException');
         } catch (EjmaInputException $e) {
-            $this->assertSame('ld', $e->field);
+            $this->assertSame('Ld', $e->field);
         }
     }
 
@@ -103,5 +103,48 @@ class MovementTest extends TestCase
         } catch (EjmaInputException $e) {
             $this->assertSame('x_comp', $e->field);
         }
+    }
+
+    public function test_toroidal_without_dm_throws_on_dm_field(): void
+    {
+        $g = new BellowsGeometry(
+            type: BellowsType::Toroidal,
+            Db: 24, t: 0.05, n: 1, N: 2, q: 3.4625, w: null, rm: null, Lt: null, Ld: 2.106, r: 1,
+        );
+        $c = new DesignConditions(P: 500, xComp: 0.75, xExt: 0, y: 0, theta: 0, requiredCycles: null);
+
+        try {
+            Derived::of($g, $c);
+            $this->fail('Expected EjmaInputException');
+        } catch (EjmaInputException $e) {
+            $this->assertSame('Dm', $e->field);
+        }
+    }
+
+    public function test_non_positive_n_and_q_throw_field_errors(): void
+    {
+        $c = new DesignConditions(P: 40, xComp: 1, xExt: 0, y: 0, theta: 0, requiredCycles: null);
+
+        foreach (['N' => [0, 1.0], 'q' => [12, 0.0]] as $field => [$N, $q]) {
+            $g = new BellowsGeometry(
+                type: BellowsType::Unreinforced,
+                Db: 24, t: 0.03, n: 2, N: $N, q: $q, w: 1.44, rm: 0.25, Lt: 1,
+            );
+            try {
+                Movement::of($g, $c, Derived::of($g, $c));
+                $this->fail("Expected EjmaInputException on $field");
+            } catch (EjmaInputException $e) {
+                $this->assertSame($field, $e->field);
+            }
+        }
+    }
+
+    public function test_out_of_range_ktheta_is_a_programming_error(): void
+    {
+        $b = Benchmarks::case1();
+        $d = Derived::of($b['geometry'], $b['conditions']);
+
+        $this->expectException(\InvalidArgumentException::class);
+        Movement::of($b['geometry'], $b['conditions'], $d, 0.0);
     }
 }

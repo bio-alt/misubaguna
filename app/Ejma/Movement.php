@@ -38,8 +38,15 @@ final readonly class Movement
 
     public static function of(BellowsGeometry $g, DesignConditions $c, Derived $d, float $Ktheta = 1.0): self
     {
+        // Kθ is computed internally (§1.3 p019), so an out-of-range value is a programming error.
         if ($Ktheta <= 0 || $Ktheta > 1) {
-            throw new EjmaInputException('theta', 'Angular pressure effect factor Kθ must be in (0, 1].');
+            throw new \InvalidArgumentException('Angular pressure effect factor Kθ must be in (0, 1].');
+        }
+        if ($g->N <= 0) {
+            throw new EjmaInputException('N', 'Number of convolutions N must be at least 1.');
+        }
+        if ($g->q <= 0) {
+            throw new EjmaInputException('q', 'Convolution pitch q must be greater than zero.');
         }
 
         $N = $g->N;
