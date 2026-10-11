@@ -51,7 +51,7 @@ final class UnreinforcedBellows implements Checker
         $phi = AngularPressureFactor::phi(BellowsType::Unreinforced, $P, $g->N, $q, $fi);
         $etheta = Movement::etheta($c->theta, $d->Dm, $g->N);
         $Ktheta = AngularPressureFactor::Ktheta($etheta, $Ctheta, $q, $phi);
-        $m = Movement::of($g, $c, $d, $Ktheta);
+        $m = Movement::of($g, $c, $d, $Ktheta, $fi);
         $e = $m->e;
 
         // Eqs. 4-27/4-28 at design temperature; with no collar the modulus cancels (benchmark S1 = 6301 either way).

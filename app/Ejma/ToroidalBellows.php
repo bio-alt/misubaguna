@@ -74,7 +74,7 @@ final class ToroidalBellows implements Checker
         $phi = AngularPressureFactor::phi(BellowsType::Toroidal, $P, $N, $r, $fit);
         $etheta = Movement::etheta($c->theta, $Dm, $N);
         $Ktheta = AngularPressureFactor::Ktheta($etheta, $Ctheta, $g->q, $phi);
-        $m = Movement::of($g, $c, $d, $Ktheta);
+        $m = Movement::of($g, $c, $d, $Ktheta, $fit);
         $e = $m->e;
 
         // Eqs. 4-51/4-52 (Eb at design temperature, as for the reinforced eq. 4-38).

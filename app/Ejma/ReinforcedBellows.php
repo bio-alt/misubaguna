@@ -91,7 +91,7 @@ final class ReinforcedBellows implements Checker
         $phi = AngularPressureFactor::phi(BellowsType::Reinforced, $P, $N, $q, $fir);
         $etheta = Movement::etheta($c->theta, $d->Dm, $N);
         $Ktheta = AngularPressureFactor::Ktheta($etheta, $Ctheta, $q, $phi);
-        $m = Movement::of($g, $c, $d, $Ktheta);
+        $m = Movement::of($g, $c, $d, $Ktheta, $fir);
         $e = $m->e;
         $Kr = $m->Kr;
 
