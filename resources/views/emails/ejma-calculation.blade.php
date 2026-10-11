@@ -2,7 +2,7 @@
 <html>
 <body style="font-family: Arial, sans-serif; color: #0f172a; font-size: 14px;">
     <h2 style="color: #0d9488; margin-bottom: 4px;">EJMA calculation {{ $calculation->reference }}</h2>
-    <p style="margin-top: 0;"><strong>{{ $verdictLabel }}</strong> &middot; {{ ucfirst($calculation->bellows_type) }} bellows{{ $assembly['type'] !== 'Single' ? ', '.strtolower($assembly['type']).' assembly' : '' }} &middot; {{ $date }}</p>
+    <p style="margin-top: 0;"><strong>{{ $verdictLabel }}</strong> &middot; {{ ucfirst($calculation->bellows_type) }} bellows{{ $assembly['isSingle'] ? '' : ', '.strtolower($assembly['type']).' assembly' }} &middot; {{ $date }}</p>
 
     <h3>Contact</h3>
     <table cellpadding="6" style="border-collapse: collapse;">

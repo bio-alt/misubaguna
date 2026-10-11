@@ -159,7 +159,8 @@ class EjmaReportTest extends TestCase
 
         $this->assertStringContainsString('Assembly', $html);
         $this->assertStringContainsString('Tied universal', $html);
-        $this->assertStringContainsString('Checks apply to each of the 2 bellows', $html);
+        $this->assertSame(1, substr_count(strtolower($html), 'checks apply to each'), 'stated once, in the assembly note');
+        $this->assertStringContainsString('Assembly: Tied universal (2 bellows; checks apply to each bellows)', $html);
         $this->assertStringContainsString('Number of tie rods', $html);
         $this->assertStringContainsString('Length Lu', $html);
         $this->assertStringContainsString('per tie rod', $html);
@@ -168,6 +169,19 @@ class EjmaReportTest extends TestCase
         $this->assertStringContainsString('Ku', $html);
         $this->assertStringContainsString('stresses and pressures are in psi', strtolower($html));
         $this->assertStringStartsWith('%PDF', (new EjmaCalculationReport($row))->renderPdf());
+    }
+
+    public function test_email_and_pdf_headers_name_the_assembly_except_single(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload());
+        $this->post(self::URL, $this->tiedPayload());
+        [$single, $tied] = EjmaCalculation::orderBy('id')->get()->all();
+
+        $this->assertStringContainsString('Unreinforced bellows &middot;', (new EjmaCalculationReport($single))->render());
+        $this->assertStringContainsString('<td>Unreinforced</td>', (new EjmaCalculationReport($single))->pdfHtml());
+        $this->assertStringContainsString('Unreinforced bellows, tied universal assembly', (new EjmaCalculationReport($tied))->render());
+        $this->assertStringContainsString('<td>Unreinforced, tied universal</td>', (new EjmaCalculationReport($tied))->pdfHtml());
     }
 
     public function test_pdf_for_reinforced_notes_ec_limit_basis(): void

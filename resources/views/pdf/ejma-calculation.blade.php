@@ -32,7 +32,7 @@
     <table class="meta">
         <tr><td width="18%"><strong>Reference</strong></td><td width="32%">{{ $calculation->reference }}</td><td width="18%"><strong>Date</strong></td><td>{{ $date }}</td></tr>
         <tr><td><strong>Company</strong></td><td>{{ $contact['company'] }}</td><td><strong>Contact</strong></td><td>{{ $contact['name'] }}, {{ $contact['email'] }}</td></tr>
-        <tr><td><strong>Bellows type</strong></td><td>{{ ucfirst($calculation->bellows_type) }}{{ $assembly['type'] !== 'Single' ? ', '.strtolower($assembly['type']) : '' }}</td><td><strong>Phone</strong></td><td>{{ $contact['phone'] }}</td></tr>
+        <tr><td><strong>Bellows type</strong></td><td>{{ ucfirst($calculation->bellows_type) }}{{ $assembly['isSingle'] ? '' : ', '.strtolower($assembly['type']) }}</td><td><strong>Phone</strong></td><td>{{ $contact['phone'] }}</td></tr>
     </table>
     <div class="verdict">{{ $verdict }} &ndash; {{ $verdictLabel }}</div>
 
@@ -78,7 +78,7 @@
     </table>
 
     <h2>3. Assembly</h2>
-    <p class="small" style="margin: 0 0 3pt 0;"><strong>Assembly type: {{ $assembly['type'] }}</strong>@if ($assembly['statement']) &ndash; {{ $assembly['statement'] }}@endif</p>
+    <p class="small" style="margin: 0 0 3pt 0;"><strong>Assembly type: {{ $assembly['type'] }}</strong></p>
     <table>
         <tr><th>Quantity</th><th class="r">US customary</th><th class="r">Metric</th></tr>
         @foreach ($assembly['rows'] as $r)

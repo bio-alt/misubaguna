@@ -270,7 +270,7 @@ class EjmaCalculationReport extends Mailable
      * Joint-level section: movements per bellows, joint forces and restraint hardware, in both unit systems.
      *
      * @param  array<string, float>  $v
-     * @return array{type: string, statement: ?string, rows: list<array{label: string, us: string, metric: string}>}
+     * @return array{type: string, isSingle: bool, rows: list<array{label: string, us: string, metric: string}>}
      */
     private function assemblySection(AssemblyType $type, array $v): array
     {
@@ -319,7 +319,9 @@ class EjmaCalculationReport extends Mailable
 
         return [
             'type' => $type->label(),
-            'statement' => $type->isUniversal() ? 'Checks apply to each of the 2 bellows.' : null,
+            // Views branch on this, never on the display label. "Checks apply to each bellows" is
+            // stated once, in the engine's assembly note.
+            'isSingle' => $type === AssemblyType::Single,
             'rows' => $rows,
         ];
     }
