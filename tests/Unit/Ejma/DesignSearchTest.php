@@ -366,6 +366,19 @@ class DesignSearchTest extends TestCase
         }
     }
 
+    public function test_an_lu_too_short_for_every_candidate_is_an_input_error(): void
+    {
+        $assembly = new AssemblyGeometry(type: AssemblyType::Universal, Lu: 0.5);
+        try {
+            (new DesignSearch(self::calculator(), self::tooling([self::benchmarkProfile()])))
+                ->search(self::request(self::conditions(assembly: $assembly)));
+            $this->fail('expected EjmaInputException');
+        } catch (EjmaInputException $e) {
+            $this->assertSame('Lu', $e->field);
+            $this->assertSame('The distance between the bellows Lu is too short for any standard design.', $e->getMessage());
+        }
+    }
+
     public function test_ordering_tie_breaks(): void
     {
         $p = fn (string $id) => new FormingProfile($id, $id, 1.44, 1.0, 0.25, 20.0, 30.0);

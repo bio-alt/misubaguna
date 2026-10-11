@@ -233,6 +233,16 @@ class EjmaDesignModeTest extends TestCase
         $this->assertGreaterThan(0, $row->design['evaluated']);
     }
 
+    public function test_a_universal_lu_too_short_for_any_design_is_a_field_error(): void
+    {
+        $this->post(self::URL, $this->payload(['assembly_type' => 'universal', 'Lu' => '10']))
+            ->assertSessionHasErrors(['Lu' => 'The distance between the bellows Lu is too short for any standard design.'])
+            ->assertHeader('Location', self::FORM_URL);
+
+        $this->assertDatabaseCount('ejma_calculations', 0);
+        Mail::assertNothingOutgoing();
+    }
+
     public function test_only_materials_with_unreinforced_fatigue_constants_are_allowed_in_design_mode(): void
     {
         $html = $this->get(self::URL)->assertOk()->getContent();

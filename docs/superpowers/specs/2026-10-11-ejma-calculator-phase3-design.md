@@ -67,6 +67,11 @@ pack does not fit the die is skipped for every N: it must satisfy n·t < w AND n
 (strict; a pack exactly equal to w or 2rm is skipped). Skipped combinations are not
 evaluated, not counted in `evaluated`, and can never be the closest failing candidate.
 
+If nothing was evaluated and every candidate tried was rejected only on `Lu` (universal
+joints: the bellows do not fit within Lu), the search raises an input error on `Lu`
+("The distance between the bellows Lu is too short for any standard design.") so the
+visitor sees a field error and nothing is stored (ruling P3-R6).
+
 Pruning: for a fixed (profile, t, n), increase N from 1 and stop at the first passing N;
 also stop when N exceeds what fits (instability or the Lb − x guard throws).
 

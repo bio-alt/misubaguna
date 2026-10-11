@@ -30,7 +30,10 @@ class DesignSearch
         private readonly Tooling $tooling,
     ) {}
 
-    /** @throws EjmaInputException for request-level input errors (see REQUEST_FIELDS) */
+    /**
+     * @throws EjmaInputException for request-level input errors (see REQUEST_FIELDS), and on
+     *                            'Lu' when every candidate tried was rejected only for not fitting within Lu
+     */
     public function search(DesignRequest $r): DesignResult
     {
         if (! $this->tooling->isAvailable()) {
@@ -40,6 +43,7 @@ class DesignSearch
         $passing = [];
         $closest = null;
         $evaluated = 0;
+        $skipped = $skippedLu = 0;  // candidates rejected by an EjmaInputException, and those on Lu
         $Lt = $this->tooling->tangentLengthIn();
 
         foreach ($this->tooling->profilesFor($r->Db) as $profile) {
@@ -60,7 +64,9 @@ class DesignSearch
                             if (in_array($e->field, self::REQUEST_FIELDS, true)) {
                                 throw $e;
                             }
+                            $skipped++;
                             if ($e->field === 'Lu') {
+                                $skippedLu++;
                                 break;  // universal: 2Lb (or Lb + x/2) no longer fits within Lu; it only grows with N
                             }
 
@@ -82,6 +88,12 @@ class DesignSearch
                     }
                 }
             }
+        }
+
+        // Every candidate tried was rejected only because it does not fit within Lu: that is the
+        // visitor's input, not a tooling gap (ruling P3-R6).
+        if ($evaluated === 0 && $skipped > 0 && $skippedLu === $skipped) {
+            throw new EjmaInputException('Lu', 'The distance between the bellows Lu is too short for any standard design.');
         }
 
         usort($passing, self::compare(...));
