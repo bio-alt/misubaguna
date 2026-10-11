@@ -74,4 +74,25 @@ class EjmaCalculationModelTest extends TestCase
         $this->assertSame(BellowsType::Unreinforced->value, $fresh->bellows_type);
         $this->assertInstanceOf(Verdict::class, $fresh->verdictEnum());
     }
+
+    public function test_mode_and_design_round_trip(): void
+    {
+        $design = ['verdict' => 'pass', 'candidates' => [['n' => 1, 'x' => 2.5]]];
+        $row = $this->makeRow('EJ-2026-0001', ['mode' => 'design', 'design' => $design]);
+        $fresh = EjmaCalculation::find($row->id);
+
+        $this->assertSame('design', $fresh->mode);
+        $this->assertSame($design, $fresh->design);
+        $this->assertTrue($fresh->isDesign());
+    }
+
+    public function test_rows_without_mode_default_to_check(): void
+    {
+        $fresh = EjmaCalculation::find($this->makeRow('EJ-2026-0001')->id);
+
+        $this->assertSame('check', $fresh->mode);
+        $this->assertNull($fresh->design);
+        $this->assertFalse($fresh->isDesign());
+        $this->assertFalse((new EjmaCalculation(['mode' => null]))->isDesign());
+    }
 }
