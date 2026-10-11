@@ -18,6 +18,7 @@ class ToolkitMenuTest extends TestCase
         $this->get('/')->assertOk()
             ->assertSee('<a class="mega-link" href="'.$url.'">EJMA Bellows Calculator</a>', false)
             ->assertSee('<a class="mob-cat-link" href="'.$url.'">EJMA Bellows Calculator</a>', false)
-            ->assertSeeInOrder(['Material Specs Library', 'EJMA Bellows Calculator', 'Material Specs Library', 'EJMA Bellows Calculator']);
+            ->assertSeeInOrder(['Sizing & Selection', 'EJMA Bellows Calculator', 'Reference Data', 'Material Specs Library'], false)
+            ->assertDontSee('href="#"', false);
     }
 }

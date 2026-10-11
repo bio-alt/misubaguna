@@ -283,6 +283,16 @@
             display: block; margin: 8px 0 4px;
         }
 
+        /* public.css lets every <nav> wrap; the top bar must stay on one line */
+        .nav-links { flex-wrap: nowrap; }
+        .nav-logo { flex-shrink: 0; }
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            .nav-container { padding: 0 20px; gap: 20px; }
+            .nav-logo img { height: 44px; }
+            .nav-links { gap: 16px; }
+            .nav-links a, #product-btn, #services-btn, #toolkit-btn { font-size: 12px; letter-spacing: .04em; }
+        }
+
         @media (max-width: 1023px) {
             .nav-links { display: none !important; }
             #hamburger-btn { display: flex !important; }
@@ -393,23 +403,20 @@
     <div id="toolkit-mega-menu">
         <div class="mega-inner" style="grid-template-columns: repeat(3, 1fr);">
             <div>
-                <a href="/toolkit/" style="text-decoration:none;"><span class="mega-col-title">Engineering Toolkit</span></a>
-                <a class="mega-link" href="/toolkit/flange-standards/">Flange Standards</a>
-                <a class="mega-link" href="/toolkit/calculator/">Scientific Calculator</a>
-                <a class="mega-link" href="/toolkit/material-specs/">Material Specs Library</a>
+                <span class="mega-col-title">Sizing & Selection</span>
                 <a class="mega-link" href="/toolkit/expansion-joint-selector/">Expansion Joint Selector</a>
-                <a class="mega-link" href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>
                 <a class="mega-link" href="/toolkit/ejma-bellows-calculator/">EJMA Bellows Calculator</a>
             </div>
             <div>
-                <span class="mega-col-title">Documentation</span>
-                <a class="mega-link" href="#">User Manuals</a>
-                <a class="mega-link" href="#">Safety Data Sheets</a>
+                <span class="mega-col-title">Reference Data</span>
+                <a class="mega-link" href="/toolkit/flange-standards/">Flange Standards</a>
+                <a class="mega-link" href="/toolkit/material-specs/">Material Specs Library</a>
+                <a class="mega-link" href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>
             </div>
             <div>
-                <span class="mega-col-title">Software</span>
-                <a class="mega-link" href="#">CAD Models</a>
-                <a class="mega-link" href="#">Sizing Tools</a>
+                <span class="mega-col-title">Utilities</span>
+                <a class="mega-link" href="/toolkit/calculator/">Scientific Calculator</a>
+                <a class="mega-link" href="/toolkit/">All Engineering Tools &rarr;</a>
             </div>
         </div>
     </div>
@@ -614,36 +621,32 @@
                 </svg>
             </button>
             <div class="mob-acc-body" id="mob-toolkit-body">
-                <button class="mob-cat-btn" data-panel="mc-engdata" type="button">
-                    Engineering Data & Standards
+                <button class="mob-cat-btn" data-panel="mc-sizing" type="button">
+                    Sizing & Selection
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
-                <div class="mob-cat-links" id="mc-engdata">
-                    <a class="mob-cat-link" href="/toolkit/">Toolkit Home</a>
-                    <a class="mob-cat-link" href="/toolkit/flange-standards/">Flange Standards</a>
-                    <a class="mob-cat-link" href="/toolkit/calculator/">Scientific Calculator</a>
-                    <a class="mob-cat-link" href="/toolkit/material-specs/">Material Specs Library</a>
+                <div class="mob-cat-links" id="mc-sizing">
                     <a class="mob-cat-link" href="/toolkit/expansion-joint-selector/">Expansion Joint Selector</a>
-                    <a class="mob-cat-link" href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>
                     <a class="mob-cat-link" href="/toolkit/ejma-bellows-calculator/">EJMA Bellows Calculator</a>
                 </div>
 
-                <button class="mob-cat-btn" data-panel="mc-docs" type="button">
-                    Documentation
+                <button class="mob-cat-btn" data-panel="mc-engdata" type="button">
+                    Reference Data
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
-                <div class="mob-cat-links" id="mc-docs">
-                    <a class="mob-cat-link" href="#">User Manuals</a>
-                    <a class="mob-cat-link" href="#">Safety Data Sheets</a>
+                <div class="mob-cat-links" id="mc-engdata">
+                    <a class="mob-cat-link" href="/toolkit/flange-standards/">Flange Standards</a>
+                    <a class="mob-cat-link" href="/toolkit/material-specs/">Material Specs Library</a>
+                    <a class="mob-cat-link" href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>
                 </div>
 
-                <button class="mob-cat-btn" data-panel="mc-soft" type="button">
-                    Software
+                <button class="mob-cat-btn" data-panel="mc-utils" type="button">
+                    Utilities
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
-                <div class="mob-cat-links" id="mc-soft">
-                    <a class="mob-cat-link" href="#">CAD Models</a>
-                    <a class="mob-cat-link" href="#">Sizing Tools</a>
+                <div class="mob-cat-links" id="mc-utils">
+                    <a class="mob-cat-link" href="/toolkit/calculator/">Scientific Calculator</a>
+                    <a class="mob-cat-link" href="/toolkit/">All Engineering Tools &rarr;</a>
                 </div>
             </div>
 

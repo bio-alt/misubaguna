@@ -13,6 +13,23 @@ class PublicSeo
     public const DESC_MAX = 160;
     public const DEFAULT_DESC = 'PT Misuba Guna Indonesia provides high-performance industrial engineering products and plant maintenance services, specializing in expansion joints, sealing systems, corrosion protection linings, and equipment overhaul.';
 
+    public const WAREHOUSE_ADDRESS = [
+        '@type' => 'PostalAddress',
+        'streetAddress' => 'Ruko Mutiara Karawaci Blok C29, Bencongan Indah, Kecamatan Kelapa Dua',
+        'addressLocality' => 'Tangerang',
+        'addressRegion' => 'Banten',
+        'postalCode' => '15810',
+        'addressCountry' => 'ID',
+    ];
+
+    public const BILLING_ADDRESS = [
+        '@type' => 'PostalAddress',
+        'streetAddress' => 'Gedung STC Senayan Lantai 4 No 89, Jalan Asia Afrika Pintu IX, Gelora Senayan, Tanah Abang',
+        'addressLocality' => 'Jakarta Pusat',
+        'addressRegion' => 'DKI Jakarta',
+        'addressCountry' => 'ID',
+    ];
+
     public static function canonicalUrl(?string $urlOrPath = '/'): string
     {
         if (empty($urlOrPath)) {
@@ -164,13 +181,10 @@ class PublicSeo
             'description' => self::DEFAULT_DESC,
             'email' => $settings['company_email'] ?? 'sales@misubaguna.com',
             'telephone' => $settings['company_phone'] ?? '+62 21 55660700',
-            'address' => [
-                '@type' => 'PostalAddress',
-                'streetAddress' => 'Ruko Mutiara Karawaci Blok C29, Bencongan Indah, Kecamatan Kelapa Dua',
-                'addressLocality' => 'Tangerang',
-                'addressRegion' => 'Banten',
-                'postalCode' => '15810',
-                'addressCountry' => 'ID',
+            'address' => self::WAREHOUSE_ADDRESS,
+            'location' => [
+                ['@type' => 'Place', 'name' => 'Operational & Warehouse (Tangerang)', 'address' => self::WAREHOUSE_ADDRESS],
+                ['@type' => 'Place', 'name' => 'Billing Office (Jakarta)', 'address' => self::BILLING_ADDRESS],
             ],
             'contactPoint' => [
                 [

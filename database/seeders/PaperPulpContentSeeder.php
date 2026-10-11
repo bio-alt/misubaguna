@@ -16,16 +16,7 @@ class PaperPulpContentSeeder extends Seeder
         $now = now();
 
         foreach ($this->products() as $p) {
-            DB::table('public_products')->where('url_path', $p['url_path'])->update([
-                'name' => $p['title'],
-                'summary' => $p['summary'],
-                'content_html' => $this->html($p),
-                'key_features' => json_encode($p['features'], JSON_UNESCAPED_UNICODE),
-                'applications' => json_encode($p['applications'], JSON_UNESCAPED_UNICODE),
-                'materials' => json_encode($p['materials'], JSON_UNESCAPED_UNICODE),
-                'technical_specs' => json_encode($p['specs'], JSON_UNESCAPED_UNICODE),
-                'updated_at' => $now,
-            ]);
+            $this->apply($p, $now);
         }
 
         DB::table('public_product_categories')
@@ -37,6 +28,31 @@ class PaperPulpContentSeeder extends Seeder
                 'og_description' => 'Stock preparation systems, paper machines, tissue machines, molded fiber plants, refiner plates and screen baskets for paper mills.',
                 'updated_at' => $now,
             ]);
+    }
+
+    /** Re-apply one product's content (used by later migrations that change a single page). */
+    public function applyOne(string $urlPath): void
+    {
+        foreach ($this->products() as $p) {
+            if ($p['url_path'] === $urlPath) {
+                $this->apply($p, now());
+            }
+        }
+    }
+
+    private function apply(array $p, $now): void
+    {
+        DB::table('public_products')->where('url_path', $p['url_path'])->update(array_filter([
+            'name' => $p['title'],
+            'summary' => $p['summary'],
+            'meta_description' => $p['meta_description'] ?? null,
+            'content_html' => $this->html($p),
+            'key_features' => json_encode($p['features'], JSON_UNESCAPED_UNICODE),
+            'applications' => json_encode($p['applications'], JSON_UNESCAPED_UNICODE),
+            'materials' => json_encode($p['materials'], JSON_UNESCAPED_UNICODE),
+            'technical_specs' => json_encode($p['specs'], JSON_UNESCAPED_UNICODE),
+            'updated_at' => $now,
+        ], fn ($value) => $value !== null));
     }
 
     private function html(array $p): string
@@ -218,24 +234,27 @@ class PaperPulpContentSeeder extends Seeder
                 'title' => 'Complete Paper Machine',
                 'h1' => 'Complete Paper Machine Lines',
                 'summary' => 'Turnkey paper machines from headbox to pope reel for kraft, board, writing, printing and specialty grades, up to 1,200 TPD and 1,200 m/min.',
+                'meta_description' => 'Complete paper machines from headbox to pope reel for kraft, board, writing and printing grades: 30–1,200 TPD, up to 1,200 m/min and 10 m deckle.',
                 'intro' => 'We design and supply complete paper machine lines for kraft, board, writing, printing, newsprint and specialty grades, as well as individual sections and rebuilds for existing machines. Each line is configured to the grade, capacity and fiber furnish of the mill.',
                 'sections' => [
                     'Machine Sections' => [
                         '<strong>Headbox:</strong> hydraulic or pressurized designs with turbulence generation, cross-direction basis weight control and quick grade changes. The pressurized type uses an air cushion for high-speed operation.',
                         '<strong>Wire section:</strong> Fourdrinier forming with table rolls, hydrofoils and suction boxes for even drainage, in single, double, triple, four or multi-wire layouts.',
                         '<strong>Press section:</strong> H-frame multi-nip presses with optimised nip geometry, or a shoe press with a 200–300 mm extended nip. In the shoe press a fixed beam with hydraulic cylinders loads a flexible blanket running on an oil film, and zoned loading trims the cross-direction moisture profile. Gentle, progressive pressing raises exit dryness while keeping bulk, cutting dryer steam by around 15–20%.',
-                        '<strong>Dryer section:</strong> multi-cylinder pre-dryers and single-tier post-dryers in cast iron for durable, uniform heat transfer, with control of sheet curl.',
+                        '<strong>Dryer section:</strong> multi-cylinder pre-dryers with pocket ventilation for even moisture removal before sizing, and single-tier post-dryers that hold the sheet flat and control curl. Cylinders are precision-machined cast iron for uniform heat transfer and long service life.',
                         '<strong>Surface treatment:</strong> film press for metered sizing and coating with low chemical consumption.',
                         '<strong>Finishing:</strong> multi-nip machine calender with variable crown rolls for smoothness and caliper control.',
-                        '<strong>Controls and winding:</strong> online measurement of basis weight, moisture and caliper, and a pope reel with automatic spool change without slowing the machine.',
+                        '<strong>Controls and winding:</strong> a quality control system measures basis weight, moisture and caliper online and corrects the profiles, and a pope reel with pneumatic loading changes spools automatically without slowing the machine.',
                     ],
                     'Grades by Wire Configuration' => [
                         'Single wire: specialty grades, tissue, light and regular kraft',
                         'Double wire: kraft and white top liner kraft',
                         'Triple wire: kraft, duplex board and white top liner kraft',
-                        'Four or multi-wire: kraft, duplex, art card, folding boxboard and heavy multilayer kraft',
+                        'Four or multi-wire: kraft, duplex, HWC/SVS duplex, art card, folding boxboard and multilayer high-burst-factor kraft',
+                        'Tissue and poster grades: produced on a dedicated <a href="/product/tissue-machine/">tissue machine</a>',
                     ],
                     'Rebuilds & Upgrades' => 'Existing machines can be modernised with capacity increases, press and dryer rebuilds, headbox replacement, grade conversion, energy-saving retrofits and runnability improvements, often at far lower cost than a new line.',
+                    'Spare & Wear Parts' => 'OEM-compatible spare and wear parts are available for paper machines of any make and model, together with replacement <a href="/product/refiner-discs-screen-baskets/">refiner plates and screen baskets</a>. Send the machine make, type and part details for a quotation.',
                 ],
                 'features' => [
                     'Single-source supply from approach flow to pope reel',
@@ -244,6 +263,7 @@ class PaperPulpContentSeeder extends Seeder
                     'Shoe press option for higher dryness and lower steam use',
                     'Configurations from single wire to multi-wire for different grades',
                     'Rebuild and upgrade programmes for older machines',
+                    'Spare and wear parts for paper machines of any make',
                 ],
                 'applications' => [
                     'Kraft liner, testliner and fluting medium',
