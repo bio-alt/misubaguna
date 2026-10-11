@@ -10,10 +10,12 @@ use App\Ejma\FormingCondition;
 use App\Ejma\FormingMethod;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EjmaCalculationRequest;
+use App\Mail\EjmaCalculationReport;
 use App\Models\EjmaCalculation;
 use App\Support\PublicSeo;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class EjmaCalculatorController extends Controller
@@ -148,9 +150,14 @@ class EjmaCalculatorController extends Controller
         return [$field => $e->getMessage()];
     }
 
-    /** Emails the full calculation to the engineering team (Task 10). */
+    /** Emails the full calculation to the engineering team; a failure is reported but never shown to the visitor. */
     private function sendReport(EjmaCalculation $calculation): void
     {
-        //
+        try {
+            Mail::to(config('mail.contact_to'))->send(new EjmaCalculationReport($calculation));
+            $calculation->forceFill(['emailed_at' => now()])->save();
+        } catch (\Throwable $e) {
+            report($e);
+        }
     }
 }
