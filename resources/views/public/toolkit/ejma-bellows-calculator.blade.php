@@ -41,7 +41,7 @@
             ['tied_universal' => ['Axial growth between tie-rod plates', 'Pipe growth between the plates; compresses the bellows']]],
         ['x_ext', 'Axial extension x', false, $ALL, 'Total for the joint', 'single universal'],
         ['lateral', 'Lateral offset y', false, $ALL, null, $MOVING],
-        ['angular', 'Angular rotation θ', false, $ALL, null, null, ['gimbal' => ['Angular rotation θ1 (plane 1)', null]]],
+        ['angular', 'Angular rotation θ', false, $ALL, null, 'single universal hinged gimbal', ['gimbal' => ['Angular rotation θ1 (plane 1)', null]]],
         ['angular_2', 'Angular rotation θ2 (plane 2)', false, $ALL, 'Perpendicular to plane 1', 'gimbal'],
     ];
     $geometryFields = [

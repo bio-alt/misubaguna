@@ -207,6 +207,17 @@ class EjmaAssemblyFormTest extends TestCase
         $this->assertSame(4.0, (float) $inputs['us']['tie_rods']);
     }
 
+    public function test_tied_universal_ignores_stale_angular_rotation(): void
+    {
+        $this->post(self::URL, $this->payload(['assembly_type' => 'tied_universal', 'Lu' => '1500', 'tie_rods' => '4', 'angular' => '95']))
+            ->assertSessionHasNoErrors();
+
+        $row = EjmaCalculation::first();
+        $this->assertArrayNotHasKey('angular', $row->inputs['us']);
+        $this->assertArrayNotHasKey('angular', $row->inputs['entered']);
+        $this->assertSame(0.0, $row->result()->values['etheta']);
+    }
+
     public function test_fields_of_other_assemblies_are_dropped(): void
     {
         $this->post(self::URL, $this->payload([
@@ -261,6 +272,7 @@ class EjmaAssemblyFormTest extends TestCase
         $this->assertMatchesRegularExpression('#data-assemblies="gimbal"[^>]*>\s*<label for="ejma_angular_2">#', $html);
         $this->assertMatchesRegularExpression('#data-assemblies="single universal"[^>]*>\s*<label for="ejma_x_ext">#', $html);
         $this->assertMatchesRegularExpression('#data-assemblies="single universal tied_universal"[^>]*>\s*<label for="ejma_lateral">#', $html);
+        $this->assertMatchesRegularExpression('#data-assemblies="single universal hinged gimbal"[^>]*>\s*<label for="ejma_angular">#', $html);
         $this->assertStringContainsString('Axial growth between tie-rod plates', $html);
     }
 

@@ -92,6 +92,20 @@ class AssemblyMovementTest extends TestCase
         $this->assertEqualsWithDelta($m->ey + 1 / 8, $m->e, 1e-12, 'e = ec = ey + ex');
     }
 
+    public function test_tied_universal_ignores_angular_rotation(): void
+    {
+        $g = Benchmarks::case2()['geometry'];
+        $tied = new AssemblyGeometry(type: AssemblyType::TiedUniversal, Lu: 36, tieRods: 2);
+        $with = self::conditions($tied, xComp: 1, y: 2, theta: deg2rad(5));
+        $without = self::conditions($tied, xComp: 1, y: 2);
+
+        // Ruling P2-R7: the tie rods restrain angular rotation, θ is ignored.
+        $this->assertSame(0.0, Movement::bellowsRotation($with));
+        $m = self::movement($g, $with);
+        $this->assertSame(0.0, $m->etheta);
+        $this->assertEquals(self::movement($g, $without), $m);
+    }
+
     public function test_hinged_angular_only(): void
     {
         $g = Benchmarks::case1()['geometry'];

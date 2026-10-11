@@ -16,6 +16,7 @@ namespace App\Ejma;
  *    centre-spool dead-weight movements of eqs. 4-12/4-13 (p068) when Wcs is given;
  *  - tied universal: as universal, x = axial thermal growth of the pipe between the tie-rod
  *    plates (p065 note under eq. 4-6; Appendix J Example 4), compression only (ruling P2-R3);
+ *    angular rotation is restrained by the tie rods, θ = 0 (ruling P2-R7);
  *  - hinged: angular only, eq. 4-3;
  *  - gimbal: angular only, eq. 4-3 with θ = √(θ1² + θ2²) (vector sum, §4.2 p065).
  */
@@ -67,14 +68,16 @@ final readonly class Movement
     /**
      * Angular rotation applied to each individual bellows, θm (§1.3 p023): θ/2 for universal
      * assemblies (each bellows takes half, eq. 4-4), the resultant √(θ1² + θ2²) for gimbal
-     * (§4.2 p065), θ for single and hinged.
+     * (§4.2 p065), θ for single and hinged, 0 for tied universal (the tie rods restrain angular
+     * rotation, ruling P2-R7; the form and request already drop θ, this is the second layer).
      */
     public static function bellowsRotation(DesignConditions $c): float
     {
         $a = $c->assembly;
 
         return match ($a->type) {
-            AssemblyType::Universal, AssemblyType::TiedUniversal => abs($c->theta) / 2,
+            AssemblyType::Universal => abs($c->theta) / 2,
+            AssemblyType::TiedUniversal => 0.0,
             AssemblyType::Gimbal => hypot($c->theta, $a->theta2),
             default => abs($c->theta),
         };

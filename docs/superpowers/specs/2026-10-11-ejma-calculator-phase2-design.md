@@ -31,7 +31,7 @@ Success criteria:
 |---|---|---|---|
 | Single (Phase 1) | axial, lateral, angular | 1 | — (main-anchor pressure thrust) |
 | Universal (untied) | axial, lateral, angular | 2 identical | — (main-anchor pressure thrust) |
-| Tied universal | lateral only (axial restrained by tie rods) | 2 identical | total and per-rod tie-rod load |
+| Tied universal | lateral, plus axial growth between tie-rod plates (angular restrained) | 2 identical | total and per-rod tie-rod load |
 | Hinged | angular, one plane | 1 | total and per-pin hinge load |
 | Gimbal | angular, two planes (resultant) | 1 | total and per-pin gimbal load |
 

@@ -125,12 +125,13 @@ class EjmaCalculationRequest extends FormRequest
     /**
      * Movements restrained by the assembly hardware (ruling P2-R3): the form disables them and
      * stale values are ignored. Tied universal keeps x_comp as the axial growth between the
-     * tie-rod plates; hinged and gimbal joints take angular rotation only (x = y = 0).
+     * tie-rod plates and restrains angular rotation (ruling P2-R7); hinged and gimbal joints take
+     * angular rotation only (x = y = 0).
      */
     private const RESTRAINED_FIELDS = [
         'single' => [],
         'universal' => [],
-        'tied_universal' => ['x_ext'],
+        'tied_universal' => ['x_ext', 'angular'],
         'hinged' => ['x_comp', 'x_ext', 'lateral'],
         'gimbal' => ['x_comp', 'x_ext', 'lateral'],
     ];
@@ -174,7 +175,7 @@ class EjmaCalculationRequest extends FormRequest
             'x_comp' => ['exclude_if:assembly_type,hinged,gimbal', 'nullable', 'numeric', 'gte:0'],
             'x_ext' => ['exclude_if:assembly_type,tied_universal,hinged,gimbal', 'nullable', 'numeric', 'gte:0'],
             'lateral' => ['exclude_if:assembly_type,hinged,gimbal', 'nullable', 'numeric', 'gte:0'],
-            'angular' => ['nullable', 'numeric', 'gte:0', 'lt:90'],
+            'angular' => ['exclude_if:assembly_type,tied_universal', 'nullable', 'numeric', 'gte:0', 'lt:90'],
             'angular_2' => ['exclude_unless:assembly_type,gimbal', 'nullable', 'numeric', 'gte:0', 'lt:90'],
             'Lu' => ['exclude_unless:assembly_type,universal,tied_universal', 'required', 'numeric', 'gt:0'],
             'tie_rods' => ['exclude_unless:assembly_type,tied_universal', 'required', 'integer', 'min:2', 'max:100'],
