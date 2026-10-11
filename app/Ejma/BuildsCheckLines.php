@@ -32,6 +32,21 @@ trait BuildsCheckLines
         return $lines;
     }
 
+    /**
+     * §4.4 (p068), ruling P2-R6: when the unsupported centre-spool dead weight is considered,
+     * the total stress range St must not exceed 1.5·Cm·Sab. No line when Wcs is not given.
+     *
+     * @return list<CheckLine>
+     */
+    private static function deadWeightLines(DesignConditions $c, BellowsProperties $p, float $St): array
+    {
+        if ($c->assembly->Wcs === null) {
+            return [];
+        }
+
+        return [self::le('deadweight_St', 'Total stress range with spool dead weight', '§4.4', 'St', $St, 1.5 * $p->Cm * $p->Sab, '1.5·Cm·Sab')];
+    }
+
     /** Total convolutions in the assembly: N per bellows × number of bellows (2 for universal). */
     private static function totalConvolutions(BellowsGeometry $g, DesignConditions $c): int
     {

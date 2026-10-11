@@ -107,7 +107,7 @@ final class ToroidalBellows implements Checker
             self::le('squirm_column', 'Column instability (squirm) pressure', '4-60', 'Psc', $P, $Psc, 'Psc'),
         ];
         // No ec/ee limits: §4.2 states them for U-shaped convolutions (q − 2rm − nt, 6rm − q).
-        $lines = [...$lines, ...self::movementLimitLines($g, $c, $d, $m, false)];
+        $lines = [...$lines, ...self::movementLimitLines($g, $c, $d, $m, false), ...self::deadWeightLines($c, $p, $St)];
 
         $values = [
             'S1' => $S1, 'S1p' => $S1p, 'S1pp' => $S1pp, 'S2' => $S2, 'S2p' => $S2p,

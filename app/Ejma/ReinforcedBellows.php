@@ -134,7 +134,7 @@ final class ReinforcedBellows implements Checker
         $lines[] = self::le('meridional', 'Meridional membrane + bending stress (pressure)', '4-44/4-45', 'S3+S4', $S3 + $S4, $p->Cm * $p->Sab, 'Cm·Sab');
         $lines[] = self::fatigueLine('4-48', $Nc, $c->requiredCycles);
         $lines[] = self::le('squirm_column', 'Column instability (squirm) pressure', '4-49', 'Psc', $P, $Psc, 'Psc');
-        $lines = [...$lines, ...self::movementLimitLines($g, $c, $d, $m, true)];
+        $lines = [...$lines, ...self::movementLimitLines($g, $c, $d, $m, true), ...self::deadWeightLines($c, $p, $St)];
 
         $values = ['S1' => $S1];
         if ($hasCollar) {

@@ -86,7 +86,7 @@ final class UnreinforcedBellows implements Checker
         $lines[] = self::fatigueLine('4-34', $Nc, $c->requiredCycles);
         $lines[] = self::le('squirm_column', 'Column instability (squirm) pressure', '4-35', 'Psc', $P, $Psc, 'Psc');
         $lines[] = self::le('squirm_inplane', 'In-plane instability (squirm) pressure', '4-36', 'Psi', $P, $Psi, 'Psi');
-        $lines = [...$lines, ...self::movementLimitLines($g, $c, $d, $m, true)];
+        $lines = [...$lines, ...self::movementLimitLines($g, $c, $d, $m, true), ...self::deadWeightLines($c, $p, $St)];
 
         $values = ['S1' => $S1];
         if ($S1p !== null) {
