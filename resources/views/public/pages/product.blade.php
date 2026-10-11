@@ -34,10 +34,34 @@
     $waUrl = \App\Support\ProductContent::whatsappUrl($name);
     $catalogPdf = \App\Support\ProductContent::CATALOG_PDF;
     $quoteChecklist = \App\Support\ProductContent::quoteChecklist($product->slug, $product->product_group);
+    $isHub = \App\Support\CouplingCatalog::isHub($product->slug);
+    $isCoupling = $isHub || \App\Support\CouplingCatalog::family($product->slug) !== null;
 @endphp
 
 <div class="ds">
     <div class="ds-wrap">
+        @if($isHub)
+            <div class="pc-head">
+                <nav class="ds-crumbs" aria-label="Breadcrumb">
+                    <ol>
+                        @foreach($breadcrumbs as $crumb)
+                            @if($loop->last)
+                                <li><span aria-current="page">{{ $crumb['name'] }}</span></li>
+                            @else
+                                <li><a href="{{ $crumb['url'] }}">{{ $crumb['name'] }}</a></li>
+                            @endif
+                        @endforeach
+                    </ol>
+                </nav>
+                <h1>{{ $name }}</h1>
+                @if($product->summary)
+                    <p class="pc-lede">{{ $product->summary }}</p>
+                @endif
+                <div class="pc-head-actions">
+                    @include('public.partials.quote-actions', ['subject' => $name])
+                </div>
+            </div>
+        @else
         <nav class="ds-crumbs" aria-label="Breadcrumb">
             <ol>
                 @foreach($breadcrumbs as $crumb)
@@ -190,8 +214,13 @@
                 </div>
             @endif
         </div>
+        @endif
 
-        @if($related->isNotEmpty())
+        @if($isCoupling)
+            @include('public.partials.coupling-range', ['slug' => $product->slug])
+        @endif
+
+        @if($related->isNotEmpty() && ! $isHub)
             <section class="pd-related" aria-labelledby="pd-related-title">
                 <div class="pd-related-head">
                     <h2 class="ds-h2" id="pd-related-title">More in {{ $product->product_group }}</h2>
