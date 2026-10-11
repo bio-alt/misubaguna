@@ -4,7 +4,10 @@ namespace App\Http\Controllers\PublicSite;
 
 use App\Ejma\AssemblyType;
 use App\Ejma\BellowsType;
+use App\Ejma\CheckResult;
 use App\Ejma\Data\MaterialRepository;
+use App\Ejma\Data\Tooling;
+use App\Ejma\DesignSearch;
 use App\Ejma\EjmaCalculator;
 use App\Ejma\EjmaInputException;
 use App\Ejma\FormingCondition;
@@ -35,10 +38,10 @@ class EjmaCalculatorController extends Controller
         'lateral', 'angular', 'Db', 'w', 't', 'n', 'N', 'q', 'rm', 'Lt', 'tc', 'Lc', 'Ld', 'Ar', 'Atc', 'Zc', 'ng',
         'r', 'Dr', 'Dm', 'fw', 'bellows_material', 'collar_material', 'reinforcement_material', 'forming_condition',
         'forming_method', 'Cwb', 'Cwc', 'Cwr', 'override_Sab', 'override_EbRt', 'override_EbDt', 'override_Sy',
-        'override_Sym', 'assembly_type', 'Lu', 'tie_rods', 'angular_2', 'spool_weight', 'spool_angle',
+        'override_Sym', 'assembly_type', 'Lu', 'tie_rods', 'angular_2', 'spool_weight', 'spool_angle', 'mode',
     ];
 
-    public function index(MaterialRepository $materials)
+    public function index(MaterialRepository $materials, Tooling $tooling)
     {
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
 
@@ -72,6 +75,13 @@ class EjmaCalculatorController extends Controller
             'collar' => $materials->availableFor('collar'),
             'reinforcement' => $materials->availableFor('reinforcement'),
         ];
+        // Bellows materials offered in check mode only (no unreinforced fatigue constants, ruling P3-R2).
+        $designMaterialIds = array_map(fn ($m) => $m->id, EjmaCalculationRequest::designMaterials($materials));
+        $checkOnlyMaterials = array_values(array_diff(
+            array_map(fn ($m) => $m->id, $materialOptions['bellows']),
+            $designMaterialIds,
+        ));
+        $designAvailable = $tooling->isAvailable();
         $units = EjmaCalculationRequest::UNITS;
         $quantities = EjmaCalculationRequest::QUANTITIES;
         $bellowsTypes = BellowsType::cases();
@@ -84,17 +94,28 @@ class EjmaCalculatorController extends Controller
         return view('public.toolkit.ejma-bellows-calculator', compact(
             'seo', 'siteSettings', 'breadcrumbs', 'materialOptions', 'units', 'quantities',
             'bellowsTypes', 'assemblyTypes', 'formingConditions', 'formingMethods', 'result', 'contactTo',
+            'designAvailable', 'checkOnlyMaterials',
         ));
     }
 
-    public function store(EjmaCalculationRequest $request, EjmaCalculator $calculator)
+    public function store(EjmaCalculationRequest $request, EjmaCalculator $calculator, DesignSearch $search)
     {
         if ($request->isHoneypot()) {
             return redirect()->to(self::FORM_URL);
         }
 
+        $design = null;
         try {
-            $result = $calculator->calculate($request->toCalculationRequest());
+            if ($request->isDesign()) {
+                $design = $search->search($request->toDesignRequest());
+                // The best candidate's check, or an empty result carrying the review note (spec §4).
+                $result = $design->best?->result
+                    ?? new CheckResult(BellowsType::Unreinforced, [], [], [$design->reviewNote()]);
+                $verdict = $design->verdict();
+            } else {
+                $result = $calculator->calculate($request->toCalculationRequest());
+                $verdict = $result->verdict();
+            }
             $results = $result->toArray();
         } catch (EjmaInputException $e) {
             throw ValidationException::withMessages($this->engineError($e, $request->bellowsType()))
@@ -113,9 +134,11 @@ class EjmaCalculatorController extends Controller
         $attributes = [
             'bellows_type' => $result->type->value,
             'assembly_type' => $request->assemblyType()->value,
-            'verdict' => $result->verdict()->value,
+            'mode' => $design !== null ? 'design' : 'check',
+            'verdict' => $verdict->value,
             'inputs' => $request->storedInputs(),
             'results' => $results,
+            'design' => $design?->toArray(),
             'contact' => $request->contact(),
             'ip_address' => $request->ip(),
         ];
@@ -134,6 +157,7 @@ class EjmaCalculatorController extends Controller
             ->with('ejma_result', [
                 'reference' => $calculation->reference,
                 'verdict' => $calculation->verdict,
+                'mode' => $calculation->mode,
             ]);
     }
 
