@@ -6,8 +6,45 @@ namespace App\Ejma;
  * Angular-rotation pressure factors, EJMA 9th Ed. §1.3 nomenclature:
  * Cθ (p018), Kθ (p019), φ (p023).
  */
-final class AngularPressureFactor
+final readonly class AngularPressureFactor
 {
+    private function __construct(
+        /** Column instability pressure reduction factor Cθ (p018). */
+        public float $Ctheta,
+        /** Pressure ratio φ used in Kθ (see phi()). */
+        public float $phi,
+        /** Equivalent axial movement per convolution due to angular rotation fed to Kθ. */
+        public float $etheta,
+        /** Angular pressure effect factor Kθ (p019). */
+        public float $Ktheta,
+    ) {}
+
+    /**
+     * Cθ, φ, eθ and Kθ for each bellows of the assembly (controller ruling P2-R2), shared by
+     * the three bellows checkers:
+     *  - eθ is the assembly's per-convolution eθ, the same one Movement uses (eq. 4-3 single /
+     *    hinged, eq. 4-4 universal, eq. 4-3 on the resultant θ for gimbal);
+     *  - Cθ uses θm = rotation of the individual bellows (θ/2 universal, resultant gimbal) and
+     *    judges "concurrent lateral deflection" on the design lateral the assembly applies
+     *    (none for hinged/gimbal). The universal centre-spool sag (eq. 4-13) is not counted as
+     *    lateral deflection here: Cθ < 1 lowers both Psc and Kθ, so this is the conservative side;
+     *  - φ uses the total convolutions N × bellowsCount, consistent with the universal Psc
+     *    (notes to eqs. 4-35 / 4-49 / 4-60).
+     *
+     * @param  int  $N  convolutions per bellows
+     * @param  float  $q  convolution pitch (Kθ, p019)
+     * @param  float  $qOrR  q (U-shaped) or r (toroidal) for φ
+     * @param  float  $fi  theoretical axial spring rate per convolution for the bellows type
+     */
+    public static function forAssembly(BellowsType $type, DesignConditions $c, float $Dm, int $N, float $q, float $qOrR, float $fi): self
+    {
+        $Ctheta = self::Ctheta(Movement::appliedLateral($c), Movement::bellowsRotation($c));
+        $phi = self::phi($type, $c->P, $N * $c->assembly->type->bellowsCount(), $qOrR, $fi);
+        $etheta = Movement::assemblyEtheta($c, $Dm, $N);
+
+        return new self($Ctheta, $phi, $etheta, self::Ktheta($etheta, $Ctheta, $q, $phi));
+    }
+
     /**
      * Column instability pressure reduction factor Cθ (p018):
      * 0.1157^θm if no concurrent lateral deflection, 1 if lateral deflection is present.

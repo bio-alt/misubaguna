@@ -106,6 +106,21 @@ class EjmaReportTest extends TestCase
         $this->assertLessThan(300_000, strlen($pdf));
     }
 
+    public function test_pdf_movement_limit_lines_are_in_inches(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload());
+        $row = EjmaCalculation::first();
+        $ec = collect($row->results['lines'])->firstWhere('symbol', 'ec');
+        $this->assertSame('movement_ec_max', $ec['key']);
+
+        $html = (new EjmaCalculationReport($row))->pdfHtml();
+
+        $this->assertStringContainsString(number_format($ec['value'], 4).' in', $html);
+        $this->assertStringContainsString('0.4400 in', $html, 'ec(max) = q − 2rm − nt = 0.44 in');
+        $this->assertStringNotContainsString(number_format($ec['value'], 4).' psi', $html);
+    }
+
     public function test_mail_failure_still_shows_result(): void
     {
         Mail::shouldReceive('to')->andThrow(new \RuntimeException('smtp down'));

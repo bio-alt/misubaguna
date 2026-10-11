@@ -57,6 +57,41 @@ final readonly class Movement
     }
 
     /**
+     * Angular rotation applied to each individual bellows, θm (§1.3 p023): θ/2 for universal
+     * assemblies (each bellows takes half, eq. 4-4), the resultant √(θ1² + θ2²) for gimbal
+     * (§4.2 p065), θ for single and hinged.
+     */
+    public static function bellowsRotation(DesignConditions $c): float
+    {
+        $a = $c->assembly;
+
+        return match ($a->type) {
+            AssemblyType::Universal, AssemblyType::TiedUniversal => abs($c->theta) / 2,
+            AssemblyType::Gimbal => hypot($c->theta, $a->theta2),
+            default => abs($c->theta),
+        };
+    }
+
+    /**
+     * Design lateral deflection the assembly actually applies to its bellows: 0 for the
+     * angular-only hinged and gimbal assemblies (hardware restrains lateral), else y.
+     */
+    public static function appliedLateral(DesignConditions $c): float
+    {
+        return $c->assembly->type->isAngularOnly() ? 0.0 : $c->y;
+    }
+
+    /**
+     * Equivalent axial movement per convolution due to angular rotation for the assembly:
+     * eq. 4-3 on the per-bellows rotation, i.e. θDm/(2N) single/hinged, θDm/(4N) universal
+     * (eq. 4-4), resultant θ for gimbal. N is per bellows.
+     */
+    public static function assemblyEtheta(DesignConditions $c, float $Dm, int $N): float
+    {
+        return self::etheta(self::bellowsRotation($c), $Dm, $N);
+    }
+
+    /**
      * Figure 4.1 (p067): Ku = (3Lu² − 3LbLu) / (3Lu² − 6LbLu + 4Lb²); 1.50 at Lu = 2Lb.
      */
     public static function universalKu(float $Lu, float $Lb): float
@@ -82,14 +117,11 @@ final readonly class Movement
             throw new EjmaInputException('q', 'Convolution pitch q must be greater than zero.');
         }
 
-        $a = $c->assembly;
-
-        return match ($a->type) {
+        return match ($c->assembly->type) {
             AssemblyType::Single => self::single($g, $c, $d, $Ktheta),
             AssemblyType::Universal, AssemblyType::TiedUniversal => self::universal($g, $c, $d, $Ktheta, $fi),
-            AssemblyType::Hinged => self::combine($g->q, 0.0, 0.0, 0.0, 0.0, self::etheta($c->theta, $d->Dm, $g->N), $Ktheta, self::KU_SINGLE),
-            // Gimbal: rotations in two planes added vectorially (§4.2, p065).
-            AssemblyType::Gimbal => self::combine($g->q, 0.0, 0.0, 0.0, 0.0, self::etheta(hypot($c->theta, $a->theta2), $d->Dm, $g->N), $Ktheta, self::KU_SINGLE),
+            // Hinged: eq. 4-3; gimbal: rotations in two planes added vectorially (§4.2, p065).
+            AssemblyType::Hinged, AssemblyType::Gimbal => self::combine($g->q, 0.0, 0.0, 0.0, 0.0, self::assemblyEtheta($c, $d->Dm, $g->N), $Ktheta, self::KU_SINGLE),
         };
     }
 
@@ -153,7 +185,7 @@ final readonly class Movement
 
         $exComp = $xComp / (2 * $N);                                      // eq. 4-2
         $exExt = $xExt / (2 * $N);
-        $etheta = abs($c->theta) * $Dm / (4 * $N);                        // eq. 4-4
+        $etheta = self::assemblyEtheta($c, $Dm, $N);                      // eq. 4-4: θDm/(4N)
 
         $ey = 0.0;
         $eyExt = 0.0;

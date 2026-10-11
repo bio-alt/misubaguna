@@ -87,10 +87,9 @@ final class ReinforcedBellows implements Checker
         // Eq. 4-50 at design temperature; reproduces benchmark fi = 24548.
         $fir = 1.7 * $d->Dm * $p->EbDt * $tp ** 3 * $n / ($wr ** 3 * $Cf);
 
-        $Ctheta = AngularPressureFactor::Ctheta($c->y, $c->theta);
-        $phi = AngularPressureFactor::phi(BellowsType::Reinforced, $P, $N, $q, $fir);
-        $etheta = Movement::etheta($c->theta, $d->Dm, $N);
-        $Ktheta = AngularPressureFactor::Ktheta($etheta, $Ctheta, $q, $phi);
+        $apf = AngularPressureFactor::forAssembly(BellowsType::Reinforced, $c, $d->Dm, $N, $q, $q, $fir);
+        $Ctheta = $apf->Ctheta;
+        $Ktheta = $apf->Ktheta;
         $m = Movement::of($g, $c, $d, $Ktheta, $fir);
         $e = $m->e;
         $Kr = $m->Kr;
@@ -122,7 +121,8 @@ final class ReinforcedBellows implements Checker
         $St = 0.7 * ($S3 + $S4) + ($S5 + $S6);                  // p094
         $Nc = Fatigue::cycles($St, $p->fatigue);                 // eq. 4-48
 
-        $Psc = 0.3 * M_PI * $Ctheta * $fir / ($N ** 2 * $q);   // eq. 4-49
+        // Eq. 4-49; N = total convolutions in both bellows for universal (note to 4-49).
+        $Psc = 0.3 * M_PI * $Ctheta * $fir / (self::totalConvolutions($g, $c) ** 2 * $q);
 
         $lines = [self::le('hoop_tangent', 'Tangent circumferential membrane stress (pressure)', '4-38', 'S1', $S1, $p->Cwb * $p->Sab, 'Cwb·Sab')];
         if ($hasCollar) {
@@ -134,6 +134,7 @@ final class ReinforcedBellows implements Checker
         $lines[] = self::le('meridional', 'Meridional membrane + bending stress (pressure)', '4-44/4-45', 'S3+S4', $S3 + $S4, $p->Cm * $p->Sab, 'Cm·Sab');
         $lines[] = self::fatigueLine('4-48', $Nc, $c->requiredCycles);
         $lines[] = self::le('squirm_column', 'Column instability (squirm) pressure', '4-49', 'Psc', $P, $Psc, 'Psc');
+        $lines = [...$lines, ...self::movementLimitLines($g, $c, $d, $m, true)];
 
         $values = ['S1' => $S1];
         if ($hasCollar) {
@@ -145,12 +146,13 @@ final class ReinforcedBellows implements Checker
         }
         $values += [
             'Psc' => $Psc, 'fi' => $fir, 'Cp' => $Cp, 'Cf' => $Cf, 'Cd' => $Cd, 'Kr' => $Kr, 'e' => $e,
-            'Ctheta' => $Ctheta, 'Ktheta' => $Ktheta, 'phi' => $phi, 'Cr' => $d->Cr, 'R' => $R, 'fspring' => $fSpring,
+            'Ctheta' => $Ctheta, 'Ktheta' => $Ktheta, 'phi' => $apf->phi, 'Cr' => $d->Cr, 'R' => $R, 'fspring' => $fSpring,
+            'Ku' => $m->Ku,
         ];
         if ($Fg !== null) {
             $values['Fg'] = $Fg;
         }
 
-        return new CheckResult(BellowsType::Reinforced, $lines, $values);
+        return new CheckResult(BellowsType::Reinforced, $lines, $values, self::assemblyNotes($c));
     }
 }

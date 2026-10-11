@@ -71,12 +71,12 @@ class ReinforcedBellowsTest extends TestCase
         $keys = array_map(fn ($l) => $l->key, $result->lines);
         $this->assertSame([
             'hoop_tangent', 'hoop_collar', 'collar_bending', 'hoop_bellows', 'hoop_reinforcement',
-            'meridional', 'fatigue', 'squirm_column',
+            'meridional', 'fatigue', 'squirm_column', 'movement_ec_max', 'movement_ee_max', 'instability_axial',
         ], $keys);
         $symbols = array_map(fn ($l) => $l->symbol, $result->lines);
-        $this->assertSame(['S1', "S1'", "S1'+S1''", 'S2', "S2'", 'S3+S4', 'Nc', 'Psc'], $symbols);
+        $this->assertSame(['S1', "S1'", "S1'+S1''", 'S2', "S2'", 'S3+S4', 'Nc', 'Psc', 'ec', 'ee', 'ex'], $symbols);
         $equations = array_map(fn ($l) => $l->equation, $result->lines);
-        $this->assertSame(['4-38', '4-39', '4-40', '4-41', '4-42', '4-44/4-45', '4-48', '4-49'], $equations);
+        $this->assertSame(['4-38', '4-39', '4-40', '4-41', '4-42', '4-44/4-45', '4-48', '4-49', '§4.2', '§4.2', '§4.7'], $equations);
 
         $lines = [];
         foreach ($result->lines as $line) {

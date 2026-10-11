@@ -55,14 +55,14 @@ class ToroidalBellowsTest extends TestCase
 
         $this->assertSame([
             'hoop_tangent', 'hoop_collar', 'collar_bending', 'hoop_bellows', 'hoop_reinforcement',
-            'meridional', 'fatigue', 'squirm_column',
+            'meridional', 'fatigue', 'squirm_column', 'instability_axial',
         ], array_map(fn ($l) => $l->key, $result->lines));
         $this->assertSame(
-            ['S1', "S1'", "S1'+S1''", 'S2', "S2'", 'S3', 'Nc', 'Psc'],
+            ['S1', "S1'", "S1'+S1''", 'S2', "S2'", 'S3', 'Nc', 'Psc', 'ex'],
             array_map(fn ($l) => $l->symbol, $result->lines),
         );
         $this->assertSame(
-            ['4-51', '4-52', '4-53', '4-54', '4-55', '4-56', '4-59', '4-60'],
+            ['4-51', '4-52', '4-53', '4-54', '4-55', '4-56', '4-59', '4-60', '§4.7'],
             array_map(fn ($l) => $l->equation, $result->lines),
         );
 

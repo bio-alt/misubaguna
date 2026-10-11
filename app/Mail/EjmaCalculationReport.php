@@ -254,7 +254,12 @@ class EjmaCalculationReport extends Mailable
     private function lineRow(CheckLine $l): array
     {
         $isCycles = $l->key === 'fatigue' || $l->symbol === 'Nc';
-        $unit = $isCycles ? ' cycles' : ' psi';
+        // Movement-per-convolution lines (§4.2 ec/ee, §4.7 ex) are lengths.
+        $unit = match (true) {
+            $isCycles => ' cycles',
+            in_array($l->symbol, ['ec', 'ee', 'ex'], true) => ' in',
+            default => ' psi',
+        };
         $notEvaluated = $l->status === LineStatus::NotEvaluated;
 
         if ($notEvaluated && $l->value === null) {

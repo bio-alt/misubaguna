@@ -70,10 +70,9 @@ final class ToroidalBellows implements Checker
         // Eq. 4-61 at design temperature; reproduces benchmark fi = 15714.
         $fit = $Dm * $p->EbDt * $tp ** 3 * $n / (10.92 * $r ** 3) * $B3;
 
-        $Ctheta = AngularPressureFactor::Ctheta($c->y, $c->theta);
-        $phi = AngularPressureFactor::phi(BellowsType::Toroidal, $P, $N, $r, $fit);
-        $etheta = Movement::etheta($c->theta, $Dm, $N);
-        $Ktheta = AngularPressureFactor::Ktheta($etheta, $Ctheta, $g->q, $phi);
+        $apf = AngularPressureFactor::forAssembly(BellowsType::Toroidal, $c, $Dm, $N, $g->q, $r, $fit);
+        $Ctheta = $apf->Ctheta;
+        $Ktheta = $apf->Ktheta;
         $m = Movement::of($g, $c, $d, $Ktheta, $fit);
         $e = $m->e;
 
@@ -94,7 +93,8 @@ final class ToroidalBellows implements Checker
         $St = 3 * $S3 + $S5 + $S6;                                            // eq. 4-59 note
         $Nc = Fatigue::cycles($St, $p->fatigue);                              // eq. 4-59
 
-        $Psc = 0.15 * M_PI * $Ctheta * $fit / ($N ** 2 * $r);                 // eq. 4-60
+        // Eq. 4-60; N = total convolutions in both bellows for universal (note to 4-60).
+        $Psc = 0.15 * M_PI * $Ctheta * $fit / (self::totalConvolutions($g, $c) ** 2 * $r);
 
         $lines = [
             self::le('hoop_tangent', 'Tangent circumferential membrane stress (pressure)', '4-51', 'S1', $S1, $p->Cwb * $p->Sab, 'Cwb·Sab'),
@@ -106,6 +106,8 @@ final class ToroidalBellows implements Checker
             self::fatigueLine('4-59', $Nc, $c->requiredCycles),
             self::le('squirm_column', 'Column instability (squirm) pressure', '4-60', 'Psc', $P, $Psc, 'Psc'),
         ];
+        // No ec/ee limits: §4.2 states them for U-shaped convolutions (q − 2rm − nt, 6rm − q).
+        $lines = [...$lines, ...self::movementLimitLines($g, $c, $d, $m, false)];
 
         $values = [
             'S1' => $S1, 'S1p' => $S1p, 'S1pp' => $S1pp, 'S2' => $S2, 'S2p' => $S2p,
@@ -116,9 +118,10 @@ final class ToroidalBellows implements Checker
         }
         $values += [
             'Psc' => $Psc, 'fi' => $fit, 'B1' => $B1, 'B2' => $B2, 'B3' => $B3, 'x' => $x, 'e' => $e,
-            'Ctheta' => $Ctheta, 'Ktheta' => $Ktheta, 'phi' => $phi, 'fspring' => $fSpring, 'Fg' => $Fg,
+            'Ctheta' => $Ctheta, 'Ktheta' => $Ktheta, 'phi' => $apf->phi, 'fspring' => $fSpring, 'Fg' => $Fg,
+            'Ku' => $m->Ku,
         ];
 
-        return new CheckResult(BellowsType::Toroidal, $lines, $values);
+        return new CheckResult(BellowsType::Toroidal, $lines, $values, self::assemblyNotes($c));
     }
 }
