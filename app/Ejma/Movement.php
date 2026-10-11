@@ -36,6 +36,16 @@ final readonly class Movement
         public float $Kr,
     ) {}
 
+    /** Eq. 4-3: equivalent axial movement per convolution due to angular rotation, |θ|·Dm / (2N). */
+    public static function etheta(float $theta, float $Dm, int $N): float
+    {
+        if ($N <= 0) {
+            throw new EjmaInputException('N', 'Number of convolutions N must be at least 1.');
+        }
+
+        return abs($theta) * $Dm / (2 * $N);
+    }
+
     public static function of(BellowsGeometry $g, DesignConditions $c, Derived $d, float $Ktheta = 1.0): self
     {
         // Kθ is computed internally (§1.3 p019), so an out-of-range value is a programming error.
@@ -67,7 +77,7 @@ final readonly class Movement
             $eyExt = 2 * self::KU_SINGLE * $d->Dm * abs($c->y) / ($N * ($d->Lb + abs($c->xExt)));
         }
 
-        $etheta = abs($c->theta) * $d->Dm / (2 * $N);
+        $etheta = self::etheta($c->theta, $d->Dm, $N);
 
         // Eq. 4-8 (compression position, y and θ concurrent).
         $ec = max($ey + $etheta + $exComp, $etheta / $Ktheta + $exComp);

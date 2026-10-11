@@ -17,19 +17,37 @@ final readonly class CheckLine
         public ?float $limit,
         public string $limitExpression,
         public LineStatus $status,
-    ) {}
+        /** Checked quantity symbol, e.g. "S1", "S1'", "S3+S4", "Nc", "Psc". */
+        public string $symbol = '',
+        /** 'le': value ≤ limit; 'ge': value ≥ limit. */
+        public string $comparison = self::LE,
+    ) {
+        if ($comparison !== self::LE && $comparison !== self::GE) {
+            throw new \InvalidArgumentException("Unknown check comparison '$comparison'.");
+        }
+    }
 
-    /** (limit − value) / limit; null when either side is missing or the limit is zero. */
+    public const LE = 'le';
+
+    public const GE = 'ge';
+
+    /**
+     * Relative margin, positive when passing: (limit − value)/limit for 'le', (value − limit)/limit for 'ge'.
+     * Null when value or limit is missing or non-finite, or the limit is zero.
+     */
     public function margin(): ?float
     {
-        if ($this->value === null || $this->limit === null || $this->limit == 0.0) {
+        if ($this->value === null || $this->limit === null
+            || ! is_finite($this->value) || ! is_finite($this->limit) || $this->limit == 0.0) {
             return null;
         }
 
-        return ($this->limit - $this->value) / $this->limit;
+        $diff = $this->comparison === self::GE ? $this->value - $this->limit : $this->limit - $this->value;
+
+        return $diff / $this->limit;
     }
 
-    /** @return array{key: string, label: string, equation: string, value: float|string|null, limit: float|string|null, limit_expression: string, status: string} */
+    /** @return array{key: string, label: string, equation: string, value: float|string|null, limit: float|string|null, limit_expression: string, status: string, symbol: string, comparison: string} */
     public function toArray(): array
     {
         return [
@@ -40,6 +58,8 @@ final readonly class CheckLine
             'limit' => JsonFloat::encode($this->limit),
             'limit_expression' => $this->limitExpression,
             'status' => $this->status->value,
+            'symbol' => $this->symbol,
+            'comparison' => $this->comparison,
         ];
     }
 
@@ -54,6 +74,8 @@ final readonly class CheckLine
             limit: JsonFloat::decode($data['limit'] ?? null),
             limitExpression: (string) $data['limit_expression'],
             status: LineStatus::from($data['status']),
+            symbol: (string) ($data['symbol'] ?? ''),
+            comparison: (string) ($data['comparison'] ?? self::LE),
         );
     }
 }

@@ -11,7 +11,13 @@ final class UnreinforcedBellows implements Checker
     public function check(BellowsGeometry $g, DesignConditions $c, BellowsProperties $p): CheckResult
     {
         if ($c->P < 0) {
-            throw new EjmaInputException('P', 'Design pressure must not be negative.');
+            throw new EjmaInputException('design_pressure', 'Design pressure must not be negative.');
+        }
+        if ($g->w === null || $g->w <= 0) {
+            throw new EjmaInputException('w', 'Convolution height w must be given.');
+        }
+        if ($g->rm === null || $g->rm <= 0) {
+            throw new EjmaInputException('rm', 'Convolution mean radius rm must be given.');
         }
         if ($g->Lt === null || $g->Lt <= 0) {
             throw new EjmaInputException('Lt', 'Tangent length Lt must be greater than zero.');
@@ -41,7 +47,7 @@ final class UnreinforcedBellows implements Checker
 
         $Ctheta = AngularPressureFactor::Ctheta($c->y, $c->theta);
         $phi = AngularPressureFactor::phi(BellowsType::Unreinforced, $P, $g->N, $q, $fi);
-        $etheta = abs($c->theta) * $d->Dm / (2 * $g->N);
+        $etheta = Movement::etheta($c->theta, $d->Dm, $g->N);
         $Ktheta = AngularPressureFactor::Ktheta($etheta, $Ctheta, $q, $phi);
         $m = Movement::of($g, $c, $d, $Ktheta);
         $e = $m->e;
@@ -69,15 +75,15 @@ final class UnreinforcedBellows implements Checker
         $alpha = 1 + 2 * $delta ** 2 + sqrt(1 - 2 * $delta ** 2 + 4 * $delta ** 4);
         $Psi = 1.3 * $d->Ac * $p->Sy / ($m->Kr * $d->Dm * $q * sqrt($alpha));  // eq. 4-36
 
-        $lines = [self::le('hoop_tangent', 'Tangent circumferential membrane stress (pressure)', '4-27', $S1, $p->Cwb * $p->Sab, 'Cwb·Sab')];
+        $lines = [self::le('hoop_tangent', 'Tangent circumferential membrane stress (pressure)', '4-27', 'S1', $S1, $p->Cwb * $p->Sab, 'Cwb·Sab')];
         if ($hasCollar) {
-            $lines[] = self::le('hoop_collar', 'Collar circumferential membrane stress (pressure)', '4-28', $S1p, $p->Cwc * $p->Sac, 'Cwc·Sac');
+            $lines[] = self::le('hoop_collar', 'Collar circumferential membrane stress (pressure)', '4-28', "S1'", $S1p, $p->Cwc * $p->Sac, 'Cwc·Sac');
         }
-        $lines[] = self::le('hoop_bellows', 'Bellows circumferential membrane stress (pressure)', '4-29', $S2, $p->Cwb * $p->Sab, 'Cwb·Sab');
-        $lines[] = self::le('meridional', 'Meridional membrane + bending stress (pressure)', '4-30/4-31', $S3 + $S4, $p->Cm * $p->Sab, 'Cm·Sab');
+        $lines[] = self::le('hoop_bellows', 'Bellows circumferential membrane stress (pressure)', '4-29', 'S2', $S2, $p->Cwb * $p->Sab, 'Cwb·Sab');
+        $lines[] = self::le('meridional', 'Meridional membrane + bending stress (pressure)', '4-30/4-31', 'S3+S4', $S3 + $S4, $p->Cm * $p->Sab, 'Cm·Sab');
         $lines[] = self::fatigueLine($Nc, $c->requiredCycles);
-        $lines[] = self::le('squirm_column', 'Column instability (squirm) pressure', '4-35', $P, $Psc, 'Psc');
-        $lines[] = self::le('squirm_inplane', 'In-plane instability (squirm) pressure', '4-36', $P, $Psi, 'Psi');
+        $lines[] = self::le('squirm_column', 'Column instability (squirm) pressure', '4-35', 'Psc', $P, $Psc, 'Psc');
+        $lines[] = self::le('squirm_inplane', 'In-plane instability (squirm) pressure', '4-36', 'Psi', $P, $Psi, 'Psi');
 
         $values = ['S1' => $S1];
         if ($S1p !== null) {
@@ -98,9 +104,9 @@ final class UnreinforcedBellows implements Checker
     }
 
     /** value ≤ limit. */
-    private static function le(string $key, string $label, string $eq, float $value, float $limit, string $expr): CheckLine
+    private static function le(string $key, string $label, string $eq, string $symbol, float $value, float $limit, string $expr): CheckLine
     {
-        return new CheckLine($key, $label, $eq, $value, $limit, $expr, $value <= $limit ? LineStatus::Pass : LineStatus::Fail);
+        return new CheckLine($key, $label, $eq, $value, $limit, $expr, $value <= $limit ? LineStatus::Pass : LineStatus::Fail, $symbol);
     }
 
     /** Nc ≥ required cycles; not evaluated without fatigue constants or a required cycle count. */
@@ -112,6 +118,6 @@ final class UnreinforcedBellows implements Checker
             default => LineStatus::Fail,
         };
 
-        return new CheckLine('fatigue', 'Fatigue life', '4-34', $Nc, $required === null ? null : (float) $required, 'required cycles', $status);
+        return new CheckLine('fatigue', 'Fatigue life', '4-34', $Nc, $required === null ? null : (float) $required, 'required cycles', $status, 'Nc', CheckLine::GE);
     }
 }
