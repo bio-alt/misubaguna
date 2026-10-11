@@ -8,6 +8,8 @@ namespace App\Ejma;
  */
 final class UnreinforcedBellows implements Checker
 {
+    use BuildsCheckLines;
+
     public function check(BellowsGeometry $g, DesignConditions $c, BellowsProperties $p): CheckResult
     {
         if ($c->P < 0) {
@@ -81,7 +83,7 @@ final class UnreinforcedBellows implements Checker
         }
         $lines[] = self::le('hoop_bellows', 'Bellows circumferential membrane stress (pressure)', '4-29', 'S2', $S2, $p->Cwb * $p->Sab, 'Cwb·Sab');
         $lines[] = self::le('meridional', 'Meridional membrane + bending stress (pressure)', '4-30/4-31', 'S3+S4', $S3 + $S4, $p->Cm * $p->Sab, 'Cm·Sab');
-        $lines[] = self::fatigueLine($Nc, $c->requiredCycles);
+        $lines[] = self::fatigueLine('4-34', $Nc, $c->requiredCycles);
         $lines[] = self::le('squirm_column', 'Column instability (squirm) pressure', '4-35', 'Psc', $P, $Psc, 'Psc');
         $lines[] = self::le('squirm_inplane', 'In-plane instability (squirm) pressure', '4-36', 'Psi', $P, $Psi, 'Psi');
 
@@ -101,23 +103,5 @@ final class UnreinforcedBellows implements Checker
         ];
 
         return new CheckResult(BellowsType::Unreinforced, $lines, $values);
-    }
-
-    /** value ≤ limit. */
-    private static function le(string $key, string $label, string $eq, string $symbol, float $value, float $limit, string $expr): CheckLine
-    {
-        return new CheckLine($key, $label, $eq, $value, $limit, $expr, $value <= $limit ? LineStatus::Pass : LineStatus::Fail, $symbol);
-    }
-
-    /** Nc ≥ required cycles; not evaluated without fatigue constants or a required cycle count. */
-    private static function fatigueLine(?float $Nc, ?int $required): CheckLine
-    {
-        $status = match (true) {
-            $Nc === null, $required === null => LineStatus::NotEvaluated,
-            $Nc >= $required => LineStatus::Pass,
-            default => LineStatus::Fail,
-        };
-
-        return new CheckLine('fatigue', 'Fatigue life', '4-34', $Nc, $required === null ? null : (float) $required, 'required cycles', $status, 'Nc', CheckLine::GE);
     }
 }
