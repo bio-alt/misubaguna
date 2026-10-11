@@ -49,6 +49,7 @@ class ToolingConfigTest extends TestCase
         $this->assertLessThanOrEqual(5, $c['max_plies'], 'EJMA bellows have at most 5 plies');
         $this->assertIsInt($c['max_convolutions'] ?? null, 'max_convolutions');
         $this->assertGreaterThanOrEqual(1, $c['max_convolutions']);
+        $this->assertLessThanOrEqual(200, $c['max_convolutions']);
         $this->assertTrue(is_int($c['tangent_length_mm'] ?? null) || is_float($c['tangent_length_mm'] ?? null), 'tangent_length_mm');
         $this->assertGreaterThan(0, $c['tangent_length_mm']);
 
@@ -129,6 +130,14 @@ class ToolingConfigTest extends TestCase
         $bad = $c;
         $bad['max_convolutions'] = 0;
         $this->invalid($bad, 'max_convolutions');
+
+        // Capped so a typo cannot make a design search run for minutes.
+        $bad = $c;
+        $bad['max_convolutions'] = 201;
+        $this->invalid($bad, 'max_convolutions');
+        $ok = $c;
+        $ok['max_convolutions'] = 200;
+        $this->assertSame(200, (new Tooling($ok))->maxConvolutions());
 
         $bad = $c;
         $bad['tangent_length_mm'] = 0;

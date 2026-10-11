@@ -41,7 +41,7 @@ Edited by the company like `materials.php`, metric units:
 
 - `thicknesses_mm`: list of available sheet thicknesses (one ply).
 - `max_plies`: integer (e.g. 5; EJMA's bellows definition allows at most 5).
-- `max_convolutions`: integer per bellows.
+- `max_convolutions`: integer per bellows, 1 to 200 (capped so a typo cannot stall the search).
 - `tangent_length_mm`: default straight tangent Lt.
 - `profiles`: list of forming dies, each `{id, name, w_mm, q_mm, rm_mm, db_min_mm,
   db_max_mm}` (convolution height, pitch, mean radius, and the bellows inside-diameter

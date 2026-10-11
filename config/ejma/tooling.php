@@ -12,7 +12,7 @@
  *
  * - thicknesses_mm:    available sheet thicknesses (one ply), e.g. [0.3, 0.5, 0.8].
  * - max_plies:         most plies per bellows (1 to 5; EJMA bellows have at most 5).
- * - max_convolutions:  most convolutions per bellows.
+ * - max_convolutions:  most convolutions per bellows (1 to 200).
  * - tangent_length_mm: straight tangent length Lt used for every proposed design.
  * - profiles:          forming dies, each
  *                      ['id' => 'u36', 'name' => 'U-36 die', 'w_mm' => 36.6, 'q_mm' => 25.4,

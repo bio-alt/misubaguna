@@ -10,6 +10,9 @@ final class Tooling
     /** EJMA's bellows definition allows at most 5 plies. */
     private const PLY_LIMIT = 5;
 
+    /** Upper bound on max_convolutions, so a config typo cannot make a design search run for minutes. */
+    private const CONVOLUTION_LIMIT = 200;
+
     /** @var list<FormingProfile> */
     private array $profiles = [];
 
@@ -39,7 +42,7 @@ final class Tooling
         sort($this->thicknesses);
 
         $this->maxPlies = self::int($config, 'max_plies', 5, 1, self::PLY_LIMIT);
-        $this->maxConvolutions = self::int($config, 'max_convolutions', 30, 1, PHP_INT_MAX);
+        $this->maxConvolutions = self::int($config, 'max_convolutions', 30, 1, self::CONVOLUTION_LIMIT);
 
         $lt = $config['tangent_length_mm'] ?? 25.4;
         if (! self::positive($lt)) {
@@ -129,9 +132,7 @@ final class Tooling
     {
         $v = $config[$key] ?? $default;
         if (! is_int($v) || $v < $min || $v > $max) {
-            throw new \InvalidArgumentException($max === PHP_INT_MAX
-                ? sprintf('EJMA tooling "%s" must be an integer of at least %d.', $key, $min)
-                : sprintf('EJMA tooling "%s" must be an integer from %d to %d.', $key, $min, $max));
+            throw new \InvalidArgumentException(sprintf('EJMA tooling "%s" must be an integer from %d to %d.', $key, $min, $max));
         }
 
         return $v;
