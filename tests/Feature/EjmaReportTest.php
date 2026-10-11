@@ -99,7 +99,10 @@ class EjmaReportTest extends TestCase
         $this->assertStringContainsString('EJ-2026-0001', $html);
         $this->assertStringContainsString('Assumptions &amp; notes', $html);
         $this->assertStringContainsString('Preliminary calculation for quotation purposes, to be confirmed by PT Misuba Guna Indonesia engineering. Not a substitute for a certified design.', $html);
-        $this->assertStringStartsWith('%PDF', $mail->renderPdf());
+        $pdf = $mail->renderPdf();
+        $this->assertStringStartsWith('%PDF', $pdf);
+        // Font subsetting keeps the attachment small (the full DejaVu fonts made it ~870 KB).
+        $this->assertLessThan(300_000, strlen($pdf));
     }
 
     public function test_mail_failure_still_shows_result(): void

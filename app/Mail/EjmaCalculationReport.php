@@ -121,7 +121,8 @@ class EjmaCalculationReport extends Mailable
 
     public function renderPdf(): string
     {
-        return Pdf::loadHTML($this->pdfHtml())->setPaper('a4')->output();
+        // Subsetting embeds only the DejaVu glyphs used, keeping the attachment small.
+        return Pdf::loadHTML($this->pdfHtml())->setPaper('a4')->setOption('isFontSubsettingEnabled', true)->output();
     }
 
     /** @return array<string, mixed> */
