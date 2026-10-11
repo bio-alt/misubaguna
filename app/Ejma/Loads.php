@@ -40,7 +40,9 @@ final class Loads
             'Ksr' => $fi / $g->N,
             'thrust' => $thrust,
             // Theoretical-rate force at the larger axial position: fi·ex = (fi/N)·x for a single
-            // bellows (Phase 1), fi·x/(2N) for two bellows in series, 0 when axial is restrained.
+            // bellows (Phase 1), fi·x/(2N) for two bellows in series, 0 for hinged and gimbal (axial
+            // restrained by the hardware). Tied universal: x is the growth between the tie-rod plates,
+            // so the force is not 0; it is carried by the tie rods (anchor Fa = 0).
             'spring_force' => $fi * $ex,
             'fw' => $fw,
             // Per-bellows movements (in) for the report: larger axial position, compression-position lateral, eθ.

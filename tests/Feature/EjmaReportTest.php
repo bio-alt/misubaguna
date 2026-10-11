@@ -164,6 +164,7 @@ class EjmaReportTest extends TestCase
         $this->assertStringContainsString('Number of tie rods', $html);
         $this->assertStringContainsString('Length Lu', $html);
         $this->assertStringContainsString('per tie rod', $html);
+        $this->assertStringContainsString('Spring force at maximum axial movement (carried by the tie rods)', $html);
         $this->assertStringContainsString(number_format($v['hardware_per_component'], 0).' lbf', $html);
         $this->assertStringContainsString(number_format($v['hardware_per_component'] * 4.4482216152605, 0).' N', $html);
         $this->assertStringContainsString('Ku', $html);
@@ -180,6 +181,7 @@ class EjmaReportTest extends TestCase
 
         $this->assertStringContainsString('Unreinforced bellows &middot;', (new EjmaCalculationReport($single))->render());
         $this->assertStringContainsString('<td>Unreinforced</td>', (new EjmaCalculationReport($single))->pdfHtml());
+        $this->assertStringNotContainsString('carried by the tie rods', (new EjmaCalculationReport($single))->pdfHtml());
         $this->assertStringContainsString('Unreinforced bellows, tied universal assembly', (new EjmaCalculationReport($tied))->render());
         $this->assertStringContainsString('<td>Unreinforced, tied universal</td>', (new EjmaCalculationReport($tied))->pdfHtml());
     }

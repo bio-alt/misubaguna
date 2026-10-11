@@ -236,7 +236,7 @@ class EjmaCalculationReport extends Mailable
         foreach ([
             'Ksr' => ['Spring rate per convolution-set Ksr'.($assembly->isUniversal() ? ', per bellows' : ''), 'lbf/in', fn ($v) => [Units::lbfToN($v) / 25.4, 'N/mm']],
             'thrust' => ['Pressure thrust', 'lbf', fn ($v) => [Units::lbfToN($v), 'N']],
-            'spring_force' => ['Spring force at maximum axial movement', 'lbf', fn ($v) => [Units::lbfToN($v), 'N']],
+            'spring_force' => ['Spring force at maximum axial movement'.($assembly === AssemblyType::TiedUniversal ? ' (carried by the tie rods)' : ''), 'lbf', fn ($v) => [Units::lbfToN($v), 'N']],
             'Fg' => ['Force per fastener Fg', 'lbf', fn ($v) => [Units::lbfToN($v), 'N']],
         ] as $k => [$label, $unit, $conv]) {
             if (isset($values[$k])) {

@@ -93,7 +93,7 @@ final class EjmaCalculator
         return match ($type) {
             AssemblyType::Single => 'forces and moments per eqs. 4-14 to 4-17, lateral shear at the compressed length Lb − x.',
             AssemblyType::Universal => 'forces and moments per eqs. 4-14 to 4-16 and 4-18, lateral shear at the compressed length Lu − x.',
-            AssemblyType::TiedUniversal => 'anchor axial force is 0 (the tie rods carry fw·ex and the pressure thrust); lateral moment and shear per eqs. 4-15 and 4-18 over Lu.',
+            AssemblyType::TiedUniversal => 'anchor axial force is 0 (the tie rods carry fw·ex and the pressure thrust); lateral moment per eq. 4-15; lateral shear per eq. 4-18 with the span Lu (the tie rods hold the overall length).',
             AssemblyType::Hinged, AssemblyType::Gimbal => 'angular rotation only: moment per eq. 4-16; no axial force, lateral moment or lateral shear.',
         };
     }
