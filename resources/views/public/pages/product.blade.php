@@ -23,17 +23,19 @@
 
     // Long text lives in tabs so it never pushes the buying zone down.
     $panels = array_filter([
-        'description' => ['title' => 'Description', 'html' => $narrative],
-        'features' => ['title' => 'Features', 'items' => count($features) > count($benefits) ? $features : []],
-        'applications' => ['title' => 'Applications', 'items' => $applications],
-        'materials' => ['title' => 'Materials', 'items' => $materials],
+        'description' => ['title' => __('Description'), 'html' => $narrative],
+        'features' => ['title' => __('Features'), 'items' => count($features) > count($benefits) ? $features : []],
+        'applications' => ['title' => __('Applications'), 'items' => $applications],
+        'materials' => ['title' => __('Materials'), 'items' => $materials],
     ], fn ($panel) => ! empty($panel['html']) || ! empty($panel['items']));
 
     $hasFacts = count($facts) > 0 || count($benefits) > 0;
     $kicker = $product->product_subgroup ?: $product->product_group;
     $waUrl = \App\Support\ProductContent::whatsappUrl($name);
     $catalogPdf = \App\Support\ProductContent::CATALOG_PDF;
-    $quoteChecklist = \App\Support\ProductContent::quoteChecklist($product->slug, $product->product_group);
+    $quoteChecklist = $quoteChecklist ?? \App\Support\ProductContent::quoteChecklist($product->slug, $product->product_group);
+    $alsoKnownAs = $alsoKnownAs ?? [];
+    $languageLink = $languageLink ?? null;
     $isHub = \App\Support\CouplingCatalog::isHub($product->slug);
     $isCoupling = $isHub || \App\Support\CouplingCatalog::family($product->slug) !== null;
 @endphp
@@ -57,6 +59,7 @@
                 @if($product->summary)
                     <p class="pc-lede">{{ $product->summary }}</p>
                 @endif
+                @include('public.partials.product-aka')
                 <div class="pc-head-actions">
                     @include('public.partials.quote-actions', ['subject' => $name])
                 </div>
@@ -75,15 +78,15 @@
         </nav>
 
         <div class="pd">
-            <figure class="pd-gallery {{ count($gallery) > 1 ? 'pd-gallery--multi' : '' }}" data-gallery tabindex="{{ count($gallery) > 1 ? '0' : '-1' }}" aria-label="Product photos">
+            <figure class="pd-gallery {{ count($gallery) > 1 ? 'pd-gallery--multi' : '' }}" data-gallery tabindex="{{ count($gallery) > 1 ? '0' : '-1' }}" aria-label="{{ __('Product photos') }}">
                 @if(count($gallery) > 0)
                     <div class="pd-stage">
                         <img id="pd-main" src="{{ asset($gallery[0]) }}" alt="{{ $name }}" {!! \App\Support\PublicSeo::imgSize($gallery[0]) !!} fetchpriority="high">
                         @if(count($gallery) > 1)
-                            <button type="button" class="pd-nav pd-nav--prev" data-prev aria-label="Previous photo">
+                            <button type="button" class="pd-nav pd-nav--prev" data-prev aria-label="{{ __('Previous photo') }}">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
                             </button>
-                            <button type="button" class="pd-nav pd-nav--next" data-next aria-label="Next photo">
+                            <button type="button" class="pd-nav pd-nav--next" data-next aria-label="{{ __('Next photo') }}">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
                             </button>
                             <span class="pd-count" aria-live="polite"><span data-count>1</span> / {{ count($gallery) }}</span>
@@ -93,7 +96,7 @@
                         <ul class="pd-thumbs">
                             @foreach($gallery as $i => $img)
                                 <li>
-                                    <button type="button" class="pd-thumb" data-src="{{ asset($img) }}" aria-label="Show photo {{ $i + 1 }} of {{ count($gallery) }}" aria-current="{{ $i === 0 ? 'true' : 'false' }}">
+                                    <button type="button" class="pd-thumb" data-src="{{ asset($img) }}" aria-label="{{ __('Show photo :n of :total', ['n' => $i + 1, 'total' => count($gallery)]) }}" aria-current="{{ $i === 0 ? 'true' : 'false' }}">
                                         <img src="{{ asset($img) }}" alt="" loading="lazy" {!! \App\Support\PublicSeo::imgSize($img) !!}>
                                     </button>
                                 </li>
@@ -102,7 +105,7 @@
                     @endif
                 @else
                     <div class="pd-stage pd-stage--empty">
-                        @include('public.partials.plate', ['label' => 'Photo available on request'])
+                        @include('public.partials.plate', ['label' => __('Photo available on request')])
                     </div>
                 @endif
             </figure>
@@ -115,11 +118,12 @@
                 @if($product->summary)
                     <p class="pd-summary">{{ $product->summary }}</p>
                 @endif
+                @include('public.partials.product-aka')
             </div>
 
-            <aside class="pd-rail" aria-label="Key facts and quote">
+            <aside class="pd-rail" aria-label="{{ __('Key facts and quote') }}">
                 @if(count($benefits) > 0)
-                    <ul class="pd-why" aria-label="Why this product">
+                    <ul class="pd-why" aria-label="{{ __('Why this product') }}">
                         @foreach($benefits as $benefit)
                             <li>{{ $benefit }}</li>
                         @endforeach
@@ -127,7 +131,7 @@
                 @endif
 
                 @if(count($facts) > 0)
-                    <dl class="pd-facts" aria-label="Key facts">
+                    <dl class="pd-facts" aria-label="{{ __('Key facts') }}">
                         @foreach($facts as $fact)
                             <div>
                                 <dt>{{ $fact['label'] }}</dt>
@@ -139,7 +143,7 @@
 
                 @if(! $hasFacts)
                     <section class="pd-need">
-                        <h2>To quote your {{ $name }}, tell us</h2>
+                        <h2>{{ __('To quote your :name, tell us', ['name' => $name]) }}</h2>
                         <ul>
                             @foreach($quoteChecklist as $item)
                                 <li>{{ $item }}</li>
@@ -156,7 +160,7 @@
                         <li>
                             <a href="{{ $catalogPdf }}" download>
                                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>
-                                Download company catalog (PDF)
+                                {{ __('Download company catalog (PDF)') }}
                             </a>
                         </li>
                     </ul>
@@ -167,7 +171,7 @@
                 <div class="pd-body">
                     @if(count($specRows) > 0)
                         <section class="pd-section" aria-labelledby="pd-spec-title">
-                            <h2 class="ds-h2" id="pd-spec-title">Specifications</h2>
+                            <h2 class="ds-h2" id="pd-spec-title">{{ __('Specifications') }}</h2>
                             <dl class="pd-sheet">
                                 @foreach($specRows as $row)
                                     @if($row['label'])
@@ -187,9 +191,9 @@
                     @endif
 
                     @if(count($panels) > 0)
-                        <section class="pd-section pd-detail" data-tabs aria-label="Product details">
+                        <section class="pd-section pd-detail" data-tabs aria-label="{{ __('Product details') }}">
                             @if(count($panels) > 1)
-                                <div class="pd-tabs" role="tablist" aria-label="Product details" hidden>
+                                <div class="pd-tabs" role="tablist" aria-label="{{ __('Product details') }}" hidden>
                                     @foreach($panels as $key => $panel)
                                         <button type="button" class="pd-tab" role="tab" id="pd-tab-{{ $key }}" aria-controls="pd-panel-{{ $key }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}" tabindex="{{ $loop->first ? '0' : '-1' }}">{{ $panel['title'] }}</button>
                                     @endforeach
@@ -222,7 +226,7 @@
 
         @if(! empty($faq))
             <section class="pd-faq" aria-labelledby="pd-faq-title">
-                <h2 class="ds-h2" id="pd-faq-title">{{ $name }}: common questions</h2>
+                <h2 class="ds-h2" id="pd-faq-title">{{ __(':name: common questions', ['name' => $name]) }}</h2>
                 @foreach($faq as $item)
                     <details @if($loop->first) open @endif>
                         <summary>{{ $item['q'] }}</summary>
@@ -235,7 +239,7 @@
         @if($related->isNotEmpty() && ! $isHub)
             <section class="pd-related" aria-labelledby="pd-related-title">
                 <div class="pd-related-head">
-                    <h2 class="ds-h2" id="pd-related-title">More in {{ $product->product_group }}</h2>
+                    <h2 class="ds-h2" id="pd-related-title">{{ __('More in :group', ['group' => __($product->product_group)]) }}</h2>
                     @if($category)
                         <a href="/product-category/{{ $category->slug }}/">See all {{ $categoryCount }} {{ \Illuminate\Support\Str::plural('product', $categoryCount) }}</a>
                     @endif
@@ -253,8 +257,8 @@
         <div class="ds-wrap">
             <div class="ds-band-in">
                 <div>
-                    <h2 id="pd-band-title">Need a price, sizing or a drawing for {{ $name }}?</h2>
-                    <p>Send your operating conditions and quantity. Our sales team will check the details and quote.</p>
+                    <h2 id="pd-band-title">{{ __('Need a price, sizing or a drawing for :name?', ['name' => $name]) }}</h2>
+                    <p>{{ __('Send your operating conditions and quantity. Our sales team will check the details and quote.') }}</p>
                 </div>
                 @include('public.partials.quote-actions', ['subject' => $name])
             </div>
@@ -262,7 +266,7 @@
     </section>
 
     <div class="ds-bar">
-        <a href="/contact-us/" class="ds-btn">Request a quote</a>
+        <a href="/contact-us/" class="ds-btn">{{ __('Request a quote') }}</a>
         <a href="{{ $waUrl }}" class="ds-btn ds-btn--line" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
             WhatsApp

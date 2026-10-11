@@ -257,6 +257,11 @@ body:has(.ds) { padding-bottom: 0; }
 .pd-prose thead th { color: var(--ds-ink); font-weight: 600; }
 
 /* --- Related products --- */
+/* Other search names and the language switch, under the product summary */
+.pd-aka { margin: 8px 0 0; font-size: 0.8125rem; line-height: 1.5; color: var(--ds-muted); }
+.pd-lang { margin: 6px 0 0; font-size: 0.8125rem; }
+.pd-lang a { font-weight: 600; color: var(--ds-accent); }
+
 /* Common questions: plain text answers, also published as FAQPage data */
 .pd-faq { margin-top: 48px; padding-top: 28px; border-top: 1px solid var(--ds-line); max-width: 860px; }
 .pd-faq details { border-bottom: 1px solid var(--ds-line); }

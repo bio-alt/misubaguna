@@ -24,7 +24,9 @@ class ProductContent
 
     public static function whatsappUrl(string $subject): string
     {
-        $message = 'Hello PT Misuba Guna Indonesia, I would like to inquire about ' . $subject . '.';
+        $message = app()->getLocale() === 'id'
+            ? 'Halo PT Misuba Guna Indonesia, saya ingin menanyakan ' . $subject . '.'
+            : 'Hello PT Misuba Guna Indonesia, I would like to inquire about ' . $subject . '.';
 
         return 'https://wa.me/' . self::WHATSAPP_NUMBER . '?text=' . rawurlencode($message);
     }

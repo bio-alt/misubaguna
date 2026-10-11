@@ -327,21 +327,21 @@ class PublicSeo
 
         $applications = array_values(array_filter((array) $product->applications));
         if (! empty($applications)) {
-            $faq[] = ['q' => "Where is {$name} used?", 'a' => implode('; ', array_slice($applications, 0, 8)) . '.'];
+            $faq[] = ['q' => __('Where is :name used?', ['name' => $name]), 'a' => implode('; ', array_slice($applications, 0, 8)) . '.'];
         }
 
         $materials = array_values(array_filter((array) $product->materials));
         if (! empty($materials)) {
-            $faq[] = ['q' => "What materials are available for {$name}?", 'a' => implode('; ', array_slice($materials, 0, 8)) . '.'];
+            $faq[] = ['q' => __('What materials are available for :name?', ['name' => $name]), 'a' => implode('; ', array_slice($materials, 0, 8)) . '.'];
         }
 
         if (! empty($quoteChecklist)) {
-            $faq[] = ['q' => "What do you need to quote {$name}?", 'a' => implode('; ', $quoteChecklist) . '.'];
+            $faq[] = ['q' => __('What do you need to quote :name?', ['name' => $name]), 'a' => implode('; ', $quoteChecklist) . '.'];
         }
 
         $faq[] = [
-            'q' => "Who supplies {$name} in Indonesia?",
-            'a' => "PT Misuba Guna Indonesia supplies {$name} to industrial plants across Indonesia from its base in Tangerang, Banten. Send your operating conditions and quantity to sales@misubaguna.com or WhatsApp +62 811-8715-671 for a quotation.",
+            'q' => __('Who supplies :name in Indonesia?', ['name' => $name]),
+            'a' => __('PT Misuba Guna Indonesia supplies :name to industrial plants across Indonesia from its base in Tangerang, Banten. Send your operating conditions and quantity to sales@misubaguna.com or WhatsApp +62 811-8715-671 for a quotation.', ['name' => $name]),
         ];
 
         return $faq;

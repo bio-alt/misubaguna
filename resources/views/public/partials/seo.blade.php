@@ -24,6 +24,9 @@
         $ogImageSize = [1200, 630];
     }
     $ogType = $seo['og_type'] ?? 'website';
+    $ogLocale = $seo['og_locale'] ?? (app()->getLocale() === 'id' ? 'id_ID' : 'en_US');
+    // Pages with a version in the other language: ['en' => path, 'id' => path].
+    $alternates = $seo['alternates'] ?? [];
 
     $robotsIndex = (bool)($seo['robots_index'] ?? $seo->robots_index ?? true);
     $robotsFollow = (bool)($seo['robots_follow'] ?? $seo->robots_follow ?? true);
@@ -35,6 +38,12 @@
 <meta name="description" content="{{ $seoDescription }}">
 @endif
 <link rel="canonical" href="{{ $canonicalUrl }}">
+@foreach($alternates as $altLang => $altPath)
+<link rel="alternate" hreflang="{{ $altLang }}" href="{{ \App\Support\PublicSeo::canonicalUrl($altPath) }}">
+@endforeach
+@if(isset($alternates['en']))
+<link rel="alternate" hreflang="x-default" href="{{ \App\Support\PublicSeo::canonicalUrl($alternates['en']) }}">
+@endif
 <meta name="robots" content="{{ $robotsIndex ? 'index' : 'noindex' }}, {{ $robotsFollow ? 'follow' : 'nofollow' }}, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 
 <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
@@ -51,7 +60,12 @@
 <meta property="og:image:height" content="{{ $ogImageSize[1] }}">
 @endif
 <meta property="og:image:alt" content="{{ $ogTitle }}">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="{{ $ogLocale }}">
+@foreach($alternates as $altLang => $altPath)
+@if($altLang !== app()->getLocale())
+<meta property="og:locale:alternate" content="{{ $altLang === 'id' ? 'id_ID' : 'en_US' }}">
+@endif
+@endforeach
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">

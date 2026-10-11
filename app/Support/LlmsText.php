@@ -52,6 +52,7 @@ class LlmsText
             $out .= self::link($service->name, $service->url_path ?: '/services/' . $service->slug . '/', $service->summary);
         }
 
+        $out .= self::indonesianSection();
         $out .= self::staticSections();
         $out .= self::link('Full LLM Knowledge File', '/llms-full.txt', 'Every product with specifications, materials and applications, plus full service scopes.');
 
@@ -135,6 +136,25 @@ Prices, stock and lead times are quoted per enquiry; none are published on the w
 
 
 TXT;
+    }
+
+    private static function indonesianSection(): string
+    {
+        $pages = IndonesianPages::products();
+        if ($pages->isEmpty()) {
+            return '';
+        }
+
+        $out = "
+## Halaman Bahasa Indonesia (Indonesian-language pages)
+";
+        $out .= self::link('Produk Industri', IndonesianPages::PREFIX . '/', 'Daftar produk dalam Bahasa Indonesia.');
+        foreach ($pages as $product) {
+            $c = IndonesianPages::content($product->slug);
+            $out .= self::link($c['name'], IndonesianPages::url($product->slug), $c['summary'] ?? null);
+        }
+
+        return $out;
     }
 
     private static function staticSections(): string

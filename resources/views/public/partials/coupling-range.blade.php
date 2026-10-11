@@ -1,6 +1,7 @@
 {{-- Coupling hub: the ten families. Family page: its series, then every family for quick switching. Pass `slug`. --}}
 @php
     $isHub = \App\Support\CouplingCatalog::isHub($slug);
+    $familyTiles = $familyTiles ?? [];
     $families = \App\Support\CouplingCatalog::families();
     $family = $isHub ? null : \App\Support\CouplingCatalog::family($slug);
     $quoteUrl = fn (string $subject) => '/contact-us/?' . http_build_query([
@@ -12,8 +13,8 @@
 @if($isHub)
     <section class="cr" aria-labelledby="cr-title">
         <div class="cr-head">
-            <h2 class="ds-h2" id="cr-title">Coupling families</h2>
-            <p>{{ count($families) }} families, {{ \App\Support\CouplingCatalog::seriesCount() }} series</p>
+            <h2 class="ds-h2" id="cr-title">{{ __('Coupling families') }}</h2>
+            <p>{{ __(':families families, :series series', ['families' => count($families), 'series' => \App\Support\CouplingCatalog::seriesCount()]) }}</p>
         </div>
         <ul class="cr-grid">
             @foreach($families as $item)
@@ -21,13 +22,13 @@
                     <div class="cr-media"><img src="{{ asset($item['gallery'][0]) }}" alt="{{ $item['name'] }}" loading="lazy" {!! \App\Support\PublicSeo::imgSize($item['gallery'][0]) !!}></div>
                     <div class="cr-body">
                         <h3 class="cr-name"><a href="{{ $item['url'] }}">{{ $item['name'] }}</a></h3>
-                        <p class="cr-text">{{ $item['tile'] }}</p>
-                        <ul class="cr-codes" aria-label="Series">
+                        <p class="cr-text">{{ $familyTiles[$item['slug']] ?? $item['tile'] }}</p>
+                        <ul class="cr-codes" aria-label="{{ __('Series') }}">
                             @foreach($item['series'] as $series)
                                 <li>{{ $series['code'] }}</li>
                             @endforeach
                         </ul>
-                        <span class="cr-more" aria-hidden="true">{{ count($item['series']) }} series</span>
+                        <span class="cr-more" aria-hidden="true">{{ count($item['series']) }} {{ __('series') }}</span>
                     </div>
                 </li>
             @endforeach

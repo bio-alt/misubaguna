@@ -12,7 +12,7 @@
         @if($thumb)
             <img src="{{ asset($thumb) }}" alt="{{ $itemName }}" loading="lazy" {!! \App\Support\PublicSeo::imgSize($thumb) !!}>
         @else
-            @include('public.partials.plate', ['label' => 'Photo on request'])
+            @include('public.partials.plate', ['label' => __('Photo on request')])
         @endif
     </div>
     <div class="pc-body">
@@ -36,8 +36,8 @@
         @endif
 
         <div class="pc-foot">
-            <a class="pc-quote" href="/contact-us/">Request a quote<span class="ds-sr"> for {{ $itemName }}</span></a>
-            <span class="pc-view" aria-hidden="true">View details</span>
+            <a class="pc-quote" href="/contact-us/">{{ __('Request a quote') }}<span class="ds-sr"> {{ __('for') }} {{ $itemName }}</span></a>
+            <span class="pc-view" aria-hidden="true">{{ __('View details') }}</span>
         </div>
     </div>
 </li>

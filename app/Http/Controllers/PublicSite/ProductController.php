@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PublicSite\PublicProduct;
 use App\Models\PublicSite\PublicProductCategory;
 use App\Support\CouplingCatalog;
+use App\Support\IndonesianPages;
 use App\Support\ProductContent;
 use App\Support\PublicSeo;
 use Illuminate\Support\Facades\DB;
@@ -80,6 +81,12 @@ class ProductController extends Controller
             ], $family['series']));
         }
 
-        return view('public.pages.product', compact('product', 'seo', 'siteSettings', 'breadcrumbs', 'category', 'categoryCount', 'related', 'faq'));
+        $languageLink = null;
+        if (IndonesianPages::has($product->slug)) {
+            $seo['alternates'] = ['en' => $product->url_path ?: '/product/' . $product->slug . '/', 'id' => IndonesianPages::url($product->slug)];
+            $languageLink = ['url' => IndonesianPages::url($product->slug), 'label' => 'Baca dalam Bahasa Indonesia', 'lang' => 'id'];
+        }
+
+        return view('public.pages.product', compact('product', 'seo', 'siteSettings', 'breadcrumbs', 'category', 'categoryCount', 'related', 'faq', 'languageLink'));
     }
 }

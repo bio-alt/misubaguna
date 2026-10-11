@@ -28,6 +28,10 @@ use App\Http\Controllers\PublicSite\ToolkitController;
 use App\Models\PublicSite\PublicService;
 
 Route::get('/product/{slug}/', [ProductController::class, 'show'])->name('public.products.show');
+
+// Indonesian versions of the most-searched product pages (content: resources/content/id/products).
+Route::get('/id/', [\App\Http\Controllers\PublicSite\IndonesianProductController::class, 'index'])->name('public.id.index');
+Route::get('/id/product/{slug}/', [\App\Http\Controllers\PublicSite\IndonesianProductController::class, 'show'])->name('public.id.products.show');
 Route::get('/product-category/{slug}/', [ProductCategoryController::class, 'show'])->name('public.product-categories.show');
 
 Route::get('/services/', [ServiceController::class, 'index'])->name('public.services.index');
@@ -64,7 +68,9 @@ Route::get('/sitemap.xml', function () {
         'changefreq' => 'monthly',
     ])->values()->all();
 
-    return response()->view('public.sitemap', compact('pages', 'products', 'categories', 'services', 'toolkits'))
+    $idProducts = \App\Support\IndonesianPages::products();
+
+    return response()->view('public.sitemap', compact('pages', 'products', 'categories', 'services', 'toolkits', 'idProducts'))
         ->header('Content-Type', 'application/xml');
 })->name('public.sitemap');
 

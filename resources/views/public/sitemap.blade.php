@@ -53,4 +53,20 @@
 @endforeach
     </url>
 @endforeach
+@if(isset($idProducts) && $idProducts->isNotEmpty())
+    <url>
+        <loc>{{ \App\Support\PublicSeo::canonicalUrl('/id/') }}</loc>
+        <lastmod>{{ optional($idProducts->max('updated_at'))->format('Y-m-d') ?: date('Y-m-d') }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+@foreach($idProducts as $product)
+    <url>
+        <loc>{{ \App\Support\PublicSeo::canonicalUrl(\App\Support\IndonesianPages::url($product->slug)) }}</loc>
+        <lastmod>{{ date('Y-m-d', max(optional($product->updated_at)->timestamp ?? 0, @filemtime(resource_path('content/id/products/' . $product->slug . '.php')) ?: 0) ?: time()) }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+@endforeach
+@endif
 </urlset>
