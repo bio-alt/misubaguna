@@ -15,6 +15,7 @@ final class Loads
 {
     /**
      * Phase 1 keys Ksr (lbf/in), thrust (lbf), spring_force (lbf), plus fw (lbf/in per convolution),
+     * per-bellows movements ex, ey, etheta (in),
      * Fa, V_lateral (lbf), M_lateral, M_theta (in·lbf) and, for tied universal / hinged / gimbal,
      * hardware_total and hardware_per_component (lbf). Tied universal: anchor Fa = 0 and
      * tie_rod_axial = fw·ex (the bellows spring force carried by the tie rods).
@@ -42,6 +43,10 @@ final class Loads
             // bellows (Phase 1), fi·x/(2N) for two bellows in series, 0 when axial is restrained.
             'spring_force' => $fi * $ex,
             'fw' => $fw,
+            // Per-bellows movements (in) for the report: larger axial position, compression-position lateral, eθ.
+            'ex' => $ex,
+            'ey' => $m->ey,
+            'etheta' => $m->etheta,
             'Fa' => $tied ? 0.0 : self::axialForce($fw, $ex),
             'M_lateral' => self::lateralMoment($fw, $d->Dm, $m->ey),
             'M_theta' => self::angularMoment($fw, $d->Dm, $m->etheta),
