@@ -44,7 +44,7 @@ final class UnreinforcedBellows implements Checker
         $Cf = Coefficients::cf($T, $M);
         $Cd = Coefficients::cd($T, $M);
 
-        // Eq. 4-37 at design temperature (§1.3: E is at design temperature unless specified); reproduces benchmark fi = 12562.
+        // Eq. 4-37 at design temperature (§1.3: E is at design temperature unless specified); reproduces the benchmark fi.
         $fi = 1.7 * $d->Dm * $p->EbDt * $tp ** 3 * $n / ($w ** 3 * $Cf);
 
         $apf = AngularPressureFactor::forAssembly(BellowsType::Unreinforced, $c, $d->Dm, $g->N, $q, $q, $fi);
@@ -53,7 +53,7 @@ final class UnreinforcedBellows implements Checker
         $m = Movement::of($g, $c, $d, $Ktheta, $fi);
         $e = $m->e;
 
-        // Eqs. 4-27/4-28 at design temperature; with no collar the modulus cancels (benchmark S1 = 6301 either way).
+        // Eqs. 4-27/4-28 at design temperature; with no collar the modulus cancels (the benchmark S1 is reproduced either way).
         $Eb = $p->EbDt;
         $collarTerm = $hasCollar ? $g->tc * $d->k * $p->EcDt * $g->Lc * $d->Dc : 0.0;
         $den = 2 * ($n * $t * $Eb * $g->Lt * ($Db + $n * $t) + $collarTerm);

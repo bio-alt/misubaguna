@@ -5,16 +5,16 @@ namespace App\Ejma;
 /**
  * Reinforced U-shaped bellows with integral reinforcing members (R = R1, no fasteners),
  * EJMA 9th Ed. §4.13.2 eqs. 4-38…4-50 (p093–p094), below the creep range.
- * Verified against §4.14 benchmark 3 (p097–p098).
+ * Verified against §4.14 benchmark 3 (p097–p098) by the private test suite (tests/Private).
  *
  * Angular rotation (benchmark 3: θ = 5°, y = 0):
- *   Cθ = 0.1157^θm (p018), θm = θ in radians                          → 0.8284
- *   φ  = PN²q / (0.3π·fir) (AngularPressureFactor: benchmark form, not p023's 0.675π) → 0.2766
- *   Kθ = eθCθ / (eθCθ + 0.15qφ) (p019), eθ = θDm/(2N) (eq. 4-3)         → 0.7352
- * giving e = 0.3767 (published 0.3756). With p023's 0.675π form e would be 0.3488, and the
- * published S1'', S5, S6, St, Nc are all reproduced only at e ≈ 0.3756.
- * Known deviation: eq. 4-49 gives Psc = 299.5 against the published 307 (~2.5 %); no reading
- * of θm, eθ, fir or fw reproduces 307, so the equation is kept as written (conservative).
+ *   Cθ = 0.1157^θm (p018), θm = θ in radians
+ *   φ  = PN²q / (0.3π·fir) (AngularPressureFactor: benchmark form, not p023's 0.675π)
+ *   Kθ = eθCθ / (eθCθ + 0.15qφ) (p019), eθ = θDm/(2N) (eq. 4-3)
+ * giving e within 0.3 % of the published value. With p023's 0.675π form e would be about 7 %
+ * low, and the published S1'', S5, S6, St, Nc are all reproduced only at the published e.
+ * Known deviation: eq. 4-49 gives a Psc about 2.5 % below the published value; no reading
+ * of θm, eθ, fir or fw reproduces it, so the equation is kept as written (conservative).
  */
 final class ReinforcedBellows implements Checker
 {
@@ -84,7 +84,7 @@ final class ReinforcedBellows implements Checker
         $Cf = Coefficients::cf($T, $M);
         $Cd = Coefficients::cd($T, $M);
 
-        // Eq. 4-50 at design temperature; reproduces benchmark fi = 24548.
+        // Eq. 4-50 at design temperature; reproduces the benchmark fi.
         $fir = 1.7 * $d->Dm * $p->EbDt * $tp ** 3 * $n / ($wr ** 3 * $Cf);
 
         $apf = AngularPressureFactor::forAssembly(BellowsType::Reinforced, $c, $d->Dm, $N, $q, $q, $fir);

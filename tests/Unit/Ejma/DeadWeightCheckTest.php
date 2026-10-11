@@ -12,11 +12,14 @@ use App\Ejma\ToroidalBellows;
 use App\Ejma\UnreinforcedBellows;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Tests\RequiresEjmaData;
 use Tests\Unit\Ejma\Fixtures\Benchmarks;
 
 /** §4.4 (p068), ruling P2-R6: St ≤ 1.5·Cm·Sab when the centre-spool dead weight is considered. */
 class DeadWeightCheckTest extends TestCase
 {
+    use RequiresEjmaData;
+
     /** @return array<string, array{array<string, mixed>, Checker}> */
     public static function checkers(): array
     {

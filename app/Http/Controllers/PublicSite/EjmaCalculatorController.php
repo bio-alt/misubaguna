@@ -5,10 +5,12 @@ namespace App\Http\Controllers\PublicSite;
 use App\Ejma\AssemblyType;
 use App\Ejma\BellowsType;
 use App\Ejma\CheckResult;
+use App\Ejma\Coefficients;
 use App\Ejma\Data\MaterialRepository;
 use App\Ejma\Data\Tooling;
 use App\Ejma\DesignSearch;
 use App\Ejma\EjmaCalculator;
+use App\Ejma\EjmaDataUnavailable;
 use App\Ejma\EjmaInputException;
 use App\Ejma\FormingCondition;
 use App\Ejma\FormingMethod;
@@ -70,10 +72,13 @@ class EjmaCalculatorController extends Controller
             ],
         ];
 
+        // Without the private EJMA data (e.g. a deploy straight from the public repository) the
+        // calculator cannot run: offer no materials, which shows the "being prepared" notice.
+        $engineAvailable = Coefficients::available();
         $materialOptions = [
-            'bellows' => $materials->availableFor('bellows'),
-            'collar' => $materials->availableFor('collar'),
-            'reinforcement' => $materials->availableFor('reinforcement'),
+            'bellows' => $engineAvailable ? $materials->availableFor('bellows') : [],
+            'collar' => $engineAvailable ? $materials->availableFor('collar') : [],
+            'reinforcement' => $engineAvailable ? $materials->availableFor('reinforcement') : [],
         ];
         // Bellows materials offered in check mode only (no unreinforced fatigue constants, ruling P3-R2).
         $designMaterialIds = array_map(fn ($m) => $m->id, EjmaCalculationRequest::designMaterials($materials));
@@ -81,7 +86,7 @@ class EjmaCalculatorController extends Controller
             array_map(fn ($m) => $m->id, $materialOptions['bellows']),
             $designMaterialIds,
         ));
-        $designAvailable = $tooling->isAvailable();
+        $designAvailable = $engineAvailable && $tooling->isAvailable();
         $units = EjmaCalculationRequest::UNITS;
         $quantities = EjmaCalculationRequest::QUANTITIES;
         $bellowsTypes = BellowsType::cases();
@@ -124,6 +129,13 @@ class EjmaCalculatorController extends Controller
         } catch (EjmaInputException $e) {
             throw ValidationException::withMessages($this->engineError($e, $request->bellowsType()))
                 ->redirectTo(self::FORM_URL);
+        } catch (EjmaDataUnavailable $e) {
+            // The request rejects submissions when the data is missing; this covers it vanishing mid-request.
+            report($e);
+
+            throw ValidationException::withMessages([
+                'calculation' => EjmaCalculationRequest::UNAVAILABLE_MESSAGE,
+            ])->redirectTo(self::FORM_URL);
         } catch (\InvalidArgumentException|\ArithmeticError $e) {
             // Not a visitor input problem (e.g. bad material data): log it, keep the form usable.
             report($e);

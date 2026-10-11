@@ -10,36 +10,26 @@ use App\Ejma\ReinforcedBellows;
 use App\Ejma\ToroidalBellows;
 use App\Ejma\UnreinforcedBellows;
 use PHPUnit\Framework\TestCase;
+use Tests\RequiresEjmaData;
 use Tests\Unit\Ejma\Fixtures\Benchmarks;
 
 /**
- * §4.14 benchmark 2 (universal unreinforced, p097–p098) and the assembly-aware
- * angular pressure factors Cθ, φ, Kθ (controller ruling P2-R2).
+ * Universal assemblies on the §4.14 benchmark 2 inputs (p097) and the assembly-aware
+ * angular pressure factors Cθ, φ, Kθ (controller ruling P2-R2). The published benchmark
+ * results are checked by the Private suite.
  */
 class UniversalBenchmarkTest extends TestCase
 {
-    use EjmaAssertions;
+    use RequiresEjmaData;
 
-    private const COEFFICIENTS = ['Cp', 'Cf', 'Cd'];
-
-    private const RATIOS = ['Kr', 'e'];
-
-    public function test_benchmark_2(): void
+    public function test_benchmark_2_assembly(): void
     {
         $b = Benchmarks::case2();
         $result = (new UnreinforcedBellows)->check($b['geometry'], $b['conditions'], $b['properties']);
 
         $this->assertSame(BellowsType::Unreinforced, $result->type);
-        foreach ($b['expected'] as $key => $expected) {
+        foreach (['S1', 'S1p', 'S2', 'S3', 'S4', 'S5', 'S6', 'St', 'Nc', 'Psc', 'Psi', 'fi', 'Cp', 'Cf', 'Cd', 'Kr', 'e'] as $key) {
             $this->assertArrayHasKey($key, $result->values, "value $key");
-            $actual = $result->values[$key];
-            if (in_array($key, self::COEFFICIENTS, true)) {
-                $this->assertCoefficient($expected, $actual, $key);
-            } elseif (in_array($key, self::RATIOS, true)) {
-                $this->assertRatio($expected, $actual, $key);
-            } else {
-                $this->assertEjmaValue($expected, $actual, $key);
-            }
         }
         // Figure 4.1 (p067), Lu = 36, Lb = 4.
         $this->assertEqualsWithDelta(3456 / 3088, $result->values['Ku'], 1e-12, 'Ku');

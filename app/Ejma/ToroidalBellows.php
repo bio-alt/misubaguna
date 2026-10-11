@@ -67,7 +67,7 @@ final class ToroidalBellows implements Checker
         $B2 = Coefficients::b2($x);
         $B3 = Coefficients::b3($x);
 
-        // Eq. 4-61 at design temperature; reproduces benchmark fi = 15714.
+        // Eq. 4-61 at design temperature; reproduces the benchmark fi.
         $fit = $Dm * $p->EbDt * $tp ** 3 * $n / (10.92 * $r ** 3) * $B3;
 
         $apf = AngularPressureFactor::forAssembly(BellowsType::Toroidal, $c, $Dm, $N, $g->q, $r, $fit);

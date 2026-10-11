@@ -23,9 +23,12 @@ use App\Ejma\FormingMethod;
 use App\Ejma\LineStatus;
 use App\Ejma\Verdict;
 use PHPUnit\Framework\TestCase;
+use Tests\RequiresEjmaData;
 
 class DesignSearchTest extends TestCase
 {
+    use RequiresEjmaData;
+
     private const IN = 25.4;
 
     /** Benchmark-1 convolution (EJMA §4.14 p097): w 1.44, q 1, rm 0.25 in. */

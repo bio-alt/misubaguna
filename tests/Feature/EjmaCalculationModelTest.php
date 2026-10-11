@@ -8,6 +8,7 @@ use App\Ejma\Verdict;
 use App\Models\EjmaCalculation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use Tests\EjmaData;
 use Tests\TestCase;
 use Tests\Unit\Ejma\Fixtures\Benchmarks;
 
@@ -59,6 +60,7 @@ class EjmaCalculationModelTest extends TestCase
 
     public function test_result_round_trips(): void
     {
+        EjmaData::requireOrSkip();
         $b = Benchmarks::case1();
         $result = (new UnreinforcedBellows)->check($b['geometry'], $b['conditions'], $b['properties']);
 

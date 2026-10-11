@@ -391,6 +391,7 @@
                 <a class="mega-link" href="{{ route('public.toolkit.flange-standards') }}">Flange Standards</a>
                 <a class="mega-link" href="{{ route('public.toolkit.calculator') }}">Scientific Calculator</a>
                 <a class="mega-link" href="{{ route('public.toolkit.material-specs') }}">Material Specs Library</a>
+                <a class="mega-link" href="{{ route('public.toolkit.ejma-calculator') }}">EJMA Bellows Calculator</a>
             </div>
             <div>
                 <span class="mega-col-title">Documentation</span>
@@ -614,6 +615,7 @@
                     <a class="mob-cat-link" href="{{ route('public.toolkit.flange-standards') }}">Flange Standards</a>
                     <a class="mob-cat-link" href="{{ route('public.toolkit.calculator') }}">Scientific Calculator</a>
                     <a class="mob-cat-link" href="{{ route('public.toolkit.material-specs') }}">Material Specs Library</a>
+                    <a class="mob-cat-link" href="{{ route('public.toolkit.ejma-calculator') }}">EJMA Bellows Calculator</a>
                 </div>
 
                 <button class="mob-cat-btn" data-panel="mc-docs" type="button">

@@ -10,11 +10,13 @@ use App\Models\EjmaCalculation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\RequiresEjmaData;
 use Tests\TestCase;
 
 class EjmaAssemblyFormTest extends TestCase
 {
     use RefreshDatabase;
+    use RequiresEjmaData;
 
     private const URL = '/toolkit/ejma-bellows-calculator/';
 

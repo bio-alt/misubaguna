@@ -17,11 +17,14 @@ use App\Ejma\ToroidalBellows;
 use App\Ejma\UnreinforcedBellows;
 use App\Ejma\Verdict;
 use PHPUnit\Framework\TestCase;
+use Tests\RequiresEjmaData;
 use Tests\Unit\Ejma\Fixtures\Benchmarks;
 
 /** Movement limits §4.2 (p066) and axial instability §4.7 (p073). */
 class MovementLimitChecksTest extends TestCase
 {
+    use RequiresEjmaData;
+
     /** @return array<string, CheckLine> */
     private static function lines(CheckResult $r): array
     {

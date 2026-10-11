@@ -10,33 +10,23 @@ use App\Ejma\EjmaInputException;
 use App\Ejma\LineStatus;
 use App\Ejma\ToroidalBellows;
 use PHPUnit\Framework\TestCase;
+use Tests\RequiresEjmaData;
 use Tests\Unit\Ejma\Fixtures\Benchmarks;
 
-/** EJMA 9th Ed. §4.14 benchmark 4 (single toroidal, p097–p098). */
+/** Toroidal bellows on the EJMA 9th Ed. §4.14 benchmark 4 inputs (p097); published results: Private suite. */
 class ToroidalBellowsTest extends TestCase
 {
-    use EjmaAssertions;
+    use RequiresEjmaData;
 
-    private const COEFFICIENTS = ['B1', 'B2', 'B3'];
-
-    private const RATIOS = ['e'];
-
-    public function test_benchmark_4(): void
+    public function test_benchmark_4_identities(): void
     {
         $b = Benchmarks::case4();
         $result = (new ToroidalBellows)->check($b['geometry'], $b['conditions'], $b['properties']);
         $v = $result->values;
 
         $this->assertSame(BellowsType::Toroidal, $result->type);
-        foreach ($b['expected'] as $key => $expected) {
+        foreach (['S1', 'S1p', 'S1pp', 'S2', 'S2p', 'S3', 'S5', 'S6', 'St', 'Nc', 'Psc', 'fi', 'B1', 'B2', 'B3', 'e'] as $key) {
             $this->assertArrayHasKey($key, $v, "value $key");
-            if (in_array($key, self::COEFFICIENTS, true)) {
-                $this->assertCoefficient($expected, $v[$key], $key);
-            } elseif (in_array($key, self::RATIOS, true)) {
-                $this->assertRatio($expected, $v[$key], $key);
-            } else {
-                $this->assertEjmaValue($expected, $v[$key], $key);
-            }
         }
 
         // St = 3S3 + S5 + S6 (eq. 4-59 note).
@@ -87,7 +77,7 @@ class ToroidalBellowsTest extends TestCase
         foreach ($result->lines as $line) {
             $this->assertNotSame(LineStatus::NotEvaluated, $line->status, $line->key);
         }
-        // Benchmark 4 has collar bending 10407 + 12975 = 23382 ≤ 30000 → passes.
+        // Benchmark 4 collar bending S1' + S1'' stays below 1.5·Sac → passes.
         $this->assertSame(LineStatus::Pass, $lines['collar_bending']->status);
     }
 
@@ -97,7 +87,7 @@ class ToroidalBellowsTest extends TestCase
         $withFw = (new ToroidalBellows)->check($b['geometry'], $b['conditions'], $b['properties']);
         $noFw = (new ToroidalBellows)->check($this->geometry(['fw' => null]), $b['conditions'], $b['properties']);
 
-        $this->assertEqualsWithDelta(15714, $withFw->values['fspring'], 1e-9);
+        $this->assertEqualsWithDelta($b['geometry']->fw, $withFw->values['fspring'], 1e-9);
         $this->assertEqualsWithDelta($noFw->values['fi'], $noFw->values['fspring'], 1e-9);
     }
 
@@ -107,10 +97,11 @@ class ToroidalBellowsTest extends TestCase
         $c = $b['conditions'];
         $rotated = new DesignConditions($c->P, $c->xComp, $c->xExt, 0, deg2rad(2), null);
         $v = (new ToroidalBellows)->check($b['geometry'], $rotated, $b['properties'])->values;
+        $straight = (new ToroidalBellows)->check($b['geometry'], $c, $b['properties'])->values;
 
         $this->assertLessThan(1.0, $v['Ctheta']);
-        $this->assertLessThan(1851, $v['Psc']);
-        $this->assertGreaterThan(0.375, $v['e']);
+        $this->assertLessThan($straight['Psc'], $v['Psc']);
+        $this->assertGreaterThan($straight['e'], $v['e']);
         // φ = PN²r/(0.15π fit) (AngularPressureFactor, ruling R7).
         $this->assertEqualsWithDelta(500 * 4 * 1 / (0.15 * M_PI * $v['fi']), $v['phi'], 1e-9);
     }

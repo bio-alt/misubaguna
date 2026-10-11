@@ -72,8 +72,8 @@ final readonly class AngularPressureFactor
      * 0.764π fiu / 0.675π fir / 0.338π fit, i.e. 2.25× the column-squirm limiting pressure
      * of eqs. 4-35 / 4-49 / 4-60 without Cθ (2.25 = critical/limiting ratio, §4.12.1.6 p089).
      * The only benchmark that exercises Kθ (§4.14 benchmark 3, p098: θ = 5°, y = 0) is
-     * reproduced only with φ = P / limiting pressure without Cθ: e = 0.3767 vs published 0.3756,
-     * against e = 0.3488 with the p023 form. That form gives a smaller Kθ, a larger e, higher
+     * reproduced only with φ = P / limiting pressure without Cθ (e within 0.3 % of the published
+     * value, against about 7 % low with the p023 form). That form gives a smaller Kθ, a larger e, higher
      * deflection stresses and lower fatigue life, so it is deliberately adopted (conservative)
      * for all three bellows types: PN²q/(0.34π fiu), PN²q/(0.3π fir), PN²r/(0.15π fit).
      *

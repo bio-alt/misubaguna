@@ -31,3 +31,8 @@ misubaguna-deploy.zip
 deploy-temp/
 
 /database/database.sqlite
+# Copyrighted EJMA Standard data and the tests/docs that quote it: kept locally and copied
+# to the server by hand, never committed (the repository is public).
+/resources/ejma-private/
+/tests/Private/*
+!/tests/Private/README.md
