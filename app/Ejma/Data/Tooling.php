@@ -79,7 +79,8 @@ final class Tooling
 
             $this->profiles[] = new FormingProfile(
                 id: $id,
-                name: $p['name'] ?? $id,
+                // A missing or blank (whitespace-only) name falls back to the id.
+                name: trim($p['name'] ?? '') !== '' ? $p['name'] : $id,
                 wIn: Units::mmToIn((float) $p['w_mm']),
                 qIn: Units::mmToIn((float) $p['q_mm']),
                 rmIn: Units::mmToIn((float) $p['rm_mm']),

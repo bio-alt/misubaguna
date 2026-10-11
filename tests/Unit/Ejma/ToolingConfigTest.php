@@ -99,6 +99,19 @@ class ToolingConfigTest extends TestCase
         $this->assertCount(1, $tooling->profilesFor(700 / 25.4), 'upper bound is inclusive');
     }
 
+    public function test_a_missing_or_blank_profile_name_falls_back_to_the_id(): void
+    {
+        foreach ([null, '', "  \t "] as $name) {
+            $c = self::valid();
+            if ($name === null) {
+                unset($c['profiles'][0]['name']);
+            } else {
+                $c['profiles'][0]['name'] = $name;
+            }
+            $this->assertSame('u36', (new Tooling($c))->profilesFor(24.0)[0]->name, var_export($name, true));
+        }
+    }
+
     public function test_invalid_entries_are_named(): void
     {
         $c = self::valid();
