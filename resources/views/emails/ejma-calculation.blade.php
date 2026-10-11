@@ -25,6 +25,23 @@
         @endforeach
     </table>
 
+    @if ($design && $design['found'])
+        <h3>Proposed design</h3>
+        <p style="margin-top: 0;">{{ $design['best']['profile'] }}; candidates evaluated: {{ $design['evaluated'] }}. Alternatives are listed in the attached PDF.</p>
+        <table cellpadding="4" style="border-collapse: collapse;">
+            <tr><td>Convolution height w</td><td>{{ $design['best']['w']['metric'] }} ({{ $design['best']['w']['us'] }})</td></tr>
+            <tr><td>Convolution pitch q</td><td>{{ $design['best']['q']['metric'] }} ({{ $design['best']['q']['us'] }})</td></tr>
+            <tr><td>Mean radius rm</td><td>{{ $design['best']['rm']['metric'] }} ({{ $design['best']['rm']['us'] }})</td></tr>
+            <tr><td>Ply thickness t</td><td>{{ $design['best']['t']['metric'] }} ({{ $design['best']['t']['us'] }})</td></tr>
+            <tr><td>Plies / convolutions per bellows</td><td>{{ $design['best']['plies'] }} / {{ $design['best']['convolutions'] }}</td></tr>
+            <tr><td>Tangent length Lt</td><td>{{ $design['best']['Lt']['metric'] }} ({{ $design['best']['Lt']['us'] }})</td></tr>
+        </table>
+    @elseif ($design)
+        <h3>No passing design</h3>
+        <p style="margin-top: 0;">Candidates evaluated: {{ $design['evaluated'] }}.@if ($design['closest']) Closest candidate: {{ $design['closest']['profile'] }}, t = {{ $design['closest']['t']['metric'] }}, {{ $design['closest']['plies'] }}, {{ $design['closest']['convolutions'] }}@if ($design['governing']); governing check {{ $design['governing']['symbol'] }} &ndash; {{ $design['governing']['label'] }} (EJMA {{ $design['governing']['equation'] }})@endif.@endif</p>
+    @endif
+
+    @if (count($lines))
     <h3>Checks</h3>
     <table cellpadding="5" style="border-collapse: collapse; width: 100%;" border="1" bordercolor="#cbd5e1">
         <tr style="background: #f1f5f9; text-align: left;">
@@ -40,6 +57,7 @@
             </tr>
         @endforeach
     </table>
+    @endif
 
     @if (count($notes))
         <h3>Assumptions &amp; notes</h3>

@@ -104,6 +104,8 @@ class EjmaCalculatorController extends Controller
             return redirect()->to(self::FORM_URL);
         }
 
+        $this->guardCalculationAllowance($request->ip());
+
         $design = null;
         try {
             if ($request->isDesign()) {
@@ -117,6 +119,8 @@ class EjmaCalculatorController extends Controller
                 $verdict = $result->verdict();
             }
             $results = $result->toArray();
+            // Stored JSON must agree with the row: a design Review has an empty result that computes some other verdict.
+            $results['verdict'] = $verdict->value;
         } catch (EjmaInputException $e) {
             throw ValidationException::withMessages($this->engineError($e, $request->bellowsType()))
                 ->redirectTo(self::FORM_URL);
@@ -129,7 +133,7 @@ class EjmaCalculatorController extends Controller
             ])->redirectTo(self::FORM_URL);
         }
 
-        $this->consumeCalculationAllowance($request->ip());
+        RateLimiter::hit(self::limiterKey($request->ip()), 3600);
 
         $attributes = [
             'bellows_type' => $result->type->value,
@@ -162,20 +166,22 @@ class EjmaCalculatorController extends Controller
     }
 
     /**
-     * Only successful calculations count towards the hourly limit, so visitors fixing
-     * validation errors are never locked out. The route throttle is just a flood backstop.
+     * Only successful calculations count towards the hourly limit (hit() runs after success), so visitors
+     * fixing validation errors are never locked out. The limit is checked before the engine or search runs.
+     * The route throttle is just a flood backstop.
      */
-    private function consumeCalculationAllowance(?string $ip): void
+    private function guardCalculationAllowance(?string $ip): void
     {
-        $key = 'ejma-calc:'.$ip;
-
-        if (RateLimiter::tooManyAttempts($key, self::CALCULATIONS_PER_HOUR)) {
+        if (RateLimiter::tooManyAttempts(self::limiterKey($ip), self::CALCULATIONS_PER_HOUR)) {
             throw ValidationException::withMessages([
                 'calculation' => 'You have reached the limit of '.self::CALCULATIONS_PER_HOUR.' calculations per hour. Please try again later or contact us.',
             ])->redirectTo(self::FORM_URL);
         }
+    }
 
-        RateLimiter::hit($key, 3600);
+    private static function limiterKey(?string $ip): string
+    {
+        return 'ejma-calc:'.$ip;
     }
 
     private function persist(array $attributes): EjmaCalculation

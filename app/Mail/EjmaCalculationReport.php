@@ -116,6 +116,12 @@ class EjmaCalculationReport extends Mailable
         $db = rtrim(rtrim(number_format((float) ($c->inputs['metric']['Db'] ?? 0), 1, '.', ''), '0'), '.');
         $assembly = $this->assemblyType();
         $label = $assembly === AssemblyType::Single ? '' : strtolower($assembly->label()).' ';
+        if ($c->isDesign()) {
+            // The row verdict is the only verdict source (ruling P3-R3).
+            $suffix = $assembly === AssemblyType::Single ? '' : ' '.strtolower($assembly->label());
+
+            return "EJMA design {$c->reference} — {$c->contact['company']} — {$db} mm{$suffix} — ".strtoupper($c->verdict);
+        }
         $subject = "EJMA calc {$c->reference} — {$c->contact['company']} — {$db} mm {$label}{$c->bellows_type} — ".strtoupper($c->verdict);
         $failure = $c->result()->firstFailure();
 
@@ -248,7 +254,8 @@ class EjmaCalculationReport extends Mailable
         return [
             'calculation' => $c,
             'contact' => $c->contact,
-            'verdictLabel' => $c->verdictEnum()->label(),
+            'verdictLabel' => $c->isDesign() ? $c->verdictEnum()->designLabel() : $c->verdictEnum()->label(),
+            'design' => $c->isDesign() ? $this->designSection($c->design ?? []) : null,
             'verdict' => strtoupper($c->verdict),
             'date' => $c->created_at?->format('d M Y') ?? now()->format('d M Y'),
             'inputRows' => $rows,
@@ -263,6 +270,47 @@ class EjmaCalculationReport extends Mailable
             'assembly' => $this->assemblySection($assembly, $values),
             'lines' => $lines,
             'notes' => $result->notes,
+        ];
+    }
+
+    /**
+     * Design-mode section (spec §5): the proposed design and alternatives, or the request outcome
+     * with the closest failing candidate. Lengths in mm and in.
+     *
+     * @param  array<string, mixed>  $d  DesignResult::toArray()
+     * @return array<string, mixed>
+     */
+    private function designSection(array $d): array
+    {
+        $len = fn (float $in) => ['us' => self::sig($in).' in', 'metric' => self::sig(Units::inToMm($in)).' mm'];
+        $candidate = function (?array $c) use ($len) {
+            if ($c === null) {
+                return null;
+            }
+            $g = $c['geometry'] ?? [];
+
+            return [
+                'profile' => $c['profile']['name'],
+                'w' => $len((float) $c['profile']['w']),
+                'q' => $len((float) $c['profile']['q']),
+                'rm' => $len((float) $c['profile']['rm']),
+                't' => $len((float) $c['t']),
+                'plies' => $c['n'].($c['n'] === 1 ? ' ply' : ' plies'),
+                'convolutions' => $c['N'].($c['N'] === 1 ? ' convolution' : ' convolutions'),
+                'Lt' => $len((float) ($g['Lt'] ?? 0)),
+            ];
+        };
+        $governing = isset($d['closest_failing']['governing'])
+            ? $this->lineRow(CheckLine::fromArray($d['closest_failing']['governing']))
+            : null;
+
+        return [
+            'found' => ($d['best'] ?? null) !== null,
+            'best' => $candidate($d['best'] ?? null),
+            'alternatives' => array_map($candidate, $d['alternatives'] ?? []),
+            'evaluated' => (int) ($d['evaluated'] ?? 0),
+            'closest' => $candidate($d['closest_failing'] ?? null),
+            'governing' => $governing,
         ];
     }
 

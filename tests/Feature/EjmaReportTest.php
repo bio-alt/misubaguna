@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Ejma\Data\MaterialRepository;
+use App\Ejma\Data\Tooling;
+use App\Ejma\DesignSearch;
 use App\Ejma\EjmaCalculator;
 use App\Mail\EjmaCalculationReport;
 use App\Models\EjmaCalculation;
@@ -273,5 +275,112 @@ class EjmaReportTest extends TestCase
         $this->assertNotNull(EjmaCalculation::first()->emailed_at);
 
         $this->artisan('ejma:resend EJ-2026-9999')->assertExitCode(1);
+    }
+
+    private function useTooling(array $overrides = []): void
+    {
+        config(['ejma.tooling' => $overrides + [
+            'thicknesses_mm' => [0.762], 'max_plies' => 3, 'max_convolutions' => 20, 'tangent_length_mm' => 25.4,
+            'profiles' => [['id' => 'bm1', 'name' => 'Benchmark die', 'w_mm' => 36.576, 'q_mm' => 25.4, 'rm_mm' => 6.35, 'db_min_mm' => 500, 'db_max_mm' => 700]],
+        ]]);
+        foreach ([Tooling::class, DesignSearch::class] as $class) {
+            $this->app->forgetInstance($class);
+        }
+    }
+
+    private function designRow(array $postOverrides = [], array $tooling = []): EjmaCalculation
+    {
+        Mail::fake();
+        $this->useTooling($tooling);
+        $payload = $this->payload($postOverrides + ['mode' => 'design', 'assembly_type' => 'single']);
+        foreach (['bellows_type', 'w', 't', 'n', 'N', 'q', 'rm', 'Lt', 'Cwc', 'Cwr'] as $field) {
+            unset($payload[$field]);
+        }
+        $this->post(self::URL, $payload)->assertSessionHasNoErrors();
+
+        return EjmaCalculation::firstOrFail();
+    }
+
+    public function test_design_pass_subject_pdf_and_email(): void
+    {
+        $row = $this->designRow();
+        $this->assertSame('pass', $row->verdict);
+        $mail = new EjmaCalculationReport($row);
+
+        $this->assertSame('EJMA design EJ-2026-0001 — PT Industri Nusantara — 609.6 mm — PASS', $mail->subjectLine());
+
+        $html = $mail->pdfHtml();
+        $best = $row->design['best'];
+        $this->assertStringContainsString('Proposed design', $html);
+        $this->assertStringContainsString('Alternatives', $html);
+        $this->assertStringContainsString('Benchmark die', $html);
+        $this->assertStringContainsString('36.58 mm', $html);
+        $this->assertStringContainsString($best['N'].' convolutions', $html);
+        $this->assertLessThan(strpos($html, '4. EJMA checks'), strpos($html, 'Proposed design'));
+        $this->assertLessThan(strpos($html, '1. Inputs and materials'), strpos($html, 'Proposed design'));
+        $this->assertStringStartsWith('%PDF', $mail->renderPdf());
+
+        $email = $mail->render();
+        $this->assertStringContainsString('A suitable bellows design was found', $email);
+        $this->assertStringNotContainsString('Your design passes all EJMA checks', $email);
+        $this->assertStringContainsString('Benchmark die', $email);
+    }
+
+    public function test_design_subject_names_a_universal_assembly(): void
+    {
+        $row = $this->designRow(['assembly_type' => 'universal', 'Lu' => '1500']);
+        $subject = (new EjmaCalculationReport($row))->subjectLine();
+
+        $this->assertStringStartsWith('EJMA design EJ-2026-0001 — PT Industri Nusantara — 609.6 mm universal — ', $subject);
+    }
+
+    public function test_design_review_pdf_lists_the_closest_candidate_without_a_check_table(): void
+    {
+        $row = $this->designRow(['design_pressure' => '20'], ['max_plies' => 1, 'max_convolutions' => 4]);
+        $this->assertSame('review', $row->verdict);
+        $mail = new EjmaCalculationReport($row);
+
+        $this->assertSame('EJMA design EJ-2026-0001 — PT Industri Nusantara — 609.6 mm — REVIEW', $mail->subjectLine());
+
+        $html = $mail->pdfHtml();
+        $governing = $row->design['closest_failing']['governing'];
+        $this->assertStringContainsString('Candidates evaluated: '.$row->design['evaluated'], $html);
+        $this->assertStringContainsString('Closest candidate', $html);
+        $this->assertStringContainsString('Benchmark die', $html);
+        $this->assertStringContainsString($governing['label'], $html);
+        $this->assertStringContainsString($governing['equation'], $html);
+        $this->assertStringContainsString('Design pressure', $html);
+        $this->assertStringNotContainsString('4. EJMA checks', $html);
+        $this->assertStringNotContainsString('Proposed design', $html);
+        $this->assertStringContainsString('Preliminary calculation for quotation purposes', $html);
+        $this->assertStringStartsWith('%PDF', $mail->renderPdf());
+
+        $email = $mail->render();
+        $this->assertStringContainsString('Your conditions need a custom design by our engineers', $email);
+    }
+
+    public function test_row_verdict_drives_the_design_subject(): void
+    {
+        $row = $this->designRow(['design_pressure' => '20'], ['max_plies' => 1, 'max_convolutions' => 4]);
+        $row->forceFill(['verdict' => 'pass'])->save();
+
+        $this->assertStringEndsWith('— PASS', (new EjmaCalculationReport($row->fresh()))->subjectLine());
+    }
+
+    public function test_phase1_rows_without_mode_render_as_before(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload())->assertSessionHasNoErrors();
+        $row = EjmaCalculation::first();
+        $row->forceFill(['mode' => null, 'design' => null])->save();
+        $mail = new EjmaCalculationReport($row->fresh());
+
+        $this->assertStringStartsWith('EJMA calc EJ-2026-0001 — PT Industri Nusantara — 609.6 mm unreinforced — ', $mail->subjectLine());
+        $html = $mail->pdfHtml();
+        $this->assertStringNotContainsString('Proposed design', $html);
+        $this->assertStringContainsString('4. EJMA checks', $html);
+        $this->assertStringContainsString('1. Inputs and materials', $html);
+        $this->assertStringContainsString($row->verdictEnum()->label(), $mail->render());
+        $this->assertStringStartsWith('%PDF', $mail->renderPdf());
     }
 }

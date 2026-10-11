@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Ejma\Data\MaterialRepository;
 use App\Ejma\Data\Tooling;
+use App\Ejma\DesignRequest;
+use App\Ejma\DesignResult;
 use App\Ejma\DesignSearch;
 use App\Ejma\EjmaCalculator;
 use App\Ejma\Verdict;
@@ -133,7 +135,10 @@ class EjmaDesignModeTest extends TestCase
         $this->assertNull($row->inputs['materials']['collar']);
         $this->assertNull($row->inputs['materials']['reinforcement']);
 
+        $this->assertSame('pass', $row->results['verdict']);
         $s1 = collect($row->results['lines'])->firstWhere('symbol', 'S1')['value'];
+        $bestT = $row->design['best']['t'] * 25.4;
+        $bestN = (string) $row->design['best']['N'];
         $page = $this->followRedirects($response);
         $page->assertOk()
             ->assertSee('A suitable bellows design was found')
@@ -143,7 +148,10 @@ class EjmaDesignModeTest extends TestCase
             ->assertDontSee('Benchmark die')
             ->assertDontSee('bm1')
             ->assertDontSee(number_format($s1, 0, '.', ''))
-            ->assertDontSee(number_format($s1, 1, '.', ''));
+            ->assertDontSee(number_format($s1, 1, '.', ''))
+            ->assertDontSee(number_format($bestT, 3, '.', '').' mm')
+            ->assertDontSee('N = '.$bestN)
+            ->assertDontSee($bestN.' convolutions');
     }
 
     public function test_no_passing_design_is_stored_as_review_with_the_closest_candidate_note(): void
@@ -165,6 +173,7 @@ class EjmaDesignModeTest extends TestCase
         $this->assertSame('unreinforced', $row->results['type']);
         $this->assertCount(1, $row->results['notes']);
         $this->assertStringStartsWith('No tooling candidate passed all EJMA checks', $row->results['notes'][0]);
+        $this->assertSame('review', $row->results['verdict']);
 
         $this->followRedirects($response)->assertOk()
             ->assertSee('Your conditions need a custom design by our engineers')
@@ -309,6 +318,34 @@ class EjmaDesignModeTest extends TestCase
         $this->post(self::URL, $this->payload())
             ->assertSessionHasErrors('calculation')
             ->assertSessionHasInput('mode', 'design');
+        $this->assertDatabaseCount('ejma_calculations', 5);
+    }
+
+    public function test_over_limit_design_post_does_not_run_the_search(): void
+    {
+        $counter = new \ArrayObject(['calls' => 0]);
+        $this->app->singleton(DesignSearch::class, fn ($app) => new class($app->make(EjmaCalculator::class), $app->make(Tooling::class), $counter) extends DesignSearch
+        {
+            public function __construct(EjmaCalculator $calc, Tooling $tooling, private \ArrayObject $counter)
+            {
+                parent::__construct($calc, $tooling);
+            }
+
+            public function search(DesignRequest $r): DesignResult
+            {
+                $this->counter['calls']++;
+
+                return parent::search($r);
+            }
+        });
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->post(self::URL, $this->payload())->assertSessionHasNoErrors();
+        }
+        $this->assertSame(5, $counter['calls']);
+
+        $this->post(self::URL, $this->payload())->assertSessionHasErrors('calculation');
+        $this->assertSame(5, $counter['calls'], 'the search must not run once the hourly limit is reached');
         $this->assertDatabaseCount('ejma_calculations', 5);
     }
 

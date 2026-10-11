@@ -10,7 +10,7 @@ use App\Ejma\Data\Tooling;
  * unreinforced U-shaped bellows, without a reinforcing collar, that passes every EJMA check.
  * Every candidate is evaluated by EjmaCalculator::calculate; no physics is duplicated here.
  */
-final class DesignSearch
+class DesignSearch
 {
     /**
      * EjmaInputException fields that describe the request itself (material, temperature,
