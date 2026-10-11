@@ -89,9 +89,15 @@ class EjmaCalculatorPageTest extends TestCase
             ->assertSee('<loc>https://misubaguna.com/toolkit/ejma-bellows-calculator/</loc>', false);
     }
 
+    /** Materials config with no usable material (every table empty). */
     private function useShippedMaterials(): void
     {
-        config(['ejma.materials' => require base_path('config/ejma/materials.php')]);
+        $shipped = require base_path('config/ejma/materials.php');
+        foreach ($shipped['materials'] as &$m) {
+            $m['allowable_mpa'] = $m['modulus_gpa'] = $m['yield_mpa'] = [];
+        }
+        unset($m);
+        config(['ejma.materials' => $shipped]);
         $this->app->forgetInstance(MaterialRepository::class);
         $this->app->forgetInstance(EjmaCalculator::class);
     }

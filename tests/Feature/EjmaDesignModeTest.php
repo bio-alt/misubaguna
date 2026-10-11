@@ -270,7 +270,7 @@ class EjmaDesignModeTest extends TestCase
 
     public function test_design_mode_unavailable_without_tooling(): void
     {
-        $this->useTooling(require base_path('config/ejma/tooling.php'));
+        $this->useTooling(['thicknesses_mm' => [], 'profiles' => []] + require base_path('config/ejma/tooling.php'));
 
         $html = $this->get(self::URL)->assertOk()->getContent();
         $this->assertMatchesRegularExpression('#<input type="radio" name="mode" value="design"[^>]*disabled#', $html);
