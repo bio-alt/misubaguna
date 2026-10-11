@@ -662,10 +662,16 @@
         form.querySelectorAll('[data-units]').forEach(function (btn) {
             btn.addEventListener('click', function () { applyUnits(btn.getAttribute('data-units')); });
         });
+        var submitButton = form.querySelector('.ejma-submit button');
+        var submitLabel = submitButton.textContent;
         form.addEventListener('submit', function () {
-            var button = form.querySelector('.ejma-submit button');
-            button.disabled = true;
-            button.textContent = 'Checking...';
+            submitButton.disabled = true;
+            submitButton.textContent = 'Checking...';
+        });
+        // Back navigation can restore the page from the bfcache with the button still disabled.
+        window.addEventListener('pageshow', function () {
+            submitButton.disabled = false;
+            submitButton.textContent = submitLabel;
         });
 
         applyType();

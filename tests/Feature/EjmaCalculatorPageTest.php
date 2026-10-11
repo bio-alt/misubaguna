@@ -365,6 +365,13 @@ class EjmaCalculatorPageTest extends TestCase
         $this->assertDatabaseCount('ejma_calculations', 0);
     }
 
+    public function test_submit_button_is_re_enabled_on_pageshow(): void
+    {
+        $html = $this->get(self::URL)->assertOk()->getContent();
+
+        $this->assertMatchesRegularExpression("#addEventListener\('pageshow', function \(\) \{\s*submitButton\.disabled = false;#", $html);
+    }
+
     public function test_required_markers_and_hints_are_type_aware(): void
     {
         $html = $this->get(self::URL)->assertOk()->getContent();
