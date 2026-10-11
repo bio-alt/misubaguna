@@ -7,6 +7,7 @@ use App\Ejma\AssemblyType;
 use App\Ejma\BellowsGeometry;
 use App\Ejma\BellowsType;
 use App\Ejma\CalculationRequest;
+use App\Ejma\Coefficients;
 use App\Ejma\Data\Material;
 use App\Ejma\Data\MaterialRepository;
 use App\Ejma\Data\Tooling;
@@ -69,6 +70,9 @@ class EjmaCalculationRequest extends FormRequest
         'spool_weight' => 'force',
         'spool_angle' => 'angle',
     ];
+
+    /** Shown when the private EJMA data is not installed (the page then shows the "being prepared" notice). */
+    public const UNAVAILABLE_MESSAGE = 'The EJMA calculator is being prepared. Please contact us for bellows calculations in the meantime.';
 
     /** Unit labels per quantity: [metric, us]. */
     public const UNITS = [
@@ -206,7 +210,7 @@ class EjmaCalculationRequest extends FormRequest
 
         $rules = [
             'mode' => ['nullable', Rule::in(['check', 'design']), function (string $attribute, mixed $value, \Closure $fail) {
-                if ($value === 'design' && ! app(Tooling::class)->isAvailable()) {
+                if ($value === 'design' && Coefficients::available() && ! app(Tooling::class)->isAvailable()) {
                     $fail('Design it for me is not available yet. Please contact us for a custom design.');
                 }
             }],
@@ -292,6 +296,12 @@ class EjmaCalculationRequest extends FormRequest
     public function after(): array
     {
         return [
+            // Without the private EJMA data no calculation (check or design) can run.
+            function (Validator $validator) {
+                if (! Coefficients::available()) {
+                    $validator->errors()->add('calculation', self::UNAVAILABLE_MESSAGE);
+                }
+            },
             function (Validator $validator) {
                 if ($validator->errors()->isNotEmpty() || $this->isDesign()) {
                     return;
