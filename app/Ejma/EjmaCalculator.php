@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Ejma;
+
+use App\Ejma\Data\Material;
+use App\Ejma\Data\MaterialRepository;
+
+final class EjmaCalculator
+{
+    public function __construct(private readonly MaterialRepository $materials) {}
+
+    public function calculate(CalculationRequest $r): CheckResult
+    {
+        $type = $r->geometry->type;
+        $bellows = $this->material($r->bellowsMaterial, 'bellows_material', 'bellows');
+        $collar = $r->collarMaterial === null
+            ? null
+            : $this->material($r->collarMaterial, 'collar_material', 'collar');
+        $reinf = $type === BellowsType::Reinforced
+            ? $this->material((string) $r->reinforcementMaterial, 'reinforcement_material', 'reinforcement')
+            : null;
+
+        $tC = Units::fToC($r->designTempF);
+        foreach ([$bellows, $collar, $reinf] as $m) {
+            if ($m !== null && $m->creepLimitC !== null && $tC > $m->creepLimitC) {
+                throw new EjmaInputException('design_temperature', 'Design temperature is in the creep range; contact us for a creep-range design');
+            }
+        }
+
+        $derived = Derived::of($r->geometry, $r->conditions);
+        $props = PropertyResolver::resolve(
+            $bellows, $collar, $reinf, $r->condition, $r->method, $derived, $r->designTempF,
+            $r->overrides, $r->Cwb, $r->Cwc, $r->Cwr, $type,
+        );
+
+        $checker = match ($type) {
+            BellowsType::Unreinforced => new UnreinforcedBellows,
+            BellowsType::Reinforced => new ReinforcedBellows,
+            BellowsType::Toroidal => new ToroidalBellows,
+        };
+        $result = $checker->check($r->geometry, $r->conditions, $props);
+
+        $notes = [...$result->notes, 'Lateral and angular movements are assumed concurrent with axial compression (EJMA benchmark convention).'];
+        if ($derived->epsilonF === null && $r->condition === FormingCondition::AsFormed) {
+            $notes[] = 'Forming strain is not defined for toroidal bellows; Cm = 1.5 was used.';
+        }
+        $used = array_keys(array_filter($r->overrides, fn ($v) => $v !== null));
+        if ($used !== []) {
+            $notes[] = 'Overrides used: '.implode(', ', $used);
+        }
+
+        return new CheckResult(
+            $result->type,
+            $result->lines,
+            [...$result->values, ...Loads::of($r->geometry, $r->conditions, $derived, $result)],
+            $notes,
+        );
+    }
+
+    private function material(string $id, string $field, string $role): Material
+    {
+        $m = $this->materials->find($id);
+        if ($m === null || ! $m->hasData() || ! in_array($role, $m->roles, true)) {
+            throw new EjmaInputException($field, 'Selected material is not available');
+        }
+
+        return $m;
+    }
+}
