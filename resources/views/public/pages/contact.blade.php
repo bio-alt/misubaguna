@@ -246,6 +246,29 @@
         box-shadow: 0 6px 16px rgba(230, 126, 34, 0.35);
     }
 
+    .form-alert {
+        padding: 12px 14px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        margin-bottom: 18px;
+        line-height: 1.5;
+    }
+    .form-alert-success {
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        color: #065f46;
+    }
+    .form-alert-error {
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        border-left: 4px solid #0f172a;
+        color: #0f172a;
+    }
+    .submit-btn:disabled {
+        opacity: 0.7;
+        cursor: wait;
+    }
+
     /* Map Switcher Header & Full Width Map */
     .map-header {
         display: flex;
@@ -403,47 +426,66 @@
         </div>
 
         <!-- Technical Quote Request Form -->
-        <div class="contact-form-card">
+        <div class="contact-form-card" id="inquiry-form">
             <h2>Request a Quote</h2>
             <div class="form-subtitle">Fill out your inquiry details below and our sales team will get back to you promptly.</div>
 
-            <form action="#" method="POST" onsubmit="event.preventDefault(); handleContactSubmit();">
+            @if (session('contact_success'))
+                <div class="form-alert form-alert-success">Thank you! Your inquiry has been sent. Our team will get back to you shortly.</div>
+            @endif
+            @if (session('contact_error'))
+                <div class="form-alert form-alert-error">{{ session('contact_error') }}</div>
+            @endif
+            @if ($errors->any())
+                <div class="form-alert form-alert-error">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+
+            <form action="/contact-us/" method="POST" onsubmit="this.querySelector('.submit-btn').disabled = true; this.querySelector('.submit-btn').textContent = 'Sending...';">
+                @csrf
+                <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                    <label for="c_website">Leave this field empty</label>
+                    <input type="text" id="c_website" name="website" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="form-grid-2">
                     <div class="form-group">
                         <label for="c_name">Full Name *</label>
-                        <input type="text" id="c_name" class="form-control" placeholder="e.g. Budi Santoso" required>
+                        <input type="text" id="c_name" name="name" value="{{ old('name') }}" class="form-control" placeholder="e.g. Budi Santoso" required>
                     </div>
                     <div class="form-group">
                         <label for="c_company">Company / Organization *</label>
-                        <input type="text" id="c_company" class="form-control" placeholder="e.g. PT Industri Nusantara" required>
+                        <input type="text" id="c_company" name="company" value="{{ old('company') }}" class="form-control" placeholder="e.g. PT Industri Nusantara" required>
                     </div>
                 </div>
 
                 <div class="form-grid-2">
                     <div class="form-group">
                         <label for="c_email">Work Email Address *</label>
-                        <input type="email" id="c_email" class="form-control" placeholder="budi@company.co.id" required>
+                        <input type="email" id="c_email" name="email" value="{{ old('email') }}" class="form-control" placeholder="budi@company.co.id" required>
                     </div>
                     <div class="form-group">
                         <label for="c_phone">Phone / WhatsApp *</label>
-                        <input type="tel" id="c_phone" class="form-control" placeholder="0812-3456-7890" required>
+                        <input type="tel" id="c_phone" name="phone" value="{{ old('phone') }}" class="form-control" placeholder="0812-3456-7890" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="c_category">Product or Service Interest</label>
-                    <select id="c_category" class="form-control">
-                        <option value="Flexible Joint">Flexible Joint (Expansion Joints, Rubber Hoses, Metal Hoses)</option>
-                        <option value="Corrosion Protection">Corrosion Protection (PTFE/Rubber/Ceramic/FRP Linings & Coatings)</option>
-                        <option value="Sealing System">Sealing System (Gland Packing, Seals, Gaskets)</option>
-                        <option value="Engineering Service">Technical & Field Services (Cooling Tower, Valve, Pump Repair, Metal Spray)</option>
-                        <option value="General Inquiry">General Industrial Supply & Inquiry</option>
+                    <select id="c_category" name="category" class="form-control">
+                        <option value="Flexible Joint" @selected(old('category') === 'Flexible Joint')>Flexible Joint (Expansion Joints, Rubber Hoses, Metal Hoses)</option>
+                        <option value="Corrosion Protection" @selected(old('category') === 'Corrosion Protection')>Corrosion Protection (PTFE/Rubber/Ceramic/FRP Linings & Coatings)</option>
+                        <option value="Sealing System" @selected(old('category') === 'Sealing System')>Sealing System (Gland Packing, Seals, Gaskets)</option>
+                        <option value="Engineering Service" @selected(old('category') === 'Engineering Service')>Technical & Field Services (Cooling Tower, Valve, Pump Repair, Metal Spray)</option>
+                        <option value="General Inquiry" @selected(old('category') === 'General Inquiry')>General Industrial Supply & Inquiry</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="c_message">Operating Specifications & Message *</label>
-                    <textarea id="c_message" class="form-control" placeholder="Include line size (DN/NB), operating pressure/temperature, media type, and specific product requirements..." required></textarea>
+                    <textarea id="c_message" name="message" class="form-control" placeholder="Include line size (DN/NB), operating pressure/temperature, media type, and specific product requirements..." required>{{ old('message') }}</textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">Submit Inquiry</button>
@@ -475,19 +517,6 @@ function switchMap(loc, btn) {
     } else {
         iframe.src = 'https://maps.google.com/maps?q=Ruko+Mutiara+Karawaci+Tangerang&t=&z=15&ie=UTF8&iwloc=&output=embed';
     }
-}
-
-function handleContactSubmit() {
-    var name = document.getElementById('c_name').value;
-    var company = document.getElementById('c_company').value;
-    var category = document.getElementById('c_category').value;
-    var message = document.getElementById('c_message').value;
-
-    alert('Thank you ' + name + '! Your inquiry regarding ' + category + ' has been received. Our sales team will contact you shortly.');
-
-    var text = 'Hello PT Misuba Guna Indonesia, my name is ' + name + ' from ' + company + '. Inquiry regarding ' + category + ': ' + message;
-    var waUrl = 'https://wa.me/6281119253388?text=' + encodeURIComponent(text);
-    window.open(waUrl, '_blank');
 }
 </script>
 @endsection

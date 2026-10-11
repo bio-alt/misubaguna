@@ -5,7 +5,10 @@ namespace App\Http\Controllers\PublicSite;
 use App\Http\Controllers\Controller;
 use App\Models\PublicSite\PublicPage;
 use App\Support\PublicSeo;
+use App\Mail\ContactInquiry;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -36,5 +39,33 @@ class ContactController extends Controller
         ];
 
         return view('public.pages.contact', compact('page', 'seo', 'siteSettings', 'breadcrumbs'));
+    }
+
+    public function store(Request $request)
+    {
+        // Honeypot: bots fill the hidden "website" field, humans never see it.
+        if ($request->filled('website')) {
+            return redirect()->to('/contact-us/#inquiry-form')->with('contact_success', true);
+        }
+
+        $inquiry = $request->validate([
+            'name' => ['required', 'string', 'max:120'],
+            'company' => ['required', 'string', 'max:160'],
+            'email' => ['required', 'email', 'max:160'],
+            'phone' => ['required', 'string', 'max:40'],
+            'category' => ['required', 'string', 'max:80'],
+            'message' => ['required', 'string', 'max:5000'],
+        ]);
+
+        try {
+            Mail::to(config('mail.contact_to'))->send(new ContactInquiry($inquiry));
+        } catch (\Throwable $e) {
+            report($e);
+
+            return redirect()->to('/contact-us/#inquiry-form')->withInput()
+                ->with('contact_error', 'Sorry, your inquiry could not be sent right now. Please email marketing@misubaguna.com or contact us on WhatsApp.');
+        }
+
+        return redirect()->to('/contact-us/#inquiry-form')->with('contact_success', true);
     }
 }

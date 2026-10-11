@@ -18,6 +18,7 @@ Route::get('/', [HomeController::class, 'index'])->name('public.home');
 Route::get('/about-us/', [PageController::class, 'about'])->name('public.about');
 Route::get('/project-list/', [ProjectController::class, 'index'])->name('public.projects.index');
 Route::get('/contact-us/', [ContactController::class, 'index'])->name('public.contact');
+Route::post('/contact-us/', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('public.contact.store');
 Route::get('/career/', [CareerController::class, 'index'])->name('public.career');
 Route::get('/catalog/', [CatalogController::class, 'index'])->name('public.catalog');
 

@@ -13,6 +13,11 @@ class TrailingSlashMiddleware
             return $next($request);
         }
 
+        // Only redirect safe requests; a 301 on a POST turns it into a GET and drops the form data.
+        if (! $request->isMethod('GET') && ! $request->isMethod('HEAD')) {
+            return $next($request);
+        }
+
         $path = $request->getPathInfo();
         $query = $request->getQueryString();
 

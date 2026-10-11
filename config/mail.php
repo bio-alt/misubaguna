@@ -115,4 +115,10 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    | Recipient for website contact form inquiries.
+    */
+
+    'contact_to' => env('MAIL_CONTACT_TO', 'marketing@misubaguna.com'),
+
 ];

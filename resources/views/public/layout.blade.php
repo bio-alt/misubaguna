@@ -230,7 +230,9 @@
             padding: 4px; color: #6b7280;
         }
         .mob-close-btn svg { width: 22px; height: 22px; }
-        .mob-nav { flex: 1; padding: 0 20px; overflow-y: auto; }
+        /* public.css turns every <nav> into a centred, wrapping flex row; keep the drawer a plain stacked list */
+        .mob-nav { display: block; flex: 1; padding: 0 20px; overflow-y: auto; }
+        .mob-nav .mob-nav-link:hover { background: none; border-bottom-color: #f3f4f6; }
         .mob-nav-link {
             display: block; padding: 13px 0;
             font-size: 14px; font-weight: 700;
