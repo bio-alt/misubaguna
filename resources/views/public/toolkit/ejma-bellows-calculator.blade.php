@@ -389,6 +389,12 @@
         </section>
     @endif
 
+    @if (count($materialOptions['bellows']) === 0)
+    <section id="calculator-form" class="ejma-result is-review">
+        <p>The EJMA calculator is being prepared — our material data is being finalised. Please contact us for bellows calculations in the meantime.</p>
+        <a class="ejma-mail-btn" href="mailto:{{ $contactTo }}?subject=EJMA%20bellows%20calculation">Email us</a>
+    </section>
+    @else
     <form id="calculator-form" action="/toolkit/ejma-bellows-calculator/" method="POST" novalidate>
         @csrf
         <input type="hidden" name="units" id="ejma-units" value="{{ $unitSystem }}">
@@ -568,9 +574,6 @@
         {{-- 4. Materials & fabrication --}}
         <fieldset class="ejma-section">
             <h2><span class="ejma-step">4</span> Materials &amp; fabrication</h2>
-            @if (count($materialOptions['bellows']) === 0)
-                <p class="intro">Material data is being prepared by our engineers. Please contact us for a design check in the meantime.</p>
-            @endif
             <div class="ejma-grid">
                 {!! $renderSelect('bellows_material', 'Bellows material', true, $ALL, $materialList('bellows')) !!}
                 {!! $renderSelect('collar_material', 'Collar material', $T, $ALL, $materialList('collar'), [$U => 'Required when a collar is given']) !!}
@@ -617,6 +620,7 @@
             <p>Preliminary check for quotation purposes, confirmed by PT Misuba Guna Indonesia engineering. Not a substitute for a certified design.</p>
         </div>
     </form>
+    @endif
 </div>
 
 <script>

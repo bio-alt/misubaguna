@@ -89,6 +89,37 @@ class EjmaCalculatorPageTest extends TestCase
             ->assertSee('<loc>https://misubaguna.com/toolkit/ejma-bellows-calculator/</loc>', false);
     }
 
+    private function useShippedMaterials(): void
+    {
+        config(['ejma.materials' => require base_path('config/ejma/materials.php')]);
+        $this->app->forgetInstance(MaterialRepository::class);
+        $this->app->forgetInstance(EjmaCalculator::class);
+    }
+
+    public function test_without_usable_bellows_materials_a_notice_replaces_the_form(): void
+    {
+        $this->useShippedMaterials();
+
+        $this->get(self::URL)->assertOk()
+            ->assertSee('The EJMA calculator is being prepared')
+            ->assertSee('Please contact us for bellows calculations in the meantime.')
+            ->assertSee('href="mailto:marketing@misubaguna.com', false)
+            ->assertDontSee('<form id="calculator-form"', false)
+            ->assertDontSee('action="/toolkit/ejma-bellows-calculator/"', false)
+            ->assertDontSee('name="bellows_material"', false);
+    }
+
+    public function test_post_without_usable_materials_is_a_validation_error_not_500(): void
+    {
+        $this->useShippedMaterials();
+
+        $this->post(self::URL, $this->payload())
+            ->assertStatus(302)
+            ->assertSessionHasErrors('bellows_material');
+
+        $this->assertDatabaseCount('ejma_calculations', 0);
+    }
+
     public function test_only_materials_with_data_are_offered(): void
     {
         $this->get(self::URL)->assertOk()
