@@ -326,6 +326,19 @@ class EjmaReportTest extends TestCase
         $this->assertStringContainsString('Benchmark die', $email);
     }
 
+    public function test_subjects_collapse_whitespace_in_the_company_name(): void
+    {
+        $row = $this->designRow();
+        $row->contact = ['company' => "  PT\r\nX \t Co  "] + $row->contact;
+        $this->assertSame('EJMA design EJ-2026-0001 — PT X Co — 609.6 mm — PASS', (new EjmaCalculationReport($row))->subjectLine());
+
+        $row->mode = 'check';
+        $row->contact = ['company' => "PT\r\nX"] + $row->contact;
+        $subject = (new EjmaCalculationReport($row))->subjectLine();
+        $this->assertStringStartsWith('EJMA calc EJ-2026-0001 — PT X — 609.6 mm ', $subject);
+        $this->assertDoesNotMatchRegularExpression('/[\r\n]/', $subject);
+    }
+
     public function test_design_subject_names_a_universal_assembly(): void
     {
         $row = $this->designRow(['assembly_type' => 'universal', 'Lu' => '1500']);

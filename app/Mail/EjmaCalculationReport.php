@@ -116,13 +116,15 @@ class EjmaCalculationReport extends Mailable
         $db = rtrim(rtrim(number_format((float) ($c->inputs['metric']['Db'] ?? 0), 1, '.', ''), '0'), '.');
         $assembly = $this->assemblyType();
         $label = $assembly === AssemblyType::Single ? '' : strtolower($assembly->label()).' ';
+        // One line: any whitespace run (tabs, CR/LF) in the visitor's company name becomes one space.
+        $company = trim((string) preg_replace('/\s+/u', ' ', (string) $c->contact['company']));
         if ($c->isDesign()) {
             // The row verdict is the only verdict source (ruling P3-R3).
             $suffix = $assembly === AssemblyType::Single ? '' : ' '.strtolower($assembly->label());
 
-            return "EJMA design {$c->reference} — {$c->contact['company']} — {$db} mm{$suffix} — ".strtoupper($c->verdict);
+            return "EJMA design {$c->reference} — {$company} — {$db} mm{$suffix} — ".strtoupper($c->verdict);
         }
-        $subject = "EJMA calc {$c->reference} — {$c->contact['company']} — {$db} mm {$label}{$c->bellows_type} — ".strtoupper($c->verdict);
+        $subject = "EJMA calc {$c->reference} — {$company} — {$db} mm {$label}{$c->bellows_type} — ".strtoupper($c->verdict);
         $failure = $c->result()->firstFailure();
 
         return $failure ? $subject." ({$failure->label})" : $subject;
