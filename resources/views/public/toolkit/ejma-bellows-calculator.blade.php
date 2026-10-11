@@ -87,6 +87,16 @@
     $conditionLabels = ['annealed' => 'Annealed after forming', 'as_formed' => 'As-formed (not annealed)'];
     $methodLabels = ['mandrel_roll' => 'Expanding mandrel or roll forming', 'hydraulic' => 'Hydraulic, elastomeric or pneumatic forming'];
     $verdictStyles = ['pass' => 'is-pass', 'fail' => 'is-fail', 'review' => 'is-review'];
+
+    // "Design it for me" (Phase 3): only offered when the company tooling is configured.
+    $currentMode = old('mode') === 'design' && $designAvailable ? 'design' : 'check';
+    $modeLabels = [
+        'check' => ['Check my design', 'You enter the convolution geometry; we check it against EJMA'],
+        'design' => ['Design it for me', 'You enter the service conditions; we find a bellows from our tooling'],
+    ];
+    // Fields that only apply when checking a given design; design mode hides them (the server ignores them).
+    $checkOnlyFields = ['w', 'q', 't', 'n', 'N', 'Lt', 'rm', 'r', 'Dm', 'Dr', 'Ar', 'Ld', 'tc', 'Lc', 'Atc', 'Zc', 'ng',
+        'collar_material', 'reinforcement_material', 'Cwc', 'Cwr', 'fw'];
 @endphp
 
 @section('content')
@@ -303,6 +313,10 @@
     .ejma-choice input { margin-top: 3px; accent-color: #0d9488; }
     .ejma-choice strong { display: block; font-size: 14px; color: #0f172a; }
     .ejma-choice span { display: block; font-size: 12px; color: #64748b; margin-top: 2px; }
+    .ejma-choice label.is-disabled { cursor: not-allowed; opacity: 0.65; background: #f1f5f9; }
+    .ejma-choice .ejma-mode-note { color: #0f172a; font-weight: 600; }
+    .ejma-choice .ejma-mode-note a { color: #0d9488; }
+    .ejma-mode { border: 0; padding: 0; margin: 0 0 6px; min-width: 0; }
 
     .ejma-units {
         display: inline-flex;
@@ -335,7 +349,7 @@
         padding: 10px;
         background: #fcfdfd;
     }
-    .ejma-diagram figure[hidden] { display: none; }
+    .ejma-diagram[hidden], .ejma-diagram figure[hidden], .ejma-section[hidden], .ejma-advanced[hidden] { display: none; }
     .ejma-diagram svg { display: block; width: 100%; height: auto; }
     .ejma-diagram figcaption { font-size: 11.5px; color: #64748b; margin-top: 6px; }
 
@@ -392,7 +406,10 @@
     </a>
 
     @if (is_array($result) && isset($result['reference'], $result['verdict']))
-        @php $verdict = \App\Ejma\Verdict::tryFrom($result['verdict']) ?? \App\Ejma\Verdict::Review; @endphp
+        @php
+            $verdict = \App\Ejma\Verdict::tryFrom($result['verdict']) ?? \App\Ejma\Verdict::Review;
+            $designResult = ($result['mode'] ?? 'check') === 'design';
+        @endphp
         <section id="result" class="ejma-result {{ $verdictStyles[$verdict->value] }}" aria-live="polite">
             <p class="ejma-verdict">
                 @if ($verdict === \App\Ejma\Verdict::Pass)
@@ -402,10 +419,16 @@
                 @else
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 7v6m0 3.5v.5" stroke-linecap="round"/></svg>
                 @endif
-                <span>{{ $verdict->label() }}</span>
+                <span>{{ $designResult ? $verdict->designLabel() : $verdict->label() }}</span>
             </p>
             <p class="ref">Reference <strong>{{ $result['reference'] }}</strong></p>
-            <p>The full calculation has been sent to our engineering team. Contact us to receive the detailed results.</p>
+            @if (! $designResult)
+                <p>The full calculation has been sent to our engineering team. Contact us to receive the detailed results.</p>
+            @elseif ($verdict === \App\Ejma\Verdict::Pass)
+                <p>The proposed design and its full calculation have been sent to our engineering team. Contact us to receive the details.</p>
+            @else
+                <p>Your conditions have been sent to our engineering team. Contact us to discuss a custom design.</p>
+            @endif
             <a class="ejma-mail-btn" href="mailto:{{ $contactTo }}?subject=EJMA%20calculation%20{{ rawurlencode($result['reference']) }}">Email us for the results</a>
         </section>
     @endif
@@ -423,6 +446,26 @@
             <label for="ejma_website">Leave this field empty</label>
             <input type="text" id="ejma_website" name="website" tabindex="-1" autocomplete="off">
         </div>
+
+        <fieldset class="ejma-mode">
+            <legend class="ejma-hp">Calculation mode</legend>
+            <div class="ejma-choice">
+                @foreach ($modeLabels as $mode => [$modeTitle, $modeHint])
+                    @php $locked = $mode === 'design' && ! $designAvailable; @endphp
+                    <label @class(['is-disabled' => $locked])>
+                        <input type="radio" name="mode" value="{{ $mode }}" @checked($currentMode === $mode) @disabled($locked)>
+                        <span>
+                            <strong>{{ $modeTitle }}</strong>
+                            <span>{{ $modeHint }}</span>
+                            @if ($locked)
+                                <span class="ejma-mode-note"><a href="mailto:{{ $contactTo }}?subject=EJMA%20custom%20bellows%20design">Custom designs: contact us</a></span>
+                            @endif
+                        </span>
+                    </label>
+                @endforeach
+            </div>
+            @error('mode')<div class="ejma-field has-error"><span class="error">{{ $message }}</span></div>@enderror
+        </fieldset>
 
         <div class="ejma-toolbar">
             <div class="ejma-units" role="group" aria-label="Unit system">
@@ -477,7 +520,8 @@
 
                 return ' data-assemblies="'.e($assemblies).'"'.$hidden;
             };
-            $renderField = function (array $f) use ($quantities, $units, $unitIndex, $integerFields, $defaults, $errors, $reqMark, $hintHtml, $assemblyAttr, $assemblyValues) {
+            $modeAttr = fn (string $name) => in_array($name, $checkOnlyFields, true) ? ' data-modes="check"' : '';
+            $renderField = function (array $f) use ($quantities, $units, $unitIndex, $integerFields, $defaults, $errors, $reqMark, $hintHtml, $assemblyAttr, $assemblyValues, $modeAttr) {
                 [$name, $label, $required, $types, $hint] = $f;
                 $assemblies = $f[5] ?? null;
                 $alternatives = $f[6] ?? [];
@@ -502,7 +546,7 @@
                     }
                 }
 
-                $html = '<div class="ejma-field'.($errors->has($name) ? ' has-error' : '').'" data-types="'.e($types).'"'.$assemblyAttr($assemblies).'>';
+                $html = '<div class="ejma-field'.($errors->has($name) ? ' has-error' : '').'" data-types="'.e($types).'"'.$modeAttr($name).$assemblyAttr($assemblies).'>';
                 $html .= '<label for="'.e($id).'">'.$labelHtml.$reqMark($required).'</label>';
                 $html .= '<div class="ejma-input"><input type="number" inputmode="decimal" step="'.$step.'" id="'.e($id).'" name="'.e($name).'" value="'.e($value).'"'.($errors->has($name) ? ' aria-invalid="true"' : '').'>';
                 $html .= '<span class="unit" data-kind="'.e($kind).'">'.e($unit).'</span></div>';
@@ -514,17 +558,19 @@
 
                 return $html.'</div>';
             };
-            $renderSelect = function (string $name, string $label, bool|string $required, string $types, array $options, string|array|null $hint = null, bool $placeholder = true, string $default = '') use ($errors, $reqMark, $hintHtml) {
+            // $optionModes: option value => the modes it is offered in (others: every mode).
+            $renderSelect = function (string $name, string $label, bool|string $required, string $types, array $options, string|array|null $hint = null, bool $placeholder = true, string $default = '', array $optionModes = []) use ($errors, $reqMark, $hintHtml, $modeAttr) {
                 $id = 'ejma_'.$name;
                 $selected = (string) old($name, $default);
-                $html = '<div class="ejma-field'.($errors->has($name) ? ' has-error' : '').'" data-types="'.e($types).'">';
+                $html = '<div class="ejma-field'.($errors->has($name) ? ' has-error' : '').'" data-types="'.e($types).'"'.$modeAttr($name).'>';
                 $html .= '<label for="'.e($id).'">'.e($label).$reqMark($required).'</label>';
                 $html .= '<div class="ejma-input"><select id="'.e($id).'" name="'.e($name).'">';
                 if ($placeholder) {
                     $html .= '<option value="">Select…</option>';
                 }
                 foreach ($options as $value => $text) {
-                    $html .= '<option value="'.e($value).'"'.((string) $value === $selected ? ' selected' : '').'>'.e($text).'</option>';
+                    $modes = isset($optionModes[$value]) ? ' data-modes="'.e($optionModes[$value]).'"' : '';
+                    $html .= '<option value="'.e($value).'"'.$modes.((string) $value === $selected ? ' selected' : '').'>'.e($text).'</option>';
                 }
                 $html .= '</select></div>';
                 if ($errors->has($name)) {
@@ -564,7 +610,7 @@
         </fieldset>
 
         {{-- 2. Bellows type --}}
-        <fieldset class="ejma-section">
+        <fieldset class="ejma-section" data-modes="check">
             <h2><span class="ejma-step">2</span> Bellows type</h2>
             <div class="ejma-choice">
                 @foreach ($bellowsTypes as $type)
@@ -591,7 +637,8 @@
         {{-- 4. Geometry --}}
         <fieldset class="ejma-section">
             <h2><span class="ejma-step">4</span> Geometry</h2>
-            <div class="ejma-diagram">
+            <p class="intro" data-modes="design">Enter the bellows inside diameter. We choose the convolutions from our forming tooling.</p>
+            <div class="ejma-diagram" data-modes="check">
                 <figure data-types="{{ $U }}">
                     <svg viewBox="0 0 360 170" role="img" aria-label="U-shaped convolution dimensions">
                         <g fill="none" stroke="#0d9488" stroke-width="2.5">
@@ -648,7 +695,7 @@
         <fieldset class="ejma-section">
             <h2><span class="ejma-step">5</span> Materials &amp; fabrication</h2>
             <div class="ejma-grid">
-                {!! $renderSelect('bellows_material', 'Bellows material', true, $ALL, $materialList('bellows')) !!}
+                {!! $renderSelect('bellows_material', 'Bellows material', true, $ALL, $materialList('bellows'), null, true, '', array_fill_keys($checkOnlyMaterials, 'check')) !!}
                 {!! $renderSelect('collar_material', 'Collar material', $T, $ALL, $materialList('collar'), [$U => 'Required when a collar is given']) !!}
                 {!! $renderSelect('reinforcement_material', 'Reinforcement material', true, $RT, $materialList('reinforcement')) !!}
                 {!! $renderSelect('forming_condition', 'Bellows condition', true, $ALL, collect($formingConditions)->mapWithKeys(fn ($c) => [$c->value => $conditionLabels[$c->value]])->all(), null, false) !!}
@@ -657,7 +704,7 @@
                     {!! $renderField($f) !!}
                 @endforeach
             </div>
-            <details class="ejma-advanced" @if ($errors->hasAny(['override_Sab', 'override_EbRt', 'override_EbDt', 'override_Sy', 'override_Sym'])) open @endif>
+            <details class="ejma-advanced" data-modes="check" @if ($errors->hasAny(['override_Sab', 'override_EbRt', 'override_EbDt', 'override_Sy', 'override_Sym'])) open @endif>
                 <summary>Advanced: material property overrides</summary>
                 <p>Optional. Leave empty to use our material data. Use only certified values; overrides are flagged in the engineering report.</p>
                 <div class="ejma-grid">
@@ -689,7 +736,7 @@
         </fieldset>
 
         <div class="ejma-submit">
-            <button type="submit">Check my design</button>
+            <button type="submit" data-label-check="Check my design" data-label-design="Find a design">{{ $currentMode === 'design' ? 'Find a design' : 'Check my design' }}</button>
             <p>Preliminary check for quotation purposes, confirmed by PT Misuba Guna Indonesia engineering. Not a substitute for a certified design.</p>
         </div>
     </form>
@@ -704,25 +751,53 @@
         var unitsInput = document.getElementById('ejma-units');
 
         var assemblySelect = document.getElementById('ejma_assembly_type');
+        var submitButton = form.querySelector('.ejma-submit button');
+
+        function submitLabel() {
+            return submitButton.getAttribute('data-label-' + currentMode());
+        }
 
         function listed(el, attr, value) {
             return !el.hasAttribute(attr) || el.getAttribute(attr).split(' ').indexOf(value) !== -1;
         }
 
-        // A field shows (and submits) only when it applies to both the bellows type and the assembly.
+        function currentMode() {
+            var checked = form.querySelector('input[name="mode"]:checked');
+            return checked ? checked.value : 'check';
+        }
+
+        // A field shows (and submits) only when it applies to the mode, the bellows type and the assembly.
         function applyType() {
+            var mode = currentMode();
             var checked = form.querySelector('input[name="bellows_type"]:checked');
-            var type = checked ? checked.value : 'unreinforced';
+            // Design mode always proposes an unreinforced bellows.
+            var type = mode === 'design' || !checked ? 'unreinforced' : checked.value;
             var assembly = assemblySelect ? assemblySelect.value : 'single';
-            document.querySelectorAll('[data-types], [data-assemblies]').forEach(function (el) {
-                var show = listed(el, 'data-types', type) && listed(el, 'data-assemblies', assembly);
-                el.hidden = !show;
-                el.querySelectorAll('input, select, textarea').forEach(function (input) { input.disabled = !show; });
+            form.querySelectorAll('[data-types], [data-assemblies], [data-modes]').forEach(function (el) {
+                if (el.tagName === 'OPTION') return;
+                el.hidden = !(listed(el, 'data-types', type) && listed(el, 'data-assemblies', assembly) && listed(el, 'data-modes', mode));
+            });
+            form.querySelectorAll('input, select, textarea').forEach(function (input) {
+                if (input.name === 'mode' || input.type === 'hidden') return;
+                input.disabled = !!input.closest('[hidden]');
+            });
+            // Bellows materials without design data are offered in check mode only.
+            form.querySelectorAll('option[data-modes]').forEach(function (option) {
+                var allowed = listed(option, 'data-modes', mode);
+                option.disabled = !allowed;
+                option.hidden = !allowed;
+                if (!allowed && option.selected) option.parentNode.value = '';
             });
             form.querySelectorAll('[data-req-types], [data-hint-types]').forEach(function (el) {
                 var types = el.getAttribute('data-req-types') || el.getAttribute('data-hint-types');
                 el.hidden = types.split(' ').indexOf(type) === -1;
             });
+            // Number the visible sections 1, 2, 3, ...
+            var step = 0;
+            form.querySelectorAll('.ejma-section').forEach(function (section) {
+                if (!section.hidden) section.querySelector('.ejma-step').textContent = ++step;
+            });
+            submitButton.textContent = submitLabel();
         }
 
         function applyUnits(system) {
@@ -737,23 +812,21 @@
             });
         }
 
-        form.querySelectorAll('input[name="bellows_type"]').forEach(function (radio) {
+        form.querySelectorAll('input[name="bellows_type"], input[name="mode"]').forEach(function (radio) {
             radio.addEventListener('change', applyType);
         });
         if (assemblySelect) assemblySelect.addEventListener('change', applyType);
         form.querySelectorAll('[data-units]').forEach(function (btn) {
             btn.addEventListener('click', function () { applyUnits(btn.getAttribute('data-units')); });
         });
-        var submitButton = form.querySelector('.ejma-submit button');
-        var submitLabel = submitButton.textContent;
         form.addEventListener('submit', function () {
             submitButton.disabled = true;
-            submitButton.textContent = 'Checking...';
+            submitButton.textContent = currentMode() === 'design' ? 'Searching...' : 'Checking...';
         });
         // Back navigation can restore the page from the bfcache with the button still disabled.
         window.addEventListener('pageshow', function () {
             submitButton.disabled = false;
-            submitButton.textContent = submitLabel;
+            submitButton.textContent = submitLabel();
         });
 
         applyType();

@@ -9,7 +9,9 @@ use App\Ejma\BellowsType;
 use App\Ejma\CalculationRequest;
 use App\Ejma\Data\Material;
 use App\Ejma\Data\MaterialRepository;
+use App\Ejma\Data\Tooling;
 use App\Ejma\DesignConditions;
+use App\Ejma\DesignRequest;
 use App\Ejma\FormingCondition;
 use App\Ejma\FormingMethod;
 use App\Ejma\Units;
@@ -113,6 +115,25 @@ class EjmaCalculationRequest extends FormRequest
         'override_Sab', 'override_EbRt', 'override_EbDt', 'override_Sy', 'override_Sym',
     ];
 
+    /**
+     * Numeric fields used in design mode ("Design it for me", Phase 3 spec §4): the service
+     * conditions, the bellows inside diameter and the bellows weld efficiency. The search
+     * chooses the convolution geometry itself.
+     */
+    private const DESIGN_FIELDS = [
+        'design_pressure', 'design_temperature', 'required_cycles', 'x_comp', 'x_ext', 'lateral', 'angular', 'Db', 'Cwb',
+    ];
+
+    /**
+     * Check-mode-only fields: in design mode they are not validated and never used, so stale
+     * values left in the form (geometry, bellows type, collar/reinforcement) are ignored.
+     */
+    private const CHECK_ONLY_FIELDS = [
+        'bellows_type', 'w', 't', 'n', 'N', 'q', 'rm', 'Lt', 'tc', 'Lc', 'Ld', 'Ar', 'Atc', 'Zc', 'ng', 'r', 'Dr', 'Dm', 'fw',
+        'collar_material', 'reinforcement_material', 'Cwc', 'Cwr',
+        'override_Sab', 'override_EbRt', 'override_EbDt', 'override_Sy', 'override_Sym',
+    ];
+
     /** Assembly-only fields (spec §4); dropped for every other assembly. */
     private const ASSEMBLY_FIELDS = [
         'single' => [],
@@ -147,6 +168,26 @@ class EjmaCalculationRequest extends FormRequest
         return $this->filled('website');
     }
 
+    /** "Design it for me" mode; payloads without `mode` (Phase 1–2) are check mode. */
+    public function isDesign(): bool
+    {
+        return $this->input('mode') === 'design';
+    }
+
+    /**
+     * Bellows materials offered in design mode (ruling P3-R2): the search needs fatigue
+     * constants for unreinforced bellows (built in for austenitic steels, else from config).
+     *
+     * @return list<Material>
+     */
+    public static function designMaterials(MaterialRepository $materials): array
+    {
+        return array_values(array_filter(
+            $materials->availableFor('bellows'),
+            fn (Material $m) => $m->fatigue(BellowsType::Unreinforced) !== null,
+        ));
+    }
+
     public function validateResolved(): void
     {
         if ($this->isHoneypot()) {
@@ -164,6 +205,11 @@ class EjmaCalculationRequest extends FormRequest
         $uShaped = 'required_if:bellows_type,unreinforced,reinforced';
 
         $rules = [
+            'mode' => ['nullable', Rule::in(['check', 'design']), function (string $attribute, mixed $value, \Closure $fail) {
+                if ($value === 'design' && ! app(Tooling::class)->isAvailable()) {
+                    $fail('Design it for me is not available yet. Please contact us for a custom design.');
+                }
+            }],
             'units' => ['required', Rule::in(['metric', 'us'])],
             'bellows_type' => ['required', Rule::enum(BellowsType::class)],
             'assembly_type' => ['nullable', Rule::enum(AssemblyType::class)],
@@ -231,6 +277,15 @@ class EjmaCalculationRequest extends FormRequest
         }
         $rules['design_temperature'][] = 'min:'.($system === 1 ? -328 : -200);
 
+        if ($this->isDesign()) {
+            foreach (self::CHECK_ONLY_FIELDS as $field) {
+                unset($rules[$field]);
+            }
+            $rules['bellows_material'] = ['required', 'string', Rule::in(array_map(
+                fn (Material $m) => $m->id, self::designMaterials($materials),
+            ))];
+        }
+
         return $rules;
     }
 
@@ -238,7 +293,7 @@ class EjmaCalculationRequest extends FormRequest
     {
         return [
             function (Validator $validator) {
-                if ($validator->errors()->isNotEmpty()) {
+                if ($validator->errors()->isNotEmpty() || $this->isDesign()) {
                     return;
                 }
                 $type = $this->input('bellows_type');
@@ -299,7 +354,9 @@ class EjmaCalculationRequest extends FormRequest
     {
         return [
             'required_if' => 'The :attribute field is required for this bellows type.',
-            'bellows_material.in' => 'Selected material is not available.',
+            'bellows_material.in' => $this->isDesign()
+                ? 'This material is not available for Design it for me. Choose another material or check your own design.'
+                : 'Selected material is not available.',
             'collar_material.in' => 'Selected material is not available.',
             'reinforcement_material.in' => 'Selected material is not available.',
             'Lu.required' => 'Enter Lu, the distance between the outermost convolution ends, for a universal expansion joint.',
@@ -309,9 +366,10 @@ class EjmaCalculationRequest extends FormRequest
         ];
     }
 
+    /** Design mode always proposes an unreinforced U-shaped bellows. */
     public function bellowsType(): BellowsType
     {
-        return BellowsType::from($this->input('bellows_type'));
+        return $this->isDesign() ? BellowsType::Unreinforced : BellowsType::from($this->input('bellows_type'));
     }
 
     /** The submitted assembly; Phase 1 payloads without one are single expansion joints. */
@@ -324,8 +382,11 @@ class EjmaCalculationRequest extends FormRequest
     private function relevantNumbers(): array
     {
         $assembly = $this->assemblyType()->value;
+        $base = $this->isDesign()
+            ? self::DESIGN_FIELDS
+            : [...self::COMMON_FIELDS, ...self::TYPE_FIELDS[$this->bellowsType()->value]];
         $fields = array_diff(
-            [...self::COMMON_FIELDS, ...self::TYPE_FIELDS[$this->bellowsType()->value], ...self::ASSEMBLY_FIELDS[$assembly]],
+            [...$base, ...self::ASSEMBLY_FIELDS[$assembly]],
             self::RESTRAINED_FIELDS[$assembly],
         );
         if (blank($this->input('spool_weight'))) {
@@ -424,7 +485,7 @@ class EjmaCalculationRequest extends FormRequest
             'materials' => [
                 'bellows' => $this->input('bellows_material'),
                 'collar' => $this->collarMaterial(),
-                'reinforcement' => $type === BellowsType::Unreinforced ? null : $this->input('reinforcement_material'),
+                'reinforcement' => $this->reinforcementMaterial(),
             ],
             'forming_condition' => $this->input('forming_condition'),
             'forming_method' => $this->input('forming_method'),
@@ -434,10 +495,57 @@ class EjmaCalculationRequest extends FormRequest
     /** The collar material only counts when a collar exists (always for toroidal, else tc > 0). */
     private function collarMaterial(): ?string
     {
+        if ($this->isDesign()) {
+            return null;
+        }
         $id = $this->input('collar_material');
         $hasCollar = $this->bellowsType() === BellowsType::Toroidal || (float) $this->input('tc') > 0;
 
         return $hasCollar && ! blank($id) ? (string) $id : null;
+    }
+
+    private function reinforcementMaterial(): ?string
+    {
+        return $this->bellowsType() === BellowsType::Unreinforced ? null : $this->input('reinforcement_material');
+    }
+
+    /** @param  array<string, float>  $us  numeric inputs in US customary units */
+    private function conditions(array $us): DesignConditions
+    {
+        $get = fn (string $f): ?float => $us[$f] ?? null;
+
+        return new DesignConditions(
+            P: $get('design_pressure'),
+            xComp: $get('x_comp') ?? 0.0,
+            xExt: $get('x_ext') ?? 0.0,
+            y: $get('lateral') ?? 0.0,
+            theta: Units::degToRad($get('angular') ?? 0.0),
+            requiredCycles: (int) ($us['required_cycles'] ?? 0),
+            assembly: new AssemblyGeometry(
+                type: $this->assemblyType(),
+                Lu: $get('Lu'),
+                tieRods: (int) ($us['tie_rods'] ?? 0),
+                theta2: Units::degToRad($get('angular_2') ?? 0.0),
+                Wcs: $get('spool_weight'),
+                thetaU: Units::degToRad($get('spool_angle') ?? 0.0),
+            ),
+        );
+    }
+
+    /** Design-mode input for DesignSearch (Phase 3 spec §3.2), in US customary units. */
+    public function toDesignRequest(): DesignRequest
+    {
+        $us = $this->usValues();
+
+        return new DesignRequest(
+            Db: $us['Db'],
+            conditions: $this->conditions($us),
+            designTempF: $us['design_temperature'],
+            bellowsMaterial: (string) $this->input('bellows_material'),
+            condition: FormingCondition::from($this->input('forming_condition')),
+            method: FormingMethod::from($this->input('forming_method')),
+            Cwb: $us['Cwb'] ?? 1.0,
+        );
     }
 
     public function toCalculationRequest(): CalculationRequest
@@ -470,22 +578,7 @@ class EjmaCalculationRequest extends FormRequest
             fw: $get('fw'),
         );
 
-        $conditions = new DesignConditions(
-            P: $get('design_pressure'),
-            xComp: $get('x_comp') ?? 0.0,
-            xExt: $get('x_ext') ?? 0.0,
-            y: $get('lateral') ?? 0.0,
-            theta: Units::degToRad($get('angular') ?? 0.0),
-            requiredCycles: $int('required_cycles'),
-            assembly: new AssemblyGeometry(
-                type: $this->assemblyType(),
-                Lu: $get('Lu'),
-                tieRods: $int('tie_rods'),
-                theta2: Units::degToRad($get('angular_2') ?? 0.0),
-                Wcs: $get('spool_weight'),
-                thetaU: Units::degToRad($get('spool_angle') ?? 0.0),
-            ),
-        );
+        $conditions = $this->conditions($us);
 
         $overrides = [];
         foreach (['Sab', 'EbRt', 'EbDt', 'Sy', 'Sym'] as $key) {
@@ -500,7 +593,7 @@ class EjmaCalculationRequest extends FormRequest
             designTempF: $get('design_temperature'),
             bellowsMaterial: (string) $this->input('bellows_material'),
             collarMaterial: $this->collarMaterial(),
-            reinforcementMaterial: $type === BellowsType::Unreinforced ? null : $this->input('reinforcement_material'),
+            reinforcementMaterial: $this->reinforcementMaterial(),
             condition: FormingCondition::from($this->input('forming_condition')),
             method: FormingMethod::from($this->input('forming_method')),
             Cwb: $get('Cwb') ?? 1.0,

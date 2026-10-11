@@ -14,9 +14,11 @@ class EjmaCalculation extends Model
         'reference',
         'bellows_type',
         'assembly_type',
+        'mode',
         'verdict',
         'inputs',
         'results',
+        'design',
         'contact',
         'ip_address',
         'emailed_at',
@@ -27,6 +29,7 @@ class EjmaCalculation extends Model
         return [
             'inputs' => 'array',
             'results' => 'array',
+            'design' => 'array',
             'contact' => 'array',
             'emailed_at' => 'datetime',
         ];
@@ -55,6 +58,11 @@ class EjmaCalculation extends Model
     public function result(): CheckResult
     {
         return CheckResult::fromArray($this->results);
+    }
+
+    public function isDesign(): bool
+    {
+        return $this->mode === 'design';
     }
 
     public function verdictEnum(): Verdict

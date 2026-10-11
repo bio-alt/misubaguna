@@ -36,6 +36,68 @@
     </table>
     <div class="verdict">{{ $verdict }} &ndash; {{ $verdictLabel }}</div>
 
+    @if ($design && $design['found'])
+        <h2>Proposed design</h2>
+        <p class="small" style="margin: 0 0 3pt 0;">Selected from the company tooling: {{ $design['best']['profile'] }}. Candidates evaluated: {{ $design['evaluated'] }}.</p>
+        <table>
+            <tr><th>Parameter</th><th class="r">Metric</th><th class="r">US customary</th></tr>
+            <tr><td>Forming profile</td><td class="r" colspan="2">{{ $design['best']['profile'] }}</td></tr>
+            @foreach (['w' => 'Convolution height w', 'q' => 'Convolution pitch q', 'rm' => 'Mean radius rm', 't' => 'Ply thickness t (per ply)'] as $k => $label)
+                <tr><td>{{ $label }}</td><td class="r">{{ $design['best'][$k]['metric'] }}</td><td class="r">{{ $design['best'][$k]['us'] }}</td></tr>
+            @endforeach
+            <tr><td>Number of plies n</td><td class="r" colspan="2">{{ $design['best']['plies'] }}</td></tr>
+            <tr><td>Convolutions N (per bellows)</td><td class="r" colspan="2">{{ $design['best']['convolutions'] }}</td></tr>
+            <tr><td>Tangent length Lt</td><td class="r">{{ $design['best']['Lt']['metric'] }}</td><td class="r">{{ $design['best']['Lt']['us'] }}</td></tr>
+        </table>
+
+        @if (count($design['alternatives']))
+            <h2>Alternatives</h2>
+            <table>
+                <tr>
+                    <th>Profile</th><th class="r">w</th><th class="r">q</th><th class="r">rm</th><th class="r">t (per ply)</th>
+                    <th class="r">Plies n</th><th class="r">N per bellows</th><th class="r">Lt</th>
+                </tr>
+                @foreach ($design['alternatives'] as $alt)
+                    <tr>
+                        <td>{{ $alt['profile'] }}</td>
+                        @foreach (['w', 'q', 'rm', 't', 'Lt'] as $k)
+                            @if ($k === 'Lt')
+                                <td class="r">{{ $alt['plies'] }}</td><td class="r">{{ $alt['convolutions'] }}</td>
+                            @endif
+                            <td class="r">{{ $alt[$k]['metric'] }}<br>{{ $alt[$k]['us'] }}</td>
+                        @endforeach
+                    </tr>
+                @endforeach
+            </table>
+        @endif
+        <p class="small" style="margin: 4pt 0 0 0;">The sections below are the EJMA calculation for the proposed design.</p>
+    @elseif ($design)
+        <h2>Design request outcome</h2>
+        <p style="margin: 0 0 3pt 0;"><strong>Candidates evaluated: {{ $design['evaluated'] }}</strong>. No tooling combination passed every EJMA check for these conditions, so this request needs a custom design by engineering.</p>
+        @if ($design['closest'])
+            <h2>Closest candidate</h2>
+            <table>
+                <tr><th>Parameter</th><th class="r">Metric</th><th class="r">US customary</th></tr>
+                <tr><td>Forming profile</td><td class="r" colspan="2">{{ $design['closest']['profile'] }}</td></tr>
+                @foreach (['w' => 'Convolution height w', 'q' => 'Convolution pitch q', 'rm' => 'Mean radius rm', 't' => 'Ply thickness t (per ply)'] as $k => $label)
+                    <tr><td>{{ $label }}</td><td class="r">{{ $design['closest'][$k]['metric'] }}</td><td class="r">{{ $design['closest'][$k]['us'] }}</td></tr>
+                @endforeach
+                <tr><td>Number of plies n</td><td class="r" colspan="2">{{ $design['closest']['plies'] }}</td></tr>
+                <tr><td>Convolutions N (per bellows)</td><td class="r" colspan="2">{{ $design['closest']['convolutions'] }}</td></tr>
+                <tr><td>Tangent length Lt</td><td class="r">{{ $design['closest']['Lt']['metric'] }}</td><td class="r">{{ $design['closest']['Lt']['us'] }}</td></tr>
+            </table>
+            @if ($design['governing'])
+                <table style="margin-top: 6pt;">
+                    <tr><th colspan="2">Governing check of the closest candidate</th></tr>
+                    <tr><td width="30%">Check</td><td>{{ $design['governing']['symbol'] }} &ndash; {{ $design['governing']['label'] }}</td></tr>
+                    <tr><td>Value</td><td>{{ $design['governing']['value'] }}</td></tr>
+                    <tr><td>Limit</td><td>{{ $design['governing']['limitExpression'] }} = {{ $design['governing']['limit'] }}</td></tr>
+                    <tr><td>EJMA equation</td><td>{{ $design['governing']['equation'] }}</td></tr>
+                </table>
+            @endif
+        @endif
+    @endif
+
     <h2>1. Inputs and materials</h2>
     <table>
         <tr><th>Parameter</th><th class="r">Metric</th><th class="r">US customary</th></tr>
@@ -69,6 +131,7 @@
         </table>
     @endif
 
+    @if (! $design || $design['found'])
     <h2>2. Derived geometry and coefficients</h2>
     <table>
         <tr><th>Quantity</th><th class="r">Value</th></tr>
@@ -119,6 +182,8 @@
             <tr><td>{{ $l['label'] }}</td><td class="r">{{ $l['us'] }}</td><td class="r">{{ $l['metric'] }}</td></tr>
         @endforeach
     </table>
+
+    @endif
 
     <h2>Assumptions &amp; notes</h2>
     <ul>
