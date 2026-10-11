@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-11
 **Status:** Approved by the user in advance ("go with all recommendations")
-**Builds on:** `docs/superpowers/specs/2026-10-11-ejma-calculator-phase1-design.md` (merged)
+**Builds on:** `resources/ejma-private/docs/2026-10-11-ejma-calculator-phase1-design.md` (merged; private, not in git)
 **Reference:** EJMA Standards, 9th Edition (2008)
 
 ## 1. Purpose
