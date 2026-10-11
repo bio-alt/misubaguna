@@ -54,10 +54,17 @@ final class EjmaCalculator
             $notes[] = 'Overrides used: '.implode(', ', $used);
         }
 
+        $loads = Loads::of($r->geometry, $r->conditions, $derived, $result, $props->Sy);
+        $notes[] = 'Joint loads: '.Loads::workingSpringRateBasis($r->geometry->fw, $result->values['St'], $props->Sy)
+            .' (EJMA §1.3); forces and moments per eqs. 4-14 to 4-18, lateral shear at the compressed length (Lb − x or Lu − x).';
+        if (isset($loads['hardware_total'])) {
+            $notes[] = self::hardwareNote($r->conditions->assembly);
+        }
+
         return new CheckResult(
             $result->type,
             $result->lines,
-            [...$result->values, ...Loads::of($r->geometry, $r->conditions, $derived, $result), ...self::propertyValues($props, $collar !== null, $reinf !== null)],
+            [...$result->values, ...$loads, ...self::propertyValues($props, $collar !== null, $reinf !== null)],
             $notes,
         );
     }
@@ -78,6 +85,16 @@ final class EjmaCalculator
         }
 
         return $out;
+    }
+
+    /** Which restraint hardware carries the pressure thrust (Phase 2 spec §3). */
+    private static function hardwareNote(AssemblyGeometry $a): string
+    {
+        return match ($a->type) {
+            AssemblyType::TiedUniversal => sprintf('Pressure thrust is carried by the %d tie rods (equal share per rod).', $a->tieRods),
+            AssemblyType::Hinged => 'Pressure thrust is carried by the 2 hinge pins (half per pin).',
+            default => 'Pressure thrust is carried by the gimbal pins (half per pin on each ring axis).',
+        };
     }
 
     private function material(string $id, string $field, string $role): Material
