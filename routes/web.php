@@ -3,6 +3,7 @@
 use App\Http\Controllers\PublicSite\CareerController;
 use App\Http\Controllers\PublicSite\CatalogController;
 use App\Http\Controllers\PublicSite\ContactController;
+use App\Http\Controllers\PublicSite\EjmaCalculatorController;
 use App\Http\Controllers\PublicSite\HomeController;
 use App\Http\Controllers\PublicSite\PageController;
 use App\Http\Controllers\PublicSite\ProductCategoryController;
@@ -36,6 +37,8 @@ Route::get('/toolkit/', [ToolkitController::class, 'index'])->name('public.toolk
 Route::get('/toolkit/flange-standards/', [ToolkitController::class, 'flangeStandards'])->name('public.toolkit.flange-standards');
 Route::get('/toolkit/calculator/', [ToolkitController::class, 'calculator'])->name('public.toolkit.calculator');
 Route::get('/toolkit/material-specs/', [ToolkitController::class, 'materialSpecs'])->name('public.toolkit.material-specs');
+Route::get('/toolkit/ejma-bellows-calculator/', [EjmaCalculatorController::class, 'index'])->name('public.toolkit.ejma-calculator');
+Route::post('/toolkit/ejma-bellows-calculator/', [EjmaCalculatorController::class, 'store'])->middleware('throttle:30,60,ejma')->name('public.toolkit.ejma-calculator.store');
 
 Route::get('/sitemap.xml', function () {
     $pages = PublicPage::where('is_published', true)->where('sitemap_include', true)->get();
@@ -48,6 +51,7 @@ Route::get('/sitemap.xml', function () {
         ['loc' => '/toolkit/flange-standards/', 'priority' => '0.8', 'changefreq' => 'monthly'],
         ['loc' => '/toolkit/calculator/', 'priority' => '0.8', 'changefreq' => 'monthly'],
         ['loc' => '/toolkit/material-specs/', 'priority' => '0.8', 'changefreq' => 'monthly'],
+        ['loc' => '/toolkit/ejma-bellows-calculator/', 'priority' => '0.8', 'changefreq' => 'monthly'],
     ];
 
     return response()->view('public.sitemap', compact('pages', 'products', 'categories', 'services', 'toolkits'))
