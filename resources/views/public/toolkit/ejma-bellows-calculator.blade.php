@@ -13,7 +13,7 @@
     $T = 'toroidal';
     $ALL = 'unreinforced reinforced toroidal';
 
-    // [name, label, required, types, hint]
+    // [name, label, required (true, or the bellows types that require it), types, hint (text, or [types => text])]
     $conditionFields = [
         ['design_pressure', 'Design pressure', true, $ALL, 'Internal pressure, gauge'],
         ['design_temperature', 'Design temperature', true, $ALL, null],
@@ -36,12 +36,12 @@
         ['Dm', 'Mean diameter of convolutions Dm', true, $T, null],
         ['Dr', 'Reinforcing member mean diameter Dr', true, $T, null],
         ['Ar', 'Reinforcing member area Ar', true, $RT, 'Cross-section of one member'],
-        ['Ld', 'End length Ld', false, $RT, 'Weld to first convolution; optional for reinforced'],
-        ['tc', 'Collar thickness tc', false, $ALL, 'Leave empty if no collar'],
+        ['Ld', 'End length Ld', $T, $RT, [$R => 'Weld to first convolution; optional', $T => 'Weld to first convolution']],
+        ['tc', 'Collar thickness tc', $T, $ALL, [$U => 'Leave empty if no collar', $T => 'Required for toroidal bellows']],
         ['Lc', 'Collar length Lc', false, 'unreinforced', 'Required with a collar'],
-        ['Atc', 'Collar area Atc', false, $RT, 'Cross-section of the collar'],
-        ['Zc', 'Collar section modulus Zc', false, $RT, null],
-        ['ng', 'Number of collar gussets ng', false, $RT, null],
+        ['Atc', 'Collar area Atc', $T, $RT, [$R => 'Required with a collar', $T => 'Cross-section of the collar']],
+        ['Zc', 'Collar section modulus Zc', $T, $RT, [$R => 'Required with a collar']],
+        ['ng', 'Number of collar gussets ng', $T, $RT, [$R => 'Required with a collar']],
     ];
     $fabricationFields = [
         ['Cwb', 'Weld efficiency Cwb (bellows)', false, $ALL, 'Longitudinal seam, default 1.0'],
@@ -245,6 +245,7 @@
     }
     .ejma-input .unit:empty { display: none; }
     .ejma-field .hint { display: block; font-size: 11.5px; color: #94a3b8; margin-top: 4px; }
+    .ejma-field .hint[hidden], .ejma-field .req[hidden] { display: none; }
     .ejma-field.has-error .ejma-input { border-color: #0f172a; box-shadow: 0 0 0 1px #0f172a; }
     .ejma-field .error { display: block; font-size: 12px; font-weight: 600; color: #0f172a; margin-top: 5px; line-height: 1.45; }
     .ejma-field textarea {
@@ -430,7 +431,31 @@
         </fieldset>
 
         @php
-            $renderField = function (array $f) use ($quantities, $units, $unitIndex, $integerFields, $defaults, $errors) {
+            $reqMark = function ($required) use ($currentType) {
+                if ($required === true) {
+                    return ' <span class="req">*</span>';
+                }
+                if (is_string($required) && $required !== '') {
+                    $hidden = in_array($currentType, explode(' ', $required), true) ? '' : ' hidden';
+
+                    return ' <span class="req" data-req-types="'.e($required).'"'.$hidden.'>*</span>';
+                }
+
+                return '';
+            };
+            $hintHtml = function ($hint) use ($currentType) {
+                if (is_string($hint) && $hint !== '') {
+                    return '<span class="hint">'.e($hint).'</span>';
+                }
+                $html = '';
+                foreach ((array) $hint as $types => $text) {
+                    $hidden = in_array($currentType, explode(' ', $types), true) ? '' : ' hidden';
+                    $html .= '<span class="hint" data-hint-types="'.e($types).'"'.$hidden.'>'.e($text).'</span>';
+                }
+
+                return $html;
+            };
+            $renderField = function (array $f) use ($quantities, $units, $unitIndex, $integerFields, $defaults, $errors, $reqMark, $hintHtml) {
                 [$name, $label, $required, $types, $hint] = $f;
                 $kind = $quantities[$name] ?? 'ratio';
                 $unit = $units[$kind][$unitIndex];
@@ -438,22 +463,22 @@
                 $step = in_array($name, $integerFields, true) ? '1' : 'any';
                 $id = 'ejma_'.$name;
                 $html = '<div class="ejma-field'.($errors->has($name) ? ' has-error' : '').'" data-types="'.e($types).'">';
-                $html .= '<label for="'.e($id).'">'.e($label).($required ? ' <span class="req">*</span>' : '').'</label>';
+                $html .= '<label for="'.e($id).'">'.e($label).$reqMark($required).'</label>';
                 $html .= '<div class="ejma-input"><input type="number" inputmode="decimal" step="'.$step.'" id="'.e($id).'" name="'.e($name).'" value="'.e($value).'"'.($errors->has($name) ? ' aria-invalid="true"' : '').'>';
                 $html .= '<span class="unit" data-kind="'.e($kind).'">'.e($unit).'</span></div>';
                 if ($errors->has($name)) {
                     $html .= '<span class="error">'.e($errors->first($name)).'</span>';
                 } elseif ($hint) {
-                    $html .= '<span class="hint">'.e($hint).'</span>';
+                    $html .= $hintHtml($hint);
                 }
 
                 return $html.'</div>';
             };
-            $renderSelect = function (string $name, string $label, bool $required, string $types, array $options, ?string $hint = null, bool $placeholder = true) use ($errors) {
+            $renderSelect = function (string $name, string $label, bool|string $required, string $types, array $options, string|array|null $hint = null, bool $placeholder = true) use ($errors, $reqMark, $hintHtml) {
                 $id = 'ejma_'.$name;
                 $selected = (string) old($name, '');
                 $html = '<div class="ejma-field'.($errors->has($name) ? ' has-error' : '').'" data-types="'.e($types).'">';
-                $html .= '<label for="'.e($id).'">'.e($label).($required ? ' <span class="req">*</span>' : '').'</label>';
+                $html .= '<label for="'.e($id).'">'.e($label).$reqMark($required).'</label>';
                 $html .= '<div class="ejma-input"><select id="'.e($id).'" name="'.e($name).'">';
                 if ($placeholder) {
                     $html .= '<option value="">Select…</option>';
@@ -465,7 +490,7 @@
                 if ($errors->has($name)) {
                     $html .= '<span class="error">'.e($errors->first($name)).'</span>';
                 } elseif ($hint) {
-                    $html .= '<span class="hint">'.e($hint).'</span>';
+                    $html .= $hintHtml($hint);
                 }
 
                 return $html.'</div>';
@@ -548,7 +573,7 @@
             @endif
             <div class="ejma-grid">
                 {!! $renderSelect('bellows_material', 'Bellows material', true, $ALL, $materialList('bellows')) !!}
-                {!! $renderSelect('collar_material', 'Collar material', false, $ALL, $materialList('collar'), 'Required when a collar is given') !!}
+                {!! $renderSelect('collar_material', 'Collar material', $T, $ALL, $materialList('collar'), [$U => 'Required when a collar is given']) !!}
                 {!! $renderSelect('reinforcement_material', 'Reinforcement material', true, $RT, $materialList('reinforcement')) !!}
                 {!! $renderSelect('forming_condition', 'Bellows condition', true, $ALL, collect($formingConditions)->mapWithKeys(fn ($c) => [$c->value => $conditionLabels[$c->value]])->all(), null, false) !!}
                 {!! $renderSelect('forming_method', 'Forming method', true, $ALL, collect($formingMethods)->mapWithKeys(fn ($m) => [$m->value => $methodLabels[$m->value]])->all(), null, false) !!}
@@ -608,6 +633,10 @@
                 var show = el.getAttribute('data-types').split(' ').indexOf(type) !== -1;
                 el.hidden = !show;
                 el.querySelectorAll('input, select, textarea').forEach(function (input) { input.disabled = !show; });
+            });
+            form.querySelectorAll('[data-req-types], [data-hint-types]').forEach(function (el) {
+                var types = el.getAttribute('data-req-types') || el.getAttribute('data-hint-types');
+                el.hidden = types.split(' ').indexOf(type) === -1;
             });
         }
 

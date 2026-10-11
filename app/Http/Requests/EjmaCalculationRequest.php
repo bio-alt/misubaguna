@@ -76,6 +76,21 @@ class EjmaCalculationRequest extends FormRequest
         'ratio' => ['', ''],
     ];
 
+    /**
+     * Generous engineering upper bounds per quantity [metric, us]; they keep values such as
+     * 1e400 (INF) away from the engine. Temperature also has a lower bound (see rules()).
+     */
+    public const LIMITS = [
+        'pressure' => [1000, 14500],
+        'temperature' => [1200, 2192],
+        'length' => [10000, 394],
+        'area' => [1000000, 1550],
+        'section_modulus' => [100000000, 6102],
+        'spring_rate' => [10000000, 57000000],
+        'stress' => [10000, 1450000],
+        'modulus' => [1000, 145],
+    ];
+
     /** Fields that only apply to some bellows types; others are ignored for the calculation. */
     private const TYPE_FIELDS = [
         'unreinforced' => ['w', 'rm', 'Lt', 'tc', 'Lc'],
@@ -116,13 +131,13 @@ class EjmaCalculationRequest extends FormRequest
         $dim = ['nullable', 'numeric', 'gt:0'];
         $uShaped = 'required_if:bellows_type,unreinforced,reinforced';
 
-        return [
+        $rules = [
             'units' => ['required', Rule::in(['metric', 'us'])],
             'bellows_type' => ['required', Rule::enum(BellowsType::class)],
 
             'design_pressure' => ['required', 'numeric', 'gte:0'],
             'design_temperature' => ['required', 'numeric'],
-            'required_cycles' => ['required', 'integer', 'min:1', 'max:100000000'],
+            'required_cycles' => ['required', 'integer', 'min:1', 'max:1000000000'],
             'x_comp' => ['nullable', 'numeric', 'gte:0'],
             'x_ext' => ['nullable', 'numeric', 'gte:0'],
             'lateral' => ['nullable', 'numeric', 'gte:0'],
@@ -168,6 +183,16 @@ class EjmaCalculationRequest extends FormRequest
             'phone' => ['required', 'string', 'max:40'],
             'notes' => ['nullable', 'string', 'max:5000'],
         ];
+
+        $system = $this->input('units') === 'us' ? 1 : 0;
+        foreach (self::QUANTITIES as $field => $kind) {
+            if (isset(self::LIMITS[$kind])) {
+                $rules[$field][] = 'max:'.self::LIMITS[$kind][$system];
+            }
+        }
+        $rules['design_temperature'][] = 'min:'.($system === 1 ? -328 : -200);
+
+        return $rules;
     }
 
     public function after(): array

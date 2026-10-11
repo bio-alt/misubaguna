@@ -20,6 +20,9 @@ class EjmaCalculatorController extends Controller
 {
     private const PATH = '/toolkit/ejma-bellows-calculator/';
 
+    /** The fragment after the trailing slash stops the URL generator trimming it (a slash redirect would drop flashed errors). */
+    private const FORM_URL = self::PATH.'#calculator-form';
+
     /** Form fields an engine error may be reported on; anything else is shown as a general error. */
     private const FORM_FIELDS = [
         'units', 'bellows_type', 'design_pressure', 'design_temperature', 'required_cycles', 'x_comp', 'x_ext',
@@ -80,21 +83,29 @@ class EjmaCalculatorController extends Controller
     public function store(EjmaCalculationRequest $request, EjmaCalculator $calculator)
     {
         if ($request->isHoneypot()) {
-            return redirect()->to(self::PATH);
+            return redirect()->to(self::FORM_URL);
         }
 
         try {
             $result = $calculator->calculate($request->toCalculationRequest());
+            $results = $result->toArray();
         } catch (EjmaInputException $e) {
             throw ValidationException::withMessages($this->engineError($e, $request->bellowsType()))
-                ->redirectTo(self::PATH.'#calculator-form');
+                ->redirectTo(self::FORM_URL);
+        } catch (\InvalidArgumentException|\ArithmeticError $e) {
+            // Not a visitor input problem (e.g. bad material data): log it, keep the form usable.
+            report($e);
+
+            throw ValidationException::withMessages([
+                'calculation' => 'We could not complete this calculation. Please check the inputs or contact us.',
+            ])->redirectTo(self::FORM_URL);
         }
 
         $attributes = [
             'bellows_type' => $result->type->value,
             'verdict' => $result->verdict()->value,
             'inputs' => $request->storedInputs(),
-            'results' => $result->toArray(),
+            'results' => $results,
             'contact' => $request->contact(),
             'ip_address' => $request->ip(),
         ];

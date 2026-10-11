@@ -8,6 +8,7 @@ use App\Ejma\Verdict;
 use App\Models\EjmaCalculation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class EjmaCalculatorPageTest extends TestCase
@@ -232,9 +233,72 @@ class EjmaCalculatorPageTest extends TestCase
     public function test_honeypot_discards(): void
     {
         $this->post(self::URL, $this->payload(['website' => 'http://spam.example']))
-            ->assertRedirect(self::URL);
+            ->assertRedirect(self::URL.'#calculator-form')
+            ->assertHeader('Location', 'http://localhost/toolkit/ejma-bellows-calculator/#calculator-form');
 
         $this->assertDatabaseCount('ejma_calculations', 0);
+    }
+
+    public function test_rate_limit_is_separate_from_contact_form(): void
+    {
+        Mail::fake();
+        $contact = ['name' => 'Budi', 'company' => 'PT X', 'email' => 'budi@example.com', 'phone' => '0812',
+            'category' => 'Flexible Joint', 'message' => 'Hello'];
+        for ($i = 0; $i < 5; $i++) {
+            $this->post('/contact-us/', $contact)->assertStatus(302);
+        }
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->post(self::URL, $this->payload(['Db' => '']))->assertStatus(302);
+        }
+        $this->post(self::URL, $this->payload(['Db' => '']))->assertStatus(429);
+
+        // Calculator submissions do not lock the contact form either.
+        $this->travel(2)->minutes();
+        $this->post('/contact-us/', $contact)->assertStatus(302);
+    }
+
+    public function test_out_of_range_numbers_are_rejected_not_500(): void
+    {
+        $this->post(self::URL, $this->payload(['design_pressure' => '1e400']))
+            ->assertSessionHasErrors('design_pressure');
+        $this->post(self::URL, $this->payload(['Db' => '20000']))
+            ->assertSessionHasErrors('Db');
+        $this->post(self::URL, $this->payload(['units' => 'us', 'design_pressure' => '15000']))
+            ->assertSessionHasErrors('design_pressure');
+        $this->post(self::URL, $this->payload(['units' => 'us', 'design_pressure' => '14000', 'design_temperature' => '70']))
+            ->assertSessionDoesntHaveErrors('design_pressure')
+            ->assertSessionHasErrors('Db');
+
+        // The metric lengths are out of range in US units (609.6 in > 394 in), so nothing is stored.
+        $this->assertDatabaseCount('ejma_calculations', 0);
+    }
+
+    public function test_unexpected_engine_error_becomes_general_error(): void
+    {
+        config(['ejma.materials.materials.zero_e' => ['name' => 'Zero modulus', 'family' => 'other', 'roles' => ['collar', 'reinforcement'],
+            'creep_limit_c' => null, 'allowable_mpa' => [20 => 100, 300 => 90], 'modulus_gpa' => [20 => 0, 300 => 0], 'yield_mpa' => [20 => 200, 300 => 150]]]);
+        $this->app->forgetInstance(MaterialRepository::class);
+        $this->app->forgetInstance(EjmaCalculator::class);
+
+        $this->post(self::URL, $this->toroidalPayload(['collar_material' => 'zero_e', 'reinforcement_material' => 'zero_e']))
+            ->assertSessionHasErrors('calculation')
+            ->assertSessionHasInput('Db', '24')
+            ->assertHeader('Location', 'http://localhost/toolkit/ejma-bellows-calculator/#calculator-form');
+        $this->assertSame('We could not complete this calculation. Please check the inputs or contact us.', session('errors')->first('calculation'));
+
+        $this->assertDatabaseCount('ejma_calculations', 0);
+    }
+
+    public function test_required_markers_and_hints_are_type_aware(): void
+    {
+        $html = $this->get(self::URL)->assertOk()->getContent();
+
+        foreach (['tc', 'Atc', 'Zc', 'ng', 'Ld', 'collar_material'] as $field) {
+            $this->assertMatchesRegularExpression('#<label for="ejma_'.$field.'">[^<]*<span class="req" data-req-types="toroidal"#', $html, $field);
+        }
+        $this->assertMatchesRegularExpression('#data-hint-types="unreinforced reinforced"[^>]*>Leave empty if no collar#', $html);
+        $this->assertMatchesRegularExpression('#data-hint-types="toroidal"[^>]*>Required for toroidal bellows#', $html);
     }
 
     public function test_rate_limited(): void

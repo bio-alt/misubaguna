@@ -38,7 +38,7 @@ Route::get('/toolkit/flange-standards/', [ToolkitController::class, 'flangeStand
 Route::get('/toolkit/calculator/', [ToolkitController::class, 'calculator'])->name('public.toolkit.calculator');
 Route::get('/toolkit/material-specs/', [ToolkitController::class, 'materialSpecs'])->name('public.toolkit.material-specs');
 Route::get('/toolkit/ejma-bellows-calculator/', [EjmaCalculatorController::class, 'index'])->name('public.toolkit.ejma-calculator');
-Route::post('/toolkit/ejma-bellows-calculator/', [EjmaCalculatorController::class, 'store'])->middleware('throttle:5,60')->name('public.toolkit.ejma-calculator.store');
+Route::post('/toolkit/ejma-bellows-calculator/', [EjmaCalculatorController::class, 'store'])->middleware('throttle:5,60,ejma')->name('public.toolkit.ejma-calculator.store');
 
 Route::get('/sitemap.xml', function () {
     $pages = PublicPage::where('is_published', true)->where('sitemap_include', true)->get();
