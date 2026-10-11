@@ -5,8 +5,8 @@ namespace App\Support;
 /**
  * Coupling range: the /product/coupling/ hub and its ten family pages.
  *
- * Series, sizes and ranges come from the supplier catalog transcribed in
- * docs/catalogs/jlbh-couplings.md. Ranges are the smallest and largest printed
+ * Series, sizes and ranges come from the supplier catalog, transcribed in a
+ * git-ignored file under docs/catalogs/. Ranges are the smallest and largest printed
  * values for each series (nominal torque unless marked max). The supplier is not
  * named on the public pages. Full dimension tables stay off the site and are sent on request.
  */

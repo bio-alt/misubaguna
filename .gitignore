@@ -36,3 +36,6 @@ deploy-temp/
 /resources/ejma-private/
 /tests/Private/*
 !/tests/Private/README.md
+
+# Supplier catalog transcriptions: reference only, kept local (names the supplier, reproduces their data)
+/docs/catalogs/
