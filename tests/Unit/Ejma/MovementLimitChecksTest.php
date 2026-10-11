@@ -4,6 +4,8 @@ namespace Tests\Unit\Ejma;
 
 use App\Ejma\AssemblyGeometry;
 use App\Ejma\AssemblyType;
+use App\Ejma\BellowsGeometry;
+use App\Ejma\BellowsType;
 use App\Ejma\CheckLine;
 use App\Ejma\CheckResult;
 use App\Ejma\Derived;
@@ -131,5 +133,29 @@ class MovementLimitChecksTest extends TestCase
         // Ruling P2-R3: x is the growth between the tie-rod plates, ex = x/(2N) = 1/8.
         $this->assertEqualsWithDelta(1 / 8, self::lines($result)['instability_axial']->value, 1e-12);
         $this->assertContains('Assembly: Tied universal (2 bellows; checks apply to each bellows)', $result->notes);
+    }
+
+    public function test_reinforced_notes_ec_limit_basis(): void
+    {
+        $b = Benchmarks::case3();
+        $result = (new ReinforcedBellows)->check($b['geometry'], $b['conditions'], $b['properties']);
+
+        $this->assertContains('ec(max) checked as q − 2rm − nt; equalizing-ring spacing not checked (integral reinforcement only).', $result->notes);
+    }
+
+    public function test_u_shaped_without_extension_capacity_is_noted(): void
+    {
+        $note = '6rm − q ≤ 0: this convolution geometry admits no extension (EJMA §4.2)';
+        $b = Benchmarks::case1();
+        $this->assertNotContains($note, (new UnreinforcedBellows)->check($b['geometry'], $b['conditions'], $b['properties'])->notes);
+
+        // rm = 0.15, q = 1: 6rm − q = −0.1.
+        $g = new BellowsGeometry(type: BellowsType::Unreinforced, Db: 24, t: 0.03, n: 2, N: 12, q: 1, w: 1.44, rm: 0.15, Lt: 1);
+        $this->assertContains($note, (new UnreinforcedBellows)->check($g, $b['conditions'], $b['properties'])->notes);
+
+        $r = Benchmarks::case3();
+        $gr = new BellowsGeometry(type: BellowsType::Reinforced, Db: 24, t: 0.03, n: 2, N: 8, q: 1, w: 1.44, rm: 0.15, Lt: 1.25,
+            tc: 0.375, Ar: 0.15, Atc: 0.43, Zc: 0.0872, ng: 8, fw: 14751);
+        $this->assertContains($note, (new ReinforcedBellows)->check($gr, $r['conditions'], $r['properties'])->notes);
     }
 }

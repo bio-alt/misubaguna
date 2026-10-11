@@ -170,6 +170,21 @@ class EjmaReportTest extends TestCase
         $this->assertStringStartsWith('%PDF', (new EjmaCalculationReport($row))->renderPdf());
     }
 
+    public function test_pdf_for_reinforced_notes_ec_limit_basis(): void
+    {
+        Mail::fake();
+        $this->post(self::URL, $this->payload([
+            'units' => 'us', 'bellows_type' => 'reinforced', 'design_pressure' => '100', 'design_temperature' => '70',
+            'x_comp' => '1', 'x_ext' => '0.5', 'lateral' => '', 'angular' => '5',
+            'Db' => '24', 't' => '0.03', 'n' => '2', 'N' => '8', 'q' => '1', 'w' => '1.44', 'rm' => '0.25', 'Lt' => '1.25',
+            'tc' => '0.375', 'Ar' => '0.15', 'Atc' => '0.43', 'Zc' => '0.0872', 'ng' => '8', 'fw' => '14751',
+            'collar_material' => 'fixture_ss', 'reinforcement_material' => 'fixture_ss',
+        ]))->assertSessionHasNoErrors();
+        $html = (new EjmaCalculationReport(EjmaCalculation::first()))->pdfHtml();
+
+        $this->assertStringContainsString(e('ec(max) checked as q − 2rm − nt; equalizing-ring spacing not checked (integral reinforcement only).'), $html);
+    }
+
     public function test_pdf_for_hinged_hides_ku(): void
     {
         Mail::fake();

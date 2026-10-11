@@ -153,6 +153,10 @@ final class ReinforcedBellows implements Checker
             $values['Fg'] = $Fg;
         }
 
-        return new CheckResult(BellowsType::Reinforced, $lines, $values, self::assemblyNotes($c));
+        return new CheckResult(BellowsType::Reinforced, $lines, $values, [
+            ...self::assemblyNotes($c),
+            'ec(max) checked as q − 2rm − nt; equalizing-ring spacing not checked (integral reinforcement only).',
+            ...self::extensionCapacityNotes($g),
+        ]);
     }
 }

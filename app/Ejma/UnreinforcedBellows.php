@@ -103,6 +103,6 @@ final class UnreinforcedBellows implements Checker
             'Kr' => $m->Kr, 'e' => $e, 'Ctheta' => $Ctheta, 'Ktheta' => $Ktheta, 'phi' => $apf->phi, 'alpha' => $alpha, 'Ku' => $m->Ku,
         ];
 
-        return new CheckResult(BellowsType::Unreinforced, $lines, $values, self::assemblyNotes($c));
+        return new CheckResult(BellowsType::Unreinforced, $lines, $values, [...self::assemblyNotes($c), ...self::extensionCapacityNotes($g)]);
     }
 }

@@ -32,6 +32,12 @@ trait BuildsCheckLines
         return $lines;
     }
 
+    /** @return list<string> note when the §4.2 extension limit 6rm − q leaves a U-shaped convolution no extension */
+    private static function extensionCapacityNotes(BellowsGeometry $g): array
+    {
+        return 6 * $g->rm - $g->q <= 0 ? ['6rm − q ≤ 0: this convolution geometry admits no extension (EJMA §4.2)'] : [];
+    }
+
     /**
      * §4.4 (p068), ruling P2-R6: when the unsupported centre-spool dead weight is considered,
      * the total stress range St must not exceed 1.5·Cm·Sab. No line when Wcs is not given.
