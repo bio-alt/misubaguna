@@ -13,6 +13,7 @@ class EjmaCalculation extends Model
     protected $fillable = [
         'reference',
         'bellows_type',
+        'assembly_type',
         'verdict',
         'inputs',
         'results',

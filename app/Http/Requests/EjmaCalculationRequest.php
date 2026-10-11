@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Ejma\AssemblyGeometry;
+use App\Ejma\AssemblyType;
 use App\Ejma\BellowsGeometry;
 use App\Ejma\BellowsType;
 use App\Ejma\CalculationRequest;
@@ -59,6 +61,11 @@ class EjmaCalculationRequest extends FormRequest
         'override_EbDt' => 'modulus',
         'override_Sy' => 'stress',
         'override_Sym' => 'stress',
+        'Lu' => 'length',
+        'tie_rods' => 'count',
+        'angular_2' => 'angle',
+        'spool_weight' => 'force',
+        'spool_angle' => 'angle',
     ];
 
     /** Unit labels per quantity: [metric, us]. */
@@ -70,6 +77,7 @@ class EjmaCalculationRequest extends FormRequest
         'area' => ['mm²', 'in²'],
         'section_modulus' => ['mm³', 'in³'],
         'spring_rate' => ['N/mm', 'lbf/in'],
+        'force' => ['N', 'lbf'],
         'stress' => ['MPa', 'psi'],
         'modulus' => ['GPa', '10⁶ psi'],
         'count' => ['', ''],
@@ -87,6 +95,7 @@ class EjmaCalculationRequest extends FormRequest
         'area' => [1000000, 1550],
         'section_modulus' => [100000000, 6102],
         'spring_rate' => [10000000, 57000000],
+        'force' => [10000000, 2248000],
         'stress' => [10000, 1450000],
         'modulus' => [1000, 145],
     ];
@@ -102,6 +111,28 @@ class EjmaCalculationRequest extends FormRequest
         'design_pressure', 'design_temperature', 'required_cycles', 'x_comp', 'x_ext', 'lateral', 'angular',
         'Db', 't', 'n', 'N', 'q', 'Cwb', 'Cwc', 'Cwr',
         'override_Sab', 'override_EbRt', 'override_EbDt', 'override_Sy', 'override_Sym',
+    ];
+
+    /** Assembly-only fields (spec §4); dropped for every other assembly. */
+    private const ASSEMBLY_FIELDS = [
+        'single' => [],
+        'universal' => ['Lu', 'spool_weight', 'spool_angle'],
+        'tied_universal' => ['Lu', 'tie_rods', 'spool_weight', 'spool_angle'],
+        'hinged' => [],
+        'gimbal' => ['angular_2'],
+    ];
+
+    /**
+     * Movements restrained by the assembly hardware (ruling P2-R3): the form disables them and
+     * stale values are ignored. Tied universal keeps x_comp as the axial growth between the
+     * tie-rod plates; hinged and gimbal joints take angular rotation only (x = y = 0).
+     */
+    private const RESTRAINED_FIELDS = [
+        'single' => [],
+        'universal' => [],
+        'tied_universal' => ['x_ext'],
+        'hinged' => ['x_comp', 'x_ext', 'lateral'],
+        'gimbal' => ['x_comp', 'x_ext', 'lateral'],
     ];
 
     public function authorize(): bool
@@ -134,14 +165,21 @@ class EjmaCalculationRequest extends FormRequest
         $rules = [
             'units' => ['required', Rule::in(['metric', 'us'])],
             'bellows_type' => ['required', Rule::enum(BellowsType::class)],
+            'assembly_type' => ['nullable', Rule::enum(AssemblyType::class)],
 
             'design_pressure' => ['required', 'numeric', 'gte:0'],
             'design_temperature' => ['required', 'numeric'],
             'required_cycles' => ['required', 'integer', 'min:1', 'max:1000000000'],
-            'x_comp' => ['nullable', 'numeric', 'gte:0'],
-            'x_ext' => ['nullable', 'numeric', 'gte:0'],
-            'lateral' => ['nullable', 'numeric', 'gte:0'],
+            // Restrained movements and other assemblies' fields are excluded before validation (ruling P2-R3).
+            'x_comp' => ['exclude_if:assembly_type,hinged,gimbal', 'nullable', 'numeric', 'gte:0'],
+            'x_ext' => ['exclude_if:assembly_type,tied_universal,hinged,gimbal', 'nullable', 'numeric', 'gte:0'],
+            'lateral' => ['exclude_if:assembly_type,hinged,gimbal', 'nullable', 'numeric', 'gte:0'],
             'angular' => ['nullable', 'numeric', 'gte:0', 'lt:90'],
+            'angular_2' => ['exclude_unless:assembly_type,gimbal', 'nullable', 'numeric', 'gte:0', 'lt:90'],
+            'Lu' => ['exclude_unless:assembly_type,universal,tied_universal', 'required', 'numeric', 'gt:0'],
+            'tie_rods' => ['exclude_unless:assembly_type,tied_universal', 'required', 'integer', 'min:2', 'max:100'],
+            'spool_weight' => ['exclude_unless:assembly_type,universal,tied_universal', 'nullable', 'numeric', 'gte:0'],
+            'spool_angle' => ['exclude_unless:assembly_type,universal,tied_universal', 'required_with:spool_weight', 'nullable', 'numeric', 'gte:0', 'lte:90'],
 
             'Db' => ['required', 'numeric', 'gt:0'],
             't' => ['required', 'numeric', 'gt:0'],
@@ -247,6 +285,12 @@ class EjmaCalculationRequest extends FormRequest
             'override_EbDt' => 'modulus override (design temperature)',
             'override_Sy' => 'yield strength override',
             'override_Sym' => 'material test report yield override',
+            'assembly_type' => 'assembly',
+            'Lu' => 'length Lu',
+            'tie_rods' => 'number of tie rods',
+            'angular_2' => 'second-plane rotation',
+            'spool_weight' => 'centre-spool weight',
+            'spool_angle' => 'centre-spool angle',
         ];
     }
 
@@ -257,6 +301,10 @@ class EjmaCalculationRequest extends FormRequest
             'bellows_material.in' => 'Selected material is not available.',
             'collar_material.in' => 'Selected material is not available.',
             'reinforcement_material.in' => 'Selected material is not available.',
+            'Lu.required' => 'Enter Lu, the distance between the outermost convolution ends, for a universal expansion joint.',
+            'tie_rods.required' => 'Enter the number of tie rods for a tied universal expansion joint.',
+            'tie_rods.min' => 'A tied universal expansion joint needs at least 2 tie rods.',
+            'spool_angle.required_with' => 'Enter the centre-spool angle when a centre-spool weight is given.',
         ];
     }
 
@@ -265,10 +313,23 @@ class EjmaCalculationRequest extends FormRequest
         return BellowsType::from($this->input('bellows_type'));
     }
 
-    /** Numeric fields that apply to the selected bellows type, as entered (nulls removed). */
+    /** The submitted assembly; Phase 1 payloads without one are single expansion joints. */
+    public function assemblyType(): AssemblyType
+    {
+        return AssemblyType::tryFrom((string) $this->input('assembly_type')) ?? AssemblyType::Single;
+    }
+
+    /** Numeric fields that apply to the selected bellows type and assembly, as entered (nulls removed). */
     private function relevantNumbers(): array
     {
-        $fields = [...self::COMMON_FIELDS, ...self::TYPE_FIELDS[$this->bellowsType()->value]];
+        $assembly = $this->assemblyType()->value;
+        $fields = array_diff(
+            [...self::COMMON_FIELDS, ...self::TYPE_FIELDS[$this->bellowsType()->value], ...self::ASSEMBLY_FIELDS[$assembly]],
+            self::RESTRAINED_FIELDS[$assembly],
+        );
+        if (blank($this->input('spool_weight'))) {
+            $fields = array_diff($fields, ['spool_angle']);
+        }
         $out = [];
         foreach ($fields as $f) {
             $v = $this->input($f);
@@ -295,6 +356,7 @@ class EjmaCalculationRequest extends FormRequest
             'area' => $v / 25.4 ** 2,
             'section_modulus' => $v / 25.4 ** 3,
             'spring_rate' => Units::nToLbf($v) * 25.4,
+            'force' => Units::nToLbf($v),
             'stress' => Units::mpaToPsi($v),
             'modulus' => Units::gpaToPsi($v),
             default => $v,
@@ -311,6 +373,7 @@ class EjmaCalculationRequest extends FormRequest
             'area' => $us * 25.4 ** 2,
             'section_modulus' => $us * 25.4 ** 3,
             'spring_rate' => Units::lbfToN($us) / 25.4,
+            'force' => Units::lbfToN($us),
             'stress' => $us / Units::mpaToPsi(1.0),
             'modulus' => $us / Units::gpaToPsi(1.0),
             default => $us,
@@ -353,6 +416,7 @@ class EjmaCalculationRequest extends FormRequest
         return [
             'units' => $units,
             'bellows_type' => $type->value,
+            'assembly_type' => $this->assemblyType()->value,
             'entered' => $entered,
             'us' => $us,
             'metric' => $metric,
@@ -412,6 +476,14 @@ class EjmaCalculationRequest extends FormRequest
             y: $get('lateral') ?? 0.0,
             theta: Units::degToRad($get('angular') ?? 0.0),
             requiredCycles: $int('required_cycles'),
+            assembly: new AssemblyGeometry(
+                type: $this->assemblyType(),
+                Lu: $get('Lu'),
+                tieRods: $int('tie_rods'),
+                theta2: Units::degToRad($get('angular_2') ?? 0.0),
+                Wcs: $get('spool_weight'),
+                thetaU: Units::degToRad($get('spool_angle') ?? 0.0),
+            ),
         );
 
         $overrides = [];

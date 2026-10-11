@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\PublicSite;
 
+use App\Ejma\AssemblyType;
 use App\Ejma\BellowsType;
 use App\Ejma\Data\MaterialRepository;
 use App\Ejma\EjmaCalculator;
@@ -34,7 +35,7 @@ class EjmaCalculatorController extends Controller
         'lateral', 'angular', 'Db', 'w', 't', 'n', 'N', 'q', 'rm', 'Lt', 'tc', 'Lc', 'Ld', 'Ar', 'Atc', 'Zc', 'ng',
         'r', 'Dr', 'Dm', 'fw', 'bellows_material', 'collar_material', 'reinforcement_material', 'forming_condition',
         'forming_method', 'Cwb', 'Cwc', 'Cwr', 'override_Sab', 'override_EbRt', 'override_EbDt', 'override_Sy',
-        'override_Sym',
+        'override_Sym', 'assembly_type', 'Lu', 'tie_rods', 'angular_2', 'spool_weight', 'spool_angle',
     ];
 
     public function index(MaterialRepository $materials)
@@ -74,6 +75,7 @@ class EjmaCalculatorController extends Controller
         $units = EjmaCalculationRequest::UNITS;
         $quantities = EjmaCalculationRequest::QUANTITIES;
         $bellowsTypes = BellowsType::cases();
+        $assemblyTypes = AssemblyType::cases();
         $formingConditions = FormingCondition::cases();
         $formingMethods = FormingMethod::cases();
         $result = session('ejma_result');
@@ -81,7 +83,7 @@ class EjmaCalculatorController extends Controller
 
         return view('public.toolkit.ejma-bellows-calculator', compact(
             'seo', 'siteSettings', 'breadcrumbs', 'materialOptions', 'units', 'quantities',
-            'bellowsTypes', 'formingConditions', 'formingMethods', 'result', 'contactTo',
+            'bellowsTypes', 'assemblyTypes', 'formingConditions', 'formingMethods', 'result', 'contactTo',
         ));
     }
 
@@ -110,6 +112,7 @@ class EjmaCalculatorController extends Controller
 
         $attributes = [
             'bellows_type' => $result->type->value,
+            'assembly_type' => $request->assemblyType()->value,
             'verdict' => $result->verdict()->value,
             'inputs' => $request->storedInputs(),
             'results' => $results,
