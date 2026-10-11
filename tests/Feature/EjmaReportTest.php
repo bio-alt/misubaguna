@@ -91,6 +91,7 @@ class EjmaReportTest extends TestCase
         $sab = (int) round($row->results['values']['prop_Sab']);
         $this->assertStringContainsString(number_format($sab), $html);
         $this->assertStringContainsString('Material properties used', $html);
+        $this->assertStringContainsString('Cm (material strength factor)', $html);
         $this->assertStringContainsString('609.6 mm', $html);
         $this->assertStringNotContainsString('override_', $html);
         $this->assertStringContainsString('4-27', $html);

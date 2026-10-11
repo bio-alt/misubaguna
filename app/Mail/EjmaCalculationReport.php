@@ -175,7 +175,7 @@ class EjmaCalculationReport extends Mailable
             ['EbRt', 'Bellows modulus Eb, room temperature', 'modulus'],
             ['EbDt', 'Bellows modulus Eb, design temperature', 'modulus'],
             ['Sy', 'Bellows yield strength Sy', 'stress'],
-            ['Cm', 'Cm (forming strain factor)', 'ratio'],
+            ['Cm', 'Cm (material strength factor)', 'ratio'],
             ['Cwb', 'Weld factor Cwb', 'ratio'],
             ['Sac', 'Collar allowable stress Sac', 'stress'],
             ['EcDt', 'Collar modulus Ec, design temperature', 'modulus'],
