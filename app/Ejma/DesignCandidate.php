@@ -31,6 +31,37 @@ final readonly class DesignCandidate
         return $max;
     }
 
+    /**
+     * How far a candidate is from passing (ruling P3-R5), 1 or less when every line passes:
+     * the largest ratio over all check lines, where 'le' lines give value/limit (only a finite
+     * positive limit counts), 'ge' lines give limit/value (an infinite value gives 0, a value
+     * of 0 or less gives INF) and a line that was not evaluated gives INF.
+     */
+    public function closeness(): float
+    {
+        $max = 0.0;
+        foreach ($this->result->lines as $line) {
+            if ($line->status === LineStatus::NotEvaluated) {
+                return INF;
+            }
+            if ($line->value === null || $line->limit === null || is_nan($line->value)
+                || ! is_finite($line->limit) || $line->limit <= 0.0) {
+                continue;
+            }
+            $ratio = match ($line->comparison) {
+                CheckLine::GE => match (true) {
+                    is_infinite($line->value) && $line->value > 0 => 0.0,
+                    $line->value <= 0.0 => INF,
+                    default => $line->limit / $line->value,
+                },
+                default => $line->value / $line->limit,
+            };
+            $max = max($max, $ratio);
+        }
+
+        return $max;
+    }
+
     /** The check that governs a non-passing candidate: the first failing line, else the first line not evaluated. */
     public function governingLine(): ?CheckLine
     {

@@ -12,7 +12,7 @@ final readonly class DesignResult
         /** Candidates the calculator returned a result for (candidates skipped on input errors are not counted). */
         public int $evaluated,
         public int $passing,
-        /** Lowest-utilisation candidate that did not pass, set only when nothing passed. */
+        /** Non-passing candidate with the lowest closeness (ruling P3-R5), set only when nothing passed. */
         public ?DesignCandidate $closestFailing,
     ) {}
 

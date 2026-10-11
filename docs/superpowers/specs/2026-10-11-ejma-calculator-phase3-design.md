@@ -84,6 +84,14 @@ thickness n·t, (3) number of plies n, (4) lowest utilisation (max value/limit o
 ("needs engineering review") when none passes, with a note giving the closest failing
 candidate's governing check.
 
+Closest failing candidate (ruling P3-R5): the evaluated, non-passing candidate with the
+lowest closeness (`DesignCandidate::closeness()`), the largest ratio over all check lines:
+'le' lines give value/limit (only a finite limit > 0 counts), 'ge' lines give limit/value
+(an infinite value gives 0, a value ≤ 0 gives ∞), and a line that was not evaluated gives
+∞. Ties follow the §3.3 order. Utilisation ('le' lines only) still orders passing
+candidates (§3.3 step 4); it is not used for the closest failing candidate, because it
+ignores the fatigue line and would favour the N = 1 thickest pack in fatigue-governed cases.
+
 ## 4. Web
 
 - Mode switch at the top of the form: **Check my design** / **Design it for me**

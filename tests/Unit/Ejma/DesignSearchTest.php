@@ -276,6 +276,96 @@ class DesignSearchTest extends TestCase
         $this->assertSame($search(1)->evaluated, $search(2)->evaluated);
     }
 
+    /** @param  list<CheckLine>  $lines */
+    private static function candidate(array $lines, float $t = 0.03, int $n = 1, int $N = 1, string $id = 'p'): DesignCandidate
+    {
+        return new DesignCandidate(new FormingProfile($id, $id, 1.44, 1.0, 0.25, 20.0, 30.0), $t, $n, $N,
+            new BellowsGeometry(BellowsType::Unreinforced, 24, $t, $n, $N, 1.0, 1.44, 0.25, 1.0),
+            new CheckResult(BellowsType::Unreinforced, $lines, []));
+    }
+
+    private static function line(?float $value, ?float $limit, LineStatus $status, string $comparison = CheckLine::LE): CheckLine
+    {
+        return new CheckLine('k', 'K', '4-1', $value, $limit, 'L', $status, 'S', $comparison);
+    }
+
+    public function test_closeness_is_the_largest_ratio_over_all_lines(): void
+    {
+        $pass = LineStatus::Pass;
+        $fail = LineStatus::Fail;
+
+        // 'le': value/limit; 'ge': limit/value.
+        $this->assertEqualsWithDelta(0.5, self::candidate([self::line(500, 1000, $pass)])->closeness(), 1e-12);
+        $this->assertEqualsWithDelta(2.0, self::candidate([self::line(500, 1000, $fail, CheckLine::GE)])->closeness(), 1e-12);
+        $this->assertEqualsWithDelta(2.0, self::candidate([self::line(500, 1000, $pass), self::line(500, 1000, $fail, CheckLine::GE)])->closeness(), 1e-12);
+        // 'ge' with an infinite value (no fatigue limit) gives 0; a value of 0 or less gives INF.
+        $this->assertSame(0.0, self::candidate([self::line(INF, 1000, $pass, CheckLine::GE)])->closeness());
+        $this->assertSame(INF, self::candidate([self::line(0.0, 1000, $fail, CheckLine::GE)])->closeness());
+        $this->assertSame(INF, self::candidate([self::line(-3.0, 1000, $fail, CheckLine::GE)])->closeness());
+        // 'le' with no usable limit is skipped.
+        $this->assertSame(0.0, self::candidate([self::line(5, 0.0, $fail), self::line(5, null, $pass), self::line(5, INF, $pass)])->closeness());
+        // A line that was not evaluated is infinitely far from passing.
+        $this->assertSame(INF, self::candidate([self::line(500, 1000, $pass), self::line(null, 1000, LineStatus::NotEvaluated, CheckLine::GE)])->closeness());
+    }
+
+    public function test_closest_failing_is_ranked_by_closeness_over_all_lines(): void
+    {
+        // Thick N = 1 pack: low stresses (utilisation 0.2) but 1/10 of the cycles needed (closeness 10).
+        $thick = self::candidate([
+            self::line(200, 1000, LineStatus::Pass),
+            self::line(100, 1000, LineStatus::Fail, CheckLine::GE),
+        ], 0.04, 3, 1);
+        // Thin N = 8 pack: higher stresses (0.6) and 4/5 of the cycles needed (closeness 1.25).
+        $thin = self::candidate([
+            self::line(600, 1000, LineStatus::Pass),
+            self::line(800, 1000, LineStatus::Fail, CheckLine::GE),
+        ], 0.02, 1, 8);
+
+        $this->assertLessThan($thin->utilisation(), $thick->utilisation());
+        $this->assertLessThan($thick->closeness(), $thin->closeness());
+        $this->assertLessThan(0, DesignSearch::compareClosest($thin, $thick));
+        // Ties fall back to the §3.3 order.
+        $this->assertLessThan(0, DesignSearch::compareClosest(
+            self::candidate([self::line(800, 1000, LineStatus::Fail, CheckLine::GE)], N: 4),
+            self::candidate([self::line(800, 1000, LineStatus::Fail, CheckLine::GE)], N: 5),
+        ));
+    }
+
+    /** Low pressure, large axial movement, short cycle budget per convolution: fatigue governs every candidate. */
+    public function test_fatigue_governed_search_reports_the_smallest_fatigue_shortfall(): void
+    {
+        $conditions = new DesignConditions(P: 5, xComp: 4, xExt: 2, y: 0.0, theta: 0.0, requiredCycles: 100_000,
+            assembly: new AssemblyGeometry);
+        $tooling = self::tooling([self::benchmarkProfile()], [0.02, 0.03, 0.04], 3, 8);
+        $calc = self::calculator();
+        $result = (new DesignSearch($calc, $tooling))->search(self::request($conditions));
+
+        $this->assertNull($result->best);
+        $closest = $result->closestFailing;
+        $this->assertNotNull($closest);
+        $this->assertSame('fatigue', $closest->governingLine()?->key);
+        $this->assertFalse($closest->N === 1 && $closest->n === 3 && abs($closest->t - 0.04) < 1e-9, 'not the N = 1 thickest pack');
+
+        // Brute force: the reported candidate has the lowest closeness of every candidate evaluated.
+        foreach ($tooling->profilesFor(24.0) as $p) {
+            foreach ($tooling->thicknessesIn() as $t) {
+                for ($n = 1; $n <= $tooling->maxPlies(); $n++) {
+                    for ($N = 1; $N <= $tooling->maxConvolutions(); $N++) {
+                        $g = new BellowsGeometry(BellowsType::Unreinforced, 24.0, $t, $n, $N, $p->qIn, $p->wIn, $p->rmIn, $tooling->tangentLengthIn());
+                        try {
+                            $r = $calc->calculate(new CalculationRequest($g, $conditions, 70.0, 'aus', null, null,
+                                FormingCondition::Annealed, FormingMethod::MandrelOrRoll, 1.0, 1.0, 1.0));
+                        } catch (EjmaInputException) {
+                            continue;
+                        }
+                        $c = new DesignCandidate($p, $t, $n, $N, $g, $r);
+                        $this->assertGreaterThanOrEqual($closest->closeness(), $c->closeness(), sprintf('t=%.2f n=%d N=%d', $t, $n, $N));
+                    }
+                }
+            }
+        }
+    }
+
     public function test_ordering_tie_breaks(): void
     {
         $p = fn (string $id) => new FormingProfile($id, $id, 1.44, 1.0, 0.25, 20.0, 30.0);

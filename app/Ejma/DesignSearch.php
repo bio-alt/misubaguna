@@ -117,10 +117,10 @@ class DesignSearch
         return $util !== 0 ? $util : strcmp($a->profile->id, $b->profile->id) <=> 0;
     }
 
-    /** Closest failing candidate: lowest utilisation, ties in §3.3 order. */
-    private static function compareClosest(DesignCandidate $a, DesignCandidate $b): int
+    /** Closest failing candidate (ruling P3-R5): lowest closeness over all check lines, ties in §3.3 order. */
+    public static function compareClosest(DesignCandidate $a, DesignCandidate $b): int
     {
-        return ($a->utilisation() <=> $b->utilisation()) ?: self::compare($a, $b);
+        return ($a->closeness() <=> $b->closeness()) ?: self::compare($a, $b);
     }
 
     /**
