@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'indexnow' => [
+        'key' => env('INDEXNOW_KEY') ?: '59b88577051bfb5bed0b46ba44913fde',
+        'endpoint' => env('INDEXNOW_ENDPOINT', 'https://api.indexnow.org/indexnow'),
+        'state_path' => storage_path('app/indexnow-state.json'),
+    ],
+
 ];
