@@ -108,21 +108,21 @@ class DesignSearch
     }
 
     /**
-     * Spec §3.3 ordering, smallest first: (1) convolutions, (2) total metal thickness n·t,
-     * (3) plies n, (4) utilisation, (5) profile id. Within one search the bellows count is
-     * fixed, so comparing N per bellows orders N × bellows count identically.
+     * Spec §3.3 ordering, preferred first: (1) plies n (simplest to fabricate), (2) convolutions,
+     * (3) total metal thickness n·t, (4) utilisation, (5) profile id. Within one search the
+     * bellows count is fixed, so comparing N per bellows orders N × bellows count identically.
      */
     public static function compare(DesignCandidate $a, DesignCandidate $b): int
     {
+        if ($a->n !== $b->n) {
+            return $a->n <=> $b->n;
+        }
         if ($a->N !== $b->N) {
             return $a->N <=> $b->N;
         }
         $metal = $a->n * $a->t - $b->n * $b->t;
         if (abs($metal) > 1e-9) {
             return $metal <=> 0.0;
-        }
-        if ($a->n !== $b->n) {
-            return $a->n <=> $b->n;
         }
         $util = $a->utilisation() <=> $b->utilisation();
 

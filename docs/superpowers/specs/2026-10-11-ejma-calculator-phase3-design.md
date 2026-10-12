@@ -77,9 +77,10 @@ also stop when N exceeds what fits (instability or the Lb − x guard throws).
 
 ### 3.3 Ordering ("smallest")
 
-Passing candidates sorted by: (1) total convolutions N × bellows count, (2) total metal
-thickness n·t, (3) number of plies n, (4) lowest utilisation (max value/limit over the
-'le' stress lines), (5) profile id. The first is proposed; the next two distinct
+Passing candidates sorted by: (1) number of plies n (fewest first — simplest to
+fabricate; changed 2026-10-12 at the user's request, previously convolutions came first),
+(2) total convolutions N × bellows count, (3) total metal thickness n·t, (4) lowest
+utilisation (max value/limit over the 'le' stress lines), (5) profile id. The first is proposed; the next two distinct
 (profile, t, n) combinations are listed as alternatives.
 
 ### 3.4 Result — `DesignResult`

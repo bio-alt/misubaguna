@@ -27,7 +27,7 @@
 
 return [
     'thicknesses_mm' => [0.3, 0.4, 0.5, 0.6, 0.8, 1.0, 1.2, 1.5],
-    'max_plies' => 5,
+    'max_plies' => 2,
     'max_convolutions' => 30,
     'tangent_length_mm' => 25.4,
     'profiles' => [

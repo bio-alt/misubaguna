@@ -392,12 +392,12 @@ class DesignSearchTest extends TestCase
                 new CheckLine('fatigue', 'Fatigue', '4-34', 5000.0, 1000.0, 'Nc', LineStatus::Pass, 'Nc', CheckLine::GE),
             ], []));
 
-        // (1) fewer convolutions first, regardless of everything else.
-        $this->assertLessThan(0, DesignSearch::compare($c('z', 0.05, 3, 8, 0.9), $c('a', 0.01, 1, 9, 0.1)));
-        // (2) less total metal n·t first.
+        // (1) fewer plies first, regardless of everything else (simplest to fabricate).
+        $this->assertLessThan(0, DesignSearch::compare($c('z', 0.05, 1, 12, 0.9), $c('a', 0.01, 2, 3, 0.1)));
+        // (2) same plies: fewer convolutions first.
+        $this->assertLessThan(0, DesignSearch::compare($c('z', 0.05, 2, 8, 0.9), $c('a', 0.01, 2, 9, 0.1)));
+        // (3) same plies and convolutions: less total metal n·t first.
         $this->assertLessThan(0, DesignSearch::compare($c('z', 0.02, 2, 8, 0.9), $c('a', 0.03, 2, 8, 0.1)));
-        // (3) same n·t (2 × 0.03 = 3 × 0.02): fewer plies first.
-        $this->assertLessThan(0, DesignSearch::compare($c('z', 0.03, 2, 8, 0.9), $c('a', 0.02, 3, 8, 0.1)));
         // (4) lower utilisation first.
         $this->assertLessThan(0, DesignSearch::compare($c('z', 0.03, 2, 8, 0.5), $c('a', 0.03, 2, 8, 0.6)));
         // (5) profile id.
