@@ -193,11 +193,15 @@
     </section>
 </div>
 
-<script type="application/json" id="fb-config">@json([
-    'pdf' => $pdfUrl,
-    'sections' => $catalog['sections'],
-    'worker' => asset('vendor/pdfjs-3.11.174/pdf.worker.min.js'),
-])</script>
+@php
+    // Built here: a multi-line @json([...]) containing a function call is mis-parsed by Blade.
+    $fbConfig = [
+        'pdf' => $pdfUrl,
+        'sections' => $catalog['sections'],
+        'worker' => asset('vendor/pdfjs-3.11.174/pdf.worker.min.js'),
+    ];
+@endphp
+<script type="application/json" id="fb-config">@json($fbConfig)</script>
 <script src="{{ asset('vendor/pdfjs-3.11.174/pdf.min.js') }}" defer></script>
 <script src="{{ asset('vendor/page-flip-2.0.7/page-flip.browser.js') }}" defer></script>
 <script src="{{ asset('js/catalog-flipbook.js') }}?v={{ @filemtime(public_path('js/catalog-flipbook.js')) }}" defer></script>
