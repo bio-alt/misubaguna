@@ -71,12 +71,12 @@ class EjmaReportTest extends TestCase
 
             return $mail->hasTo('marketing@misubaguna.com')
                 && $mail->hasReplyTo('budi@example.com')
-                && str_contains($subject, 'EJ-2026-0001')
+                && str_contains($subject, $row->reference)
                 && str_contains($subject, 'PT Industri Nusantara')
                 && str_contains($subject, '609.6 mm')
                 && str_contains($subject, strtoupper($row->verdict))
                 && count($mail->attachments()) === 1
-                && $mail->attachments()[0]->as === 'EJ-2026-0001.pdf'
+                && $mail->attachments()[0]->as === $row->reference.'.pdf'
                 && $mail->attachments()[0]->mime === 'application/pdf';
         });
         $this->assertNotNull($row->emailed_at);
@@ -101,7 +101,7 @@ class EjmaReportTest extends TestCase
         $this->assertStringContainsString('4-27', $html);
         $this->assertStringContainsString('Calculated per EJMA Standards, 9th Edition', $html);
         $this->assertStringContainsString(number_format($s1, 0), $html);
-        $this->assertStringContainsString('EJ-2026-0001', $html);
+        $this->assertStringContainsString($row->reference, $html);
         $this->assertStringContainsString('Assumptions &amp; notes', $html);
         $this->assertStringContainsString('Preliminary calculation for quotation purposes, to be confirmed by PT Misuba Guna Indonesia engineering. Not a substitute for a certified design.', $html);
         $pdf = $mail->renderPdf();
@@ -149,7 +149,7 @@ class EjmaReportTest extends TestCase
         $row = EjmaCalculation::first();
         $subject = (new EjmaCalculationReport($row))->subjectLine();
 
-        $this->assertStringStartsWith('EJMA calc EJ-2026-0001 — PT Industri Nusantara — 609.6 mm unreinforced — '.strtoupper($row->verdict), $subject);
+        $this->assertStringStartsWith('EJMA calc '.$row->reference.' — PT Industri Nusantara — 609.6 mm unreinforced — '.strtoupper($row->verdict), $subject);
         $this->assertStringNotContainsString('single', $subject);
     }
 
@@ -250,7 +250,7 @@ class EjmaReportTest extends TestCase
         EjmaCalculation::first()->update(['emailed_at' => null]);
         Mail::shouldReceive('to')->andThrow(new \RuntimeException('smtp down'));
 
-        $this->artisan('ejma:resend EJ-2026-0001')->assertExitCode(1);
+        $this->artisan('ejma:resend '.EjmaCalculation::first()->reference)->assertExitCode(1);
 
         $this->assertNull(EjmaCalculation::first()->emailed_at);
     }
@@ -271,7 +271,7 @@ class EjmaReportTest extends TestCase
         $this->post(self::URL, $this->payload());
         EjmaCalculation::first()->update(['emailed_at' => null]);
 
-        $this->artisan('ejma:resend EJ-2026-0001')->assertExitCode(0);
+        $this->artisan('ejma:resend '.EjmaCalculation::first()->reference)->assertExitCode(0);
 
         Mail::assertSent(EjmaCalculationReport::class, 2);
         $this->assertNotNull(EjmaCalculation::first()->emailed_at);
@@ -309,7 +309,7 @@ class EjmaReportTest extends TestCase
         $this->assertSame('pass', $row->verdict);
         $mail = new EjmaCalculationReport($row);
 
-        $this->assertSame('EJMA design EJ-2026-0001 — PT Industri Nusantara — 609.6 mm — PASS', $mail->subjectLine());
+        $this->assertSame('EJMA design '.$row->reference.' — PT Industri Nusantara — 609.6 mm — PASS', $mail->subjectLine());
 
         $html = $mail->pdfHtml();
         $best = $row->design['best'];
@@ -332,12 +332,12 @@ class EjmaReportTest extends TestCase
     {
         $row = $this->designRow();
         $row->contact = ['company' => "  PT\r\nX \t Co  "] + $row->contact;
-        $this->assertSame('EJMA design EJ-2026-0001 — PT X Co — 609.6 mm — PASS', (new EjmaCalculationReport($row))->subjectLine());
+        $this->assertSame('EJMA design '.$row->reference.' — PT X Co — 609.6 mm — PASS', (new EjmaCalculationReport($row))->subjectLine());
 
         $row->mode = 'check';
         $row->contact = ['company' => "PT\r\nX"] + $row->contact;
         $subject = (new EjmaCalculationReport($row))->subjectLine();
-        $this->assertStringStartsWith('EJMA calc EJ-2026-0001 — PT X — 609.6 mm ', $subject);
+        $this->assertStringStartsWith('EJMA calc '.$row->reference.' — PT X — 609.6 mm ', $subject);
         $this->assertDoesNotMatchRegularExpression('/[\r\n]/', $subject);
     }
 
@@ -346,7 +346,7 @@ class EjmaReportTest extends TestCase
         $row = $this->designRow(['assembly_type' => 'universal', 'Lu' => '1500']);
         $subject = (new EjmaCalculationReport($row))->subjectLine();
 
-        $this->assertStringStartsWith('EJMA design EJ-2026-0001 — PT Industri Nusantara — 609.6 mm universal — ', $subject);
+        $this->assertStringStartsWith('EJMA design '.$row->reference.' — PT Industri Nusantara — 609.6 mm universal — ', $subject);
     }
 
     public function test_design_review_pdf_lists_the_closest_candidate_without_a_check_table(): void
@@ -355,7 +355,7 @@ class EjmaReportTest extends TestCase
         $this->assertSame('review', $row->verdict);
         $mail = new EjmaCalculationReport($row);
 
-        $this->assertSame('EJMA design EJ-2026-0001 — PT Industri Nusantara — 609.6 mm — REVIEW', $mail->subjectLine());
+        $this->assertSame('EJMA design '.$row->reference.' — PT Industri Nusantara — 609.6 mm — REVIEW', $mail->subjectLine());
 
         $html = $mail->pdfHtml();
         $governing = $row->design['closest_failing']['governing'];
@@ -390,7 +390,7 @@ class EjmaReportTest extends TestCase
         $row->forceFill(['mode' => null, 'design' => null])->save();
         $mail = new EjmaCalculationReport($row->fresh());
 
-        $this->assertStringStartsWith('EJMA calc EJ-2026-0001 — PT Industri Nusantara — 609.6 mm unreinforced — ', $mail->subjectLine());
+        $this->assertStringStartsWith('EJMA calc '.$row->reference.' — PT Industri Nusantara — 609.6 mm unreinforced — ', $mail->subjectLine());
         $html = $mail->pdfHtml();
         $this->assertStringNotContainsString('Proposed design', $html);
         $this->assertStringContainsString('4. EJMA checks', $html);

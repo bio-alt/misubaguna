@@ -104,7 +104,7 @@ class EjmaAssemblyFormTest extends TestCase
 
         $this->followRedirects($response)->assertOk()
             ->assertSee(Verdict::from($row->verdict)->label())
-            ->assertSee('EJ-2026-0001')
+            ->assertSee($row->reference)
             ->assertDontSee(number_format($s1, 1, '.', ''))
             ->assertDontSee(number_format($s1, 0))
             ->assertDontSee('S3+S4');

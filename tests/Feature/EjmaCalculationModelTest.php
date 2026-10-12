@@ -34,28 +34,72 @@ class EjmaCalculationModelTest extends TestCase
         ], $extra));
     }
 
-    public function test_first_reference_of_year(): void
+    private const PATTERN = '/^EJ-%d-[23456789ABCDEFGHJKMNPQRSTUVWXYZ]{6}$/';
+
+    public function test_reference_format(): void
     {
         Carbon::setTestNow('2026-10-11 10:00:00');
 
-        $this->assertSame('EJ-2026-0001', EjmaCalculation::nextReference());
+        $this->assertMatchesRegularExpression(sprintf(self::PATTERN, 2026), EjmaCalculation::nextReference());
     }
 
-    public function test_sequence_increments(): void
+    public function test_reference_year_comes_from_now_argument(): void
     {
         Carbon::setTestNow('2026-10-11 10:00:00');
-        $this->makeRow('EJ-2026-0001');
 
-        $this->assertSame('EJ-2026-0002', EjmaCalculation::nextReference());
+        $this->assertMatchesRegularExpression(sprintf(self::PATTERN, 2031), EjmaCalculation::nextReference(Carbon::parse('2031-03-04')));
     }
 
-    public function test_sequence_restarts_next_year(): void
+    public function test_references_are_unique_and_not_sequential(): void
     {
         Carbon::setTestNow('2026-10-11 10:00:00');
-        $this->makeRow('EJ-2026-0001');
-        Carbon::setTestNow('2027-01-02 10:00:00');
+        $existing = $this->makeRow('EJ-2026-0001')->reference;
 
-        $this->assertSame('EJ-2027-0001', EjmaCalculation::nextReference());
+        $refs = [];
+        for ($i = 0; $i < 200; $i++) {
+            $refs[] = EjmaCalculation::nextReference();
+        }
+
+        $this->assertCount(200, array_unique($refs));
+        $this->assertNotContains($existing, $refs);
+    }
+
+    public function test_collision_is_retried(): void
+    {
+        Carbon::setTestNow('2026-10-11 10:00:00');
+        $this->makeRow('EJ-2026-AAAAAA');
+        $generator = new class extends EjmaCalculation
+        {
+            protected $table = 'ejma_calculations';
+
+            public static array $queue = [];
+
+            protected static function randomSuffix(): string
+            {
+                return array_shift(self::$queue);
+            }
+        };
+        $generator::$queue = ['AAAAAA', 'BBBBBB'];
+
+        $this->assertSame('EJ-2026-BBBBBB', $generator::nextReference());
+    }
+
+    public function test_gives_up_after_five_collisions(): void
+    {
+        Carbon::setTestNow('2026-10-11 10:00:00');
+        $this->makeRow('EJ-2026-AAAAAA');
+        $generator = new class extends EjmaCalculation
+        {
+            protected $table = 'ejma_calculations';
+
+            protected static function randomSuffix(): string
+            {
+                return 'AAAAAA';
+            }
+        };
+
+        $this->expectException(\RuntimeException::class);
+        $generator::nextReference();
     }
 
     public function test_result_round_trips(): void

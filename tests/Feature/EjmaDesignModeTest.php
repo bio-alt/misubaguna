@@ -145,7 +145,7 @@ class EjmaDesignModeTest extends TestCase
         $page->assertOk()
             ->assertSee('A suitable bellows design was found')
             ->assertDontSee(Verdict::Pass->label())
-            ->assertSee('EJ-2026-0001')
+            ->assertSee($row->reference)
             ->assertSee('Email us for the results')
             ->assertDontSee('Benchmark die')
             ->assertDontSee('bm1')

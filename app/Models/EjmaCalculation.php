@@ -35,24 +35,36 @@ class EjmaCalculation extends Model
         ];
     }
 
+    private const REFERENCE_ALPHABET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
+
     /**
-     * Next reference (EJ-YYYY-NNNN): highest existing number for the year + 1.
-     * Callers should wrap creation in a transaction and retry once on a unique violation.
+     * Random reference (EJ-YYYY-XXXXXX) so the number reveals nothing about volume.
+     * Callers should still wrap creation in a transaction and retry once on a unique violation.
      */
     public static function nextReference(?CarbonInterface $now = null): string
     {
         $year = ($now ?? Carbon::now())->year;
-        $prefix = "EJ-{$year}-";
 
-        $max = 0;
-        static::query()
-            ->where('reference', 'like', $prefix.'%')
-            ->pluck('reference')
-            ->each(function (string $reference) use ($prefix, &$max) {
-                $max = max($max, (int) substr($reference, strlen($prefix)));
-            });
+        for ($attempt = 0; $attempt < 5; $attempt++) {
+            $reference = "EJ-{$year}-".static::randomSuffix();
 
-        return $prefix.str_pad((string) ($max + 1), 4, '0', STR_PAD_LEFT);
+            if (! static::query()->where('reference', $reference)->exists()) {
+                return $reference;
+            }
+        }
+
+        throw new \RuntimeException('Could not generate a unique EJMA reference.');
+    }
+
+    protected static function randomSuffix(): string
+    {
+        $max = strlen(self::REFERENCE_ALPHABET) - 1;
+        $suffix = '';
+        for ($i = 0; $i < 6; $i++) {
+            $suffix .= self::REFERENCE_ALPHABET[random_int(0, $max)];
+        }
+
+        return $suffix;
     }
 
     public function result(): CheckResult

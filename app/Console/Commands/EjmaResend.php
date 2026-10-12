@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Mail;
 
 class EjmaResend extends Command
 {
-    protected $signature = 'ejma:resend {reference : Calculation reference, e.g. EJ-2026-0042}';
+    protected $signature = 'ejma:resend {reference : Calculation reference, e.g. EJ-2026-K7M2QX}';
 
     protected $description = 'Resend the EJMA calculation report email (with PDF) for a stored calculation';
 

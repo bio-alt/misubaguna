@@ -147,7 +147,7 @@ class EjmaCalculatorPageTest extends TestCase
 
         $this->assertDatabaseCount('ejma_calculations', 1);
         $row = EjmaCalculation::first();
-        $this->assertSame('EJ-2026-0001', $row->reference);
+        $this->assertMatchesRegularExpression('/^EJ-2026-[23456789ABCDEFGHJKMNPQRSTUVWXYZ]{6}$/', $row->reference);
         $this->assertSame('unreinforced', $row->bellows_type);
         $this->assertSame('budi@example.com', $row->contact['email']);
         $this->assertSame('metric', $row->inputs['units']);
@@ -161,8 +161,8 @@ class EjmaCalculatorPageTest extends TestCase
         $page = $this->followRedirects($response);
         $page->assertOk()
             ->assertSee(Verdict::from($row->verdict)->label())
-            ->assertSee('EJ-2026-0001')
-            ->assertSee('mailto:marketing@misubaguna.com?subject=EJMA%20calculation%20EJ-2026-0001', false)
+            ->assertSee($row->reference)
+            ->assertSee('mailto:marketing@misubaguna.com?subject=EJMA%20calculation%20'.$row->reference, false)
             ->assertSee('Email us for the results')
             ->assertSee('value="609.6"', false)
             ->assertSee('value="budi@example.com"', false)
