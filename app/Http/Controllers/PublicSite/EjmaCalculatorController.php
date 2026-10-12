@@ -224,7 +224,7 @@ class EjmaCalculatorController extends Controller
     private function sendReport(EjmaCalculation $calculation): void
     {
         try {
-            Mail::to(config('mail.contact_to'))->send(new EjmaCalculationReport($calculation));
+            Mail::to(config('mail.ejma_report_to'))->send(new EjmaCalculationReport($calculation));
             $calculation->forceFill(['emailed_at' => now()])->save();
         } catch (\Throwable $e) {
             report($e);

@@ -121,4 +121,13 @@ return [
 
     'contact_to' => env('MAIL_CONTACT_TO', 'marketing@misubaguna.com'),
 
+    /*
+    | Recipients of EJMA calculator reports (comma-separated in the env variable).
+    */
+
+    'ejma_report_to' => array_values(array_filter(array_map('trim', explode(',', (string) env(
+        'MAIL_EJMA_REPORT_TO',
+        'marketing@misubaguna.com,engineer@misubaguna.com,bio@misubaguna.com'
+    ))))),
+
 ];

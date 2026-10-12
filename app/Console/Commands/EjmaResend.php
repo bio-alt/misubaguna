@@ -24,7 +24,7 @@ class EjmaResend extends Command
         }
 
         try {
-            Mail::to(config('mail.contact_to'))->send(new EjmaCalculationReport($calculation));
+            Mail::to(config('mail.ejma_report_to'))->send(new EjmaCalculationReport($calculation));
         } catch (\Throwable $e) {
             report($e);
             $this->error("Could not send the report for {$calculation->reference}: ".$e->getMessage());

@@ -70,6 +70,8 @@ class EjmaReportTest extends TestCase
             $subject = $mail->envelope()->subject;
 
             return $mail->hasTo('marketing@misubaguna.com')
+                && $mail->hasTo('engineer@misubaguna.com')
+                && $mail->hasTo('bio@misubaguna.com')
                 && $mail->hasReplyTo('budi@example.com')
                 && str_contains($subject, $row->reference)
                 && str_contains($subject, 'PT Industri Nusantara')
