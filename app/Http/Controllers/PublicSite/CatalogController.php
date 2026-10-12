@@ -49,6 +49,8 @@ class CatalogController extends Controller
             ],
         ];
 
-        return view('public.pages.catalog', compact('page', 'seo', 'siteSettings', 'breadcrumbs'));
+        $catalog = config('catalog');
+
+        return view('public.pages.catalog', compact('page', 'seo', 'siteSettings', 'breadcrumbs', 'catalog'));
     }
 }
