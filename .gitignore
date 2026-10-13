@@ -39,3 +39,8 @@ deploy-temp/
 
 # Supplier catalog transcriptions: reference only, kept local (names the supplier, reproduces their data)
 /docs/catalogs/
+
+# Local working files: never committed
+/scratch/
+/_to_delete/
+/.claude/
