@@ -296,7 +296,117 @@
     .cr-info-card td { padding: 6px 4px; border-bottom: 1px solid #f1f5f9; color: #475569; }
     .cr-info-card td:first-child { font-weight: 700; color: #0f172a; }
 
+    .ms-panel {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 28px;
+    }
+    .ms-panel > h2 { font-size: 18px; font-weight: 800; color: #0f172a; margin: 0 0 4px; }
+    .ms-panel > p { font-size: 13.5px; color: #475569; margin: 0 0 14px; line-height: 1.6; }
+    .ms-form { display: grid; grid-template-columns: 1fr 200px; gap: 14px; align-items: start; }
+    .ms-field label {
+        display: block;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #475569;
+        margin-bottom: 6px;
+    }
+    .ms-picker {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 6px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: #fff;
+        min-height: 42px;
+        cursor: text;
+    }
+    .ms-picker:focus-within { border-color: #2b9d9f; box-shadow: 0 0 0 3px rgba(43, 157, 159, 0.15); }
+    .ms-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #f0fdfa;
+        border: 1px solid #99f6e4;
+        color: #134e4a;
+        font-size: 12.5px;
+        font-weight: 700;
+        padding: 4px 6px 4px 10px;
+        border-radius: 999px;
+    }
+    .ms-tag button {
+        border: none;
+        background: none;
+        color: #0f766e;
+        font-size: 15px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 0 2px;
+        font-family: inherit;
+    }
+    .ms-input, .ms-temp {
+        font-size: 14px;
+        font-family: inherit;
+        color: #0f172a;
+        background: #fff;
+    }
+    .ms-input { flex: 1 1 180px; border: none; outline: none; padding: 4px; min-width: 0; }
+    .ms-temp {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+    }
+    .ms-temp:focus { outline: none; border-color: #2b9d9f; box-shadow: 0 0 0 3px rgba(43, 157, 159, 0.15); }
+    .ms-list {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        left: 0;
+        right: 0;
+        max-height: 260px;
+        overflow-y: auto;
+        background: #fff;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+        margin: 0;
+        padding: 4px;
+        list-style: none;
+        z-index: 20;
+    }
+    .ms-list.open { display: block; }
+    .ms-list li { padding: 8px 10px; font-size: 13.5px; color: #0f172a; border-radius: 6px; cursor: pointer; }
+    .ms-list li.active, .ms-list li:hover { background: #f0fdfa; }
+    .ms-list li small { color: #64748b; margin-left: 6px; }
+    .ms-list .ms-none { color: #64748b; cursor: default; }
+
+    .ms-results { margin-top: 16px; }
+    .ms-hint { font-size: 13.5px; color: #64748b; }
+    .ms-section-title { font-size: 13px; font-weight: 800; color: #0f172a; margin: 14px 0 8px; }
+    .ms-section-title:first-child { margin-top: 0; }
+    .ms-warn {
+        background: #f8fafc;
+        border-left: 3px solid #2b9d9f;
+        padding: 10px 12px;
+        font-size: 13px;
+        color: #334155;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 12px;
+    }
+    .ms-out { list-style: none; padding: 0; margin: 0; font-size: 13px; color: #475569; }
+    .ms-out li { padding: 5px 0; border-bottom: 1px solid #f1f5f9; }
+    .ms-out strong { color: #0f172a; }
+
     @media (max-width: 860px) {
+        .ms-form { grid-template-columns: 1fr; }
         .cr-info { grid-template-columns: 1fr; }
         .cr-legend { margin-left: 0; }
     }
@@ -310,10 +420,30 @@
 <div class="toolkit-page-header">
     <div class="tk-crumb"><a href="/toolkit/">Engineering Toolkit</a></div>
     <h1>Chemical Resistance Guide</h1>
-    <p>Check how PTFE, rubber elastomers, stainless steel, ceramic, and FRP hold up against {{ count($chemicals) }} common industrial chemicals before you choose a lining, hose, gasket, or expansion joint. Click any chemical to see the best materials and matching products.</p>
+    <p>Check how PTFE, rubber elastomers, stainless steel, ceramic, and FRP hold up against {{ count($chemicals) }} common industrial chemicals before you choose a lining, hose, gasket, or expansion joint. Combine several media with your operating temperature to shortlist materials, or click any chemical to see its best materials and matching products.</p>
 </div>
 
 <div class="cr-wrap">
+    <section class="ms-panel" aria-labelledby="ms-title">
+        <h2 id="ms-title">Find a Material for Your Media</h2>
+        <p>Select every medium in your process stream and the operating temperature. Each material is judged by its worst rating across all selected media, and materials above their temperature limit are excluded.</p>
+        <div class="ms-form">
+            <div class="ms-field">
+                <label for="ms-media">Media</label>
+                <div class="ms-picker" id="ms-picker">
+                    <span id="ms-tags" style="display:contents;"></span>
+                    <input id="ms-media" class="ms-input" type="text" placeholder="Type to add a medium, e.g. seawater" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="ms-list" aria-autocomplete="list">
+                    <ul class="ms-list" id="ms-list" role="listbox"></ul>
+                </div>
+            </div>
+            <div class="ms-field">
+                <label for="ms-temp">Operating temperature (°C)</label>
+                <input id="ms-temp" class="ms-temp" type="number" inputmode="decimal" step="1" placeholder="e.g. 80">
+            </div>
+        </div>
+        <div class="ms-results" id="ms-results" aria-live="polite"></div>
+    </section>
+
     <div class="cr-toolbar">
         <input id="cr-search" class="cr-search" type="search" placeholder="Search a chemical, e.g. sulfuric, caustic, palm oil..." autocomplete="off">
         <div class="cr-legend">
@@ -485,6 +615,222 @@
         });
     });
     search.addEventListener('input', filter);
+
+    // Multi-media material selector.
+    var RANK = { A: 0, B: 1, C: 2, X: 3 };
+    var HOT_WARNING_C = 60;
+    var GROUP_LABELS = @json($groups);
+    var msInput = document.getElementById('ms-media');
+    var msList = document.getElementById('ms-list');
+    var msTags = document.getElementById('ms-tags');
+    var msTemp = document.getElementById('ms-temp');
+    var msResults = document.getElementById('ms-results');
+    var selected = [];
+    var matches = [];
+    var activeMatch = 0;
+
+    function slug(name) {
+        return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    }
+
+    function renderList() {
+        var q = msInput.value.trim().toLowerCase();
+        matches = [];
+        CHEMICALS.forEach(function (c, i) {
+            if (selected.indexOf(i) === -1 && (!q || c[0].toLowerCase().indexOf(q) !== -1)) matches.push(i);
+        });
+        activeMatch = Math.min(activeMatch, Math.max(matches.length - 1, 0));
+        msList.innerHTML = matches.length
+            ? matches.map(function (i, k) {
+                return '<li role="option" data-index="' + i + '"' + (k === activeMatch ? ' class="active"' : '') + '>'
+                    + escapeHtml(CHEMICALS[i][0]) + '<small>' + escapeHtml(GROUP_LABELS[CHEMICALS[i][1]]) + '</small></li>';
+            }).join('')
+            : '<li class="ms-none">No matching medium &mdash; ask our engineers below.</li>';
+    }
+
+    function openList() {
+        renderList();
+        msList.classList.add('open');
+        msInput.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeList() {
+        msList.classList.remove('open');
+        msInput.setAttribute('aria-expanded', 'false');
+    }
+
+    function addMedium(i) {
+        if (selected.indexOf(i) === -1) selected.push(i);
+        msInput.value = '';
+        activeMatch = 0;
+        update();
+        renderList();
+    }
+
+    function removeMedium(i) {
+        selected = selected.filter(function (s) { return s !== i; });
+        update();
+        if (msList.classList.contains('open')) renderList();
+    }
+
+    function evaluate(temp) {
+        var suitable = [], limited = [], unsuitable = [];
+        MATERIALS.forEach(function (m, j) {
+            var worst = 'A';
+            selected.forEach(function (i) {
+                var r = CHEMICALS[i][2][j];
+                if (RANK[r] > RANK[worst]) worst = r;
+            });
+            var drivers = selected.filter(function (i) { return CHEMICALS[i][2][j] === worst; })
+                .map(function (i) { return CHEMICALS[i][0]; });
+            var tooHot = temp !== null && temp > m.maxTemp;
+            var entry = { m: m, worst: worst, drivers: drivers, tooHot: tooHot };
+            if (worst === 'X' || tooHot) unsuitable.push(entry);
+            else if (worst === 'C') limited.push(entry);
+            else suitable.push(entry);
+        });
+        suitable.sort(function (a, b) { return RANK[a.worst] - RANK[b.worst]; });
+        return { suitable: suitable, limited: limited, unsuitable: unsuitable };
+    }
+
+    function cardHtml(e) {
+        var products = e.m.products.map(function (p) {
+            return '<a href="/product/' + p[1] + '/">' + escapeHtml(p[0]) + '</a>';
+        }).join(', ');
+        var basis = e.worst === 'A' && selected.length > 1
+            ? 'Excellent in all selected media'
+            : LABELS[e.worst] + ' in ' + escapeHtml(e.drivers.join(', '));
+        return '<div class="cr-pick"><div class="cr-pick-head"><span class="cr-r cr-r-' + e.worst + '">' + e.worst + '</span>'
+            + '<span class="cr-pick-name">' + escapeHtml(e.m.name) + '</span></div>'
+            + '<div>' + basis + '</div>'
+            + '<div>Up to ~' + e.m.maxTemp + ' °C &middot; ' + products + '</div></div>';
+    }
+
+    function reasonHtml(e) {
+        var reasons = [];
+        if (e.worst === 'X') reasons.push('not recommended in ' + escapeHtml(e.drivers.join(', ')));
+        if (e.tooHot) reasons.push('above its ~' + e.m.maxTemp + ' °C limit');
+        return '<li><strong>' + escapeHtml(e.m.name) + '</strong>: ' + reasons.join('; ') + '</li>';
+    }
+
+    function readTemp() {
+        var v = parseFloat(msTemp.value);
+        return isNaN(v) ? null : v;
+    }
+
+    function syncHash(temp) {
+        var parts = [];
+        if (selected.length) parts.push('media=' + selected.map(function (i) { return slug(CHEMICALS[i][0]); }).join(','));
+        if (temp !== null) parts.push('t=' + temp);
+        var hash = parts.length ? '#' + parts.join('&') : '';
+        if (window.location.hash !== hash) {
+            history.replaceState(null, '', window.location.pathname + window.location.search + hash);
+        }
+    }
+
+    function update() {
+        var temp = readTemp();
+        msTags.innerHTML = selected.map(function (i) {
+            return '<span class="ms-tag">' + escapeHtml(CHEMICALS[i][0])
+                + '<button type="button" data-index="' + i + '" aria-label="Remove ' + escapeHtml(CHEMICALS[i][0]) + '">&times;</button></span>';
+        }).join('');
+        msInput.placeholder = selected.length ? 'Add another medium...' : 'Type to add a medium, e.g. seawater';
+        syncHash(temp);
+
+        if (!selected.length) {
+            msResults.innerHTML = '<p class="ms-hint">Add the media in your process to see which materials suit all of them.</p>';
+            return;
+        }
+
+        var res = evaluate(temp);
+        var html = '';
+        if (temp !== null && temp > HOT_WARNING_C) {
+            html += '<div class="ms-warn">Ratings are measured at about 20 °C. At ' + temp + ' °C chemical attack is faster, so treat these results as a shortlist and have our engineers confirm the material.</div>';
+        }
+        if (res.suitable.length) {
+            html += '<div class="ms-section-title">Suitable (' + res.suitable.length + ')</div>'
+                + '<div class="cr-detail-grid" style="margin-top:0;">' + res.suitable.map(cardHtml).join('') + '</div>';
+        } else {
+            html += '<div class="ms-section-title">No material in this guide is rated Excellent or Good for this combination.</div>';
+        }
+        if (res.limited.length) {
+            html += '<div class="ms-section-title">Limited: short-term or intermittent service only (' + res.limited.length + ')</div>'
+                + '<div class="cr-detail-grid" style="margin-top:0;">' + res.limited.map(cardHtml).join('') + '</div>';
+        }
+        if (res.unsuitable.length) {
+            html += '<div class="ms-section-title">Not suitable (' + res.unsuitable.length + ')</div>'
+                + '<ul class="ms-out">' + res.unsuitable.map(reasonHtml).join('') + '</ul>';
+        }
+
+        var message = 'Material inquiry (from Chemical Resistance Guide)\n'
+            + '- Media: ' + selected.map(function (i) { return CHEMICALS[i][0]; }).join(', ') + '\n'
+            + '- Operating temperature: ' + (temp !== null ? temp + ' °C' : '') + '\n'
+            + '- Suitable materials (guide): ' + (res.suitable.map(function (e) { return e.m.name; }).join(', ') || 'none') + '\n'
+            + '- Equipment needed (lining / expansion joint / hose / gasket): \n'
+            + '- Pressure, size and quantity: ';
+        var href = '/contact-us/?category=' + encodeURIComponent('Corrosion Protection')
+            + '&message=' + encodeURIComponent(message) + '#inquiry-form';
+        html += '<div class="cr-detail-actions"><span>Mixtures can react differently than each medium alone. Send us your process data for a confirmed selection.</span>'
+            + '<a class="cr-quote" href="' + href + '">Ask for a Material Recommendation</a></div>';
+
+        msResults.innerHTML = html;
+    }
+
+    function restoreFromHash() {
+        var params = {};
+        window.location.hash.replace(/^#/, '').split('&').forEach(function (p) {
+            var kv = p.split('=');
+            if (kv[0]) params[kv[0]] = decodeURIComponent(kv[1] || '');
+        });
+        if (params.media) {
+            var bySlug = {};
+            CHEMICALS.forEach(function (c, i) { bySlug[slug(c[0])] = i; });
+            params.media.split(',').forEach(function (s) {
+                if (bySlug.hasOwnProperty(s) && selected.indexOf(bySlug[s]) === -1) selected.push(bySlug[s]);
+            });
+        }
+        if (params.t && !isNaN(parseFloat(params.t))) msTemp.value = parseFloat(params.t);
+    }
+
+    msInput.addEventListener('focus', openList);
+    msInput.addEventListener('input', function () { activeMatch = 0; openList(); });
+    msInput.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (!msList.classList.contains('open')) openList();
+            activeMatch = (activeMatch + (e.key === 'ArrowDown' ? 1 : -1) + matches.length) % Math.max(matches.length, 1);
+            renderList();
+            var act = msList.querySelector('li.active');
+            if (act) act.scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (matches.length) addMedium(matches[activeMatch]);
+        } else if (e.key === 'Escape') {
+            closeList();
+        } else if (e.key === 'Backspace' && !msInput.value && selected.length) {
+            removeMedium(selected[selected.length - 1]);
+        }
+    });
+    msList.addEventListener('mousedown', function (e) {
+        var li = e.target.closest('li[data-index]');
+        if (!li) return;
+        e.preventDefault();
+        addMedium(parseInt(li.dataset.index, 10));
+    });
+    msTags.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-index]');
+        if (btn) removeMedium(parseInt(btn.dataset.index, 10));
+    });
+    document.getElementById('ms-picker').addEventListener('click', function (e) {
+        if (e.target === this) msInput.focus();
+    });
+    document.addEventListener('click', function (e) {
+        if (!document.getElementById('ms-picker').contains(e.target)) closeList();
+    });
+    msTemp.addEventListener('input', update);
+
+    restoreFromHash();
+    update();
 })();
 </script>
 @endsection

@@ -28,6 +28,16 @@ class ToolkitSelectorPagesTest extends TestCase
             ->assertSee('Chlorine Dioxide');
     }
 
+    public function test_chemical_resistance_page_has_multi_media_selector(): void
+    {
+        $this->get('/toolkit/chemical-resistance/')
+            ->assertOk()
+            ->assertSee('Find a Material for Your Media')
+            ->assertSee('id="ms-media"', false)
+            ->assertSee('id="ms-temp"', false)
+            ->assertSee('id="ms-results"', false);
+    }
+
     public function test_new_tools_are_linked_from_hub_and_sitemap(): void
     {
         $this->get('/toolkit/')
