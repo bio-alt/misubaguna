@@ -1,0 +1,95 @@
+{
+    "slug": "coupling",
+    "name": "Coupling",
+    "product_group": "Power Transfer",
+    "product_subgroup": "Coupling",
+    "summary": "60 coupling series in ten families, from miniature servo couplings to grid couplings for mill drives. Choose a family below, or send us the motor power, speed and shaft sizes and we will size it for you.",
+    "meta_description": "Industrial couplings in ten families: jaw, plum blossom, H-block, gear, pin, tyre, disc, chain, grid, servo and rigid couplings, plus torque limiters and spare elements.",
+    "technical_specs": [
+        "Coupling families: 10",
+        "Series: 60, with spare elements",
+        "Torque range: 0.8 – 932,000 N·m",
+        "Bore range: 3 – 600 mm"
+    ],
+    "key_features": [
+        "Ten coupling families from one supplier",
+        "Replacement spiders, blocks, sleeves and pins",
+        "Interchangeable with common GR, L, HRC, NM, FALK-R and tyre coupling sizes",
+        "Sizing support from motor power, speed and shaft sizes"
+    ],
+    "applications": [
+        "Pumps and compressors",
+        "Motors and gear reducers",
+        "Conveyors and crushers",
+        "Fans and blowers",
+        "Machine tools and servo drives",
+        "Marine, power and mining equipment"
+    ],
+    "materials": [
+        "Rigid coupling options",
+        "Flexible coupling options",
+        "Gear coupling options",
+        "Grid coupling options",
+        "Fluid coupling options"
+    ],
+    "content_html": "<p>We supply 60 coupling series in ten families, from miniature servo couplings to grid couplings for mill drives, plus spare elements, torque limiters and pump bell housings. Pick a family below, or send us the motor power, speed and both shaft sizes and we will propose the type and size.</p>",
+    "quote_checklist": [
+        "Coupling type (gear, grid, jaw, disc, tyre) or part number",
+        "Motor power (kW) and speed (rpm)",
+        "Driver and driven shaft diameters and keyways",
+        "Equipment being coupled and space between shaft ends",
+        "Quantity and delivery location"
+    ],
+    "families": [
+        {
+            "slug": "jaw-coupling",
+            "name": "Jaw Coupling",
+            "tile": "Star (spider) jaw couplings in keyed, clamp, taper-bush, expansion-sleeve and flange hubs, with spare spiders."
+        },
+        {
+            "slug": "plum-blossom-coupling",
+            "name": "Plum Blossom Coupling",
+            "tile": "ML (LM) plum blossom couplings, NM and FALK-R claw couplings, with spare elements."
+        },
+        {
+            "slug": "h-block-coupling",
+            "name": "H-Block Elastic Coupling",
+            "tile": "HTLA, HTLB and HTLD block couplings, HDS spacer and HTLP brake-disc couplings, with H blocks."
+        },
+        {
+            "slug": "gear-coupling",
+            "name": "Gear Coupling",
+            "tile": "NL and TGL nylon-sleeve gear couplings, TGCL all-steel and GIICL drum gear couplings."
+        },
+        {
+            "slug": "pin-coupling",
+            "name": "Pin & Bush Coupling",
+            "tile": "ZL pin-and-gear-ring, HL nylon pin, TL and FCL rubber-bush couplings."
+        },
+        {
+            "slug": "tyre-coupling",
+            "name": "Tyre & Elastic Sleeve Coupling",
+            "tile": "F and UL tyre couplings, Omega split couplings, CFA highly elastic and J/S sleeve couplings."
+        },
+        {
+            "slug": "disc-coupling",
+            "name": "Disc Coupling",
+            "tile": "DJM single-disc and SJM double-disc spacer couplings with stainless steel disc packs."
+        },
+        {
+            "slug": "chain-grid-coupling",
+            "name": "Chain & Grid Coupling",
+            "tile": "KC and GL roller chain couplings, JS and T10 serpentine grid couplings."
+        },
+        {
+            "slug": "servo-coupling",
+            "name": "Servo & Precision Coupling",
+            "tile": "Aluminium jaw, disc, bellows and slit couplings for servo motors, encoders and ball screws."
+        },
+        {
+            "slug": "rigid-coupling-torque-limiter",
+            "name": "Rigid Coupling & Torque Limiter",
+            "tile": "JK clamp-shell rigid couplings, TLC and JTAL torque limiters, pump bell housings and brackets."
+        }
+    ]
+}

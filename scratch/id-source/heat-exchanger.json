@@ -1,0 +1,49 @@
+{
+    "slug": "heat-exchanger",
+    "name": "Heat Exchanger",
+    "product_group": "Thermal Systems",
+    "product_subgroup": null,
+    "summary": "Shell and tube heat exchangers to TEMA standards and finned-coil air-cooled heat exchangers, built to your process duty.",
+    "meta_description": "Shell and tube heat exchangers built to TEMA standards and finned-coil air-cooled heat exchangers, in carbon steel, stainless steel, copper and alloy tubes for process, power and HVAC duty.",
+    "technical_specs": [
+        "Shell and tube standards: TEMA classes R, C and B, with design to recognized pressure vessel codes",
+        "Shell and tube design pressure: typically up to 40 bar, higher by design",
+        "Shell and tube design temperature: typically up to 400 °C, depending on material",
+        "Finned coil approach: typically 10–15 °C above ambient air temperature",
+        "Finned coil fin pitch: commonly 2.5–5 mm, wider for dusty air",
+        "Surface area, passes, tube rows and fan power configured to your duty"
+    ],
+    "key_features": [
+        "Shell and tube and finned-coil designs from one supplier",
+        "Built to your process data, with thermal rating and drawings supplied",
+        "Fixed, U-tube and floating head bundles for different cleaning needs",
+        "Air-cooled coils that remove the need for cooling water",
+        "Wide choice of tube, fin and shell materials for corrosive services",
+        "Replacement bundles and coils matched to existing nozzles and frames",
+        "Hydrostatic test and inspection documentation on request"
+    ],
+    "applications": [
+        "Process heating and cooling in refineries, chemical and petrochemical plants",
+        "Steam condensers and feed water heaters",
+        "Palm oil, food and beverage heating and cooling",
+        "Air-cooled process and lube oil cooling on water-scarce sites",
+        "Engine jacket water, glycol and compressor cooling",
+        "Steam and hot water air heaters for dryers and ventilation",
+        "Heat recovery from process streams and flue gas"
+    ],
+    "materials": [
+        "Carbon steel or stainless steel shell, channels and coil frames",
+        "Tubes in carbon steel, stainless steel 304/316, duplex, copper alloy or titanium",
+        "Fins in aluminium, copper or galvanized steel, wound, extruded or plate type",
+        "Tubesheets in carbon steel, stainless steel or clad construction",
+        "Gaskets in spiral wound, graphite or PTFE"
+    ],
+    "content_html": "<h1>Industrial Heat Exchangers: Shell and Tube & Finned Coil</h1><p class=\"product-description\">We build two families of heat exchanger. Shell and tube units move heat between two process fluids and are the standard choice for high pressure, high temperature and fouling duties. Finned-coil units reject heat straight to the air, cooling or heating a fluid where cooling water is scarce or unwanted. Both are built to your process data and site conditions.</p><h2>Shell and Tube Heat Exchangers</h2><ul><li><strong>Fixed tubesheet:</strong> simplest and lowest cost, for clean services where the shell side needs no mechanical cleaning.</li><li><strong>U-tube:</strong> the bundle expands freely and can be pulled for shell-side cleaning, with the tube side limited to chemical cleaning.</li><li><strong>Floating head:</strong> bundle removable for cleaning on both sides, for dirty services and wide temperature differences.</li><li>Thermal and mechanical design to TEMA classes R, C or B and recognized pressure vessel codes, with baffle layout balanced against pressure drop and vibration.</li></ul><h2>Finned-Coil Heat Exchangers</h2><ul><li><strong>Air-cooled coolers:</strong> process fluid in finned tubes with fans moving ambient air across the coil. No cooling water, no cooling tower and no water treatment.</li><li><strong>Air heaters and coolers:</strong> steam, hot water or chilled water coils for heating or cooling process air, dryers and ventilation.</li><li><strong>Radiators and dry coolers:</strong> closed-loop cooling of engine jacket water, glycol and compressor circuits.</li><li>Fin type, fin pitch, tube rows and circuiting chosen for the duty, the air side pressure drop and how dirty the air is.</li></ul><h2>Choosing Between Them</h2><p>Shell and tube suits liquid-to-liquid and steam duties, high pressures and fluids that foul. Finned coil suits sites where cooling water is limited or expensive, and duties where the fluid can be cooled to within 10–15 °C of ambient air. Send your process data and we will recommend the type.</p><h2>Service and Retubing</h2><p>Tube leaks, fouling, fin damage and corrosion are the usual end of a bundle or coil. We offer <a href=\"/services/heat-exchanger-repair/\">heat exchanger repair</a>, retubing, coil cleaning and bundle replacement, so a failing exchanger can be renewed to its original footprint.</p><h2>Key Features and Benefits</h2><ul><li>Shell and tube and finned-coil designs from one supplier</li><li>Built to your process data, with thermal rating and drawings supplied</li><li>Fixed, U-tube and floating head bundles for different cleaning needs</li><li>Air-cooled coils that remove the need for cooling water</li><li>Wide choice of tube, fin and shell materials for corrosive services</li><li>Replacement bundles and coils matched to existing nozzles and frames</li><li>Hydrostatic test and inspection documentation on request</li></ul><h2>Applications</h2><ul><li>Process heating and cooling in refineries, chemical and petrochemical plants</li><li>Steam condensers and feed water heaters</li><li>Palm oil, food and beverage heating and cooling</li><li>Air-cooled process and lube oil cooling on water-scarce sites</li><li>Engine jacket water, glycol and compressor cooling</li><li>Steam and hot water air heaters for dryers and ventilation</li><li>Heat recovery from process streams and flue gas</li></ul><h2>Materials of Construction</h2><ul><li>Carbon steel or stainless steel shell, channels and coil frames</li><li>Tubes in carbon steel, stainless steel 304/316, duplex, copper alloy or titanium</li><li>Fins in aluminium, copper or galvanized steel, wound, extruded or plate type</li><li>Tubesheets in carbon steel, stainless steel or clad construction</li><li>Gaskets in spiral wound, graphite or PTFE</li></ul><h2>Technical Specifications</h2><ul><li>Shell and tube standards: TEMA classes R, C and B, with design to recognized pressure vessel codes</li><li>Shell and tube design pressure: typically up to 40 bar, higher by design</li><li>Shell and tube design temperature: typically up to 400 °C, depending on material</li><li>Finned coil approach: typically 10–15 °C above ambient air temperature</li><li>Finned coil fin pitch: commonly 2.5–5 mm, wider for dusty air</li><li>Surface area, passes, tube rows and fan power configured to your duty</li></ul>",
+    "quote_checklist": [
+        "Hot and cold fluids, flow rates and temperatures",
+        "Design pressure and temperature, shell and tube side",
+        "Allowable pressure drop and fouling",
+        "Material and code requirements (TEMA, ASME)",
+        "Quantity and delivery location"
+    ]
+}

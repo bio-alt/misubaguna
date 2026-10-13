@@ -1,0 +1,40 @@
+{
+    "slug": "ceramic-lining",
+    "name": "Ceramic Lining",
+    "product_group": "Corrosion Protection",
+    "product_subgroup": "Lining",
+    "summary": "High-density 92% and 95% Alumina ceramic tile lining systems for extreme abrasive wear, sliding friction, and erosion in mining, cement, coal, and bulk material handling.",
+    "meta_description": "Ceramic lining for industrial equipment that needs high abrasion and wear protection in severe service.",
+    "technical_specs": [
+        "Tile Thickness: 6mm, 10mm, 12.5mm, 20mm, 25mm, up to 50mm heavy block tiles",
+        "Hardness: Mohs Hardness 9 (Vickers HV10 ≥ 1100)",
+        "Temperature Range: Epoxy bonded (up to 150°C); Weld-attached (up to 750°C)"
+    ],
+    "key_features": [
+        "Diamond-hard 92%/95% Alumina ceramic tiles provide unmatched resistance to sliding abrasion and fine particle erosion",
+        "Rubber-cushioned ceramic composite panels absorb severe rock impact while eliminating ceramic tile fracture",
+        "Weld-through ceramic tiles with tapered steel lock cups ensure secure mechanical attachment under high thermal stress",
+        "Extends component service life up to 10x longer than hardfaced overlay plates, reducing unplanned plant shutdown",
+        "Custom engineered interlocking sleeve segments for pipe elbows and cyclones eliminate exposed adhesive seams"
+    ],
+    "applications": [
+        "Cement plant raw meal chutes, clinker transfer hoppers, cyclone dipleg pipes, and separator cones",
+        "Power plant pulverized coal burner lines, bottom ash sluice pipes, and coal bunker chutes",
+        "Mining mineral processing plant chutes, slurry launders, vibrating screen hoppers, and hydrocyclones",
+        "Steel mill iron ore sinter transfer points and coke handling chutes",
+        "Glass manufacturing silica sand pneumatic convey lines"
+    ],
+    "materials": [
+        "Ceramic Media: 92% Alumina (Al2O3), 95% Alumina, Zirconia-Toughened Alumina (ZTA), Silicon Carbide (SiC)",
+        "Backing & Bonding: High-impact natural rubber matrix, Two-part high-temperature epoxy resin adhesive",
+        "Fixation Hardware: Weldable steel caps, Countersunk SS304 studs, Interlocking tongue-and-groove joints"
+    ],
+    "content_html": "<h1>Ceramic Lining</h1><p class=\"product-description\">Extreme-wear Alumina (Al2O3) ceramic tile and cylinder lining systems manufactured and installed by PT Misuba Guna Indonesia to eliminate destructive erosion and sliding abrasion in heavy material handling equipment. Engineered with high-purity (92% or 95%) sinter-molded alumina ceramics, our linings provide an diamond-hard surface (Mohs hardness 9) that outperforms abrasion-resistant steel plates (AR400/AR500) by up to 10 times in high-velocity particulate environments.</p><p>Available as weldable ceramic tiles with steel insert caps, rubber-backed ceramic composite panels, or custom-shaped curved pipe sleeves for seamless elbow and cyclone protection.</p><h3>Custom Engineering Consultation & Ordering Guide</h3><p>To specify ceramic wear lining for your plant, provide your equipment drawings (chute, hopper, cyclone, or pipe spool), material dropped (coal, clinker, iron ore, silica sand, gold slurry), particle drop height, and working temperature. Our technical team designs custom layout drawings with staggered joint patterns and recommends epoxy adhesive vs weld-through attachment.</p>",
+    "quote_checklist": [
+        "Wear area and dimensions (chute, cyclone, pipe bend, hopper)",
+        "Material handled, particle size and flow velocity",
+        "Operating temperature and impact level",
+        "Current wear life or failure problem",
+        "Workshop or on-site work, and location"
+    ]
+}

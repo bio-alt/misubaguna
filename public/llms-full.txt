@@ -587,7 +587,7 @@ Prices, stock and lead times are quoted per enquiry; none are published on the w
 ### On-Site Inspection & Troubleshooting
 - **URL:** https://misubaguna.com/services/onsite-inspection/
 - **Group:** Mechanical & Field Services
-- **Summary:** On-site technical evaluation, root cause failure analysis, NDT inspection, and shutdown consultation for critical plant equipment.
+- **Summary:** On-site technical evaluation, root cause failure analysis and NDT inspection for critical plant equipment.
 - **Capabilities:** Rapid response for emergency plant troubleshooting; Non-destructive testing (NDT) including spark and ultrasonic thickness measurement; Detailed engineering inspection report with actionable recommendations; Root cause failure analysis for recurring breakdowns
 - **Scope of Work:** On-site physical and visual inspection by experienced technical specialists; Ultrasonic wall thickness measurement and flaw detection; High-voltage spark testing of protective linings; Operating parameters and thermal survey data gathering; Delivery of comprehensive diagnostic report with engineered solutions
 - **Problems Solved:** Unexplained vibration or noise in fluid transfer systems; Recurring premature failure of seals, joints, or lining layers; Unknown corrosion rate or wall thickness reduction on critical piping

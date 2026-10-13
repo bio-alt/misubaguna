@@ -1,0 +1,36 @@
+{
+    "slug": "flexible-metal-hose",
+    "name": "Flexible Metal Hose",
+    "product_group": "Flexible Joint",
+    "product_subgroup": null,
+    "summary": "Precision corrugated stainless steel flexible hose assemblies designed for severe thermal cycles, extreme high pressures, cryogenic media, and gas-tight fluid transfer.",
+    "meta_description": "Stainless steel flexible metal hoses designed for demanding temperature, pressure, vibration, and corrosive service.",
+    "technical_specs": null,
+    "key_features": [
+        "100% gas-tight annular corrugated stainless steel tube eliminates permeation of hazardous gases and liquids",
+        "High-density SS wire braiding absorbs internal hoop stress, allowing working pressures up to 300+ bar",
+        "Unmatched temperature resilience from cryogenic liquid nitrogen (-200°C) to high-temperature engine exhaust (+600°C)",
+        "Fire-safe construction prevents sudden rupture during plant emergency fire conditions",
+        "Custom welded end fittings (ANSI/JIS flanges, unions, thread nipples, quick couplers) tested per ISO 10380 standards"
+    ],
+    "applications": [
+        "Steam header connections to moving press platens in plywood and palm oil plants",
+        "Gas turbine fuel supply lines, burner hoses, and generator vibration isolation",
+        "Chemical reactor feed lines, acid loading arms, and LPG/LNG transfer hoses",
+        "High-pressure hydraulic and compressor discharge lines",
+        "Thermal expansion loops for solar thermal and power plant piping"
+    ],
+    "materials": [
+        "Corrugated Hose Tube: SS304, SS316L, SS321",
+        "Braid Mesh: SS304 or SS316 stainless steel wire braid (Single or Double layer)",
+        "End Fittings: Carbon Steel, SS304, SS316L (Flanged, Union, BSP/NPT Threaded, Weld Ends, Camlock)"
+    ],
+    "content_html": "<h1>Flexible Metal Hose</h1><p class=\"product-description\">Precision corrugated stainless steel flexible hose assemblies designed for severe thermal cycles, extreme high pressures, cryogenic media, and gas-tight fluid transfer. PT Misuba Guna Indonesia custom fabricates flexible metal hoses using annular corrugated thin-wall stainless steel tubing (SS304, SS316L, or SS321) encased in single or double high-density stainless steel wire braiding (SS304 or SS316).</p><p>Every hose assembly is TIG welded with custom end fittings, offering 100% leak-proof flexibility where rubber or synthetic hoses fail due to high temperature, chemical attack, or flame exposure.</p><h3>Custom Engineering Consultation & Ordering Guide</h3><p>Looking for custom flexible metal hose assemblies with quick turnaround? Provide your hose size (DN), overall length (OAL), working pressure, operating temperature, and end fitting configuration (e.g. Swivel Flange, Union, Male NPT, Tri-clamp). Our welding shop builds and hydrostatic tests every assembly prior to shipment.</p>",
+    "quote_checklist": [
+        "Nominal size and overall length",
+        "End connections: flange, thread, union or weld",
+        "Design pressure and temperature",
+        "Medium, and any movement or vibration to absorb",
+        "Quantity and delivery location"
+    ]
+}

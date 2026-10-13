@@ -1,0 +1,36 @@
+{
+    "slug": "ptfe-lining",
+    "name": "PTFE Lining",
+    "product_group": "Corrosion Protection",
+    "product_subgroup": "Lining",
+    "summary": "Advanced fluoropolymer PTFE lining solutions applied to pipes, fittings, vessels, and chemical columns to provide an impermeable, non-stick chemical barrier against aggressive acids and high temperatures.",
+    "meta_description": "PTFE lining for corrosive, reactive, or ultra-pure media where chemical resistance and a smooth non-stick surface are required.",
+    "technical_specs": null,
+    "key_features": [
+        "Complete chemical inertness against concentrated nitric, sulfuric, hydrochloric, and hydrofluoric acids up to 260°C",
+        "Thick-wall paste extruded PTFE liner prevents permeation and thermal vacuum collapse in continuous vacuum lines",
+        "Seamless flared-over sealing faces eliminate separate gaskets at pipe spool and vessel flange connections",
+        "Ultra-smooth non-stick surface coefficient prevents scaling, chemical fouling, and pressure drop in transfer lines",
+        "100% Non-destructive electro-spark tested (20kV+ DC) to guarantee zero pinholes or micro-cracks before dispatch"
+    ],
+    "applications": [
+        "Petrochemical acid wash columns, chlorine headers, and pickling acid recirculation loops",
+        "Agrochemical and fertilizer manufacturing acid feed lines",
+        "Pharmaceutical API synthesis reactors and high-purity solvent transfer lines",
+        "Power plant FGD (Flue Gas Desulfurization) chemical dosing and neutralization tanks",
+        "Palm oil oleochemical fatty acid distillation columns and chlor-alkali plants"
+    ],
+    "materials": [
+        "Liner Material: 100% Virgin PTFE, Conductive PTFE (Antistatic), PFA, FEP",
+        "Substrate Steel: Carbon Steel (A106 Gr B, A53), SS304, SS316L, ASTM A395 Ductile Iron fittings",
+        "Flange Standards: ANSI B16.5 Class 150/300, DIN EN 1092-1, JIS B2220"
+    ],
+    "content_html": "<h1>PTFE Lining</h1><p class=\"product-description\">Heavy-duty fluoropolymer PTFE lining services engineered by PT Misuba Guna Indonesia for complete internal corrosion protection of carbon steel and alloy piping systems, columns, tanks, and chemical reactors. Using paste-extruded virgin PTFE, PFA, or FEP liners (thick-wall paste extruded or sheet lined), our linings form a seamless, non-stick barrier that resists extreme chemical attack from concentrated acids, strong alkalis, and reactive solvents.</p><p>Equipped with thermal paste-flaring technology and vacuum-resistant locking grooves, our lined pipe spools and fittings withstand severe thermal cycling without liner collapse, liner creep, or vacuum deformation.</p><h3>Custom Engineering Consultation & Ordering Guide</h3><p>When requesting a quote for PTFE lined pipe spools, vessels, or fittings, please specify line nominal size (DN15 to DN600), total spool lengths (OAL), flange drilling (ANSI 150#/300#, JIS 10K, DIN PN16), operating temperature, vacuum conditions, and specific chemical concentration. Our technical team conducts spark testing (15kV to 25kV) and hydrostatic verification on 100% of lined components prior to site delivery.</p>",
+    "quote_checklist": [
+        "Item to line (pipe spool, fitting, vessel, tank) with drawing or dimensions",
+        "Chemical medium and concentration",
+        "Operating temperature, pressure and vacuum",
+        "Required lining thickness or standard",
+        "Quantity and delivery location"
+    ]
+}

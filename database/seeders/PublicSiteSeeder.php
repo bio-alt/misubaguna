@@ -106,13 +106,13 @@ class PublicSiteSeeder extends Seeder
                 'page_type' => 'services', 'slug' => 'services', 'url_path' => '/services/',
                 'title' => 'Industrial Engineering & Technical Services | PT Misuba Guna Indonesia',
                 'headline' => 'Industrial Engineering & Technical Services',
-                'excerpt' => 'PT Misuba Guna Indonesia provides expert industrial services including cooling tower repair, heat exchanger service, thermal spray coating, rubber lining, FRP repair, PTFE bonding, expansion joint installation, and mechanical maintenance.',
+                'excerpt' => 'PT Misuba Guna Indonesia provides expert industrial services including cooling tower repair, heat exchanger service, thermal spray coating, rubber lining, FRP repair, PTFE bonding, expansion joint installation, mechanical maintenance, NDT inspection, and on-site 3D scanning.',
                 'content_html' => null, 'sections' => null,
                 'meta_title' => 'Industrial Engineering & Technical Services | PT Misuba Guna Indonesia',
-                'meta_description' => 'Explore industrial engineering and field services by PT Misuba Guna Indonesia: cooling tower repair, heat exchanger service, thermal spray coating, rubber/FRP/PTFE lining, expansion joint replacement, and mechanical maintenance.',
+                'meta_description' => 'Explore industrial engineering and field services by PT Misuba Guna Indonesia: cooling tower repair, heat exchanger service, thermal spray coating, rubber/FRP/PTFE lining, expansion joint replacement, mechanical maintenance, NDT inspection, and on-site 3D scanning.',
                 'canonical_url' => 'https://misubaguna.com/services/',
                 'og_title' => 'Industrial Engineering & Technical Services | PT Misuba Guna Indonesia',
-                'og_description' => 'Explore industrial engineering and field services by PT Misuba Guna Indonesia: cooling tower repair, heat exchanger service, thermal spray coating, rubber/FRP/PTFE lining, expansion joint replacement, and mechanical maintenance.',
+                'og_description' => 'Explore industrial engineering and field services by PT Misuba Guna Indonesia: cooling tower repair, heat exchanger service, thermal spray coating, rubber/FRP/PTFE lining, expansion joint replacement, mechanical maintenance, NDT inspection, and on-site 3D scanning.',
                 'og_image_path' => null, 'robots_index' => true, 'robots_follow' => true,
                 'sitemap_include' => true, 'sitemap_priority' => '0.9', 'sitemap_changefreq' => 'weekly',
                 'schema_json' => null, 'is_published' => true, 'published_at' => null, 'sort_order' => 7,
@@ -341,7 +341,7 @@ class PublicSiteSeeder extends Seeder
                 'name' => 'On-Site Inspection & Troubleshooting',
                 'service_group' => 'Mechanical & Field Services',
                 'headline' => 'Engineering Technical Inspection, NDT & Field Troubleshooting',
-                'summary' => 'On-site technical evaluation, root cause failure analysis, NDT inspection, and shutdown consultation for critical plant equipment.',
+                'summary' => 'On-site technical evaluation, root cause failure analysis and NDT inspection for critical plant equipment.',
                 'key_features' => json_encode(['Rapid response for emergency plant troubleshooting', 'Non-destructive testing (NDT) including spark and ultrasonic thickness measurement', 'Detailed engineering inspection report with actionable recommendations', 'Root cause failure analysis for recurring breakdowns']),
                 'typical_problems' => json_encode(['Unexplained vibration or noise in fluid transfer systems', 'Recurring premature failure of seals, joints, or lining layers', 'Unknown corrosion rate or wall thickness reduction on critical piping']),
                 'scope_of_work' => json_encode(['On-site physical and visual inspection by experienced technical specialists', 'Ultrasonic wall thickness measurement and flaw detection', 'High-voltage spark testing of protective linings', 'Operating parameters and thermal survey data gathering', 'Delivery of comprehensive diagnostic report with engineered solutions']),
@@ -549,5 +549,7 @@ class PublicSiteSeeder extends Seeder
                 array_merge($setting, ['created_at' => $now, 'updated_at' => $now])
             );
         }
+
+        $this->call(InspectionServicesSeeder::class);
     }
 }

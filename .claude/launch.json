@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "laravel",
+      "runtimeExecutable": "php",
+      "runtimeArgs": [
+        "artisan",
+        "serve",
+        "--port=8000"
+      ],
+      "port": 8000
+    },
+    {
+      "name": "laravel-sqlite-preview",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "$env:DB_CONNECTION='sqlite'; $env:DB_DATABASE='C:/Users/USER/AppData/Local/Temp/claude/C--Users-USER-Herd-misubaguna/3b5c65fd-307f-4799-a2bd-668729507fac/scratchpad/preview.sqlite'; $env:DB_URL=''; Set-Location public; php -S 127.0.0.1:8010 ../vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php"
+      ],
+      "port": 8010
+    },
+    {
+      "name": "ejma-local-test",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": [
+        "-NoProfile",
+        "-Command",
+        "$env:DB_CONNECTION='sqlite'; $env:DB_DATABASE='C:/Users/USER/AppData/Local/Temp/claude/C--Users-USER-Herd-misubaguna/4efd252f-7755-49e3-adb1-cf9515135e02/scratchpad/local-test.sqlite'; $env:DB_URL=''; $env:MAIL_MAILER='log'; $env:APP_URL='http://127.0.0.1:8020'; Set-Location public; php -S 127.0.0.1:8020 ../vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php"
+      ],
+      "port": 8020
+    }
+  ]
+}

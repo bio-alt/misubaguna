@@ -393,7 +393,6 @@
         <p class="service-summary">{{ $service->summary }}</p>
 
         <div class="hero-cta-btns">
-            <a href="/contact-us/" class="hero-btn-primary">Request Service Consultation</a>
             <a href="https://wa.me/628118715671" target="_blank" rel="noopener" class="hero-btn-secondary">WhatsApp Sales Support</a>
         </div>
     </div>

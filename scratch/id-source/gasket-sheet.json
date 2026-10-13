@@ -1,0 +1,39 @@
+{
+    "slug": "gasket-sheet",
+    "name": "Gasket Sheet",
+    "product_group": "Sealing System",
+    "product_subgroup": null,
+    "summary": "Supplying versatile sealing for flanged connections, our gasket sheet materials are formulated to handle a wide spectrum of pressures, temperatures, and industrial media. They ensure a secure, leak-free joint in critical assemblies.",
+    "meta_description": "Gasket sheet materials for cutting seals used between flanges, pipe joints, equipment covers, and machinery surfaces.",
+    "technical_specs": [
+        "Current page may have repeated heading/content; verify before final import"
+    ],
+    "key_features": [
+        "Flexible sealing material for custom gasket shapes",
+        "Helps prevent leakage between mating surfaces",
+        "Material options for temperature, pressure, and media compatibility",
+        "Can be cut to drawing or sample",
+        "Useful for maintenance and repair stock"
+    ],
+    "applications": [
+        "Pipe flanges",
+        "Pump and valve covers",
+        "Heat exchanger joints",
+        "Equipment manholes and covers",
+        "General industrial sealing"
+    ],
+    "materials": [
+        "Compressed fiber",
+        "Rubber sheet",
+        "PTFE sheet",
+        "Graphite sheet",
+        "Non-asbestos sheet depending on service"
+    ],
+    "content_html": "<h1>Gasket Sheet</h1><p class=\"product-description\">Supplying versatile sealing for flanged connections, our gasket sheet materials are formulated to handle a wide spectrum of pressures, temperatures, and industrial media. They ensure a secure, leak-free joint in critical assemblies.</p><p class=\"product-placeholder\">[Placeholder: Insert detailed operational context, manufacturing standards, and specific dimensions or variants available for this product line. This text area is reserved for comprehensive product documentation.]</p><h2>Key Features and Benefits</h2><ul><li>Flexible sealing material for custom gasket shapes</li><li>Helps prevent leakage between mating surfaces</li><li>Material options for temperature, pressure, and media compatibility</li><li>Can be cut to drawing or sample</li><li>Useful for maintenance and repair stock</li></ul><h2>Applications</h2><ul><li>Pipe flanges</li><li>Pump and valve covers</li><li>Heat exchanger joints</li><li>Equipment manholes and covers</li><li>General industrial sealing</li></ul><h2>Construction and Material</h2><ul><li>Compressed fiber</li><li>Rubber sheet</li><li>PTFE sheet</li><li>Graphite sheet</li><li>Non-asbestos sheet depending on service</li></ul><h2>Technical Notes</h2><ul><li>Current page may have repeated heading/content; verify before final import</li></ul>",
+    "quote_checklist": [
+        "Sheet type (non-asbestos, graphite, PTFE, rubber) or the service",
+        "Sheet size and thickness, or cut gasket sizes and flange standard",
+        "Medium, pressure and temperature",
+        "Quantity (sheets or pieces) and delivery location"
+    ]
+}

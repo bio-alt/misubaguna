@@ -1,0 +1,45 @@
+{
+    "slug": "cooling-tower",
+    "name": "Cooling Tower",
+    "product_group": "Thermal Systems",
+    "product_subgroup": null,
+    "summary": "Induced-draft counterflow and crossflow cooling towers in FRP, timber or concrete, sized to your heat load and wet-bulb conditions.",
+    "meta_description": "Industrial counterflow and crossflow cooling towers with FRP, timber or concrete structure, PVC or PP fill and low-drift eliminators for process and HVAC duty.",
+    "technical_specs": [
+        "Typical capacity: from small modular cells up to several thousand m³/h per tower",
+        "Typical cooling range: 5–10 °C, with approach to wet-bulb of 3–6 °C",
+        "Drift loss: typically 0.001–0.005% of circulating flow with low-drift eliminators",
+        "Design wet-bulb: set to local site conditions",
+        "Capacity, number of cells and fan power configured to your duty"
+    ],
+    "key_features": [
+        "Sized to your heat load, range, approach and design wet-bulb temperature",
+        "Counterflow, crossflow, modular and field-erected configurations",
+        "Corrosion-resistant FRP structure that suits humid, chemical and coastal sites",
+        "Low-drift eliminators that limit water loss and plume carry-over",
+        "Efficient axial fans with variable speed drive as an option",
+        "Replacement towers designed to fit existing basins and piping"
+    ],
+    "applications": [
+        "Process cooling in chemical, petrochemical and food plants",
+        "Condenser water for power generation and cogeneration",
+        "Air-conditioning and chiller plant heat rejection",
+        "Plastics, injection molding and compressor cooling",
+        "Pulp, paper and textile mills"
+    ],
+    "materials": [
+        "FRP, hot-dip galvanized steel, timber or reinforced concrete structure",
+        "PVC or PP fill and drift eliminators",
+        "FRP or aluminium fan blades",
+        "Stainless steel or hot-dip galvanized fasteners",
+        "HDPE, PVC or stainless steel distribution piping and nozzles"
+    ],
+    "content_html": "<h1>Industrial Cooling Towers: Counterflow & Crossflow</h1><p class=\"product-description\">A cooling tower rejects process heat by evaporating a small part of the circulating water. We supply induced-draft towers sized to your heat load, flow rate and local wet-bulb temperature, in the structure and fill that suit your water quality and duty cycle.</p><h2>Tower Types</h2><ul><li><strong>Counterflow:</strong> air rises against falling water through the fill. Compact footprint and high thermal efficiency, suited to clean circulating water.</li><li><strong>Crossflow:</strong> air crosses the falling water horizontally. Lower pumping head and easy access to the distribution basin, suited to dirtier water and sites needing low fan power.</li><li><strong>Modular and field-erected:</strong> factory-built cells for quick installation, or field-erected towers for large heat loads that are built cell by cell.</li></ul><h2>Core Components</h2><ul><li><strong>Fill:</strong> PVC or PP film fill for clean water, or splash fill where the water carries solids, oil or scale.</li><li><strong>Drift eliminators:</strong> cellular PVC or PP blades that keep water carry-over at a fraction of a percent of circulating flow.</li><li><strong>Fan and drive:</strong> axial FRP fan with gearbox or belt drive and a TEFC motor, with vibration cut-out as an option.</li><li><strong>Water distribution:</strong> spray nozzles or gravity-fed basin for even loading across the fill.</li><li><strong>Basin and casing:</strong> structure sized for the water volume, with access doors, ladders and handrails.</li></ul><h2>Keeping It Running</h2><p>Fill fouling, basin leaks and gearbox wear are what cost a tower its performance. Our field team handles <a href=\"/services/cooling-tower-repair/\">cooling tower repair</a>, fill replacement and fan drive alignment, so one supplier covers both the new tower and its upkeep.</p><h2>Key Features and Benefits</h2><ul><li>Sized to your heat load, range, approach and design wet-bulb temperature</li><li>Counterflow, crossflow, modular and field-erected configurations</li><li>Corrosion-resistant FRP structure that suits humid, chemical and coastal sites</li><li>Low-drift eliminators that limit water loss and plume carry-over</li><li>Efficient axial fans with variable speed drive as an option</li><li>Replacement towers designed to fit existing basins and piping</li></ul><h2>Applications</h2><ul><li>Process cooling in chemical, petrochemical and food plants</li><li>Condenser water for power generation and cogeneration</li><li>Air-conditioning and chiller plant heat rejection</li><li>Plastics, injection molding and compressor cooling</li><li>Pulp, paper and textile mills</li></ul><h2>Materials of Construction</h2><ul><li>FRP, hot-dip galvanized steel, timber or reinforced concrete structure</li><li>PVC or PP fill and drift eliminators</li><li>FRP or aluminium fan blades</li><li>Stainless steel or hot-dip galvanized fasteners</li><li>HDPE, PVC or stainless steel distribution piping and nozzles</li></ul><h2>Technical Specifications</h2><ul><li>Typical capacity: from small modular cells up to several thousand m³/h per tower</li><li>Typical cooling range: 5–10 °C, with approach to wet-bulb of 3–6 °C</li><li>Drift loss: typically 0.001–0.005% of circulating flow with low-drift eliminators</li><li>Design wet-bulb: set to local site conditions</li><li>Capacity, number of cells and fan power configured to your duty</li></ul>",
+    "quote_checklist": [
+        "Water flow rate (m³/h) or heat load",
+        "Hot water, cold water and design wet-bulb temperatures",
+        "Application (process, power, HVAC) and water quality",
+        "Site space, location and any noise limits",
+        "New unit, replacement or upgrade"
+    ]
+}

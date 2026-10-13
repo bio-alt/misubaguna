@@ -393,6 +393,8 @@
                 <a class="mega-link" href="/services/expansion-joint-installation/">Expansion Joint Installation</a>
                 <a class="mega-link" href="/services/mechanical-maintenance/">Mechanical Maintenance & Repair</a>
                 <a class="mega-link" href="/services/onsite-inspection/">On-Site Inspection & Troubleshooting</a>
+                <a class="mega-link" href="/services/ndt-inspection/">NDT Inspection</a>
+                <a class="mega-link" href="/services/onsite-3d-scanning/">On-Site 3D Scanning</a>
             </div>
         </div>
     </div>
@@ -611,6 +613,8 @@
                     <a class="mob-cat-link" href="/services/expansion-joint-installation/">Expansion Joint Installation</a>
                     <a class="mob-cat-link" href="/services/mechanical-maintenance/">Mechanical Maintenance & Repair</a>
                     <a class="mob-cat-link" href="/services/onsite-inspection/">On-Site Inspection & Troubleshooting</a>
+                    <a class="mob-cat-link" href="/services/ndt-inspection/">NDT Inspection</a>
+                    <a class="mob-cat-link" href="/services/onsite-3d-scanning/">On-Site 3D Scanning</a>
                 </div>
             </div>
 
