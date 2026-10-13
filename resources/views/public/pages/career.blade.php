@@ -531,6 +531,44 @@
         justify-content: flex-end;
         gap: 12px;
     }
+    .form-hint {
+        display: block;
+        font-size: 12px;
+        color: #64748b;
+        margin-top: 6px;
+    }
+    .form-alert {
+        padding: 12px 14px;
+        border-radius: 8px;
+        font-size: 14px;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    .form-alert-success {
+        background: #ecfdf5;
+        border: 1px solid #a7f3d0;
+        color: #065f46;
+    }
+    .form-alert-error {
+        background: #f1f5f9;
+        border: 1px solid #cbd5e1;
+        border-left: 4px solid #0f172a;
+        color: #0f172a;
+    }
+    #apply {
+        scroll-margin-top: 110px;
+    }
+    #apply .form-alert {
+        margin: 16px 0 0;
+    }
+    .career-form-honeypot {
+        position: absolute;
+        left: -9999px;
+    }
+    .btn-apply-now:disabled {
+        opacity: 0.7;
+        cursor: wait;
+    }
 </style>
 
 <!-- Hero Section -->
@@ -598,6 +636,11 @@
     <div class="positions-section-header">
         <h2>Open Positions</h2>
         <p>We are currently recruiting for the following roles. Click on any position to view details and apply.</p>
+        <div id="apply">
+            @if (session('career_success'))
+                <div class="form-alert form-alert-success" role="status">Thank you! Your application and CV have been received. Our HR team will review them and contact you if your profile matches.</div>
+            @endif
+        </div>
     </div>
 
     <!-- Positions List -->
@@ -673,7 +716,7 @@
             <div class="step-card">
                 <div class="step-number">1</div>
                 <h3>Application</h3>
-                <p>Submit your resume and cover letter via our website or direct email.</p>
+                <p>Submit your CV and cover letter through the application form on this page.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">2</div>
@@ -699,7 +742,7 @@
             <h3>Don't see a position that matches your profile?</h3>
             <p>We are always looking for passionate engineers, sales specialists, and operational talent. Send your open application and CV directly to our HR team.</p>
         </div>
-        <a href="mailto:marketing@misubaguna.com?subject=Spontaneous%20Application%20-%20PT%20Misuba%20Guna%20Indonesia" class="banner-btn">
+        <a href="#apply" class="banner-btn" onclick="openApplyModal('{{ \App\Http\Controllers\PublicSite\CareerController::GENERAL_APPLICATION }}'); return false;">
             <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             Send Spontaneous Application
         </a>
@@ -714,37 +757,50 @@
             <h3>Apply for Position</h3>
             <button type="button" class="modal-close-btn" onclick="closeApplyModal()">&times;</button>
         </div>
-        <form id="careerForm" onsubmit="handleFormSubmit(event)">
+        <form id="careerForm" action="/career/" method="POST" enctype="multipart/form-data" onsubmit="var b = this.querySelector('button[type=submit]'); b.disabled = true; b.querySelector('span').textContent = 'Sending...';">
+            @csrf
+            <div class="career-form-honeypot" aria-hidden="true">
+                <label for="careerWebsite">Leave this field empty</label>
+                <input type="text" id="careerWebsite" name="website" tabindex="-1" autocomplete="off">
+            </div>
             <div class="modal-body">
+                @if ($errors->any())
+                    <div class="form-alert form-alert-error" role="alert">
+                        @foreach ($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                        @endforeach
+                    </div>
+                @endif
                 <div class="form-group">
                     <label for="modalPosition">Position Applied For</label>
-                    <input type="text" id="modalPosition" class="form-control" readonly style="background:#f1f5f9; font-weight:700;">
+                    <input type="text" id="modalPosition" name="position" value="{{ old('position') }}" class="form-control" readonly style="background:#f1f5f9; font-weight:700;">
                 </div>
                 <div class="form-group">
                     <label for="fullName">Full Name *</label>
-                    <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                    <input type="text" id="fullName" name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter your full name" maxlength="120" required>
                 </div>
                 <div class="form-group">
                     <label for="emailAddr">Email Address *</label>
-                    <input type="email" id="emailAddr" class="form-control" placeholder="name@example.com" required>
+                    <input type="email" id="emailAddr" name="email" value="{{ old('email') }}" class="form-control" placeholder="name@example.com" maxlength="160" required>
                 </div>
                 <div class="form-group">
                     <label for="phoneNum">Phone / WhatsApp Number *</label>
-                    <input type="tel" id="phoneNum" class="form-control" placeholder="+62 812-3456-7890" required>
+                    <input type="tel" id="phoneNum" name="phone" value="{{ old('phone') }}" class="form-control" placeholder="+62 812-3456-7890" maxlength="40" required>
                 </div>
                 <div class="form-group">
-                    <label for="cvLink">Link to CV / Resume / LinkedIn Profile *</label>
-                    <input type="url" id="cvLink" class="form-control" placeholder="https://drive.google.com/... or https://linkedin.com/in/..." required>
+                    <label for="cvFile">CV / Resume *</label>
+                    <input type="file" id="cvFile" name="cv" class="form-control" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                    <span class="form-hint">PDF or Word (.doc, .docx), max 5 MB.</span>
                 </div>
                 <div class="form-group">
                     <label for="coverLetter">Cover Letter / Additional Information</label>
-                    <textarea id="coverLetter" class="form-control" rows="4" placeholder="Briefly describe your relevant experience and why you are interested in joining PT Misuba Guna Indonesia..."></textarea>
+                    <textarea id="coverLetter" name="cover_letter" class="form-control" rows="4" maxlength="5000" placeholder="Briefly describe your relevant experience and why you are interested in joining PT Misuba Guna Indonesia...">{{ old('cover_letter') }}</textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn-toggle-detail" onclick="closeApplyModal()">Cancel</button>
                 <button type="submit" class="btn-apply-now">
-                    <span>Send Application via Email</span>
+                    <span>Submit Application</span>
                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </button>
             </div>
@@ -780,30 +836,15 @@
         document.body.style.overflow = '';
     }
 
-    function handleFormSubmit(e) {
-        e.preventDefault();
-        var position = document.getElementById('modalPosition').value;
-        var name = document.getElementById('fullName').value;
-        var email = document.getElementById('emailAddr').value;
-        var phone = document.getElementById('phoneNum').value;
-        var cv = document.getElementById('cvLink').value;
-        var message = document.getElementById('coverLetter').value;
+    // Reject oversized CVs before the upload starts (server enforces the same 5 MB limit).
+    document.getElementById('cvFile').addEventListener('change', function () {
+        var file = this.files[0];
+        this.setCustomValidity(file && file.size > 5 * 1024 * 1024 ? 'Your CV must be 5 MB or smaller.' : '');
+        this.reportValidity();
+    });
 
-        var subject = encodeURIComponent("Job Application: " + position + " - " + name);
-        var body = encodeURIComponent(
-            "Dear HR Department PT Misuba Guna Indonesia,\n\n" +
-            "I would like to apply for the position of " + position + ".\n\n" +
-            "Candidate Details:\n" +
-            "- Full Name: " + name + "\n" +
-            "- Email: " + email + "\n" +
-            "- Phone/WhatsApp: " + phone + "\n" +
-            "- CV/Resume Link: " + cv + "\n\n" +
-            "Cover Letter / Brief Summary:\n" + message + "\n\n" +
-            "Best regards,\n" + name
-        );
-
-        window.location.href = "mailto:marketing@misubaguna.com?subject=" + subject + "&body=" + body;
-        closeApplyModal();
-    }
+    @if ($errors->any())
+        openApplyModal(@json(old('position', '')));
+    @endif
 </script>
 @endsection

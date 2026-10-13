@@ -3,19 +3,103 @@
 namespace App\Http\Controllers\PublicSite;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CareerApplication as CareerApplicationMail;
+use App\Models\CareerApplication;
 use App\Models\PublicSite\PublicPage;
 use App\Support\PublicSeo;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CareerController extends Controller
 {
+    public const GENERAL_APPLICATION = 'General Application';
+
     public function index()
     {
         $page = PublicPage::where('url_path', '/career/')->where('is_published', true)->firstOrFail();
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
         $seo = PublicSeo::buildSeoData($page, $siteSettings);
 
-        $openPositions = [
+        $openPositions = self::openPositions();
+
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'Careers', 'url' => '/career/'],
+        ];
+
+        $schemas = [
+            PublicSeo::organizationSchema($siteSettings),
+            PublicSeo::breadcrumbSchema($breadcrumbs),
+        ];
+
+        foreach ($openPositions as $pos) {
+            $schemas[] = PublicSeo::jobPostingSchema($pos, $siteSettings);
+        }
+
+        $seo['schema_json'] = $schemas;
+
+        return view('public.pages.career', compact('page', 'seo', 'siteSettings', 'openPositions', 'breadcrumbs'));
+    }
+
+    public function store(Request $request)
+    {
+        // Honeypot: bots fill the hidden "website" field, humans never see it.
+        if ($request->filled('website')) {
+            return redirect()->to('/career/#apply')->with('career_success', true);
+        }
+
+        $positions = array_merge(array_column(self::openPositions(), 'title'), [self::GENERAL_APPLICATION]);
+
+        $data = $request->validate([
+            'position' => ['required', 'string', Rule::in($positions)],
+            'name' => ['required', 'string', 'max:120'],
+            'email' => ['required', 'email', 'max:160'],
+            'phone' => ['required', 'string', 'max:40'],
+            'cv' => ['required', 'file', 'mimes:pdf,doc,docx', 'max:5120'],
+            'cover_letter' => ['nullable', 'string', 'max:5000'],
+        ], [
+            'cv.required' => 'Please attach your CV.',
+            'cv.mimes' => 'Your CV must be a PDF or Word (.doc, .docx) file.',
+            'cv.max' => 'Your CV must be 5 MB or smaller.',
+            'cv.uploaded' => 'Your CV could not be uploaded. Please use a PDF or Word file of 5 MB or smaller.',
+        ]);
+
+        $cv = $request->file('cv');
+        $cvPath = $cv->storeAs(
+            'career-applications/'.now()->format('Y/m'),
+            Str::random(24).'.'.$cv->guessExtension(),
+            'local'
+        );
+
+        $application = CareerApplication::create([
+            'position' => $data['position'],
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'cover_letter' => $data['cover_letter'] ?? null,
+            'cv_path' => $cvPath,
+            'cv_original_name' => Str::limit($cv->getClientOriginalName(), 180, ''),
+            'ip_address' => $request->ip(),
+        ]);
+
+        // The application is already stored, so a mail failure is reported, not shown to the applicant.
+        try {
+            Mail::to(config('mail.career_to'))->send(new CareerApplicationMail($application));
+            $application->forceFill(['emailed_at' => now()])->save();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        return redirect()->to('/career/#apply')->with('career_success', true);
+    }
+
+    /** Open positions shown on /career/ and accepted by the application form. */
+    public static function openPositions(): array
+    {
+        return [
             [
                 'id' => 'safety-officer',
                 'title' => 'Safety Officer (HSE / K3)',
@@ -117,23 +201,5 @@ class CareerController extends Controller
                 ]
             ]
         ];
-
-        $breadcrumbs = [
-            ['name' => 'Home', 'url' => '/'],
-            ['name' => 'Careers', 'url' => '/career/'],
-        ];
-
-        $schemas = [
-            PublicSeo::organizationSchema($siteSettings),
-            PublicSeo::breadcrumbSchema($breadcrumbs),
-        ];
-
-        foreach ($openPositions as $pos) {
-            $schemas[] = PublicSeo::jobPostingSchema($pos, $siteSettings);
-        }
-
-        $seo['schema_json'] = $schemas;
-
-        return view('public.pages.career', compact('page', 'seo', 'siteSettings', 'openPositions', 'breadcrumbs'));
     }
 }

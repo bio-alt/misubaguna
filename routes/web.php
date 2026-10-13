@@ -21,6 +21,7 @@ Route::get('/project-list/', [ProjectController::class, 'index'])->name('public.
 Route::get('/contact-us/', [ContactController::class, 'index'])->name('public.contact');
 Route::post('/contact-us/', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('public.contact.store');
 Route::get('/career/', [CareerController::class, 'index'])->name('public.career');
+Route::post('/career/', [CareerController::class, 'store'])->middleware('throttle:5,10,career')->name('public.career.store');
 Route::get('/catalog/', [CatalogController::class, 'index'])->name('public.catalog');
 
 use App\Http\Controllers\PublicSite\ServiceController;
