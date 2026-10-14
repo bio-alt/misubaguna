@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\PublicSite;
 
 use App\Http\Controllers\Controller;
+use App\Models\Inquiry;
 use App\Support\IndonesianPages;
 use App\Support\ProductContent;
 use App\Support\PublicSeo;
 use App\Support\QuoteRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -60,6 +62,15 @@ class QuoteRequestController extends Controller
             'sourceUrl' => $this->sameHostReferrerPath($request),
             'waUrl' => ProductContent::whatsappUrl($product?->name ?? __('your products')),
         ]);
+    }
+
+    /** A stored file, reached through the signed link in the sales email. */
+    public function download(Inquiry $inquiry, int $index)
+    {
+        $file = $inquiry->files[$index] ?? null;
+        abort_unless($file && Storage::disk('local')->exists($file['path']), 404);
+
+        return Storage::disk('local')->download($file['path'], $file['name']);
     }
 
     /** /id/... routes render in Indonesian; everything else in English. */

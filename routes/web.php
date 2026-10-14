@@ -24,7 +24,9 @@ Route::get('/career/', [CareerController::class, 'index'])->name('public.career'
 Route::post('/career/', [CareerController::class, 'store'])->middleware('throttle:5,10,career')->name('public.career.store');
 Route::get('/request-a-quote/', [\App\Http\Controllers\PublicSite\QuoteRequestController::class, 'create'])->name('public.quote.create');
 Route::get('/id/request-a-quote/', [\App\Http\Controllers\PublicSite\QuoteRequestController::class, 'create'])->name('public.id.quote.create');
-Route::get('/catalog/',[CatalogController::class, 'index'])->name('public.catalog');
+Route::get('/inquiries/files/{inquiry}/{index}', [\App\Http\Controllers\PublicSite\QuoteRequestController::class, 'download'])
+    ->whereNumber(['inquiry', 'index'])->middleware('signed')->name('public.inquiry-file');
+Route::get('/catalog/', [CatalogController::class, 'index'])->name('public.catalog');
 
 use App\Http\Controllers\PublicSite\ServiceController;
 use App\Http\Controllers\PublicSite\ToolkitController;

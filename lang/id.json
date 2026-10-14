@@ -71,5 +71,12 @@
     "Email": "Email",
     "Phone / WhatsApp": "Telepon / WhatsApp",
     "Delivery city or site": "Kota atau lokasi pengiriman",
-    "Send quote request": "Kirim permintaan penawaran"
+    "Send quote request": "Kirim permintaan penawaran",
+    "We received your quote request :reference": "Permintaan penawaran :reference sudah kami terima",
+    "quote request :reference": "permintaan penawaran :reference",
+    "Dear :name,": "Yth. :name,",
+    "Thank you for your quote request. Your reference is :reference.": "Terima kasih atas permintaan penawaran Anda. Nomor referensi Anda :reference.",
+    "Our sales team will review it and reply.": "Tim sales kami akan memeriksanya dan membalas.",
+    "Files": "File",
+    "To add details, reply to this email or message us on WhatsApp:": "Untuk menambahkan detail, balas email ini atau hubungi kami lewat WhatsApp:"
 }
