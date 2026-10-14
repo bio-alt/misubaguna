@@ -428,8 +428,8 @@
 
         <!-- Technical Quote Request Form -->
         <div class="contact-form-card" id="inquiry-form">
-            <h2>Request a Quote</h2>
-            <div class="form-subtitle">Fill out your inquiry details below and our sales team will get back to you promptly.</div>
+            <h2>Send an Inquiry</h2>
+            <div class="form-subtitle">Fill out your inquiry details below and our sales team will get back to you promptly. Need a price for a specific product? <a href="/request-a-quote/">Request a quote →</a></div>
 
             @if (session('contact_success'))
                 <div class="form-alert form-alert-success">Thank you! Your inquiry has been sent. Our team will get back to you shortly.</div>

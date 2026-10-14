@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PublicSite\PublicPage;
 use App\Support\PublicSeo;
 use App\Mail\ContactInquiry;
+use App\Models\Inquiry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -57,8 +58,16 @@ class ContactController extends Controller
             'message' => ['required', 'string', 'max:5000'],
         ]);
 
+        // Stored first, so the inquiry survives a mail failure.
+        $stored = Inquiry::create($inquiry + [
+            'kind' => Inquiry::KIND_CONTACT,
+            'locale' => 'en',
+            'ip_address' => $request->ip(),
+        ]);
+
         try {
             Mail::to(config('mail.contact_to'))->send(new ContactInquiry($inquiry));
+            $stored->forceFill(['emailed_at' => now()])->save();
         } catch (\Throwable $e) {
             report($e);
 

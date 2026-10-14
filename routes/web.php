@@ -22,6 +22,14 @@ Route::get('/contact-us/', [ContactController::class, 'index'])->name('public.co
 Route::post('/contact-us/', [ContactController::class, 'store'])->middleware('throttle:5,1')->name('public.contact.store');
 Route::get('/career/', [CareerController::class, 'index'])->name('public.career');
 Route::post('/career/', [CareerController::class, 'store'])->middleware('throttle:5,10,career')->name('public.career.store');
+Route::get('/request-a-quote/', [\App\Http\Controllers\PublicSite\QuoteRequestController::class, 'create'])->name('public.quote.create');
+Route::get('/id/request-a-quote/', [\App\Http\Controllers\PublicSite\QuoteRequestController::class, 'create'])->name('public.id.quote.create');
+Route::post('/request-a-quote/', [\App\Http\Controllers\PublicSite\QuoteRequestController::class, 'store'])->middleware('throttle:5,10,quote')->name('public.quote.store');
+Route::post('/id/request-a-quote/', [\App\Http\Controllers\PublicSite\QuoteRequestController::class, 'store'])->middleware('throttle:5,10,quote')->name('public.id.quote.store');
+Route::get('/request-a-quote/thanks/{reference}/', [\App\Http\Controllers\PublicSite\QuoteRequestController::class, 'thanks'])->name('public.quote.thanks');
+Route::get('/id/request-a-quote/thanks/{reference}/', [\App\Http\Controllers\PublicSite\QuoteRequestController::class, 'thanks'])->name('public.id.quote.thanks');
+Route::get('/inquiries/files/{inquiry}/{index}', [\App\Http\Controllers\PublicSite\QuoteRequestController::class, 'download'])
+    ->whereNumber(['inquiry', 'index'])->middleware('signed')->name('public.inquiry-file');
 Route::get('/catalog/', [CatalogController::class, 'index'])->name('public.catalog');
 
 use App\Http\Controllers\PublicSite\ServiceController;
