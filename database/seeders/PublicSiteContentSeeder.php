@@ -290,6 +290,7 @@ class PublicSiteContentSeeder extends Seeder
             'technical_specs_json' => '["Material selection depends on media, shaft speed, temperature, pressure, and equipment type"]',
             'needs_manual_review' => false,
             'notes' => 'Cleaned product content prepared for Laravel import. Review flags mean exact old page content could not be fully confirmed from crawl output.',
+            'gallery' => '["/images/Products/Gland packing/Glandpacking1 (1).webp", "/images/Products/Gland packing/Glandpacking1 (2).webp", "/images/Products/Gland packing/Glandpacking1 (3).webp"]',
         ],
         [
             'table' => 'public_products',
@@ -618,6 +619,10 @@ class PublicSiteContentSeeder extends Seeder
                 $payload['applications'] = $row['applications_json'] ? json_decode($row['applications_json'], true) : null;
                 $payload['materials'] = $row['materials_json'] ? json_decode($row['materials_json'], true) : null;
                 $payload['technical_specs'] = $row['technical_specs_json'] ? json_decode($row['technical_specs_json'], true) : null;
+
+                if (array_key_exists('gallery', $row)) {
+                    $payload['gallery'] = $row['gallery'];
+                }
             }
 
             DB::table($table)->where('url_path', $row['url_path'])->update($payload);
