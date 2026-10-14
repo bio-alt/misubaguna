@@ -78,5 +78,14 @@
     "Thank you for your quote request. Your reference is :reference.": "Terima kasih atas permintaan penawaran Anda. Nomor referensi Anda :reference.",
     "Our sales team will review it and reply.": "Tim sales kami akan memeriksanya dan membalas.",
     "Files": "File",
-    "To add details, reply to this email or message us on WhatsApp:": "Untuk menambahkan detail, balas email ini atau hubungi kami lewat WhatsApp:"
+    "To add details, reply to this email or message us on WhatsApp:": "Untuk menambahkan detail, balas email ini atau hubungi kami lewat WhatsApp:",
+    "Attach up to 3 files.": "Lampirkan maksimal 3 file.",
+    "Each file must be 10 MB or smaller.": "Setiap file maksimal 10 MB.",
+    "Files must be PDF, DWG, DXF, JPG, PNG, XLSX or DOCX.": "File harus berformat PDF, DWG, DXF, JPG, PNG, XLSX atau DOCX.",
+    "A file could not be uploaded. Use files of 10 MB or smaller.": "Ada file yang gagal diunggah. Gunakan file maksimal 10 MB.",
+    "Please answer at least one question, attach a drawing, or describe what you need.": "Isi minimal satu pertanyaan, lampirkan gambar teknik, atau jelaskan kebutuhan Anda.",
+    "Quote request received": "Permintaan penawaran diterima",
+    "Your quote request has been received by PT Misuba Guna Indonesia.": "Permintaan penawaran Anda sudah diterima PT Misuba Guna Indonesia.",
+    "Thank you. Our sales team will review your request and reply by email. Please quote this reference if you contact us:": "Terima kasih. Tim sales kami akan memeriksa permintaan Anda dan membalas lewat email. Sebutkan nomor referensi ini bila menghubungi kami:",
+    "Browse products": "Lihat produk"
 }
