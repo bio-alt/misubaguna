@@ -28,8 +28,9 @@ the database even when mail fails.
 
 ## Routes and entry points
 
-- `GET /request-a-quote/` — query params `product` (optional slug) and `item`
-  (optional free text, max 160 chars). Unknown or unpublished slug → generic form.
+- `GET /request-a-quote/` — query params `product` (optional slug), `item`
+  (optional free text, max 160 chars) and `message` (optional, max 2000,
+  prefills "Anything else"; used by the expansion-joint selector). Unknown or unpublished slug → generic form.
 - `POST /request-a-quote/` — throttled (`throttle:5,10,quote`), redirects to the
   thank-you page.
 - `GET /request-a-quote/thanks/{reference}` — 404 for an unknown reference.
@@ -52,7 +53,8 @@ Entry points rewired to the quote page:
   `public/pages/category.blade.php` CTA → quote page (category passes no product).
 - `public/partials/coupling-range.blade.php` → `?product={family slug}&item={series code + name}`.
 - `public/toolkit/expansion-joint-selector.blade.php` "Request a Quote" →
-  quote page with `item` set to the selector's recommendation summary.
+  quote page with `item` = "Expansion joint (selector result)" and `message` =
+  the selector's existing calculation summary.
 - `public/services/index.blade.php` and `public/services/show.blade.php` quote
   buttons → quote page with `item` = service name.
 - Indonesian product pages link to `/id/request-a-quote/?product=…`.
@@ -91,8 +93,9 @@ On validation failure, text input is preserved (`withInput()`); the error
 summary notes that files must be attached again.
 
 All UI strings go through `__()` with Indonesian entries in `lang/id.json`.
-Checklist labels are translated through `__()` as well; untranslated labels
-fall back to English.
+On `/id/` the checklist comes from the Indonesian content file's
+`quote_checklist` when the product has one (as the `/id/` product page does),
+otherwise the English checklist.
 
 ## Data: `inquiries` table
 
