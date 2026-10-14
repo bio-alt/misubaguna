@@ -59,7 +59,7 @@ class PublicSiteContentSeeder extends Seeder
             'url_path' => '/contact-us/',
             'title' => 'Contact Us',
             'summary' => 'Contact page with operational office, warehouse, billing address, telephone, WhatsApp, email, website, and inquiry form.',
-            'content_html' => '<h1>Contact Us</h1><h2>Operational Office</h2><p>Ruko Mutiara Karawaci Blok C29, Bencongan Indah, Kecamatan Kelapa Dua, Tangerang, Banten 15810.</p><h2>Warehouse</h2><p>Ruko Mutiara Karawaci Blok B36, Bencongan Indah, Kecamatan Kelapa Dua, Tangerang, Banten 15810.</p><h2>Contact</h2><ul><li>Telephone: +62 21 55660700</li><li>WhatsApp: +62 811 8715 671</li><li>Email: marketing@misubaguna.com</li><li>Website: www.misubaguna.com</li></ul><p><strong>Billing address must be confirmed before launch because current site has conflicting floor/room information.</strong></p>',
+            'content_html' => '<h1>Contact Us</h1><h2>Operational Office</h2><p>Ruko Mutiara Karawaci Blok C29, Bencongan Indah, Kecamatan Kelapa Dua, Tangerang, Banten 15810.</p><h2>Warehouse</h2><p>Ruko Mutiara Karawaci Blok B36, Bencongan Indah, Kecamatan Kelapa Dua, Tangerang, Banten 15810.</p><h2>Contact</h2><ul><li>Telephone: +62 21 55660700</li><li>WhatsApp: +62 811 8715 671</li><li>Email: marketing@misubaguna.com</li><li>Website: www.misubaguna.com</li></ul><h2>Billing Address</h2><p>Gedung STC Senayan Lt. 4 Ruang 80, Jalan Asia Afrika Pintu IX Gelora Senayan, Gelora, Tanah Abang, Kota Adm. Jakarta Pusat, DKI Jakarta 10270.</p>',
             'key_features_json' => null,
             'applications_json' => null,
             'materials_json' => null,

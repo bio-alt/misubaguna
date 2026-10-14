@@ -540,7 +540,7 @@ class PublicSiteSeeder extends Seeder
             ['key' => 'company_website', 'value' => 'https://misubaguna.com', 'type' => 'string', 'description' => 'Public website URL.'],
             ['key' => 'operational_address', 'value' => 'Ruko Mutiara Karawaci Blok C29, Bencongan Indah, Kecamatan Kelapa Dua, Tangerang, Banten 15810', 'type' => 'string', 'description' => 'Operational address from current public site.'],
             ['key' => 'warehouse_address', 'value' => 'Ruko Mutiara Karawaci Blok B36, Bencongan Indah, Kecamatan Kelapa Dua, Tangerang, Banten 15810', 'type' => 'string', 'description' => 'Warehouse address.'],
-            ['key' => 'billing_address', 'value' => 'NEEDS_CONFIRMATION: public site has conflict between STC Senayan Lantai 4 No 80 and Lantai 2 No 89', 'type' => 'string', 'description' => 'Fix before rendering schema or footer.'],
+            ['key' => 'billing_address', 'value' => 'Gedung STC Senayan Lt. 4 Ruang 80, Jalan Asia Afrika Pintu IX Gelora Senayan, Gelora, Tanah Abang, Kota Adm. Jakarta Pusat, DKI Jakarta 10270', 'type' => 'string', 'description' => 'Confirmed billing address.'],
         ];
 
         foreach ($settings as $setting) {

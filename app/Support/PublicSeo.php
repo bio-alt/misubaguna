@@ -24,9 +24,10 @@ class PublicSeo
 
     public const BILLING_ADDRESS = [
         '@type' => 'PostalAddress',
-        'streetAddress' => 'Gedung STC Senayan Lantai 4 No 89, Jalan Asia Afrika Pintu IX, Gelora Senayan, Tanah Abang',
-        'addressLocality' => 'Jakarta Pusat',
+        'streetAddress' => 'Gedung STC Senayan Lt. 4 Ruang 80, Jalan Asia Afrika Pintu IX Gelora Senayan, Gelora, Tanah Abang',
+        'addressLocality' => 'Kota Adm. Jakarta Pusat',
         'addressRegion' => 'DKI Jakarta',
+        'postalCode' => '10270',
         'addressCountry' => 'ID',
     ];
 

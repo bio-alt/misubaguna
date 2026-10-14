@@ -409,7 +409,7 @@
                 </div>
                 <div class="c-card-content">
                     <h3>Billing Office</h3>
-                    <p>Gedung STC Senayan Lantai 4 No 89, Jl. Asia Afrika Pintu IX, Gelora Senayan, Tanah Abang, Jakarta Pusat</p>
+                    <p>Gedung STC Senayan Lt. 4 Ruang 80, Jalan Asia Afrika Pintu IX Gelora Senayan, Gelora, Tanah Abang, Kota Adm. Jakarta Pusat, DKI Jakarta 10270</p>
                 </div>
             </div>
 
