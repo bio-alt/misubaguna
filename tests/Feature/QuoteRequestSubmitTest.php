@@ -8,6 +8,7 @@ use App\Models\Inquiry;
 use App\Models\PublicSite\PublicProduct;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Defer\DeferredCallbackCollection;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -200,6 +201,66 @@ class QuoteRequestSubmitTest extends TestCase
         $response->assertRedirect('/id/request-a-quote/thanks/'.$inquiry->reference.'/');
         $this->assertSame('id', $inquiry->locale);
         Mail::assertSent(QuoteConfirmation::class, fn ($mail) => $mail->locale === 'id');
+    }
+
+    public function test_emails_are_sent_after_the_response(): void
+    {
+        Mail::fake();
+        $deferred = new class extends DeferredCallbackCollection
+        {
+            public bool $hold = true;
+
+            public function invokeWhen(?\Closure $when = null): void
+            {
+                if (! $this->hold) {
+                    parent::invokeWhen($when);
+                }
+            }
+        };
+        $this->app->instance(DeferredCallbackCollection::class, $deferred);
+
+        $response = $this->post('/request-a-quote/', $this->payload());
+
+        $inquiry = Inquiry::sole();
+        $response->assertRedirect('/request-a-quote/thanks/'.$inquiry->reference.'/');
+        Mail::assertNothingSent();
+        $this->assertNull($inquiry->emailed_at);
+
+        $deferred->hold = false;
+        $deferred->invoke();
+
+        Mail::assertSent(QuoteRequestMail::class);
+        Mail::assertSent(QuoteConfirmation::class);
+        $this->assertNotNull($inquiry->fresh()->emailed_at);
+        $this->assertNotNull($inquiry->fresh()->confirmed_at);
+    }
+
+    public function test_protocol_relative_source_url_is_not_stored(): void
+    {
+        Mail::fake();
+
+        $this->post('/request-a-quote/', $this->payload(['source_url' => '//evil.example/x']));
+        $this->post('/request-a-quote/', $this->payload(['source_url' => '/product/fabric-expansion-joint/']));
+
+        $this->assertSame([null, '/product/fabric-expansion-joint/'], Inquiry::orderBy('id')->pluck('source_url')->all());
+    }
+
+    public function test_thanks_page_links_only_published_products_and_shows_the_item(): void
+    {
+        Mail::fake();
+        $this->post('/request-a-quote/', $this->payload(['item' => 'LK Series Jaw Coupling, 2 sets']));
+        $reference = Inquiry::sole()->reference;
+
+        $this->get('/request-a-quote/thanks/'.$reference.'/')
+            ->assertSee('<a href="/product/fabric-expansion-joint/">Fabric Expansion Joint</a>', false)
+            ->assertSee('LK Series Jaw Coupling, 2 sets');
+
+        PublicProduct::where('slug', 'fabric-expansion-joint')->update(['is_published' => false]);
+
+        $this->get('/request-a-quote/thanks/'.$reference.'/')
+            ->assertOk()
+            ->assertDontSee('<a href="/product/fabric-expansion-joint/">Fabric Expansion Joint</a>', false)
+            ->assertSee('Fabric Expansion Joint');
     }
 
     public function test_thanks_page_shows_reference_not_contact_details(): void

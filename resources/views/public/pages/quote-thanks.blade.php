@@ -29,8 +29,11 @@
                 <dd>
                     @if($productUrl)
                         <a href="{{ $productUrl }}">{{ $inquiry->product_name }}</a>
-                    @else
-                        {{ $inquiry->item ?: $inquiry->product_name }}
+                    @elseif($inquiry->product_name)
+                        {{ $inquiry->product_name }}
+                    @endif
+                    @if($inquiry->item && $inquiry->item !== $inquiry->product_name)
+                        @if($inquiry->product_name)<br>@endif{{ $inquiry->item }}
                     @endif
                 </dd>
             </div>

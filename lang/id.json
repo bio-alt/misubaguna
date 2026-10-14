@@ -87,5 +87,8 @@
     "Quote request received": "Permintaan penawaran diterima",
     "Your quote request has been received by PT Misuba Guna Indonesia.": "Permintaan penawaran Anda sudah diterima PT Misuba Guna Indonesia.",
     "Thank you. Our sales team will review your request and reply by email. Please quote this reference if you contact us:": "Terima kasih. Tim sales kami akan memeriksa permintaan Anda dan membalas lewat email. Sebutkan nomor referensi ini bila menghubungi kami:",
-    "Browse products": "Lihat produk"
+    "Browse products": "Lihat produk",
+    "Hello,": "Halo,",
+    "You answered:": "Pertanyaan yang Anda jawab:",
+    ":count file attached|:count files attached": ":count file terlampir|:count file terlampir"
 }

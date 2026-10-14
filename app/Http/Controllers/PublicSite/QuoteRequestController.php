@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
+use function Illuminate\Support\defer;
+
 /**
  * The quote request page (/request-a-quote/ and /id/request-a-quote/): a form that knows
  * the product, asks its quote checklist and takes drawings.
@@ -155,24 +157,28 @@ class QuoteRequestController extends Controller
             'message' => trim((string) ($data['message'] ?? '')) ?: null,
             'files' => $files,
             'locale' => $locale,
-            'source_url' => str_starts_with($sourceUrl, '/') ? $sourceUrl : null,
+            'source_url' => str_starts_with($sourceUrl, '/') && ! str_starts_with($sourceUrl, '//') ? $sourceUrl : null,
             'ip_address' => $request->ip(),
         ]);
 
-        // The request is already stored, so mail failures are reported, not shown to the buyer.
-        try {
-            Mail::to(config('mail.contact_to'))->send(new QuoteRequestMail($inquiry));
-            $inquiry->forceFill(['emailed_at' => now()])->save();
-        } catch (\Throwable $e) {
-            report($e);
-        }
+        // Mail goes out after the buyer has their thank-you page, so a slow SMTP server
+        // (one message can carry 15 MB) never holds up or times out the response. The
+        // request is already stored; failures are reported and leave the *_at columns null.
+        defer(function () use ($inquiry) {
+            try {
+                Mail::to(config('mail.contact_to'))->send(new QuoteRequestMail($inquiry));
+                $inquiry->forceFill(['emailed_at' => now()])->save();
+            } catch (\Throwable $e) {
+                report($e);
+            }
 
-        try {
-            Mail::to($inquiry->email)->send(new QuoteConfirmation($inquiry));
-            $inquiry->forceFill(['confirmed_at' => now()])->save();
-        } catch (\Throwable $e) {
-            report($e);
-        }
+            try {
+                Mail::to($inquiry->email)->send(new QuoteConfirmation($inquiry));
+                $inquiry->forceFill(['confirmed_at' => now()])->save();
+            } catch (\Throwable $e) {
+                report($e);
+            }
+        });
 
         return redirect()->to(QuoteRequest::thanksUrl($inquiry->reference, $locale));
     }
@@ -183,9 +189,11 @@ class QuoteRequestController extends Controller
         $inquiry = Inquiry::where('kind', Inquiry::KIND_QUOTE)->where('reference', $reference)->firstOrFail();
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
 
-        $productUrl = $inquiry->product_slug
-            ? $this->productUrl($locale, $inquiry->product_slug, PublicProduct::where('slug', $inquiry->product_slug)->value('url_path'))
+        // Link the product only while it is still published.
+        $product = $inquiry->product_slug
+            ? PublicProduct::where('slug', $inquiry->product_slug)->where('is_published', true)->first()
             : null;
+        $productUrl = $product ? $this->productUrl($locale, $product->slug, $product->url_path) : null;
 
         $breadcrumbs = [
             ['name' => $locale === 'id' ? 'Beranda' : 'Home', 'url' => '/'],
