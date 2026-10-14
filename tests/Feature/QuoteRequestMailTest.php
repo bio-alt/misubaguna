@@ -60,6 +60,24 @@ class QuoteRequestMailTest extends TestCase
         $en->assertDontSeeInHtml('/inquiries/files/');
     }
 
+    public function test_confirmation_repeats_none_of_the_buyer_text(): void
+    {
+        Storage::fake('local');
+        $inquiry = $this->inquiry([['cheap-pills-spam.example.pdf', 10]], [
+            'name' => 'Win money at spam.example',
+            'item' => 'Visit spam.example now',
+            'answers' => [['label' => 'Duct size and shape (round or rectangular)', 'value' => 'BUY NOW spam.example']],
+            'message' => 'spam.example',
+        ]);
+
+        $mail = new QuoteConfirmation($inquiry);
+
+        $mail->assertDontSeeInHtml('spam.example');
+        $mail->assertSeeInHtml('Q-2026-ABC234');
+        $mail->assertSeeInHtml('Fabric Expansion Joint');
+        $mail->assertSeeInHtml('Duct size and shape (round or rectangular)');
+    }
+
     public function test_buyer_replies_reach_sales(): void
     {
         (new QuoteConfirmation($this->inquiry()))->assertHasReplyTo('marketing@misubaguna.com');
