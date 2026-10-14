@@ -356,7 +356,7 @@
                 <h3>Get a sized quotation for this line</h3>
                 <p>Our engineers confirm movement, pressure rating, and face-to-face length, then quote the joint.</p>
             </div>
-            <a id="ej-quote" href="/contact-us/">Request a Quote</a>
+            <a id="ej-quote" href="/request-a-quote/?item=Expansion+joint+%28selector+result%29">Request a Quote</a>
         </div>
     </div>
 </div>
@@ -656,8 +656,8 @@
             + '- Calculated axial movement: ' + fmt(total, 1) + ' mm (expansion ' + fmt(expansion, 1) + ' / contraction ' + fmt(contraction, 1) + ')\n'
             + (best ? '- Suggested type: ' + best.type.name + ', qty ' + best.count + '\n' : '')
             + '\nPlease advise and quote. Media details / other requirements: ';
-        el('ej-quote').href = '/contact-us/?category=' + encodeURIComponent('Flexible Joint')
-            + '&message=' + encodeURIComponent(message) + '#inquiry-form';
+        el('ej-quote').href = '/request-a-quote/?item=' + encodeURIComponent('Expansion joint (selector result)')
+            + '&message=' + encodeURIComponent(message);
     }
 
     ['ej-material', 'ej-length', 'ej-dn', 'ej-tinst', 'ej-tmin', 'ej-tmax', 'ej-pressure', 'ej-media'].forEach(function (id) {

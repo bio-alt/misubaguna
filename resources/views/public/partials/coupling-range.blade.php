@@ -4,10 +4,7 @@
     $familyTiles = $familyTiles ?? [];
     $families = \App\Support\CouplingCatalog::families();
     $family = $isHub ? null : \App\Support\CouplingCatalog::family($slug);
-    $quoteUrl = fn (string $subject) => '/contact-us/?' . http_build_query([
-        'category' => 'General Inquiry',
-        'message' => 'Please quote ' . $subject . '. Motor power (kW): , speed (rpm): , shaft diameters: , quantity: ',
-    ]) . '#inquiry-form';
+    $quoteUrl = fn (string $subject) => \App\Support\QuoteRequest::url($slug, $subject);
 @endphp
 
 @if($isHub)

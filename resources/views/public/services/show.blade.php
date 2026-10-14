@@ -526,7 +526,7 @@
                 </div>
             </div>
 
-            <a href="/contact-us/" class="sidebar-cta-btn">Inquire for Service Quote</a>
+            <a href="{{ \App\Support\QuoteRequest::url(null, $service->name) }}" class="sidebar-cta-btn">Inquire for Service Quote</a>
         </div>
 
         {{-- RELATED PRODUCTS WIDGET --}}

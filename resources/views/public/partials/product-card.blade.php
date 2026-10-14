@@ -36,7 +36,7 @@
         @endif
 
         <div class="pc-foot">
-            <a class="pc-quote" href="/contact-us/">{{ __('Request a quote') }}<span class="ds-sr"> {{ __('for') }} {{ $itemName }}</span></a>
+            <a class="pc-quote" href="{{ \App\Support\QuoteRequest::url($item->slug) }}">{{ __('Request a quote') }}<span class="ds-sr"> {{ __('for') }} {{ $itemName }}</span></a>
             <span class="pc-view" aria-hidden="true">{{ __('View details') }}</span>
         </div>
     </div>

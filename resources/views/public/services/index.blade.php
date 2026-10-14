@@ -314,7 +314,7 @@
         <h3>Require On-Site Technical Assistance or Equipment Survey?</h3>
         <p>Contact our sales team to schedule a field survey, request a quotation, or consult on specialized maintenance requirements for your plant.</p>
         <div class="cta-btn-group">
-            <a href="/contact-us/" class="cta-btn-primary">Request Consultation & Quote</a>
+            <a href="{{ \App\Support\QuoteRequest::url(null, 'Plant maintenance services') }}" class="cta-btn-primary">Request Consultation & Quote</a>
             <a href="tel:+622155660700" class="cta-btn-secondary">Call +62 21 55660700</a>
         </div>
     </div>
