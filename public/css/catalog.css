@@ -509,7 +509,7 @@ body:has(.ds) { padding-bottom: 0; }
 .qr-errors { margin: 0 0 22px; padding: 14px 18px; border: 1.5px solid var(--ds-ink); border-radius: 10px; color: var(--ds-ink); }
 .qr-errors p { margin: 0 0 6px; }
 .qr-errors ul { margin: 0; padding-left: 18px; }
-.qr-set { margin: 0 0 22px; padding: 20px 22px; border: 1px solid var(--ds-line); border-radius: var(--ds-r); }
+.qr-set { min-width: 0; margin: 0 0 22px; padding: 20px 22px; border: 1px solid var(--ds-line); border-radius: var(--ds-r); }
 .qr-set legend { padding: 0 6px; font-weight: 700; color: var(--ds-ink); }
 .qr-field { margin: 0 0 14px; }
 .qr-field:last-child { margin-bottom: 0; }
