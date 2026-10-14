@@ -619,7 +619,10 @@ class PublicSiteContentSeeder extends Seeder
                 $payload['applications'] = $row['applications_json'] ? json_decode($row['applications_json'], true) : null;
                 $payload['materials'] = $row['materials_json'] ? json_decode($row['materials_json'], true) : null;
                 $payload['technical_specs'] = $row['technical_specs_json'] ? json_decode($row['technical_specs_json'], true) : null;
-                $payload['gallery'] = $row['gallery'] ?? null;
+
+                if (array_key_exists('gallery', $row)) {
+                    $payload['gallery'] = $row['gallery'];
+                }
             }
 
             DB::table($table)->where('url_path', $row['url_path'])->update($payload);
