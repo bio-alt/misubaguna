@@ -60,6 +60,11 @@ class QuoteRequestMailTest extends TestCase
         $en->assertDontSeeInHtml('/inquiries/files/');
     }
 
+    public function test_buyer_replies_reach_sales(): void
+    {
+        (new QuoteConfirmation($this->inquiry()))->assertHasReplyTo('marketing@misubaguna.com');
+    }
+
     public function test_signed_download_serves_file(): void
     {
         Storage::fake('local');

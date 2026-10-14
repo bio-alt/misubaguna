@@ -6,6 +6,7 @@ use App\Models\Inquiry;
 use App\Support\ProductContent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -25,6 +26,7 @@ class QuoteConfirmation extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            replyTo: [new Address(config('mail.contact_to'), 'PT Misuba Guna Indonesia')],
             subject: __('We received your quote request :reference', ['reference' => $this->inquiry->reference], $this->inquiry->locale),
         );
     }

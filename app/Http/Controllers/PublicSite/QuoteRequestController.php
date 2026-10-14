@@ -12,6 +12,7 @@ use App\Support\ProductContent;
 use App\Support\PublicSeo;
 use App\Support\QuoteRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -33,13 +34,13 @@ class QuoteRequestController extends Controller
     public function create(Request $request)
     {
         $locale = $this->useLocale($request);
-        $product = QuoteRequest::product($request->query('product'));
+        $product = QuoteRequest::product(self::text($request->query('product')));
         $checklist = QuoteRequest::checklist($product);
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
 
         $prefill = [
-            'item' => Str::limit((string) $request->query('item', $product?->name ?? ''), 160, ''),
-            'message' => Str::limit((string) $request->query('message', ''), 2000, ''),
+            'item' => Str::limit(self::text($request->query('item')) ?? $product?->name ?? '', 160, ''),
+            'message' => Str::limit(self::text($request->query('message')) ?? '', 2000, ''),
         ];
 
         $breadcrumbs = $this->breadcrumbs($locale, $product);
@@ -84,8 +85,9 @@ class QuoteRequestController extends Controller
             return redirect()->to(QuoteRequest::url())->with('quote_received', true);
         }
 
-        $product = QuoteRequest::product($request->input('product'));
-        $checklist = QuoteRequest::checklist($product);
+        $slug = self::text($request->input('product'));
+        $product = QuoteRequest::product($slug);
+        $checklist = QuoteRequest::checklistFor($slug);
 
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:120'],
@@ -109,14 +111,14 @@ class QuoteRequestController extends Controller
 
         $answers = [];
         foreach ($checklist as $i => $label) {
-            $value = trim((string) ($request->input("answers.$i") ?? ''));
+            $value = trim(self::text($request->input("answers.$i")) ?? '');
             if ($value !== '') {
                 $answers[] = ['label' => $label, 'value' => $value];
             }
         }
 
         $validator->after(function ($validator) use ($answers, $request) {
-            if ($answers === [] && ! $request->hasFile('files') && trim((string) $request->input('message')) === '') {
+            if ($answers === [] && ! $request->hasFile('files') && trim(self::text($request->input('message')) ?? '') === '') {
                 $validator->errors()->add('answers', __('Please answer at least one question, attach a drawing, or describe what you need.'));
             }
         });
@@ -128,10 +130,10 @@ class QuoteRequestController extends Controller
             $files[] = [
                 'path' => $upload->storeAs(
                     'inquiries/'.now()->format('Y/m'),
-                    Str::random(24).'.'.strtolower($upload->getClientOriginalExtension()),
+                    Str::random(24).'.'.self::extension($upload),
                     'local'
                 ),
-                'name' => Str::limit($upload->getClientOriginalName(), 180, ''),
+                'name' => self::fileName($upload),
                 'size' => (int) $upload->getSize(),
             ];
         }
@@ -221,6 +223,25 @@ class QuoteRequestController extends Controller
         abort_unless($file && Storage::disk('local')->exists($file['path']), 404);
 
         return Storage::disk('local')->download($file['path'], $file['name']);
+    }
+
+    /** A request value as text; arrays and other shapes from hostile input count as absent. */
+    private static function text(mixed $value): ?string
+    {
+        return is_string($value) ? $value : null;
+    }
+
+    private static function extension(UploadedFile $upload): string
+    {
+        return strtolower($upload->getClientOriginalExtension());
+    }
+
+    /** The buyer's file name, shortened if needed but always ending in its extension. */
+    private static function fileName(UploadedFile $upload): string
+    {
+        $base = pathinfo($upload->getClientOriginalName(), PATHINFO_FILENAME);
+
+        return Str::limit($base, 170, '').'.'.self::extension($upload);
     }
 
     /** /id/... routes render in Indonesian; everything else in English. */

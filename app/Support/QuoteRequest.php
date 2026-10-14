@@ -60,6 +60,17 @@ class QuoteRequest
         return array_values(ProductContent::quoteChecklist($product?->slug, $product?->product_group));
     }
 
+    /**
+     * Checklist for a posted slug, published or not: a product unpublished after the form
+     * was opened still labels the answers with the questions the buyer actually saw.
+     *
+     * @return array<int, string>
+     */
+    public static function checklistFor(?string $slug): array
+    {
+        return self::checklist($slug ? PublicProduct::where('slug', $slug)->first() : null);
+    }
+
     private static function base(string $locale): string
     {
         return ($locale === 'id' ? IndonesianPages::PREFIX : '') . self::PATH;

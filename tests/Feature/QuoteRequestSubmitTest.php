@@ -147,7 +147,46 @@ class QuoteRequestSubmitTest extends TestCase
 
         $inquiry = Inquiry::sole();
         $this->assertNull($inquiry->product_slug);
-        $this->assertSame('Size or dimensions (or a drawing)', $inquiry->answers[0]['label']);
+        $this->assertSame('Draft joint', $inquiry->item);
+    }
+
+    public function test_unpublished_product_keeps_its_own_question_labels(): void
+    {
+        Mail::fake();
+        PublicProduct::where('slug', 'fabric-expansion-joint')->update(['is_published' => false]);
+
+        $this->post('/request-a-quote/', $this->payload([
+            'answers' => [1 => '350 C operating', 4 => '2 pcs to Cilegon'],
+        ]))->assertSessionHasNoErrors();
+
+        $this->assertSame([
+            ['label' => 'Gas temperature, operating and peak', 'value' => '350 C operating'],
+            ['label' => 'Quantity and delivery location', 'value' => '2 pcs to Cilegon'],
+        ], Inquiry::sole()->answers);
+    }
+
+    public function test_array_shaped_input_is_rejected_not_a_server_error(): void
+    {
+        Mail::fake();
+
+        $this->get('/request-a-quote/?product[]=x&item[]=y&message[]=z')->assertOk();
+
+        $this->post('/request-a-quote/', $this->payload(['product' => ['x'], 'item' => 'Gland packing']))->assertSessionHasNoErrors();
+        $this->post('/request-a-quote/', $this->payload(['answers' => [0 => ['x']]]))->assertSessionHasErrors('answers.0');
+        $this->post('/request-a-quote/', $this->payload(['message' => ['x']]))->assertSessionHasErrors('message');
+    }
+
+    public function test_long_file_names_keep_their_extension(): void
+    {
+        Mail::fake();
+        $name = str_repeat('Gambar teknik—rev ', 20).'final.DWG';
+
+        $this->post('/request-a-quote/', $this->payload(['files' => [UploadedFile::fake()->create($name, 10, 'application/octet-stream')]]))
+            ->assertSessionHasNoErrors();
+
+        $stored = Inquiry::sole()->files[0]['name'];
+        $this->assertLessThanOrEqual(180, mb_strlen($stored));
+        $this->assertStringEndsWith('.dwg', $stored);
     }
 
     public function test_indonesian_submit_stays_in_indonesian(): void
