@@ -118,6 +118,13 @@ return [
     |
     */
 
+    /*
+    | Seconds a rendered public page stays in the file cache (0 disables it).
+    | Keeps page views off MySQL, which Hostinger limits per hour.
+    */
+
+    'page_ttl' => (int) env('PAGE_CACHE_TTL', 21600),
+
     'prefix' => env('CACHE_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-cache-'),
 
     /*

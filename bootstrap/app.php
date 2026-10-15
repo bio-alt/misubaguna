@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [
             \App\Http\Middleware\TrailingSlashMiddleware::class,
+            \App\Http\Middleware\PageCacheMiddleware::class,
             \App\Http\Middleware\PublicRedirectMiddleware::class,
         ]);
     })
