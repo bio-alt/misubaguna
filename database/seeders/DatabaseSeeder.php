@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             PaperPulpContentSeeder::class,
             ThermalSystemsContentSeeder::class,
             CouplingCatalogSeeder::class,
+            MaterialHandlingSeeder::class,
         ]);
 
         User::firstOrCreate(
