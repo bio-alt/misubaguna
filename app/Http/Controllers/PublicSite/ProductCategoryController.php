@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PublicSite;
 use App\Http\Controllers\Controller;
 use App\Models\PublicSite\PublicProduct;
 use App\Models\PublicSite\PublicProductCategory;
+use App\Support\LegacyUrls;
 use App\Support\PublicSeo;
 use Illuminate\Support\Facades\DB;
 
@@ -12,13 +13,26 @@ class ProductCategoryController extends Controller
 {
     public function show(string $slug)
     {
-        $category = PublicProductCategory::where('slug', $slug)->where('is_published', true)->firstOrFail();
+        $category = PublicProductCategory::where('slug', $slug)->where('is_published', true)->first();
+
+        // Retired WordPress categories (e.g. /product-category/mechanical-seal/) still get crawled.
+        if (! $category) {
+            $legacy = LegacyUrls::resolve('/product-category/' . $slug . '/');
+
+            abort_if($legacy === null, 404);
+
+            return redirect()->to($legacy[1], 301);
+        }
 
         $products = $category->productsQuery()->orderBy('sort_order')->get();
 
         // A category with nothing in it is a dead end for visitors and search engines.
+        // Send it to the product of the same name when there is one. Absolute URLs keep the
+        // trailing slash (a relative '/catalog/' loses it and costs a second redirect hop).
         if ($products->isEmpty()) {
-            return redirect('/catalog/', 301);
+            $target = LegacyUrls::productExists($slug) ? '/product/' . $slug . '/' : '/catalog/';
+
+            return redirect()->to(PublicSeo::canonicalUrl($target), 301);
         }
 
         $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();

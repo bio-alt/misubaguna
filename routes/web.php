@@ -98,3 +98,14 @@ Route::get('/llms-full.txt', fn () => response(\App\Support\LlmsText::full(), 20
 
 Route::redirect('/indexpage', '/', 301);
 Route::redirect('/indexpage/', '/', 301);
+
+// Old WordPress URLs Google still crawls: 301 to their new page, or 410 when nothing replaced them.
+Route::fallback(function (\Illuminate\Http\Request $request) {
+    $legacy = \App\Support\LegacyUrls::resolve($request->getPathInfo());
+
+    abort_if($legacy === null, 404);
+
+    [$status, $target] = $legacy;
+
+    return $target ? redirect()->to($target, $status) : abort($status);
+});
