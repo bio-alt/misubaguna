@@ -42,4 +42,18 @@ class MaterialHandlingPagesTest extends TestCase
             $response->assertSee('/product/'.$slug.'/', false);
         }
     }
+
+    public function test_every_gallery_photo_exists(): void
+    {
+        $galleries = \Illuminate\Support\Facades\DB::table('public_products')
+            ->whereIn('slug', MaterialHandlingSeeder::slugs())->pluck('gallery');
+
+        foreach ($galleries as $gallery) {
+            foreach (json_decode($gallery, true) as $path) {
+                $this->assertFileExists(public_path($path));
+            }
+        }
+
+        $this->get('/product/bucket-elevator/')->assertSee(MaterialHandlingSeeder::image('bucket-elevator-installation'), false);
+    }
 }

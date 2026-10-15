@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Material Handling category (/product-category/material-handling/) and its product pages:
  * bucket elevator, chain, scraper, screw and belt conveyors, plus conveyor spare and wear parts.
- * Runs from a migration so the live site gets it on deploy.
+ * Runs from a migration so the live site gets it on deploy. Screw conveyor has no photo yet.
  *
  * Specification values are typical industry ranges, not datasheet figures: every unit is
  * designed to the buyer's material, capacity and layout.
@@ -39,7 +39,7 @@ class MaterialHandlingSeeder extends Seeder
             'canonical_url' => self::DOMAIN.$categoryUrl,
             'og_title' => 'Material Handling Equipment - PT Misuba Guna Indonesia',
             'og_description' => $categoryMeta,
-            'og_image_path' => null,
+            'og_image_path' => self::image('drag-chain-conveyor'),
             'robots_index' => true,
             'robots_follow' => true,
             'sitemap_include' => true,
@@ -57,6 +57,12 @@ class MaterialHandlingSeeder extends Seeder
         }
     }
 
+    /** Photos are cropped from the Material Handling and Conveyor Products pages of the company profile PDF. */
+    public static function image(string $name): string
+    {
+        return '/images/products/material-handling/'.$name.'.webp';
+    }
+
     /** @return array<int, string> */
     public static function slugs(): array
     {
@@ -66,6 +72,7 @@ class MaterialHandlingSeeder extends Seeder
     private function upsert(array $p, int $sortOrder): void
     {
         $url = '/product/'.$p['slug'].'/';
+        $gallery = array_map([self::class, 'image'], $p['gallery']);
         $title = $p['title'].' - PT Misuba Guna Indonesia';
         $now = now();
 
@@ -81,14 +88,14 @@ class MaterialHandlingSeeder extends Seeder
             'applications' => json_encode($p['applications'], JSON_UNESCAPED_UNICODE),
             'materials' => json_encode($p['materials'], JSON_UNESCAPED_UNICODE),
             'technical_specs' => json_encode($p['specs'], JSON_UNESCAPED_UNICODE),
-            'gallery' => json_encode([]),
+            'gallery' => json_encode($gallery, JSON_UNESCAPED_SLASHES),
             'sort_order' => $sortOrder,
             'meta_title' => $title,
             'meta_description' => $p['meta'],
             'canonical_url' => self::DOMAIN.$url,
             'og_title' => $title,
             'og_description' => $p['meta'],
-            'og_image_path' => null,
+            'og_image_path' => $gallery[0] ?? null,
             'robots_index' => true,
             'robots_follow' => true,
             'sitemap_include' => true,
@@ -127,6 +134,7 @@ class MaterialHandlingSeeder extends Seeder
         return [
             [
                 'slug' => 'bucket-elevator',
+                'gallery' => ['bucket-elevator-installation', 'chain-bucket-elevator', 'elevator-buckets'],
                 'title' => 'Bucket Elevator',
                 'subgroup' => 'Vertical Conveying',
                 'h1' => 'Bucket Elevators: Belt and Chain Type',
@@ -181,6 +189,7 @@ class MaterialHandlingSeeder extends Seeder
             ],
             [
                 'slug' => 'chain-conveyor',
+                'gallery' => ['drag-chain-conveyor', 'single-strand-conveyor', 'multistrand-conveyor'],
                 'title' => 'Chain Conveyor',
                 'subgroup' => 'Conveyor',
                 'h1' => 'Chain Conveyors: Drag Chain and En-Masse Type',
@@ -233,6 +242,7 @@ class MaterialHandlingSeeder extends Seeder
             ],
             [
                 'slug' => 'scraper-conveyor',
+                'gallery' => ['palm-kernel-scraper', 'esp-scraper-conveyor', 'hardox-scraper-chain', 'chain-scraper-flights'],
                 'title' => 'Scraper Conveyor',
                 'subgroup' => 'Conveyor',
                 'h1' => 'Scraper Conveyors for Ash, Clinker and Bulk Solids',
@@ -286,6 +296,7 @@ class MaterialHandlingSeeder extends Seeder
             ],
             [
                 'slug' => 'screw-conveyor',
+                'gallery' => [],
                 'title' => 'Screw Conveyor',
                 'subgroup' => 'Conveyor',
                 'h1' => 'Screw Conveyors: Trough, Tubular and Shaftless',
@@ -340,6 +351,7 @@ class MaterialHandlingSeeder extends Seeder
             ],
             [
                 'slug' => 'belt-conveyor',
+                'gallery' => ['sidewall-belt', 'thick-conveyor-belt'],
                 'title' => 'Belt Conveyor',
                 'subgroup' => 'Conveyor',
                 'h1' => 'Belt Conveyors for Bulk Material Handling',
@@ -396,6 +408,7 @@ class MaterialHandlingSeeder extends Seeder
             ],
             [
                 'slug' => 'conveyor-spare-parts',
+                'gallery' => ['elevator-buckets', 'hardox-scraper-chain', 'conveyor-sprocket', 'forged-chain-link', 'sidewall-belt'],
                 'title' => 'Conveyor Spare Parts',
                 'subgroup' => 'Spare & Wear Parts',
                 'h1' => 'Conveyor and Elevator Spare & Wear Parts',
