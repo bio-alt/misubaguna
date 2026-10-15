@@ -200,6 +200,12 @@ class ProductContent
             'Existing equipment or line layout',
             'Site location and project timeline',
         ],
+        'Material Handling' => [
+            'Material handled, bulk density and lump size',
+            'Capacity (t/h) and material temperature',
+            'Conveying length, lift height or layout drawing',
+            'Site location and quantity',
+        ],
     ];
 
     /** What we need from the buyer to quote each product, keyed by slug. */

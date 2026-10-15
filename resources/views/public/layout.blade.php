@@ -361,6 +361,15 @@
                 <a href="/product-category/power-transfer/" style="text-decoration:none;"><span class="mega-col-title">Power Transfer</span></a>
                 <a class="mega-link" href="/product/coupling/">Coupling</a>
             </div>
+            <div>
+                <a href="/product-category/material-handling/" style="text-decoration:none;"><span class="mega-col-title">Material Handling</span></a>
+                <a class="mega-link" href="/product/bucket-elevator/">Bucket Elevator</a>
+                <a class="mega-link" href="/product/belt-conveyor/">Belt Conveyor</a>
+                <a class="mega-link" href="/product/chain-conveyor/">Chain Conveyor</a>
+                <a class="mega-link" href="/product/scraper-conveyor/">Scraper Conveyor</a>
+                <a class="mega-link" href="/product/screw-conveyor/">Screw Conveyor</a>
+                <a class="mega-link" href="/product/conveyor-spare-parts/">Conveyor Spare Parts</a>
+            </div>
         </div>
     </div>
 
@@ -569,6 +578,20 @@
                 <div class="mob-cat-links" id="mc-pow">
                     <a class="mob-cat-link" href="/product-category/power-transfer/" style="font-weight:700; color:#dc2626;">View All Power Transfer →</a>
                     <a class="mob-cat-link" href="/product/coupling/">Coupling</a>
+                </div>
+
+                <button class="mob-cat-btn" data-panel="mc-mh" type="button">
+                    Material Handling
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-mh">
+                    <a class="mob-cat-link" href="/product-category/material-handling/" style="font-weight:700; color:#dc2626;">View All Material Handling →</a>
+                    <a class="mob-cat-link" href="/product/bucket-elevator/">Bucket Elevator</a>
+                    <a class="mob-cat-link" href="/product/belt-conveyor/">Belt Conveyor</a>
+                    <a class="mob-cat-link" href="/product/chain-conveyor/">Chain Conveyor</a>
+                    <a class="mob-cat-link" href="/product/scraper-conveyor/">Scraper Conveyor</a>
+                    <a class="mob-cat-link" href="/product/screw-conveyor/">Screw Conveyor</a>
+                    <a class="mob-cat-link" href="/product/conveyor-spare-parts/">Conveyor Spare Parts</a>
                 </div>
 
             </div>

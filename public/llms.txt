@@ -21,6 +21,7 @@ Prices, stock and lead times are quoted per enquiry; none are published on the w
 - [Sealing System](https://misubaguna.com/product-category/sealing-system/): Industrial sealing products including gland packing, oil seals, O-rings, gasket sheets, and mechanical seals.
 - [Thermal Systems](https://misubaguna.com/product-category/thermal-systems/): Cooling towers, shell and tube and finned-coil heat exchangers, plate heat exchangers, oil coolers and water-cooled cartridges for industrial process, power and HVAC duty.
 - [Paper & Pulp Machinery](https://misubaguna.com/product-category/paper-pulp-machinery/): Stock preparation systems, paper machines, tissue machines, molded fiber plants, refiner plates and screen baskets for paper mills.
+- [Material Handling](https://misubaguna.com/product-category/material-handling/): Bucket elevators, chain, scraper, screw and belt conveyors, plus buckets, chains, idlers, pulleys and screw flights, designed to your bulk material and capacity.
 - [Power Transfer](https://misubaguna.com/product-category/power-transfer/): Industrial power transfer and mechanical coupling solutions for pumps, gearboxes, motors, and rotating equipment.
 
 ## Products
@@ -37,6 +38,12 @@ Prices, stock and lead times are quoted per enquiry; none are published on the w
 - [PTFE Lined Expansion Joint (Rubber and Metal)](https://misubaguna.com/product/ptfe-lined-rubber-metal-expansion-joint/): Hybrid expansion joints combining outer metal or rubber pressure strength with an internal continuous PTFE liner for severe chemical and high-pressure service.
 - [Rubber Hose](https://misubaguna.com/product/rubber-hose/): Industrial-grade reinforced rubber hoses for safe, reliable transfer of water, oil, fuel, steam, food materials, and chemicals across manufacturing and mining sites.
 - [Flexible Metal Hose](https://misubaguna.com/product/flexible-metal-hose/): Precision corrugated stainless steel flexible hose assemblies designed for severe thermal cycles, extreme high pressures, cryogenic media, and gas-tight fluid transfer.
+- [Bucket Elevator](https://misubaguna.com/product/bucket-elevator/): Belt and chain bucket elevators for lifting grain, meal, cement, clinker, fertilizer and other bulk solids vertically, designed to your capacity and lift height.
+- [Chain Conveyor](https://misubaguna.com/product/chain-conveyor/): Enclosed drag chain and en-masse chain conveyors for moving bulk solids horizontally or on an incline, with multiple inlets and outlets in one dust-tight casing.
+- [Scraper Conveyor](https://misubaguna.com/product/scraper-conveyor/): Scraper chain conveyors and submerged scraper conveyors for ash, clinker, slag and abrasive bulk solids, built heavy for continuous duty.
+- [Screw Conveyor](https://misubaguna.com/product/screw-conveyor/): Trough, tubular and shaftless screw conveyors and screw feeders for conveying and metering powders, granules and sticky bulk material over short distances.
+- [Belt Conveyor](https://misubaguna.com/product/belt-conveyor/): Troughed, flat and inclined belt conveyors for carrying bulk material over long distances, with idlers, pulleys, belts and drives sized to your capacity and layout.
+- [Conveyor Spare Parts](https://misubaguna.com/product/conveyor-spare-parts/): Replacement elevator buckets, conveyor chains, sprockets, idlers, pulleys, belts and screw flights for bucket elevators and belt, chain, scraper and screw conveyors.
 - [High-Consistency Pulper](https://misubaguna.com/product/hicon-pulper/): Helical-rotor batch pulper running at 15–16% consistency, with the drum pulpers, dilution pulpers and reject-handling equipment that make up a complete waste paper pulping section.
 - [Double Disc Refiner](https://misubaguna.com/product/disc-refiner/): Twin disc, conical and cylindrical refiners for controlled fiber development, with precise gap control and options for every furnish.
 - [Screening & Cleaning System](https://misubaguna.com/product/screening-cleaning-system/): Cleaners, coarse and fine screens, reject handling and thickeners that remove contaminants and protect the paper machine.
