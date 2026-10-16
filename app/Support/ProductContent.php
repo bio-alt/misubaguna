@@ -206,10 +206,44 @@ class ProductContent
             'Conveying length, lift height or layout drawing',
             'Site location and quantity',
         ],
+        'Fabrication' => [
+            'Drawing, sketch or worn sample',
+            'Material and applicable design code',
+            'Quantity and inspection requirements',
+            'Site location and delivery date',
+        ],
     ];
 
     /** What we need from the buyer to quote each product, keyed by slug. */
     private const QUOTE_BY_SLUG = [
+        'storage-tank' => [
+            'Liquid stored, its density and temperature',
+            'Volume, diameter and height, or the footprint available',
+            'Vertical or horizontal, roof type and nozzle list',
+            'Material, lining or coating, and design code',
+            'Site location, erection needs and delivery date',
+        ],
+        'pressurized-tank' => [
+            'Medium, design pressure and design temperature',
+            'Volume and vertical or horizontal layout',
+            'Material and design code, with inspection body if required',
+            'Nozzle, manway and instrument list',
+            'Quantity, site location and delivery date',
+        ],
+        'pinion-gear' => [
+            'Drawing, or the worn pinion and its mating gear',
+            'Module, number of teeth, pressure angle, helix angle and face width',
+            'Bore, keyway or spline, and overall length',
+            'Material and hardness required',
+            'Quantity and delivery location',
+        ],
+        'worm-and-rack-gear' => [
+            'Drawing, or the worn worm, wheel or rack with its pinion',
+            'Module or pitch, lead, number of starts and centre distance',
+            'Rack length, section size and total length needed',
+            'Material and hardness required',
+            'Quantity and delivery location',
+        ],
         'fabric-expansion-joint' => [
             'Duct size and shape (round or rectangular)',
             'Gas temperature, operating and peak',
