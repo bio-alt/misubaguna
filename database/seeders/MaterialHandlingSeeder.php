@@ -242,7 +242,7 @@ class MaterialHandlingSeeder extends Seeder
             ],
             [
                 'slug' => 'scraper-conveyor',
-                'gallery' => ['palm-kernel-scraper', 'esp-scraper-conveyor', 'hardox-scraper-chain', 'chain-scraper-flights'],
+                'gallery' => ['hardox-scraper-chain', 'esp-scraper-conveyor', 'palm-kernel-scraper', 'chain-scraper-flights'],
                 'title' => 'Scraper Conveyor',
                 'subgroup' => 'Conveyor',
                 'h1' => 'Scraper Conveyors for Ash, Clinker and Bulk Solids',

@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\DB;
 /**
  * Fabrication category (/product-category/fabrication/) and its product pages: storage tanks,
  * pressurized tanks (pressure vessels), pinion gears and worm and rack gear sets.
- * Runs from a migration so the live site gets it on deploy. No photos yet, so the pages show
- * the "Photo on request" plate.
+ * Runs from a migration so the live site gets it on deploy. The tank pages carry workshop photos;
+ * the gear pages have none yet and show the "Photo on request" plate.
  *
  * Specification values are typical industry ranges, not datasheet figures: every item is
  * fabricated to the buyer's drawing, duty and applicable code.
@@ -40,7 +40,7 @@ class FabricationSeeder extends Seeder
             'canonical_url' => self::DOMAIN.$categoryUrl,
             'og_title' => 'Custom Fabrication: Tanks, Pressure Vessels and Gears - PT Misuba Guna Indonesia',
             'og_description' => $categoryMeta,
-            'og_image_path' => null,
+            'og_image_path' => self::image('pressure-vessel-horizontal'),
             'robots_index' => true,
             'robots_follow' => true,
             'sitemap_include' => true,
@@ -58,6 +58,11 @@ class FabricationSeeder extends Seeder
         }
     }
 
+    public static function image(string $name): string
+    {
+        return '/images/products/fabrication/'.$name.'.webp';
+    }
+
     /** @return array<int, string> */
     public static function slugs(): array
     {
@@ -67,6 +72,7 @@ class FabricationSeeder extends Seeder
     private function upsert(array $p, int $sortOrder): void
     {
         $url = '/product/'.$p['slug'].'/';
+        $gallery = array_map([self::class, 'image'], $p['gallery']);
         $title = $p['title'].' - PT Misuba Guna Indonesia';
         $now = now();
 
@@ -82,14 +88,14 @@ class FabricationSeeder extends Seeder
             'applications' => json_encode($p['applications'], JSON_UNESCAPED_UNICODE),
             'materials' => json_encode($p['materials'], JSON_UNESCAPED_UNICODE),
             'technical_specs' => json_encode($p['specs'], JSON_UNESCAPED_UNICODE),
-            'gallery' => json_encode([], JSON_UNESCAPED_SLASHES),
+            'gallery' => json_encode($gallery, JSON_UNESCAPED_SLASHES),
             'sort_order' => $sortOrder,
             'meta_title' => $title,
             'meta_description' => $p['meta'],
             'canonical_url' => self::DOMAIN.$url,
             'og_title' => $title,
             'og_description' => $p['meta'],
-            'og_image_path' => null,
+            'og_image_path' => $gallery[0] ?? null,
             'robots_index' => true,
             'robots_follow' => true,
             'sitemap_include' => true,
@@ -128,6 +134,7 @@ class FabricationSeeder extends Seeder
         return [
             [
                 'slug' => 'storage-tank',
+                'gallery' => ['storage-tank-horizontal', 'storage-tank-delivery'],
                 'title' => 'Storage Tank',
                 'subgroup' => 'Vessels & Tanks',
                 'h1' => 'Storage Tanks: Fabricated Atmospheric Tanks',
@@ -183,6 +190,7 @@ class FabricationSeeder extends Seeder
             ],
             [
                 'slug' => 'pressurized-tank',
+                'gallery' => ['pressure-vessel-horizontal', 'pressure-vessel-workshop'],
                 'title' => 'Pressurized Tank',
                 'subgroup' => 'Vessels & Tanks',
                 'h1' => 'Pressurized Tanks and Pressure Vessels',
@@ -238,6 +246,7 @@ class FabricationSeeder extends Seeder
             ],
             [
                 'slug' => 'pinion-gear',
+                'gallery' => [],
                 'title' => 'Pinion Gear',
                 'subgroup' => 'Gears & Power Transmission',
                 'h1' => 'Pinion Gears: Machined to Your Drawing or Sample',
@@ -291,6 +300,7 @@ class FabricationSeeder extends Seeder
             ],
             [
                 'slug' => 'worm-and-rack-gear',
+                'gallery' => [],
                 'title' => 'Worm and Rack Gear',
                 'subgroup' => 'Gears & Power Transmission',
                 'h1' => 'Worm Gears and Rack Gears: Machined to Order',
