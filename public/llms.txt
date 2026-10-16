@@ -22,6 +22,7 @@ Prices, stock and lead times are quoted per enquiry; none are published on the w
 - [Thermal Systems](https://misubaguna.com/product-category/thermal-systems/): Cooling towers, shell and tube and finned-coil heat exchangers, plate heat exchangers, oil coolers and water-cooled cartridges for industrial process, power and HVAC duty.
 - [Paper & Pulp Machinery](https://misubaguna.com/product-category/paper-pulp-machinery/): Stock preparation systems, paper machines, tissue machines, molded fiber plants, refiner plates and screen baskets for paper mills.
 - [Material Handling](https://misubaguna.com/product-category/material-handling/): Bucket elevators, chain, scraper, screw and belt conveyors, plus buckets, chains, idlers, pulleys and screw flights, designed to your bulk material and capacity.
+- [Fabrication](https://misubaguna.com/product-category/fabrication/): Custom fabricated storage tanks, pressurized tanks and pressure vessels, pinion gears, worm gears and rack gears, built to your drawing, duty and applicable code.
 - [Power Transfer](https://misubaguna.com/product-category/power-transfer/): Industrial power transfer and mechanical coupling solutions for pumps, gearboxes, motors, and rotating equipment.
 
 ## Products
@@ -44,6 +45,10 @@ Prices, stock and lead times are quoted per enquiry; none are published on the w
 - [Screw Conveyor](https://misubaguna.com/product/screw-conveyor/): Trough, tubular and shaftless screw conveyors and screw feeders for conveying and metering powders, granules and sticky bulk material over short distances.
 - [Belt Conveyor](https://misubaguna.com/product/belt-conveyor/): Troughed, flat and inclined belt conveyors for carrying bulk material over long distances, with idlers, pulleys, belts and drives sized to your capacity and layout.
 - [Conveyor Spare Parts](https://misubaguna.com/product/conveyor-spare-parts/): Replacement elevator buckets, conveyor chains, sprockets, idlers, pulleys, belts and screw flights for bucket elevators and belt, chain, scraper and screw conveyors.
+- [Storage Tank](https://misubaguna.com/product/storage-tank/): Vertical and horizontal atmospheric storage tanks in carbon steel, stainless steel and alloy for water, fuel, chemicals and process liquids, fabricated to your capacity and site.
+- [Pressurized Tank](https://misubaguna.com/product/pressurized-tank/): Fabricated pressure vessels for air, steam, gas and process fluids, including air receivers, separators and reaction vessels, built to your design pressure, temperature and code.
+- [Pinion Gear](https://misubaguna.com/product/pinion-gear/): Spur and helical pinion gears and pinion shafts machined from forged or bar steel to your drawing or worn sample, for gearboxes, mill drives, kilns and heavy machinery.
+- [Worm and Rack Gear](https://misubaguna.com/product/worm-and-rack-gear/): Worm shafts, worm wheels and straight or helical gear racks machined to your drawing or worn sample, for lifting, slewing and linear drive systems.
 - [High-Consistency Pulper](https://misubaguna.com/product/hicon-pulper/): Helical-rotor batch pulper running at 15–16% consistency, with the drum pulpers, dilution pulpers and reject-handling equipment that make up a complete waste paper pulping section.
 - [Double Disc Refiner](https://misubaguna.com/product/disc-refiner/): Twin disc, conical and cylindrical refiners for controlled fiber development, with precise gap control and options for every furnish.
 - [Screening & Cleaning System](https://misubaguna.com/product/screening-cleaning-system/): Cleaners, coarse and fine screens, reject handling and thickeners that remove contaminants and protect the paper machine.

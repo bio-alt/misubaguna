@@ -74,7 +74,7 @@
             gap: 24px;
             height: 100%;
         }
-        .nav-links a, #product-btn, #services-btn, #toolkit-btn {
+        .nav-links a, #product-btn, #services-btn, #toolkit-btn, #fab-btn, #company-btn {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 13px;
             font-weight: 700;
@@ -94,13 +94,15 @@
             cursor: pointer;
             outline: none;
         }
-        #product-btn, #services-btn, #toolkit-btn { gap: 6px; }
+        #product-btn, #services-btn, #toolkit-btn, #fab-btn, #company-btn { gap: 6px; }
         
         /* Transparent nav text colors */
         header.transparent-nav .nav-links a, 
         header.transparent-nav #product-btn,
         header.transparent-nav #services-btn,
         header.transparent-nav #toolkit-btn,
+        header.transparent-nav #fab-btn,
+        header.transparent-nav #company-btn,
         header.transparent-nav #hamburger-btn {
             color: #fff;
         }
@@ -110,20 +112,22 @@
         header.transparent-nav.scrolled #product-btn,
         header.transparent-nav.scrolled #services-btn,
         header.transparent-nav.scrolled #toolkit-btn,
+        header.transparent-nav.scrolled #fab-btn,
+        header.transparent-nav.scrolled #company-btn,
         header.transparent-nav.scrolled #hamburger-btn {
             color: #374151;
         }
 
-        .nav-links a:hover, #product-btn:hover, #product-btn.open, #services-btn:hover, #services-btn.open, #toolkit-btn:hover, #toolkit-btn.open { color: #dc2626 !important; }
-        #product-btn svg, #services-btn svg, #toolkit-btn svg {
+        .nav-links a:hover, #product-btn:hover, #product-btn.open, #services-btn:hover, #services-btn.open, #toolkit-btn:hover, #toolkit-btn.open, #fab-btn:hover, #fab-btn.open, #company-btn:hover, #company-btn.open { color: #dc2626 !important; }
+        #product-btn svg, #services-btn svg, #toolkit-btn svg, #fab-btn svg, #company-btn svg {
             width: 14px; height: 14px;
             transition: transform .2s;
             flex-shrink: 0;
         }
-        #product-btn.open svg, #services-btn.open svg, #toolkit-btn.open svg { transform: rotate(180deg); }
+        #product-btn.open svg, #services-btn.open svg, #toolkit-btn.open svg, #fab-btn.open svg, #company-btn.open svg { transform: rotate(180deg); }
 
         /* Mega menu panel */
-        #mega-menu, #services-mega-menu, #toolkit-mega-menu {
+        #mega-menu, #services-mega-menu, #toolkit-mega-menu, #fab-mega-menu, #company-menu {
             display: none;
             position: fixed;
             left: 0;
@@ -134,7 +138,9 @@
             box-shadow: 0 20px 60px rgba(0,0,0,.12);
             z-index: 9999;
         }
-        #mega-menu.open, #services-mega-menu.open, #toolkit-mega-menu.open { display: block; }
+        #mega-menu.open, #services-mega-menu.open, #toolkit-mega-menu.open, #fab-mega-menu.open, #company-menu.open { display: block; }
+        /* Company is a short list, so it hangs under its button instead of spanning the page */
+        #company-menu { width: 230px; left: 32px; border-radius: 0 0 8px 8px; padding: 12px 22px 16px; }
         .mega-inner {
             max-width: 1440px;
             margin: 0 auto;
@@ -290,7 +296,7 @@
             .nav-container { padding: 0 20px; gap: 20px; }
             .nav-logo img { height: 44px; }
             .nav-links { gap: 16px; }
-            .nav-links a, #product-btn, #services-btn, #toolkit-btn { font-size: 12px; letter-spacing: .04em; }
+            .nav-links a, #product-btn, #services-btn, #toolkit-btn, #fab-btn, #company-btn { font-size: 12px; letter-spacing: .04em; }
         }
 
         @media (max-width: 1023px) {
@@ -433,6 +439,39 @@
     </div>
 
     {{-- ====================================================
+         FABRICATION MEGA MENU PANEL
+    ==================================================== --}}
+    <div id="fab-mega-menu">
+        <div class="mega-inner" style="grid-template-columns: repeat(3, 1fr);">
+            <div>
+                <a href="/product-category/fabrication/" style="text-decoration:none;"><span class="mega-col-title">Vessels &amp; Tanks</span></a>
+                <a class="mega-link" href="/product/storage-tank/">Storage Tank</a>
+                <a class="mega-link" href="/product/pressurized-tank/">Pressurized Tank</a>
+            </div>
+            <div>
+                <span class="mega-col-title">Gears &amp; Power Transmission</span>
+                <a class="mega-link" href="/product/pinion-gear/">Pinion Gear</a>
+                <a class="mega-link" href="/product/worm-and-rack-gear/">Worm and Rack Gear</a>
+            </div>
+            <div>
+                <span class="mega-col-title">Made to Your Drawing</span>
+                <a class="mega-link" href="/product-category/fabrication/">All Fabrication &rarr;</a>
+                <a class="mega-link" href="/request-a-quote/">Send a drawing, request a quote &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    {{-- ====================================================
+         COMPANY DROPDOWN
+    ==================================================== --}}
+    <div id="company-menu">
+        <a class="mega-link" href="/">Home</a>
+        <a class="mega-link" href="/about-us/">About Us</a>
+        <a class="mega-link" href="/contact-us/">Contact Us</a>
+        <a class="mega-link" href="/career/">Career</a>
+    </div>
+
+    {{-- ====================================================
          HEADER
     ==================================================== --}}
     <header class="{{ request()->is('/') ? 'transparent-nav' : '' }}">
@@ -443,9 +482,20 @@
             </a>
 
             <nav class="nav-links">
-                <a href="/">{{ __('Home') }}</a>
+                <button id="company-btn" type="button">
+                    {{ __('Company') }}
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
                 <button id="product-btn" type="button">
                     {{ __('Products') }}
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <button id="fab-btn" type="button">
+                    {{ __('Fabrication') }}
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
                     </svg>
@@ -463,9 +513,6 @@
                     </svg>
                 </button>
                 <a href="/catalog/">{{ __('Catalog') }}</a>
-                <a href="/about-us/">{{ __('About Us') }}</a>
-                <a href="/contact-us/">{{ __('Contact Us') }}</a>
-                <a href="/career/">{{ __('Career') }}</a>
             </nav>
 
             <button id="hamburger-btn" type="button" aria-label="Open menu">
@@ -490,7 +537,18 @@
             </button>
         </div>
         <nav class="mob-nav">
-            <a class="mob-nav-link" href="/">Home</a>
+            <button class="mob-acc-trigger" id="mob-company-btn" type="button">
+                Company
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div class="mob-acc-body" id="mob-company-body">
+                <a class="mob-cat-link" href="/" style="padding-left:12px;">Home</a>
+                <a class="mob-cat-link" href="/about-us/" style="padding-left:12px;">About Us</a>
+                <a class="mob-cat-link" href="/contact-us/" style="padding-left:12px;">Contact Us</a>
+                <a class="mob-cat-link" href="/career/" style="padding-left:12px;">Career</a>
+            </div>
 
             <button class="mob-acc-trigger" id="mob-prod-btn" type="button">
                 Product
@@ -596,6 +654,36 @@
 
             </div>
 
+            <button class="mob-acc-trigger" id="mob-fab-btn" type="button">
+                Fabrication
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            </button>
+            <div class="mob-acc-body" id="mob-fab-body">
+                <a class="mob-cat-link" href="/product-category/fabrication/" style="font-weight:700; color:#dc2626; padding-left:12px; border-bottom:1px dashed #e5e7eb; margin-bottom:8px;">View All Fabrication →</a>
+
+                <button class="mob-cat-btn" data-panel="mc-fab-tank" type="button">
+                    Vessels &amp; Tanks
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-fab-tank">
+                    <a class="mob-cat-link" href="/product/storage-tank/">Storage Tank</a>
+                    <a class="mob-cat-link" href="/product/pressurized-tank/">Pressurized Tank</a>
+                </div>
+
+                <button class="mob-cat-btn" data-panel="mc-fab-gear" type="button">
+                    Gears &amp; Power Transmission
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-fab-gear">
+                    <a class="mob-cat-link" href="/product/pinion-gear/">Pinion Gear</a>
+                    <a class="mob-cat-link" href="/product/worm-and-rack-gear/">Worm and Rack Gear</a>
+                </div>
+
+                <a class="mob-cat-link" href="/request-a-quote/" style="padding-left:12px; margin-top:8px;">Send a drawing, request a quote →</a>
+            </div>
+
             <button class="mob-acc-trigger" id="mob-serv-btn" type="button">
                 Services
                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -677,9 +765,6 @@
                 </div>
             </div>
 
-            <a class="mob-nav-link" href="/about-us/">About Us</a>
-            <a class="mob-nav-link" href="/contact-us/">Contact Us</a>
-            <a class="mob-nav-link" href="/career/">Career</a>
             <a class="mob-nav-link" href="/catalog/" style="border-bottom:none;">Catalog</a>
         </nav>
     </div>
@@ -823,6 +908,7 @@
                 <a href="/services/" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Services</a> &bull;
                 <a href="/toolkit/" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Engineering Toolkit</a> &bull;
                 <a href="/contact-us/" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Contact</a> &bull;
+                <a href="/career/" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Career</a> &bull;
                 <a href="/sitemap.xml" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">Sitemap (XML)</a> &bull;
                 <a href="/llms.txt" style="color: #9ca3af; text-decoration: none; margin: 0 8px;">AI / LLM Reference</a>
             </p>
@@ -840,14 +926,15 @@
 
             function show() {
                 clearTimeout(timer);
-                document.querySelectorAll('#mega-menu, #services-mega-menu, #toolkit-mega-menu').forEach(function(m) {
+                document.querySelectorAll('#mega-menu, #services-mega-menu, #toolkit-mega-menu, #fab-mega-menu, #company-menu').forEach(function(m) {
                     if (m.id !== menuId) m.classList.remove('open');
                 });
-                document.querySelectorAll('#product-btn, #services-btn, #toolkit-btn').forEach(function(b) {
+                document.querySelectorAll('#product-btn, #services-btn, #toolkit-btn, #fab-btn, #company-btn').forEach(function(b) {
                     if (b.id !== btnId) b.classList.remove('open');
                 });
                 if (open) return;
                 open = true;
+                if (menuId === 'company-menu') menu.style.left = Math.max(8, btn.getBoundingClientRect().left - 22) + 'px';
                 menu.classList.add('open');
                 btn.classList.add('open');
             }
@@ -883,6 +970,8 @@
         setupMegaMenu('product-btn', 'mega-menu');
         setupMegaMenu('services-btn', 'services-mega-menu');
         setupMegaMenu('toolkit-btn', 'toolkit-mega-menu');
+        setupMegaMenu('fab-btn', 'fab-mega-menu');
+        setupMegaMenu('company-btn', 'company-menu');
 
         /* Mobile drawer */
         var backdrop = document.getElementById('mob-backdrop');
@@ -895,6 +984,10 @@
         var mobServBody = document.getElementById('mob-serv-body');
         var mobToolkitBtn  = document.getElementById('mob-toolkit-btn');
         var mobToolkitBody = document.getElementById('mob-toolkit-body');
+        var mobFabBtn  = document.getElementById('mob-fab-btn');
+        var mobFabBody = document.getElementById('mob-fab-body');
+        var mobCompanyBtn  = document.getElementById('mob-company-btn');
+        var mobCompanyBody = document.getElementById('mob-company-body');
 
         ham.addEventListener('click', function() {
             backdrop.classList.add('open');
@@ -918,6 +1011,20 @@
             mobServBtn.addEventListener('click', function() {
                 mobServBody.classList.toggle('open');
                 mobServBtn.classList.toggle('open');
+            });
+        }
+
+        if (mobFabBtn) {
+            mobFabBtn.addEventListener('click', function() {
+                mobFabBody.classList.toggle('open');
+                mobFabBtn.classList.toggle('open');
+            });
+        }
+
+        if (mobCompanyBtn) {
+            mobCompanyBtn.addEventListener('click', function() {
+                mobCompanyBody.classList.toggle('open');
+                mobCompanyBtn.classList.toggle('open');
             });
         }
 
