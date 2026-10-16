@@ -22,6 +22,7 @@ class LlmsText
         ['Expansion Joint Selector', '/toolkit/expansion-joint-selector/', 'Pipe thermal expansion calculator (axial growth, anchor thrust) with rubber, PTFE, metal and fabric expansion joint recommendation.'],
         ['Chemical Resistance Guide', '/toolkit/chemical-resistance/', 'Chemical compatibility chart for PTFE, EPDM, NBR, FKM (Viton), Neoprene, Hypalon, natural rubber, 316 stainless steel, ceramic and FRP against 40+ industrial chemicals.'],
         ['EJMA Bellows Calculator', '/toolkit/ejma-bellows-calculator/', 'Online design check of metal bellows expansion joints (unreinforced, reinforced, toroidal) per EJMA Standards; results are reviewed by our engineering team.'],
+        ['RAL Color Chart', '/toolkit/ral-color-chart/', 'RAL Classic color chart with hex and RGB values, searchable by number or name, plus a matcher that finds the closest RAL to any color for powder coating and paint specification.'],
     ];
 
     private const PAGES = [

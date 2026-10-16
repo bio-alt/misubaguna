@@ -158,5 +158,16 @@
         <h3>EJMA Bellows Calculator</h3>
         <p>Check a metal bellows expansion joint design against EJMA Standards for unreinforced, reinforced and toroidal bellows, reviewed by our engineers.</p>
     </a>
+
+    <!-- RAL Color Chart Card -->
+    <a href="/toolkit/ral-color-chart/" class="toolkit-card">
+        <div class="toolkit-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+            </svg>
+        </div>
+        <h3>RAL Color Chart</h3>
+        <p>Search RAL Classic colors by number, name or hex, copy hex and RGB values, and find the closest RAL to any color for powder coating and paint specification.</p>
+    </a>
 </div>
 @endsection

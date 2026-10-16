@@ -71,6 +71,7 @@ class SeoAndAiDiscoveryTest extends TestCase
             '/toolkit/flange-standards/',
             '/toolkit/calculator/',
             '/toolkit/material-specs/',
+            '/toolkit/ral-color-chart/',
         ];
 
         foreach ($toolkitUrls as $url) {

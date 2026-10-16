@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PublicSite;
 use App\Http\Controllers\Controller;
 use App\Support\MaterialLibrary;
 use App\Support\PublicSeo;
+use App\Support\RalColors;
 use Illuminate\Support\Facades\DB;
 
 class ToolkitController extends Controller
@@ -200,5 +201,40 @@ class ToolkitController extends Controller
         ];
 
         return view('public.toolkit.chemical-resistance', compact('seo', 'siteSettings', 'breadcrumbs'));
+    }
+
+    public function ralColorChart()
+    {
+        $colors = RalColors::all();
+        $families = RalColors::FAMILIES;
+        $familyCounts = RalColors::familyCounts();
+        $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
+
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'Engineering Toolkit', 'url' => '/toolkit/'],
+            ['name' => 'RAL Color Chart', 'url' => '/toolkit/ral-color-chart/'],
+        ];
+
+        $seo = [
+            'meta_title' => 'RAL Color Chart & Color Matcher',
+            'meta_description' => 'Search all '.count($colors).' RAL Classic colors by number, name or hex, and find the closest RAL to any color. Reference for powder coating, paint and equipment color specification.',
+            'canonical_url' => '/toolkit/ral-color-chart/',
+            'og_title' => 'RAL Classic Color Chart & Closest-RAL Matcher | Misuba Guna',
+            'og_description' => 'RAL Classic colors with hex and RGB values, searchable by number or name, with a matcher that finds the nearest RAL to any color.',
+            'robots_index' => true,
+            'robots_follow' => true,
+            'schema_json' => [
+                PublicSeo::organizationSchema($siteSettings),
+                PublicSeo::breadcrumbSchema($breadcrumbs),
+                PublicSeo::webApplicationSchema(
+                    'RAL Color Chart & Closest-RAL Matcher',
+                    'RAL Classic color reference with hex and RGB values and a matcher that finds the nearest RAL color, for specifying powder coating and paint.',
+                    '/toolkit/ral-color-chart/'
+                ),
+            ],
+        ];
+
+        return view('public.toolkit.ral-color-chart', compact('seo', 'siteSettings', 'breadcrumbs', 'colors', 'families', 'familyCounts'));
     }
 }
