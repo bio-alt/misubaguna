@@ -137,6 +137,10 @@
             border-top: 3px solid #dc2626;
             box-shadow: 0 20px 60px rgba(0,0,0,.12);
             z-index: 9999;
+            /* A panel taller than the screen scrolls instead of running off the bottom */
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+            overscroll-behavior: contain;
         }
         #mega-menu.open, #services-mega-menu.open, #toolkit-mega-menu.open, #fab-mega-menu.open, #company-menu.open { display: block; }
         /* Company is a short list, so it hangs under its button instead of spanning the page */
@@ -163,7 +167,9 @@
         }
         #mega-menu .mega-inner > div { flex: 0 1 190px; min-width: 0; }
         @media (min-width: 1024px) and (max-width: 1279px) {
-            #mega-menu .mega-inner { flex-wrap: wrap; }
+            /* Tablet: flow the product groups into balanced columns instead of two ragged rows */
+            #mega-menu .mega-inner { display: block; column-count: 5; column-gap: 28px; padding: 24px 24px 28px; }
+            #mega-menu .mega-inner > div { break-inside: avoid; margin-bottom: 22px; }
         }
         .mega-col-title {
             display: block;
