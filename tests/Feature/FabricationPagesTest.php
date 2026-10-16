@@ -49,9 +49,9 @@ class FabricationPagesTest extends TestCase
         }
     }
 
-    public function test_tank_pages_show_their_photos_and_the_files_exist(): void
+    public function test_product_pages_show_their_photos_and_the_files_exist(): void
     {
-        foreach (['storage-tank' => 'storage-tank-horizontal', 'pressurized-tank' => 'pressure-vessel-horizontal'] as $slug => $image) {
+        foreach (['storage-tank' => 'storage-tank-horizontal', 'pressurized-tank' => 'pressure-vessel-horizontal', 'pinion-gear' => 'gear-set-worm-rack-pinion', 'worm-and-rack-gear' => 'gear-set-worm-rack-pinion'] as $slug => $image) {
             $path = FabricationSeeder::image($image);
             $this->assertFileExists(public_path($path));
             $this->get('/product/'.$slug.'/')->assertOk()->assertSee($path, false);

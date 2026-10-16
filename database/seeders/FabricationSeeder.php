@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
  * Fabrication category (/product-category/fabrication/) and its product pages: storage tanks,
  * pressurized tanks (pressure vessels), pinion gears and worm and rack gear sets.
  * Runs from a migration so the live site gets it on deploy. The tank pages carry workshop photos;
- * the gear pages have none yet and show the "Photo on request" plate.
+ * the gear pages share one photo of a worm, wheel, spur gear, pinion and rack set.
  *
  * Specification values are typical industry ranges, not datasheet figures: every item is
  * fabricated to the buyer's drawing, duty and applicable code.
@@ -246,7 +246,7 @@ class FabricationSeeder extends Seeder
             ],
             [
                 'slug' => 'pinion-gear',
-                'gallery' => [],
+                'gallery' => ['gear-set-worm-rack-pinion'],
                 'title' => 'Pinion Gear',
                 'subgroup' => 'Gears & Power Transmission',
                 'h1' => 'Pinion Gears: Machined to Your Drawing or Sample',
@@ -300,7 +300,7 @@ class FabricationSeeder extends Seeder
             ],
             [
                 'slug' => 'worm-and-rack-gear',
-                'gallery' => [],
+                'gallery' => ['gear-set-worm-rack-pinion'],
                 'title' => 'Worm and Rack Gear',
                 'subgroup' => 'Gears & Power Transmission',
                 'h1' => 'Worm Gears and Rack Gears: Machined to Order',
