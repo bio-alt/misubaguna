@@ -49,6 +49,15 @@ class FabricationPagesTest extends TestCase
         }
     }
 
+    public function test_tank_pages_show_their_photos_and_the_files_exist(): void
+    {
+        foreach (['storage-tank' => 'storage-tank-horizontal', 'pressurized-tank' => 'pressure-vessel-horizontal'] as $slug => $image) {
+            $path = FabricationSeeder::image($image);
+            $this->assertFileExists(public_path($path));
+            $this->get('/product/'.$slug.'/')->assertOk()->assertSee($path, false);
+        }
+    }
+
     public function test_menus_group_company_pages_and_link_fabrication(): void
     {
         $this->seed();
