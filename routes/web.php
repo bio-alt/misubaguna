@@ -54,6 +54,7 @@ Route::get('/toolkit/ejma-bellows-calculator/', [EjmaCalculatorController::class
 Route::post('/toolkit/ejma-bellows-calculator/', [EjmaCalculatorController::class, 'store'])->middleware('throttle:30,60,ejma')->name('public.toolkit.ejma-calculator.store');
 Route::get('/toolkit/expansion-joint-selector/', [ToolkitController::class, 'expansionJointSelector'])->name('public.toolkit.expansion-joint-selector');
 Route::get('/toolkit/chemical-resistance/', [ToolkitController::class, 'chemicalResistance'])->name('public.toolkit.chemical-resistance');
+Route::get('/toolkit/ral-color-chart/', [ToolkitController::class, 'ralColorChart'])->name('public.toolkit.ral-color-chart');
 
 Route::get('/sitemap.xml', function () {
     $pages = PublicPage::where('is_published', true)->where('sitemap_include', true)->get();
@@ -70,6 +71,7 @@ Route::get('/sitemap.xml', function () {
         '/toolkit/ejma-bellows-calculator/' => 'ejma-bellows-calculator',
         '/toolkit/expansion-joint-selector/' => 'expansion-joint-selector',
         '/toolkit/chemical-resistance/' => 'chemical-resistance',
+        '/toolkit/ral-color-chart/' => 'ral-color-chart',
     ])->map(fn ($view, $loc) => [
         'loc' => $loc,
         'lastmod' => date('Y-m-d', @filemtime(resource_path("views/public/toolkit/{$view}.blade.php")) ?: time()),

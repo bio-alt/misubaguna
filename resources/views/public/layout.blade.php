@@ -435,6 +435,7 @@
                 <a class="mega-link" href="/toolkit/flange-standards/">Flange Standards</a>
                 <a class="mega-link" href="/toolkit/material-specs/">Material Specs Library</a>
                 <a class="mega-link" href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>
+                <a class="mega-link" href="/toolkit/ral-color-chart/">RAL Color Chart</a>
             </div>
             <div>
                 <span class="mega-col-title">Utilities</span>
@@ -759,6 +760,7 @@
                     <a class="mob-cat-link" href="/toolkit/flange-standards/">Flange Standards</a>
                     <a class="mob-cat-link" href="/toolkit/material-specs/">Material Specs Library</a>
                     <a class="mob-cat-link" href="/toolkit/chemical-resistance/">Chemical Resistance Guide</a>
+                    <a class="mob-cat-link" href="/toolkit/ral-color-chart/">RAL Color Chart</a>
                 </div>
 
                 <button class="mob-cat-btn" data-panel="mc-utils" type="button">
