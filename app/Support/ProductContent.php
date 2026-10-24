@@ -462,6 +462,19 @@ class ProductContent
         ],
     ];
 
+    /** Plant-scale products sold as engineered projects (meeting, site visit, proposal), not off a form. */
+    private const PROJECT_SLUGS = [
+        'paper-machine-line',
+        'tissue-machine',
+        'molded-fiber-machine',
+        'screening-cleaning-system',
+    ];
+
+    public static function isProject(?string $slug): bool
+    {
+        return in_array($slug, self::PROJECT_SLUGS, true);
+    }
+
     /**
      * What a buyer should send us to get a quote for this product.
      *
