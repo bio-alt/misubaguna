@@ -261,7 +261,7 @@
                 <div>
                     @if($isProject)
                         <h2 id="pd-band-title">{{ __('Planning a :name project?', ['name' => $name]) }}</h2>
-                        <p>{{ __('Every plant is engineered around your raw material, products, capacity and site. Tell us about your plans and our engineering team will arrange a technical discussion and site visit, then prepare a proposal.') }}</p>
+                        <p>{{ __('Every project is engineered around your process, capacity and site. Tell us about your plans and our engineering team will arrange a technical discussion and site visit, then prepare a proposal.') }}</p>
                     @else
                         <h2 id="pd-band-title">{{ __('Need a price, sizing or a drawing for :name?', ['name' => $name]) }}</h2>
                         <p>{{ __('Send your operating conditions and quantity. Our sales team will check the details and quote.') }}</p>

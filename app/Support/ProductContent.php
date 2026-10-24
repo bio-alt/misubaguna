@@ -468,6 +468,8 @@ class ProductContent
         'tissue-machine',
         'molded-fiber-machine',
         'screening-cleaning-system',
+        'cooling-tower',
+        'storage-tank',
     ];
 
     public static function isProject(?string $slug): bool
