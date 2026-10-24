@@ -336,13 +336,21 @@ class PublicSeo
             $faq[] = ['q' => __('What materials are available for :name?', ['name' => $name]), 'a' => implode('; ', array_slice($materials, 0, 8)) . '.'];
         }
 
+        // Plant-scale items are planned with the buyer, not quoted off a spec sheet.
+        $isProject = ProductContent::isProject($product->slug ?? null);
+
         if (! empty($quoteChecklist)) {
-            $faq[] = ['q' => __('What do you need to quote :name?', ['name' => $name]), 'a' => implode('; ', $quoteChecklist) . '.'];
+            $faq[] = [
+                'q' => $isProject ? __('What do you need to plan a :name project?', ['name' => $name]) : __('What do you need to quote :name?', ['name' => $name]),
+                'a' => implode('; ', $quoteChecklist) . '.',
+            ];
         }
 
         $faq[] = [
             'q' => __('Who supplies :name in Indonesia?', ['name' => $name]),
-            'a' => __('PT Misuba Guna Indonesia supplies :name to industrial plants across Indonesia from its base in Tangerang, Banten. Send your operating conditions and quantity to sales@misubaguna.com or WhatsApp +62 811-8715-671 for a quotation.', ['name' => $name]),
+            'a' => $isProject
+                ? __('PT Misuba Guna Indonesia supplies :name projects across Indonesia from its base in Tangerang, Banten. Each project starts with a technical discussion and a site visit, followed by a proposal engineered around your raw material, capacity and site. Contact our engineering team at sales@misubaguna.com or WhatsApp +62 811-8715-671 to discuss your plans.', ['name' => $name])
+                : __('PT Misuba Guna Indonesia supplies :name to industrial plants across Indonesia from its base in Tangerang, Banten. Send your operating conditions and quantity to sales@misubaguna.com or WhatsApp +62 811-8715-671 for a quotation.', ['name' => $name]),
         ];
 
         return $faq;
