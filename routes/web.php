@@ -55,6 +55,7 @@ Route::post('/toolkit/ejma-bellows-calculator/', [EjmaCalculatorController::clas
 Route::get('/toolkit/expansion-joint-selector/', [ToolkitController::class, 'expansionJointSelector'])->name('public.toolkit.expansion-joint-selector');
 Route::get('/toolkit/chemical-resistance/', [ToolkitController::class, 'chemicalResistance'])->name('public.toolkit.chemical-resistance');
 Route::get('/toolkit/ral-color-chart/', [ToolkitController::class, 'ralColorChart'])->name('public.toolkit.ral-color-chart');
+Route::get('/toolkit/gear-calculator/', [ToolkitController::class, 'gearCalculator'])->name('public.toolkit.gear-calculator');
 
 Route::get('/sitemap.xml', function () {
     $pages = PublicPage::where('is_published', true)->where('sitemap_include', true)->get();
@@ -72,6 +73,7 @@ Route::get('/sitemap.xml', function () {
         '/toolkit/expansion-joint-selector/' => 'expansion-joint-selector',
         '/toolkit/chemical-resistance/' => 'chemical-resistance',
         '/toolkit/ral-color-chart/' => 'ral-color-chart',
+        '/toolkit/gear-calculator/' => 'gear-calculator',
     ])->map(fn ($view, $loc) => [
         'loc' => $loc,
         'lastmod' => date('Y-m-d', @filemtime(resource_path("views/public/toolkit/{$view}.blade.php")) ?: time()),

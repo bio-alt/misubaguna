@@ -7,6 +7,31 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Gear calculator (/toolkit/gear-calculator/)
+
+Client-side involute gear calculator (ISO 21771, ISO 53 basic rack): spur, helical, gear pair, straight bevel and worm gears, plus module/profile-shift identification from a measured sample.
+
+**Files**
+
+- `public/js/gear-math.js` — all maths as pure ES-module functions (no DOM). Lengths in mm, angles in degrees; unavailable values are `null` with the reason in `na[key]`; bad input throws `GearInputError` (with `field`). Reusable as-is in Node or the ERP.
+- `public/js/gear-calculator.js` — page UI: type/mode/field config, URL sync, result tables, checks, SVG drawings, spec text and quote links.
+- `resources/views/public/toolkit/gear-calculator.blade.php` — page shell, styles, crawlable formulas and FAQ.
+- `ToolkitController::gearCalculator()` (SEO, JSON-LD, FAQ), route + sitemap entry in `routes/web.php`, menu links in `resources/views/public/layout.blade.php`, hub card in `toolkit/index.blade.php`, `LlmsText::TOOLKIT`.
+- Tests: `tests/js/gear-math.test.js` (maths) and `tests/Feature/GearCalculatorPageTest.php` (page, menus, sitemap, llms).
+
+**Adding a gear type**
+
+1. Add a pure function to `gear-math.js` returning numbers + `checks` + `na`, and unit tests for it in `tests/js/gear-math.test.js`.
+2. In `gear-calculator.js`: add the type to `MODES` and `TYPE_NAMES`, its default inputs to `FIELDS` (`'<type>.a'`, `'<type>.b'`; new field keys go in `F`), a branch in `compute()` building result groups/spec lines, and a drawing branch in `draw()`.
+3. Add a card to the `$types` array in the Blade view.
+
+**Running the tests**
+
+```bash
+npm run test:js
+php artisan test --filter=GearCalculatorPageTest
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

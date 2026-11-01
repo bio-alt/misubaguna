@@ -429,6 +429,7 @@
                 <span class="mega-col-title">Sizing & Selection</span>
                 <a class="mega-link" href="/toolkit/expansion-joint-selector/">Expansion Joint Selector</a>
                 <a class="mega-link" href="/toolkit/ejma-bellows-calculator/">EJMA Bellows Calculator</a>
+                <a class="mega-link" href="/toolkit/gear-calculator/">Gear Calculator</a>
             </div>
             <div>
                 <span class="mega-col-title">Reference Data</span>
@@ -750,6 +751,7 @@
                 <div class="mob-cat-links" id="mc-sizing">
                     <a class="mob-cat-link" href="/toolkit/expansion-joint-selector/">Expansion Joint Selector</a>
                     <a class="mob-cat-link" href="/toolkit/ejma-bellows-calculator/">EJMA Bellows Calculator</a>
+                    <a class="mob-cat-link" href="/toolkit/gear-calculator/">Gear Calculator</a>
                 </div>
 
                 <button class="mob-cat-btn" data-panel="mc-engdata" type="button">

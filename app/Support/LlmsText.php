@@ -23,6 +23,7 @@ class LlmsText
         ['Chemical Resistance Guide', '/toolkit/chemical-resistance/', 'Chemical compatibility chart for PTFE, EPDM, NBR, FKM (Viton), Neoprene, Hypalon, natural rubber, 316 stainless steel, ceramic and FRP against 40+ industrial chemicals.'],
         ['EJMA Bellows Calculator', '/toolkit/ejma-bellows-calculator/', 'Online design check of metal bellows expansion joints (unreinforced, reinforced, toroidal) per EJMA Standards; results are reviewed by our engineering team.'],
         ['RAL Color Chart', '/toolkit/ral-color-chart/', 'RAL Classic color chart with hex and RGB values, searchable by number or name, plus a matcher that finds the closest RAL to any color for powder coating and paint specification.'],
+        ['Gear Calculator', '/toolkit/gear-calculator/', 'Involute gear geometry calculator per ISO 21771 for spur, helical, gear pair, straight bevel and worm gears: diameters, span measurement, contact ratio, and module/profile-shift identification from a measured sample gear.'],
     ];
 
     private const PAGES = [
