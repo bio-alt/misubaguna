@@ -169,5 +169,16 @@
         <h3>RAL Color Chart</h3>
         <p>Search RAL Classic colors by number, name or hex, copy hex and RGB values, and find the closest RAL to any color for powder coating and paint specification.</p>
     </a>
+
+    <!-- Gear Calculator Card -->
+    <a href="/toolkit/gear-calculator/" class="toolkit-card">
+        <div class="toolkit-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9l2.1 2.1m10 10l2.1 2.1M4.9 19.1L7 17m10-10l2.1-2.1M12 8a4 4 0 100 8 4 4 0 000-8z" />
+            </svg>
+        </div>
+        <h3>Gear Calculator</h3>
+        <p>Spur, helical, gear pair, straight bevel and worm gear geometry per ISO 21771, with span measurement, contact ratio, and module identification from a worn sample.</p>
+    </a>
 </div>
 @endsection

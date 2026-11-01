@@ -237,4 +237,47 @@ class ToolkitController extends Controller
 
         return view('public.toolkit.ral-color-chart', compact('seo', 'siteSettings', 'breadcrumbs', 'colors', 'families', 'familyCounts'));
     }
+
+    public function gearCalculator()
+    {
+        $siteSettings = DB::table('site_settings')->pluck('value', 'key')->toArray();
+
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => '/'],
+            ['name' => 'Engineering Toolkit', 'url' => '/toolkit/'],
+            ['name' => 'Gear Calculator', 'url' => '/toolkit/gear-calculator/'],
+        ];
+
+        $faq = self::GEAR_FAQ;
+
+        $seo = [
+            'meta_title' => 'Gear Calculator: Spur, Helical, Bevel & Worm',
+            'meta_description' => 'Free involute gear calculator per ISO 21771: spur, helical, gear pair, straight bevel and worm gear dimensions, span measurement, contact ratio, and module identification from a sample.',
+            'canonical_url' => '/toolkit/gear-calculator/',
+            'og_title' => 'Gear Calculator: Spur, Helical, Bevel & Worm Gear Geometry | Misuba Guna',
+            'og_description' => 'Calculate gear dimensions, span measurement and contact ratio, or identify module and profile shift from a worn sample gear.',
+            'robots_index' => true,
+            'robots_follow' => true,
+            'schema_json' => [
+                PublicSeo::organizationSchema($siteSettings),
+                PublicSeo::breadcrumbSchema($breadcrumbs),
+                PublicSeo::webApplicationSchema(
+                    'Gear Calculator',
+                    'Involute gear geometry calculator (ISO 21771, ISO 53 basic rack) for spur, helical, gear pair, straight bevel and worm gears, with reverse engineering of module and profile shift from measured samples.',
+                    '/toolkit/gear-calculator/'
+                ),
+                PublicSeo::faqSchema($faq),
+            ],
+        ];
+
+        return view('public.toolkit.gear-calculator', compact('seo', 'siteSettings', 'breadcrumbs', 'faq'));
+    }
+
+    private const GEAR_FAQ = [
+        ['q' => 'How do I find the module of an unknown gear?', 'a' => 'Count the teeth z and measure the tip diameter da. For a spur gear without profile shift, m = da / (z + 2). Also measure the span Wk over k teeth: with both measurements the calculator solves the module and the profile shift together, then snaps to the nearest ISO 54 module or diametral pitch.'],
+        ['q' => 'Is my gear metric or imperial?', 'a' => 'Compare the estimated module with the nearest ISO 54 module and the nearest diametral pitch converted with m = 25.4 / DP. The smaller deviation usually tells you the system; for example DP 8 is module 3.175 mm, close to but not the same as module 3.'],
+        ['q' => 'Why is span measurement more reliable than tip diameter?', 'a' => 'Tip diameters are often reduced by tip chamfer, tip shortening or wear. The span (base tangent length) is measured across tooth flanks at the base circle tangent, so it is not affected by the tip and directly reflects the tooth thickness and profile shift. Measure over unworn teeth.'],
+        ['q' => 'What contact ratio is acceptable for a spur gear pair?', 'a' => 'The transverse contact ratio εα should be at least 1.2 and preferably 1.4 or more for smooth running. Helical gears add the overlap ratio εβ = b·sin β / (π·mn).'],
+        ['q' => 'Does this calculator check gear strength?', 'a' => 'No. It covers geometry only, per ISO 21771 with the ISO 53 basic rack. Load capacity to ISO 6336 or AGMA 2001 is not covered; send the specification to Misuba engineering for critical parts.'],
+    ];
 }
