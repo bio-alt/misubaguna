@@ -99,22 +99,26 @@
     .gc-check b { color: var(--gc-ink); }
 
     .gc-figure { margin: 0 0 18px; border: 1px solid var(--gc-line); border-radius: 12px; padding: 12px; background: #fff; }
-    .gc-svgbox { aspect-ratio: 4 / 3; max-height: 460px; width: 100%; }
-    .gc-svgbox svg { width: 100%; height: 100%; display: block; }
-    #gc-svg .s-gear { fill: var(--gc-accent-soft); stroke: var(--gc-accent); stroke-width: 1.3; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
-    #gc-svg .s-gear2 { fill: #e4ebed; stroke: var(--gc-ink); }
-    #gc-svg .s-c { fill: none; stroke-width: 1; vector-effect: non-scaling-stroke; }
-    #gc-svg .s-tip { stroke: var(--gc-ink); stroke-dasharray: 2 3; }
-    #gc-svg .s-ref { fill: none; stroke: var(--gc-accent); stroke-width: 1; stroke-dasharray: 8 4; vector-effect: non-scaling-stroke; }
-    #gc-svg .s-base { stroke: var(--gc-muted); stroke-dasharray: 8 3 2 3; }
-    #gc-svg .s-root { stroke: #9aa8ae; stroke-dasharray: 1 3; }
-    #gc-svg .s-axis { stroke: var(--gc-muted); stroke-width: 1; stroke-dasharray: 10 3 2 3; vector-effect: non-scaling-stroke; fill: none; }
-    #gc-svg .s-loa, #gc-svg .s-dim { stroke: var(--gc-ink); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
-    #gc-svg .s-pitch { stroke: var(--gc-accent); stroke-width: 1; stroke-dasharray: 8 4; vector-effect: non-scaling-stroke; }
-    #gc-svg .s-ref-l { stroke: var(--gc-accent); stroke-width: 1; stroke-dasharray: 8 4; vector-effect: non-scaling-stroke; }
-    #gc-svg .s-dot { fill: var(--gc-ink); }
-    #gc-svg .s-text { fill: var(--gc-ink); font-family: inherit; font-weight: 600; }
-    #gc-svg .s-muted { fill: var(--gc-muted); }
+    .gc-views { display: grid; gap: 14px; }
+    .gc-views > * + * { border-top: 1px solid var(--gc-line); padding-top: 14px; }
+    .gc-svgbox svg { width: 100%; height: auto; max-height: 460px; display: block; }
+    .gc-svgbox .s-gear { fill: var(--gc-accent-soft); stroke: var(--gc-accent); stroke-width: 1.3; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+    .gc-svgbox .s-gear2 { fill: #e4ebed; stroke: var(--gc-ink); fill-opacity: .85; }
+    .gc-svgbox .s-c { fill: none; stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .gc-svgbox .s-tip { stroke: var(--gc-ink); stroke-dasharray: 2 3; }
+    .gc-svgbox .s-ref { fill: none; stroke: var(--gc-accent); stroke-width: 1; stroke-dasharray: 8 4; vector-effect: non-scaling-stroke; }
+    .gc-svgbox .s-base { stroke: var(--gc-muted); stroke-dasharray: 8 3 2 3; }
+    .gc-svgbox .s-root { stroke: #9aa8ae; stroke-dasharray: 1 3; }
+    .gc-svgbox .s-axis { stroke: var(--gc-muted); stroke-width: 1; stroke-dasharray: 10 3 2 3; vector-effect: non-scaling-stroke; fill: none; }
+    .gc-svgbox .s-helix { fill: none; stroke: var(--gc-muted); stroke-width: .9; vector-effect: non-scaling-stroke; }
+    .gc-svgbox .s-mark { fill: none; stroke: var(--gc-accent-dark); stroke-width: 2.2; vector-effect: non-scaling-stroke; }
+    .gc-svgbox .s-loa, .gc-svgbox .s-dim { fill: none; stroke: var(--gc-ink); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+    .gc-svgbox .s-dot, .gc-svgbox .s-arrow { fill: var(--gc-ink); }
+    .gc-svgbox .s-text { fill: var(--gc-ink); font-family: inherit; font-weight: 600; }
+    .gc-svgbox .s-muted { fill: var(--gc-muted); }
+    .gc-swatch.s-helix { border-top: 2px solid var(--gc-ink); }
+    .gc-dl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--gc-line); font-size: 12.5px; color: var(--gc-muted); }
+    .gc-dl .gc-btn { padding: 7px 12px; font-size: 13px; }
     .gc-legend { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
     .gc-legend li { display: inline-flex; align-items: center; gap: 6px; }
     .gc-swatch { display: inline-block; width: 22px; height: 0; border-top: 2px solid var(--gc-ink); }
@@ -254,9 +258,14 @@
                     <ul class="gc-checks" id="gc-checks" aria-label="Checks"></ul>
 
                     <figure class="gc-figure">
-                        <div class="gc-svgbox"><svg id="gc-svg" role="img" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet"></svg></div>
+                        <div class="gc-views" id="gc-views"></div>
                         <ul class="gc-legend" id="gc-legend"></ul>
                         <figcaption class="gc-draw-note" id="gc-draw-note"></figcaption>
+                        <div class="gc-dl">
+                            <button class="gc-btn" type="button" data-download="dxf">Download DXF</button>
+                            <button class="gc-btn" type="button" data-download="svg">Download SVG</button>
+                            <span>1:1 in mm. DXF opens in AutoCAD, SolidWorks, Fusion, LibreCAD and wire-cut or laser software.</span>
+                        </div>
                     </figure>
 
                     <div class="gc-tables" id="gc-tables"></div>
