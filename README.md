@@ -14,15 +14,17 @@ Client-side involute gear calculator (ISO 21771, ISO 53 basic rack): spur, helic
 **Files**
 
 - `public/js/gear-math.js` — all maths as pure ES-module functions (no DOM). Lengths in mm, angles in degrees; unavailable values are `null` with the reason in `na[key]`; bad input throws `GearInputError` (with `field`). Reusable as-is in Node or the ERP.
-- `public/js/gear-calculator.js` — page UI: type/mode/field config, URL sync, result tables, checks, SVG drawings, spec text and quote links.
+- `public/js/gear-calculator.js` — page UI: type/mode/field config, URL sync, result tables, checks, spec text, quote links and the DXF/SVG download buttons.
+- `public/js/gear-drawing.js` — drawings as plain entities in mm (front view with true involute, side view with face width and helix traces, pair assembly, bevel and worm sections), the export sheet layout and SVG output. Entity layers double as DXF layers.
+- `public/js/gear-dxf.js` — writes a sheet as ASCII DXF R12 (AC1009, mm, 1:1), which AutoCAD, SolidWorks, Fusion, LibreCAD and wire-cut/laser CAM read.
 - `resources/views/public/toolkit/gear-calculator.blade.php` — page shell, styles, crawlable formulas and FAQ.
 - `ToolkitController::gearCalculator()` (SEO, JSON-LD, FAQ), route + sitemap entry in `routes/web.php`, menu links in `resources/views/public/layout.blade.php`, hub card in `toolkit/index.blade.php`, `LlmsText::TOOLKIT`.
-- Tests: `tests/js/gear-math.test.js` (maths) and `tests/Feature/GearCalculatorPageTest.php` (page, menus, sitemap, llms).
+- Tests: `tests/js/gear-math.test.js` (maths), `tests/js/gear-drawing.test.js` (drawings, DXF structure) and `tests/Feature/GearCalculatorPageTest.php` (page, menus, sitemap, llms).
 
 **Adding a gear type**
 
 1. Add a pure function to `gear-math.js` returning numbers + `checks` + `na`, and unit tests for it in `tests/js/gear-math.test.js`.
-2. In `gear-calculator.js`: add the type to `MODES` and `TYPE_NAMES`, its default inputs to `FIELDS` (`'<type>.a'`, `'<type>.b'`; new field keys go in `F`), a branch in `compute()` building result groups/spec lines, and a drawing branch in `draw()`.
+2. In `gear-calculator.js`: add the type to `MODES` and `TYPE_NAMES`, its default inputs to `FIELDS` (`'<type>.a'`, `'<type>.b'`; new field keys go in `F`), a branch in `compute()` building result groups/spec lines, and a view builder in `gear-drawing.js` returned from `viewsFor()` (plus its legend in `draw()`).
 3. Add a card to the `$types` array in the Blade view.
 
 **Running the tests**
