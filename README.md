@@ -14,12 +14,13 @@ Client-side involute gear calculator (ISO 21771, ISO 53 basic rack): spur, helic
 **Files**
 
 - `public/js/gear-math.js` — all maths as pure ES-module functions (no DOM). Lengths in mm, angles in degrees; unavailable values are `null` with the reason in `na[key]`; bad input throws `GearInputError` (with `field`). Reusable as-is in Node or the ERP.
-- `public/js/gear-calculator.js` — page UI: type/mode/field config, URL sync, result tables, checks, spec text, quote links and the DXF/SVG download buttons.
+- `public/js/gear-calculator.js` — page UI: type/mode/field config, URL sync, result tables, checks, spec text, quote links and the DXF/SVG/STEP download buttons.
 - `public/js/gear-drawing.js` — drawings as plain entities in mm (front view with true involute, side view with face width and helix traces, pair assembly, bevel and worm sections), the export sheet layout and SVG output. Entity layers double as DXF layers.
 - `public/js/gear-dxf.js` — writes a sheet as ASCII DXF R12 (AC1009, mm, 1:1), which AutoCAD, SolidWorks, Fusion, LibreCAD and wire-cut/laser CAM read.
+- `public/js/gear-step.js` — writes spur/helical gears and gear pairs as a STEP AP214 solid (one closed B-rep per gear: planar end faces, B-spline faces for each root land, foot, involute flank and tip land, twisted along the helix). Axis Z, mm. Needs the face width b.
 - `resources/views/public/toolkit/gear-calculator.blade.php` — page shell, styles, crawlable formulas and FAQ.
 - `ToolkitController::gearCalculator()` (SEO, JSON-LD, FAQ), route + sitemap entry in `routes/web.php`, menu links in `resources/views/public/layout.blade.php`, hub card in `toolkit/index.blade.php`, `LlmsText::TOOLKIT`.
-- Tests: `tests/js/gear-math.test.js` (maths), `tests/js/gear-drawing.test.js` (drawings, DXF structure) and `tests/Feature/GearCalculatorPageTest.php` (page, menus, sitemap, llms).
+- Tests: `tests/js/gear-math.test.js` (maths), `tests/js/gear-drawing.test.js` (drawings, DXF structure), `tests/js/gear-step.test.js` (STEP geometry and file structure) and `tests/Feature/GearCalculatorPageTest.php` (page, menus, sitemap, llms).
 
 **Adding a gear type**
 
