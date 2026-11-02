@@ -119,6 +119,8 @@
     .gc-swatch.s-helix { border-top: 2px solid var(--gc-ink); }
     .gc-dl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--gc-line); font-size: 12.5px; color: var(--gc-muted); }
     .gc-dl .gc-btn { padding: 7px 12px; font-size: 13px; }
+    .gc-dl .gc-btn:disabled { color: var(--gc-muted); background: #f3f6f7; border-color: var(--gc-line); cursor: not-allowed; }
+    .gc-dl-3d { margin-top: 6px; padding-top: 0; border-top: 0; }
     .gc-legend { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; font-variant-numeric: tabular-nums; }
     .gc-legend li { display: inline-flex; align-items: center; gap: 6px; }
     .gc-swatch { display: inline-block; width: 22px; height: 0; border-top: 2px solid var(--gc-ink); }
@@ -265,6 +267,10 @@
                             <button class="gc-btn" type="button" data-download="dxf">Download DXF</button>
                             <button class="gc-btn" type="button" data-download="svg">Download SVG</button>
                             <span>1:1 in mm. DXF opens in AutoCAD, SolidWorks, Fusion, LibreCAD and wire-cut or laser software.</span>
+                        </div>
+                        <div class="gc-dl gc-dl-3d">
+                            <button class="gc-btn" type="button" data-download="step" disabled>Download STEP (3D)</button>
+                            <span id="gc-step-note">STEP is a solid model: axis Z, 1:1 in mm.</span>
                         </div>
                     </figure>
 
