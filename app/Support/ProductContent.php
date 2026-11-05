@@ -170,6 +170,14 @@ class ProductContent
 
     /** Per-group fallback, used when the product slug has no entry below. */
     private const QUOTE_BY_GROUP = [
+        'Filter Press Plates' => [
+            'Plate size (mm) and number of plates, or your press make and model',
+            'Plate type: recessed chamber, membrane, gasketed (CGR), plate and frame, or special material',
+            'Plate thickness and feed port position (centre or corner)',
+            'Slurry or material, with operating pressure and temperature',
+            'Quantity and delivery location',
+            'A photo of a worn plate or the press nameplate helps us match it (optional)',
+        ],
         'Flexible Joint' => [
             'Pipe or duct size and end connection',
             'Design pressure and temperature',

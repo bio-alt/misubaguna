@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             CouplingCatalogSeeder::class,
             MaterialHandlingSeeder::class,
             FabricationSeeder::class,
+            FilterPressContentSeeder::class,
         ]);
 
         User::firstOrCreate(

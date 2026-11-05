@@ -382,6 +382,14 @@
                 <a class="mega-link" href="/product/screw-conveyor/">Screw Conveyor</a>
                 <a class="mega-link" href="/product/conveyor-spare-parts/">Conveyor Spare Parts</a>
             </div>
+            <div>
+                <a href="/product-category/filter-press-plates/" style="text-decoration:none;"><span class="mega-col-title">Filter Press Plates</span></a>
+                <a class="mega-link" href="/product/recessed-chamber-filter-plate/">Recessed Chamber Plate</a>
+                <a class="mega-link" href="/product/membrane-filter-plate/">Membrane Filter Plate</a>
+                <a class="mega-link" href="/product/cgr-gasketed-filter-plate/">CGR Gasketed Plate</a>
+                <a class="mega-link" href="/product/plate-and-frame-filter-plate/">Plate &amp; Frame</a>
+                <a class="mega-link" href="/product/special-material-filter-plate/">Special Material Plate</a>
+            </div>
         </div>
     </div>
 
@@ -658,6 +666,19 @@
                     <a class="mob-cat-link" href="/product/scraper-conveyor/">Scraper Conveyor</a>
                     <a class="mob-cat-link" href="/product/screw-conveyor/">Screw Conveyor</a>
                     <a class="mob-cat-link" href="/product/conveyor-spare-parts/">Conveyor Spare Parts</a>
+                </div>
+
+                <button class="mob-cat-btn" data-panel="mc-fpp" type="button">
+                    Filter Press Plates
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div class="mob-cat-links" id="mc-fpp">
+                    <a class="mob-cat-link" href="/product-category/filter-press-plates/" style="font-weight:700; color:#dc2626;">View All Filter Press Plates →</a>
+                    <a class="mob-cat-link" href="/product/recessed-chamber-filter-plate/">Recessed Chamber Plate</a>
+                    <a class="mob-cat-link" href="/product/membrane-filter-plate/">Membrane Filter Plate</a>
+                    <a class="mob-cat-link" href="/product/cgr-gasketed-filter-plate/">CGR Gasketed Plate</a>
+                    <a class="mob-cat-link" href="/product/plate-and-frame-filter-plate/">Plate &amp; Frame</a>
+                    <a class="mob-cat-link" href="/product/special-material-filter-plate/">Special Material Plate</a>
                 </div>
 
             </div>
