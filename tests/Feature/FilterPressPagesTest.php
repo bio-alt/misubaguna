@@ -26,8 +26,7 @@ class FilterPressPagesTest extends TestCase
         $response = $this->get(self::HUB)
             ->assertOk()
             ->assertSee('Filter Press Plates')
-            ->assertSee('Choosing a plate type')
-            ->assertSee('Relative cost');
+            ->assertSee('Choosing a plate type');
 
         foreach (self::TYPES as $url) {
             $response->assertSee($url, false);

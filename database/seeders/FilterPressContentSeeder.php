@@ -78,16 +78,16 @@ class FilterPressContentSeeder extends Seeder
             .'<p class="product-description">Typical values — the final specification is confirmed per application.</p>'
             .'<table>'
             .'<thead><tr>'
-            .'<th>Plate type</th><th>Typical feed pressure</th><th>Cake dryness</th><th>Max temperature</th><th>Typical use</th><th>Relative cost</th>'
+            .'<th>Plate type</th><th>Typical feed pressure</th><th>Cake dryness</th><th>Max temperature</th><th>Typical use</th>'
             .'</tr></thead>'
             .'<tbody>'
-            .'<tr><td>Recessed chamber (PP)</td><td>0.6–1.6 MPa</td><td>Standard</td><td>~80 °C</td><td>General sludge, tailings, POME, wastewater</td><td>$</td></tr>'
-            .'<tr><td>Membrane / diaphragm</td><td>~0.8–1.0 MPa feed, squeeze to ~1.6 MPa</td><td>Drier, shorter cycle</td><td>~80 °C (PP)</td><td>Where cake moisture and disposal cost matter</td><td>$$$</td></tr>'
-            .'<tr><td>CGR / gasketed</td><td>As chamber</td><td>Standard</td><td>~80 °C</td><td>Leak-free, odour, toxic or drip-sensitive duty</td><td>$$</td></tr>'
-            .'<tr><td>Plate &amp; frame</td><td>Low–medium</td><td>Adjustable cake thickness</td><td>~80 °C (PP)</td><td>Edible oil, small batch, precoat and polishing</td><td>$</td></tr>'
-            .'<tr><td>Special material</td><td>Per design</td><td>Per design</td><td>High-temp / chemical</td><td>Aggressive chemicals, hot slurry (PVDF, cast iron, SS, rubber)</td><td>$$$$</td></tr>'
+            .'<tr><td>Recessed chamber (PP)</td><td>0.6–1.6 MPa</td><td>Standard</td><td>~80 °C</td><td>General sludge, tailings, POME, wastewater</td></tr>'
+            .'<tr><td>Membrane / diaphragm</td><td>~0.8–1.0 MPa feed, squeeze to ~1.6 MPa</td><td>Drier, shorter cycle</td><td>~80 °C (PP)</td><td>Where cake moisture and disposal cost matter</td></tr>'
+            .'<tr><td>CGR / gasketed</td><td>As chamber</td><td>Standard</td><td>~80 °C</td><td>Leak-free, odour, toxic or drip-sensitive duty</td></tr>'
+            .'<tr><td>Plate &amp; frame</td><td>Low–medium</td><td>Adjustable cake thickness</td><td>~80 °C (PP)</td><td>Edible oil, small batch, precoat and polishing</td></tr>'
+            .'<tr><td>Special material</td><td>Per design</td><td>Per design</td><td>High-temp / chemical</td><td>Aggressive chemicals, hot slurry (PVDF, cast iron, SS, rubber)</td></tr>'
             .'</tbody></table>'
-            .'<p><small>Relative cost is indicative only, to compare plate types — it is not a price. Squeeze pressures higher than shown are available on request.</small></p>';
+            .'<p><small>Squeeze pressures higher than shown are available on request.</small></p>';
 
         $apps = '<h2>Typical applications</h2>'
             .'<ul>'
