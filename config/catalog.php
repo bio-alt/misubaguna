@@ -13,6 +13,10 @@
 */
 
 return [
+    // While true, /catalog/ shows an "updating" notice, the PDF URL redirects to it
+    // (see public/.htaccess) and the category-page download links are hidden.
+    'paused' => true,
+
     'pdf' => '/wp-content/uploads/2023/11/Misuba-Guna-Indonesia-Company-Profile_Interactive.pdf',
 
     'title' => 'Company Profile & Product Catalog',

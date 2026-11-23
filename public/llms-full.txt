@@ -29,7 +29,7 @@ Prices, stock and lead times are quoted per enquiry; none are published on the w
 
 ## Key Pages
 - [About Us](https://misubaguna.com/about-us/): Company history, mission, vision and capabilities.
-- [Product Catalog](https://misubaguna.com/catalog/): Company profile and downloadable product catalog (PDF).
+- [Product Catalog](https://misubaguna.com/catalog/): Company catalog (currently being updated).
 - [Project References](https://misubaguna.com/project-list/): Completed client projects in power plants, mills and refineries.
 - [Careers](https://misubaguna.com/career/): Current job openings at PT Misuba Guna Indonesia.
 - [Contact Us](https://misubaguna.com/contact-us/): Inquiry form, sales contacts, WhatsApp and office locations.

@@ -33,10 +33,12 @@
 
         <div class="pc-toolbar">
             <h2>{{ $count }} {{ \Illuminate\Support\Str::plural('product', $count) }}</h2>
+            @unless(config('catalog.paused'))
             <a href="{{ $catalogPdf }}" download>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 19h14"/></svg>
                 Download company catalog (PDF)
             </a>
+            @endunless
         </div>
 
         <ul class="pc-grid">

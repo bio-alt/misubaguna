@@ -28,7 +28,7 @@ class LlmsText
 
     private const PAGES = [
         ['About Us', '/about-us/', 'Company history, mission, vision and capabilities.'],
-        ['Product Catalog', '/catalog/', 'Company profile and downloadable product catalog (PDF).'],
+        ['Product Catalog', '/catalog/', 'Company catalog (currently being updated).'],
         ['Project References', '/project-list/', 'Completed client projects in power plants, mills and refineries.'],
         ['Careers', '/career/', 'Current job openings at PT Misuba Guna Indonesia.'],
         ['Contact Us', '/contact-us/', 'Inquiry form, sales contacts, WhatsApp and office locations.'],

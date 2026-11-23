@@ -51,6 +51,14 @@ class CatalogController extends Controller
 
         $catalog = config('catalog');
 
+        if (! empty($catalog['paused'])) {
+            $seo['meta_title'] = $seo['og_title'] = 'Catalog Being Updated | PT Misuba Guna Indonesia';
+            $seo['meta_description'] = $seo['og_description'] = 'We are updating our company catalog. Contact our sales team for product information and quotations in the meantime.';
+            $seo['schema_json'] = [PublicSeo::organizationSchema($siteSettings), PublicSeo::breadcrumbSchema($breadcrumbs)];
+
+            return view('public.pages.catalog-paused', compact('page', 'seo', 'siteSettings', 'breadcrumbs'));
+        }
+
         return view('public.pages.catalog', compact('page', 'seo', 'siteSettings', 'breadcrumbs', 'catalog'));
     }
 }
