@@ -3,9 +3,6 @@
 
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /filament/
-Disallow: /livewire/
 Disallow: /storage/*.php
 
 # OpenAI (ChatGPT & SearchGPT)
